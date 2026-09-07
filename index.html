@@ -5309,16 +5309,25 @@ body::before{background:#B44E2E}
    from the deepest part of the fade to the bottom of the screen. */
 .introfoot{
   margin-bottom:0;
-  padding:20px 14px calc(14px + env(safe-area-inset-bottom));
+  padding:12px 14px calc(10px + env(safe-area-inset-bottom));
+  /* The strip the system keeps for the home indicator is already solid desk, painted by the
+     root, and it is there whatever this rule says. So the fade has no business repeating it:
+     it holds full colour only down to the top of that strip, hands over, and above it goes
+     from solid to nothing in a couple of centimetres rather than half the screen. */
   background:linear-gradient(to top,
     var(--desk2) 0,
-    rgba(196,86,48,.97) 34%,
-    rgba(210,98,60,.66) 68%,
-    rgba(210,98,60,0) 100%);
+    var(--desk2) env(safe-area-inset-bottom),
+    rgba(196,86,48,.58) calc(env(safe-area-inset-bottom) + 22px),
+    rgba(210,98,60,0) calc(env(safe-area-inset-bottom) + 50px));
 }
 :root[data-sim] .introfoot{
   margin-bottom:0;
-  padding-bottom:calc(14px + var(--simB,0px));
+  padding-bottom:calc(10px + var(--simB,0px));
+  background:linear-gradient(to top,
+    var(--desk2) 0,
+    var(--desk2) var(--simB,0px),
+    rgba(196,86,48,.58) calc(var(--simB,0px) + 22px),
+    rgba(210,98,60,0) calc(var(--simB,0px) + 50px));
 }
 /* the hint line rides up with them */
 .globehint{bottom:calc(46px + env(safe-area-inset-bottom))}
