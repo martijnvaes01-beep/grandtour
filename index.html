@@ -88,7 +88,16 @@ src:url(data:font/woff2;base64,d09GMgABAAAAADNkAA8AAAAAfowAADMJAAEAAAAAAAAAAAAAA
 
 *{box-sizing:border-box}
 html,body{height:100%}
-html{background:var(--desk2,#B0492A)}
+/* The root paints the canvas, so this colour reaches every corner of the screen whatever
+   the body ends up measuring: any strip the layout does not cover comes out as desk rather
+   than as black. min-height matters as well, because height:100% resolves against a box
+   that on a handset asking for the whole display stops short of the home indicator. */
+html{background:var(--desk2,#B0492A);min-height:100dvh}
+/* preview.html sets these; on a real handset the wrapper uses env() and these never exist */
+:root[data-sim] .wrap{padding-top:calc(12px + var(--simT,0px));padding-bottom:var(--simB,0px)}
+:root[data-sim] .masthead{margin-top:var(--simT,0px)}
+:root[data-sim] #introfoot{margin-bottom:var(--simB,0px)}
+:root[data-sim] .drawers{bottom:calc(54px + var(--simB,0px))}
 body{min-height:100dvh}
 body{
   margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;overflow:hidden;
@@ -312,8 +321,8 @@ select{font-family:var(--type);font-size:12px;padding:7px 8px;background:var(--c
 .stat{padding:7px 10px;border-right:1px dashed var(--rule);display:flex;flex-direction:column;gap:0;
   align-items:center}
 .stat:last-child{border-right:0}
-.stat .v{font-family:var(--type);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
-.stat .k{font-family:var(--type);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.stat .v{font-family:var(--type);font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat .k{font-family:var(--type);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
 
 /* Hot or cold: the box you type in belongs at the bottom of the card, under the thumb,
    and nothing belongs under it. The line that used to sit there was repeating the guess
@@ -1269,8 +1278,8 @@ svg[viewBox="0 0 640 480"]{height:auto}
   background:linear-gradient(to top,rgba(30,16,8,.42),rgba(30,16,8,.16) 55%,transparent);
 }
 .drawer .dname{font-family:var(--geo);letter-spacing:.05em}
-.drawer .dmeta{font-family:var(--hand);font-size:13px;letter-spacing:0;text-transform:none;
-  color:#3A2A1C;opacity:.9;margin-top:1px}
+.drawer .dmeta{font-family:var(--hand);font-size:13.5px;letter-spacing:0;text-transform:none;
+  color:#3A2A1C;opacity:.95;margin-top:1px}
 .drawer .idx{font-family:var(--type);font-size:7px;opacity:.8}
 /* a rubber overprint, half off the edge */
 .drawer .over{
@@ -2134,9 +2143,9 @@ svg[viewBox="0 0 640 480"]{height:auto}
 /* ================= eight tickets, a thermometer, and the personal dossier ================= */
 
 /* the stack has one more piece on it, so every piece gives up a little room */
-.drawers{gap:7px;bottom:56px}
-.drawer{--fs:16px}
-.drawer .dmeta{font-size:12px}
+.drawers{gap:5px;bottom:54px}
+.drawer{--fs:17px}
+.drawer .dmeta{font-size:13.5px}
 .tag-luggage{padding:0 12px 7px 28px}
 .tag-luggage .dname{margin:0 -12px 5px -28px;padding:5px 12px 4px 28px}
 .tag-admit{padding:8px 42px 8px 16px}
@@ -5035,7 +5044,7 @@ html.splashOn #intro{visibility:hidden}
 /* A tab strip is the one control pressed on every visit, and at twenty nine pixels it was
    under the size a thumb reliably finds. The block above pays for the extra height on the
    screens that cannot spare it. */
-#modes.strip.seg>button{padding:9px 11px 8px}
+#modes.strip.seg>button{padding:9px 12px 8px;font-size:11.5px}
 
 /* ================= a short handset =================
    The board has to arrive whole on a screen that is only 667 points tall, because a board
@@ -5053,15 +5062,18 @@ html.splashOn #intro{visibility:hidden}
 :root[data-fit^="tight"][data-mode] .flagbox:not(.plain) svg,
 :root[data-fit^="tight"][data-mode] .flagbox svg{max-height:calc(var(--fitH,100vh) * 0.22)}
 :root[data-fit^="tight"][data-mode] .opts{gap:6px}
-:root[data-fit^="tight"][data-mode] .opt{min-height:42px;padding:7px 12px 7px 30px;font-size:14px}
+:root[data-fit^="tight"][data-mode] .opt{min-height:44px;padding:7px 12px 7px 30px;font-size:15px}
 :root[data-fit^="tight"][data-mode] .opt.flagopt{padding:5px}
-:root[data-fit^="tight"][data-mode] .verdict{min-height:16px;font-size:12px}
+:root[data-fit^="tight"][data-mode] .verdict{min-height:16px;font-size:13px}
 :root[data-fit^="tight"][data-mode] .verdict b{font-size:14px}
 :root[data-fit^="tight"][data-mode] .stat{padding:4px 8px}
-:root[data-fit^="tight"][data-mode] .stat .v{font-size:12px}
-:root[data-fit^="tight"][data-mode] .stat .k{font-size:7px}
-:root[data-fit^="tight"][data-mode] #prompt{font-size:15px}
-:root[data-fit^="tight"][data-mode] #roundtally{font-size:9px}
+:root[data-fit^="tight"][data-mode] .stat .v{font-size:14px}
+:root[data-fit^="tight"][data-mode] .stat .k{font-size:9px}
+:root[data-fit^="tight"][data-mode] #prompt{font-size:16px}
+/* The round counter goes rather than the type shrinking. It says 01/20; the ledger strip
+   at the foot of the card is already carrying the same figure under ANSWERED, so this is
+   the one thing on the board that can be removed without removing information. */
+:root[data-fit^="tight"][data-mode] #roundtally{display:none}
 :root[data-fit^="tight"][data-mode] .dossier{padding:11px 11px 10px;gap:0 9px}
 :root[data-fit^="tight"][data-mode] .namecard{padding:9px 12px}
 /* the two heaviest cards: the file and the cargo list both run long, so their rows close
@@ -5077,8 +5089,9 @@ html.splashOn #intro{visibility:hidden}
    the height that can be seen rather than left at whatever it was drawn at */
 :root[data-fit^="tight"][data-mode] .shapewrap canvas{max-height:calc(var(--fitH,100vh) * 0.30);height:auto}
 :root[data-fit^="tight"][data-mode="trade"] .manifest{font-size:15px;gap:0}
-:root[data-fit^="tight"][data-mode="trade"] .manrows{line-height:1.05;font-size:13px}
-:root[data-fit^="tight"][data-mode="trade"] .flagbox{min-height:0;max-height:calc(var(--fitH,100vh) * 0.38)}
+:root[data-fit^="tight"][data-mode="trade"] .manrows{line-height:1.04;font-size:12.5px}
+:root[data-fit^="tight"][data-mode="trade"] .manlab,:root[data-fit^="tight"][data-mode="trade"] .manhead,:root[data-fit^="tight"][data-mode="trade"] .mannote{font-size:8px}
+:root[data-fit^="tight"][data-mode="trade"] .flagbox{min-height:0;max-height:calc(var(--fitH,100vh) * 0.355)}
 
 /* and a tier below that, for a screen barely six hundred points tall. The round counter
    goes, because the ledger strip underneath already carries the same figure, and
@@ -5086,15 +5099,20 @@ html.splashOn #intro{visibility:hidden}
 :root[data-fit="tighter"][data-mode] .stage{gap:5px;padding-top:6px;padding-bottom:4px}
 :root[data-fit="tighter"][data-mode] .flagbox:not(.plain) svg,
 :root[data-fit="tighter"][data-mode] .flagbox svg{max-height:calc(var(--fitH,100vh) * 0.18)}
-:root[data-fit="tighter"][data-mode] .opt{min-height:38px;padding:5px 10px 5px 26px;font-size:13px}
-:root[data-fit="tighter"][data-mode] #prompt{font-size:14px}
+:root[data-fit="tighter"][data-mode] .opt{min-height:44px;padding:5px 10px 5px 26px;font-size:14px}
+:root[data-fit="tighter"][data-mode] #prompt{font-size:15px}
 :root[data-fit="tighter"][data-mode] #roundtally{display:none}
 :root[data-fit="tighter"][data-mode] .stat{padding:3px 6px}
-:root[data-fit="tighter"][data-mode] .stat .v{font-size:11px}
-:root[data-fit="tighter"][data-mode] .verdict{min-height:14px;font-size:11px}
+:root[data-fit="tighter"][data-mode] .stat .v{font-size:13px}
+:root[data-fit="tighter"][data-mode] .stat .k{font-size:9px}
+:root[data-fit="tighter"][data-mode] .verdict{min-height:14px;font-size:12.5px}
 :root[data-fit="tighter"][data-mode] .dossier{padding:8px 9px}
 :root[data-fit="tighter"][data-mode] .manifest{padding:6px 9px}
 
+/* Only the foot. Several of these tickets carry a printed band across the top, the strip
+   of flags on the flag ticket most obviously, and the top padding is what makes room for
+   it: cutting that put the name underneath the bunting. The bottom has no such job. */
+:root[data-fit^="tight"] .drawer{padding-bottom:7px}
 :root[data-fit^="tight"] .sheet{max-height:calc(var(--fitH,88dvh) - 20px);padding:16px 16px 14px}
 :root[data-fit^="tight"] .passport{padding:14px 15px 12px}
 :root[data-fit^="tight"] .ppcover{padding:9px 11px}
@@ -14170,12 +14188,12 @@ function masteredIn(map){
    colours: shape, left indent px, width px, tilt deg, stacking. */
 var TAG_LAYOUT={
   /* the six on the desk */
-  daily  :["rail"   , 0, 252, 1.2, 4],
-  flags  :["bunting",30, 202,-1.0, 5],
-  atlaswork:["customs",2, 198, 1.3, 6],
-  cities :["hotel"  ,46, 210,-1.2, 7],
-  figures:["folder" ,18, 196, 1.1, 8],
-  atlas  :["stamp"  ,72, 138, 2.0, 9],
+  daily  :["rail"   ,0, 252, 1.2, 4],
+  flags  :["bunting",0, 214,-1.0, 5],
+  atlaswork:["customs",0, 208, 1.3, 6],
+  cities :["hotel"  ,0, 218,-1.2, 7],
+  figures:["folder" ,0, 206, 1.1, 8],
+  atlas  :["stamp"  ,0, 146, 2.0, 9],
   cap    :["hotel"  ,0, 244, 1.4, 6],
   /* the ones clipped inside a folder */
   name    :["luggage",0, 252,-1.0, 5],
@@ -14191,7 +14209,7 @@ var TAG_LAYOUT={
   dossier :["file"   ,0, 246, 1.3, 7],
   rich    :["bond"   ,0, 248, 1.0, 8],
   trade   :["crate"  ,0, 250,-1.0, 7],
-  nature  :["steamer",58, 178, 1.1, 7],
+  nature  :["steamer",0, 190, 1.1, 7],
   riverloc:["river"  ,0, 250,-1.0, 6],
   sea     :["ocean"  ,0, 246, 1.2, 7],
   rangeloc:["summit" ,0, 250, 0.9, 9],
@@ -14233,6 +14251,13 @@ function fitViewport(){
     bot=parseFloat(cs.paddingBottom)||0;
     probe.parentNode.removeChild(probe);
   }catch(e){}
+  /* A desktop browser has no notch, so it reports no insets and the layout comes out in
+     its roomy form, which is not what the handset gets. preview.html passes the real
+     figures in as ?ins=top,bottom so the same page can be looked at as any given phone. */
+  var q=/[?&]ins=([0-9]+),([0-9]+)/.exec(location.search);
+  if(q){top=+q[1];bot=+q[2];
+    d.style.setProperty("--simT",top+"px");d.style.setProperty("--simB",bot+"px");
+    d.setAttribute("data-sim","1");}
   var usable=Math.max(320,(window.innerHeight||800)-top-bot);
   d.style.setProperty("--fitH",usable+"px");
   d.setAttribute("data-fit",usable<=660?"tighter":(usable<=785?"tight":"roomy"));
@@ -14248,8 +14273,11 @@ function fitDrawers(){
   d.style.setProperty("--dz","1");
   var natural=d.scrollHeight||d.getBoundingClientRect().height;
   if(!natural)return;
-  var room=usableH()*0.56;
-  d.style.setProperty("--dz",Math.max(0.58,Math.min(1,room/natural)).toFixed(3));
+  var room=usableH()*0.575;
+  /* Floored at 0.92. Past that the scale is eating the type rather than the layout,
+     and a ticket you cannot read is not a menu. If the pile still does not fit at that
+     floor it is allowed to be taller: the globe behind it can spare the room. */
+  d.style.setProperty("--dz",Math.max(0.88,Math.min(1,room/natural)).toFixed(3));
 }
 function buildDrawers(){
   var host=$("drawers");
