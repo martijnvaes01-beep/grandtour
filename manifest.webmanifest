@@ -1,0 +1,36 @@
+{
+  "id": "./",
+  "name": "Grand Tour",
+  "short_name": "Grand Tour",
+  "start_url": "./",
+  "scope": "./",
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#B0492A",
+  "theme_color": "#B0492A",
+  "description": "A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges.",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
