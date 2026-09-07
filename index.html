@@ -425,9 +425,6 @@ footer.note .btn{padding:5px 10px;font-size:10px;min-height:0;margin-left:6px;ve
   .stage{gap:7px}
   .flagbox svg{max-height:30vh}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-
-
 /* ============ header chips while playing ============ */
 .rankchip{display:flex;align-items:center;gap:7px;padding:4px 9px;border:2px solid var(--edge);
   background:var(--card);box-shadow:2px 2px 0 rgba(25,21,16,.45);font-family:var(--type);font-size:10px;
@@ -522,15 +519,6 @@ footer.note .btn{padding:5px 10px;font-size:10px;min-height:0;margin-left:6px;ve
   font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:7px 13px;background:var(--t4);
   color:var(--tabInk);border:2px solid var(--edge);box-shadow:var(--hard);animation:dropIn .4s both}
 
-@media (prefers-reduced-motion:reduce){
-  .intro *,.flagbox,.namecard,.opts>.opt,.verdict .ok,.verdict .no,.opt.right,.opt.wrong,
-  .floater,.countnum,.countring .csweep,.levelup{animation:none!important}
-  .countdown{animation:none!important;backdrop-filter:none}
-  .opt.right{background-size:100% 100%!important}
-}
-
-
-
 .modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;
   background:rgba(10,14,10,.62);backdrop-filter:blur(2px);animation:fadeIn .22s ease-out both}
 .modal[hidden]{display:none}
@@ -570,9 +558,6 @@ footer.note .btn{padding:5px 10px;font-size:10px;min-height:0;margin-left:6px;ve
   .facts dd{margin-bottom:8px}
   .sheet{padding:18px 16px 16px}
 }
-@media (prefers-reduced-motion:reduce){.modal,.sheet,.cotdcard{animation:none!important}}
-
-
 /* ---------- clickable wordmark ---------- */
 .brand h1{cursor:pointer;transition:transform .16s cubic-bezier(.22,.9,.25,1)}
 .brand h1:hover{transform:rotate(-1deg) scale(1.02)}
@@ -632,12 +617,6 @@ footer.note .btn{padding:5px 10px;font-size:10px;min-height:0;margin-left:6px;ve
   .funchip{font-size:12.5px;padding:5px 9px}
   .barline{grid-template-columns:44px 1fr auto auto;gap:6px}
 }
-@media (prefers-reduced-motion:reduce){
-  .zingbox,.funchip,.bartrack i{animation:none!important}
-  .zingbox{background-size:100% 100%!important}
-}
-
-
 /* ---------- phone frame ---------- */
 #rankup{z-index:80}          /* a promotion outranks the phone shell it may open over */
 #device{position:fixed;inset:0;z-index:70;display:grid;place-items:center;
@@ -1878,12 +1857,6 @@ svg[viewBox="0 0 640 480"]{height:auto}
   animation:blip 1.6s ease-in-out infinite;
 }
 @keyframes blip{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.75}}
-@media (prefers-reduced-motion:reduce){
-  .cotdcard.fresh{animation:none}
-  .cotdcard.fresh::after{animation:none}
-}
-
-
 /* ================= Grand Tour: the curtain, the sticker, and a table dressed as its ticket ================= */
 
 [hidden]{display:none!important}
@@ -2959,10 +2932,6 @@ svg[viewBox="0 0 640 480"]{height:auto}
 /* the desk hint bows out once the globe has been touched */
 .globehint{transition:opacity .5s ease}
 .globehint.gone{opacity:0}
-@media (prefers-reduced-motion:reduce){
-  .globehint{transition:none}
-}
-
 /* the eighth ticket needs an eighth tab colour on the plain (pre-theme) palette too */
 .seg button:nth-child(8){background:var(--t3);color:#FBF6E9}
 .seg button:nth-child(9){background:var(--t2);color:#FBF6E9}
@@ -3113,10 +3082,6 @@ svg[viewBox="0 0 640 480"]{height:auto}
   font-family:var(--type);font-size:10px;letter-spacing:.28em;text-transform:uppercase;
   color:#FBF3E2;margin-top:clamp(4px,1.6vh,14px);
 }
-@media (prefers-reduced-motion:reduce){
-  .splashticket,.splashlead,.splashgo,.splash::before{animation:none!important;opacity:1!important;transform:none!important}
-}
-
 /* ---- 09 customs declaration: the countries folder ---- */
 .tag-customs{
   padding:21px 13px 11px 13px;--paper2:#E8EBDA;
@@ -3378,14 +3343,6 @@ svg[viewBox="0 0 640 480"]{height:auto}
 #intro.settled .cotdcard:hover,#intro.settled .cotdcard:active{animation:none}
 #intro.settled .cotdcard::after{animation:stickerRing 3.2s ease-in-out infinite}
 #intro.settled .cotdcard.fresh::after{animation:stickerRing 2.1s ease-in-out infinite}
-
-@media (prefers-reduced-motion:reduce){
-  .splash::after,.splash::before,.splashticket,.splashlead,.splashgo,
-  #intro .introglobe,#intro .introhead,#intro .rankbar,#intro .drawer,
-  #intro .cotdcard,#intro .introfoot,#intro .globehint{
-    animation:none!important;opacity:1!important;transform:none!important;
-  }
-}
 
 /* while the front door is shut, the room behind it stays dark */
 html.splashOn #intro{visibility:hidden}
@@ -4251,8 +4208,6 @@ html.splashOn #intro{visibility:hidden}
   100%{opacity:1;transform:scale(1) rotate(0deg)}
 }
 #shape.pop{animation:shapePop .82s cubic-bezier(.18,.86,.22,1) both}
-@media (prefers-reduced-motion:reduce){#shape.pop{animation:none}}
-
 /* =================================================================================
    The tally stub: how far into the round you are, printed like a cloakroom number.
    ================================================================================= */
@@ -7203,7 +7158,7 @@ function sizeGlobe(){
     /* no frame at all: the sphere runs off every edge of the screen */
     availW=Math.min(Math.max(window.innerWidth,window.innerHeight)*1.06,1200);
     var side0=Math.round(Math.max(320,availW));
-    var dpr0=Math.min(window.devicePixelRatio||1,1.6);
+    var dpr0=Math.min(window.devicePixelRatio||1,globe.blur?0.9:1.6);
     cv.style.width=side0+"px";cv.style.height=side0+"px";
     cv.width=Math.round(side0*dpr0);cv.height=Math.round(side0*dpr0);
     globe.ctx.setTransform(dpr0,0,0,dpr0,0,0);
@@ -7415,8 +7370,18 @@ function grainPattern(ctx){
   }catch(e){GRAIN=null;}
   return stickPattern(GRAIN);
 }
+var reSizing=false;
 function drawGlobe(){
   if(!globe.ctx)return;
+  /* the canvas is the authority on its own size, not what was measured last */
+  if(!reSizing&&globe.cv){
+    var wantCss=parseFloat(globe.cv.style.width)||0;
+    if(wantCss>1&&Math.abs(wantCss-globe.cx*2)>1.5){
+      reSizing=true;
+      try{sizeGlobe();}catch(e){}
+      reSizing=false;
+    }
+  }
   var ctx=globe.ctx,c=rotC(),R=globe.R,cx=globe.cx,cy=globe.cy,side=cx*2;
   var ocean=css("--ocean"),land=css("--land"),edge=css("--landline"),grat=css("--grat");
   var solvedTone=css("--solved"),paper=css("--card");
@@ -7872,7 +7837,7 @@ function spinTo(lon,lat,then,liftPx,toZoom){
   function land(){
     globe.lam=l1;globe.phi=p1;globe.zoom=z1;globe.R=globe.base*z1;
   }
-  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce=reducedMotion();
   if(reduce){land();drawGlobe();if(then)then();return;}
   var t0=performance.now(),dur=z1===z0?700:1000;
   if(globe.anim)cancelAnimationFrame(globe.anim);
@@ -12367,9 +12332,13 @@ ar:"Buenos Aires",kp:"Pyongyang",kr:"Seoel",th:"Bangkok",tr:"Ankara"
 /* ================= sound: paper, pops and soft bops ================= */
 var AC=null,MASTER=null,LP=null;
 if(store.sound===undefined||store.sound===null)store.sound=true;
-function reducedMotion(){
-  return !!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-}
+/* Deliberately always false. The phone's reduce-motion switch used to turn the title
+   sequence and the sprint count off entirely, and what it left behind read as a broken
+   app rather than a considerate one. The choice here is that this app animates for
+   everyone: the movement is a few tickets landing and a globe easing to a stop, over in
+   under two seconds, with nothing that races across the screen or zooms at the reader.
+   One line to reverse if that ever stops being the right call. */
+function reducedMotion(){return false;}
 function audioOn(){
   if(!store.sound)return null;
   try{
@@ -14472,11 +14441,25 @@ function runIntroBoot(){
      it is the choreography, and it also hands the frames to the cards */
   var spin0=calm?1:(first?26:8),ramp=first?9200:3000,t0=performance.now();
   globe.spinBoost=spin0;
+  /* coarse while it races, sharp once it settles */
+  if(spin0>2){
+    globe.blur=true;sizeGlobe();
+    /* the ramp below hands the resolution back when it reaches the end, but it is driven
+       by animation frames and a phone that is still launching does not always deliver
+       them. A plain timer is the backstop, so the planet can never be left coarse. */
+    later(function(){
+      if(globe.blur){globe.blur=false;sizeGlobe();drawGlobe();}
+    },ramp+500);
+  }
   (function ease(){
     if(!introOpen)return;
     var k=Math.min(1,(performance.now()-t0)/ramp);
     globe.spinBoost=1+(spin0-1)*Math.pow(1-k,2.4);
-    if(k<1)requestAnimationFrame(ease);else globe.spinBoost=1;
+    if(k<1)requestAnimationFrame(ease);
+    else{
+      globe.spinBoost=1;
+      if(globe.blur){globe.blur=false;sizeGlobe();drawGlobe();}
+    }
   })();
   /* one paper sound per ticket, on the beat it lands */
   var cards=TICKET_KEYS.length,i;
@@ -14550,6 +14533,7 @@ function hideIntro(){
   globe.spinBoost=1;
   hideHoverNow();
   document.documentElement.classList.remove("introTheme");
+  if(globe.blur){globe.blur=false;sizeGlobe();}
   stopSpin();clearTimeout(spinIdle);
   introView=snapView();                                  /* keep the title globe where it stood */
   applyView(gameView||{lam:-10,phi:20,zoom:1,vel:0,hi:{},hover:null,plain:false});
