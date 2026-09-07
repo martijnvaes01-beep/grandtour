@@ -7404,7 +7404,16 @@ function sizeGlobe(){
     var st0=cv.parentNode;
     if(st0&&st0.classList){st0.classList.remove("bleed");st0.style.height="";}
     /* no frame at all: the sphere runs off every edge of the screen */
-    availW=Math.min(Math.max(window.innerWidth,window.innerHeight)*1.06,1200);
+    /* The sphere is centred on the screen, so the first thing to leave it is a corner. Sized
+       off the longer side it fell short of them by a couple of centimetres, and the desk showed
+       through as two wedges in the bottom corners with the ocean between them: a dark bar lying
+       across the foot of the screen that nothing in the design put there. Size it off the
+       corner instead and the planet reaches every edge, which is what it was always meant to
+       do. It costs nothing to draw: the pixel budget below fixes the backing store whatever
+       the sphere measures, and only the part of it the window can see is ever painted. */
+    var vw=window.innerWidth||375,vh=window.innerHeight||800;
+    var corner=Math.sqrt(vw*vw+vh*vh)/2;
+    availW=Math.min(Math.max(Math.max(vw,vh)*1.06,2*(corner+12)+12),1280);
     var side0=Math.round(Math.max(320,availW));
     var dpr0=globeDpr(side0,globe.blur?0.9:1.6);
     cv.style.width=side0+"px";cv.style.height=side0+"px";
@@ -15359,7 +15368,17 @@ if(store.phone&&!INFRAME)phoneOn();
    show through as black, whatever the browser decides the body measures. */
 body::before{content:"";position:fixed;inset:-4px;z-index:-2;background:var(--desk2,#B0492A)}
 .masthead{margin-top:env(safe-area-inset-top)}
-.introfoot{margin-bottom:env(safe-area-inset-bottom)}
+/* The foot used to be lifted clear of the home indicator by a margin here. This block is the
+   last stylesheet on the page, so it quietly beat the app own rule, and on a handset the whole
+   bar floated a centimetre off the bottom: a strip of ocean showed underneath it, with the
+   orange the root paints below that, and the foot of the screen came out as three bands. The
+   app holds the buttons clear with padding instead, which leaves the fade touching the bottom.
+   Nothing to do here.
+
+   Note for anyone adding to this block: a rule written with env() here has no twin in the
+   preview rig, which fakes the insets with --simT and --simB, so the rig cannot see what it
+   does. Put layout rules in the app stylesheet where the sim twins live, and keep this to
+   things that only exist on a home screen. */
 .drawers{bottom:calc(56px + env(safe-area-inset-bottom))}
 #splash{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
 /* Controls that only make sense on a desk. The phone frame runs the whole game a second
