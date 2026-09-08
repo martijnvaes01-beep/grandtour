@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#B0492A">
-<script>window.GT_BUILD="v2 · 2026-09-08 14:55";</script>
+<script>window.GT_BUILD="v16 · 2026-09-08 16:00";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -27,7 +27,18 @@
     var k="vexil.v2",raw=localStorage.getItem(k);
     if(!raw)return;
     var o=JSON.parse(raw);
-    if(o&&o.phone){o.phone=false;localStorage.setItem(k,JSON.stringify(o));}
+    if(!o)return;
+    var dirty=false;
+    if(o.phone){o.phone=false;dirty=true;}
+    /* A one shot experience reset, asked for so the ladder can be walked from the bottom again.
+       The number is the thing: bump XPRESET and it fires once on the next build and never
+       again, whatever else happens to the save. Everything else in the file stays: the boxes,
+       the streaks, the stamps, the day. Only the rank goes back to the first rung. */
+    var XPRESET=1;
+    if((o.xpReset||0)<XPRESET){
+      o.xp=0;o.xpReset=XPRESET;dirty=true;
+    }
+    if(dirty)localStorage.setItem(k,JSON.stringify(o));
   }catch(e){}
 }());
 </script>
@@ -5530,6 +5541,142 @@ body::before{background:#B44E2E}
 }
 :root[data-sim] .build{bottom:calc(3px + var(--simB,0px) * 0.42)}
 .build:empty{display:none}
+
+/* ============ gen48: the map canvas hangs over its panel again ============ */
+
+/* The canvas is taller than the box the layout gave it, on purpose: see the note in sizeGlobe.
+   --gUp is how far it reaches above, set from the same measurement that sized it. */
+.globestack.bleed{position:relative;overflow:visible}
+.globestack.bleed>canvas,
+.globestack.bleed>canvas#globe{
+  position:absolute;left:0;right:auto;top:calc(-1 * var(--gUp,0px));
+  transform:none;border-radius:0;box-shadow:none;
+}
+
+/* THE FADE AT THE FOOT OF A BOARD.
+   The title screen ends in a fade that touches the bottom row of pixels. A board ended in a fade
+   that stopped above the ledger, which is not the same edge at all. One layer, pinned to the
+   bottom of the window, the same two stops the title screen uses, under the ledger rather than
+   over it so every figure stays readable. */
+:root[data-mode] .wrap::after{
+  content:"";position:fixed;left:0;right:0;bottom:0;height:74px;z-index:1;
+  pointer-events:none;
+  background:linear-gradient(to top,var(--desk2) 0,rgba(210,98,60,0) 100%);
+}
+:root[data-mode] .stats{position:relative;z-index:2;background:transparent;border-top:0}
+:root[data-mode] .stats::before{display:none}
+
+/* THE FORGERY DESK. One flag and four sentences: the flag was taking the room the sentences
+   need to be read in. */
+:root[data-mode="forgery"] .forgeone .forgeflag.big{width:min(150px,42vw)}
+:root[data-fit^="tight"][data-mode="forgery"] .forgeone .forgeflag.big{width:min(132px,38vw)}
+
+/* THE TICKETS LANDING.
+   Seven pieces of paper animating at once, each of them a textured background multiplied over a
+   colour, under a soft shadow, being rotated and scaled. The blend and the shadow both have to be
+   worked out again at every step of a scale, which is most of what the deal costs and none of
+   what it looks like: at speed nobody can see either. They come back when the paper settles, and
+   the shadow fades in over the transition the card already carries. */
+#intro.playing .drawer,
+#intro.playing .cotdcard{
+  background-blend-mode:normal;
+}
+/* Dropping the shadow on the tickets during the deal would be the other half of this, and it is
+   not here: the rule matched, carried the important flag, and the shadow stayed on the element
+   all the same. I could not explain that, and I never measured that the shadow cost anything, so
+   there is no point leaving an unexplained important flag in the file to find out. */
+
+/* A NAME LEFT ON THE GLASS.
+   The hover label is dismissed by pointerout, and a finger never sends one: tap a country on the
+   title globe and its name stays printed over the wordmark until something else happens to clear
+   it. It is a mouse affordance, so it belongs to a mouse. */
+@media (hover:none){
+  #intro .hovername{display:none}
+}
+
+/* ============ gen49: the desk, the file and the frame ============ */
+
+/* THE DESK BEHIND THE TITLE SCREEN.
+   Three stacked gradients, a wash from a point eight per cent down the screen out to two
+   different desk colours. Behind a planet that covers nearly all of it, what shows is the seam
+   where the stops meet: a band across the middle and a darker edge down each side, which is what
+   the gradients in the middle and at the sides are. The desk is one colour. */
+#intro{
+  background:#B44E2E;
+  background-image:var(--fiber);
+  background-blend-mode:soft-light;
+}
+
+/* THE COMPASS ROSE. It belongs to the splash, and the splash is behind the title screen rather
+   than gone, so it was turning away under the paperwork for the life of the session. */
+.splash::before{display:none}
+
+/* THE ROUND SLIPS. The text was set far enough apart that a full round needed a scroll to read
+   as one result. Same type, closer together. */
+.rollout{gap:5px}
+.rslip{padding:6px 12px 7px;line-height:1.2}
+.rslip.head b{font-size:26px}
+:root[data-fit^="tight"] .rollout{gap:4px}
+:root[data-fit^="tight"] .rslip{padding:5px 11px 6px}
+
+/* THE FILE. Ten clue tickets on a board this tall came out looking like a note rather than a
+   file, which is the one thing the game is trading on. They get their height back. */
+.dosclue{padding-top:9px;padding-bottom:9px}
+.dosgrid{gap:7px}
+
+/* THE WASH OVER THE LOWER HALF.
+   collage::before is a dark scrim three hundred and ninety wide by six hundred and twenty four
+   tall, laid over the bottom two thirds of the title screen to lift the tickets off the planet.
+   Its top edge lands about a fifth of the way down and fades out over the middle, which is the
+   band across the screen. The tickets are opaque paper and do not need it. */
+.collage::before{display:none}
+:root[data-fit^="tight"] .dosclue{padding-top:8px;padding-bottom:8px}
+/* the roomier file costs a pixel and a half on a 667 tall screen, and the capital trap a further
+   four fifths of one: both come back off the smallest tier alone, so the phones keep the room */
+:root[data-fit="tighter"] .dosclue{padding-top:6px;padding-bottom:6px}
+:root[data-fit="tighter"] .dosgrid{gap:5px}
+:root[data-fit="tighter"][data-mode="trap"] .stage{padding-bottom:2px;padding-top:2px;gap:5px}
+
+/* THE FORGERY DESK.
+   The flag was sized by a height cap, like every other board, while the frame around it was
+   sized by a width in pixels: 224 of flag inside 132 of frame, so the flag hung out of its own
+   card. Sized the way the lookalikes board sizes its flag, off the height, with the frame
+   shrink wrapping whatever that comes to. Smaller than the other boards on purpose: this one has
+   four sentences under it to read, not four names. */
+:root[data-mode="forgery"] .forgeone .forgeflag.big,
+:root[data-fit^="tight"][data-mode="forgery"] .forgeone .forgeflag.big{
+  width:auto;max-width:100%;
+}
+:root[data-mode="forgery"] .forgeone .forgeflag.big svg{
+  width:auto;height:auto;max-width:100%;
+  max-height:calc(var(--fitH,100vh) * 0.185);
+}
+:root[data-fit^="tight"][data-mode="forgery"] .forgeone .forgeflag.big svg{
+  max-height:calc(var(--fitH,100vh) * 0.165);
+}
+
+/* ============ gen50: the file, and three boards that start too low ============ */
+
+/* THE FILE, LONGER STILL. There is room on a phone and a file that reads as a note is the one
+   thing this game cannot afford. */
+.dosclue{padding-top:11px;padding-bottom:11px}
+.dosgrid{gap:8px}
+:root[data-fit^="tight"] .dosclue{padding-top:10px;padding-bottom:10px}
+:root[data-fit="tighter"] .dosclue{padding-top:6px;padding-bottom:6px}
+:root[data-fit="tighter"] .dosgrid{gap:6px}
+
+/* THREE BOARDS THAT START TOO LOW.
+   Find the flag and the imposter both open with a line of type and then a lot of air before the
+   thing you are looking at. Blind flags has the same gap and also has to keep its flag above a
+   keyboard: on a phone the bottom half of the board is gone the moment the field takes focus, so
+   everything it wants you to see has to be in the top half before that happens. */
+:root[data-mode="find"] .stage,
+:root[data-mode="imposter"] .stage,
+:root[data-mode="blind"] .stage{padding-top:2px}
+:root[data-mode="find"] .eyebrow,
+:root[data-mode="imposter"] .eyebrow,
+:root[data-mode="blind"] .eyebrow{padding-top:2px;padding-bottom:2px;margin-top:-4px}
+:root[data-mode="blind"] .flagbox{margin-top:-6px}
 </style>
 <section class="splash" id="splash" hidden>
   <span class="splashveil"></span>
@@ -7630,11 +7777,18 @@ function sizeGlobe(){
     cv.width=Math.round(vw*dpr0);cv.height=Math.round(vh*dpr0);
     globe.ctx.setTransform(dpr0,0,0,dpr0,0,0);
     globe.cx=vw/2;globe.cy=vh/2;
+    /* The radius that was asked for and liked. It stops short of the four corners, so a wedge of
+       desk shows in each: see the note in drawGlobe about why that is still there. */
     globe.base=Math.max(vw,vh)*0.53-6;
+    /* This canvas is the window rather than a card on a page, so its four edges are the four
+       edges of the screen. Two things in the renderer treat a canvas edge as somewhere to fade
+       out, which on a card is right and here draws a soft band down each side of the phone. */
+    globe.window=true;
     globe.R=globe.base*globe.zoom;
     sizePulse();
     return;
   }
+  globe.window=false;
   var box={width:availW};
   var tip=document.getElementById("globetip").getBoundingClientRect().height;
   var room=roomFor(wrapEl)-tip-32;
@@ -7659,21 +7813,58 @@ function sizeGlobe(){
 
      Note the centre is placed off globe.base rather than globe.R: zooming in must move the map
      under the sphere, not slide the sphere across its panel. */
+  /* THE MAP GAMES. Written down so it stops moving.
+
+       centre of the sphere sits on the RIGHT EDGE of the board
+       radius, zoomed out, reaches the LEFT edge of the board
+       so the visible planet is the left half of a circle as wide as the screen is across
+       vertically it runs from about the strip at the top down over the ledger at the foot
+
+     Which means the canvas is much taller than the panel the layout gave it. The panel keeps the
+     height, as it always did, and the canvas is hung over it: measured from the stage rather than
+     guessed, so it reaches whatever room the board actually has above and below rather than a
+     number that stops being right the next time a row changes.
+
+     globe.base is the zoomed out radius and the centre is placed off it, never off globe.R:
+     zooming has to move the map under the sphere, not slide the sphere across the board. */
   var stack=cv.parentNode,kind=playKind();
   var bleed=(kind==="locate"||kind==="globle"||kind==="route");
   if(bleed&&stack&&stack.classList){
     var boxH=Math.max(220,tall);
     stack.classList.add("bleed");
     stack.style.height=boxH+"px";
-    var cw=Math.max(200,Math.round(wide)),ch=Math.round(boxH);
-    var dprB=globeDpr(Math.max(cw,ch),1.8,0.9);
+    globe.window=false;
+    var cw=Math.max(200,Math.round(wide));
+    /* how much room there is above and below the panel, inside the board */
+    var upTop=0,downBot=0;
+    try{
+      var sr=host.getBoundingClientRect(),wr=wrapEl.getBoundingClientRect();
+      upTop=Math.max(0,Math.round(wr.top-sr.top)-6);
+      downBot=Math.max(0,Math.round(sr.bottom-wr.bottom))+30;   /* +30: over the ledger a little */
+    }catch(e){}
+    upTop=Math.min(upTop,300);downBot=Math.min(downBot,220);
+    var ch=Math.round(boxH+upTop+downBot);
+    var dprB=globeDpr(Math.max(cw,ch),1.8,0.85);
     cv.style.width=cw+"px";cv.style.height=ch+"px";
     cv.width=Math.round(cw*dprB);cv.height=Math.round(ch*dprB);
     globe.ctx.setTransform(dprB,0,0,dprB,0,0);
-    globe.base=Math.max(100,ch/2-3);
+    stack.style.setProperty("--gUp",upTop+"px");
+    /* The left limb used to land exactly on the left edge, which reads as the planet being cut
+       by the screen rather than sitting on the desk. It keeps a margin now. And the bottom of
+       the sphere is brought up until its underside is inside the board: it overlaps the ledger
+       rather than running off the bottom of the window, so the curve is visible there. */
+    /* Two things pull on the radius here and they disagree. The left margin wants it no wider
+       than the board less a margin. The top wants it small enough that the sphere is not cut
+       far above its own shoulder: with the underside pinned just into the ledger, every pixel
+       of radius is a pixel of overshoot past the top of the board, twice over. A little cut off
+       the top is wanted; a third of the planet is not. Forty five pixels of overshoot is the
+       number, and whichever of the two constraints is tighter wins. */
+    var floorY=upTop+boxH+Math.max(0,downBot-30);   /* the foot of the board, in canvas space */
+    var byTop=(floorY-6+45)/2;
+    globe.base=Math.max(140,Math.min(cw-18,byTop));
     globe.R=globe.base*globe.zoom;
-    globe.cx=Math.max(globe.base,cw-globe.base);
-    globe.cy=ch/2;
+    globe.cx=cw;                          /* centre still on the right edge */
+    globe.cy=floorY-6-globe.base;
     sizePulse();
     return;
   }
@@ -7926,6 +8117,11 @@ function drawGlobe(){
   var vbC=visibleBox();
   if(vbC)ctx.clearRect(vbC[0],vbC[1],vbC[2],vbC[3]);
   else ctx.clearRect(0,0,side,globe.cy*2);
+  /* The desk showing through as a wedge in each corner of the title screen is not solved here.
+     A full canvas fill of ocean before the sphere is drawn ought to remove it and does not: the
+     flag is set, the fill runs, and the corner pixel stays empty. Growing the sphere does not
+     close it either, because the limb paints some thirty pixels inside its own radius. Left
+     alone rather than papered over with something that does not work. */
 
   /* The sphere used to cast its own shadow here, inside the canvas. The canvas is a circle
      only because border-radius makes it one, and that clip sits 6.5px outside the sphere,
@@ -8264,7 +8460,10 @@ function drawGlobe(){
 
   /* curvature: a light from the upper left, shadow gathering at the rim */
   var gr=Math.min(R,Math.hypot(cx,cy)*1.2);      /* zoomed in, the lighting spreads out with the view */
-  var rim=R<=gr?0.34:0.12;
+  /* A third of black gathering at the rim reads as a sphere sitting on a desk. When the canvas
+     is the window there is no desk and no rim to speak of: the same shading becomes a dark band
+     down the left and right of the screen. */
+  var rim=globe.window?0.08:(R<=gr?0.34:0.12);
   var sh=ctx.createRadialGradient(cx-gr*0.32,cy-gr*0.36,gr*0.04,cx,cy,gr*1.02);
   sh.addColorStop(0,"rgba(255,255,255,.13)");
   sh.addColorStop(0.55,"rgba(255,255,255,0)");
@@ -8301,7 +8500,10 @@ function drawGlobe(){
   ctx.restore();
 
   /* a compass rose, the way a traveller marks a chart */
-  if(R>150)drawRose(ctx,side-34,side-34,14,edge,paper);   /* in the corner, off the map itself */
+  /* A compass rose used to sit in the bottom corner of the canvas. The canvas was square then,
+     so side-34 by side-34 was a corner; it is the window now, and the same two numbers put the
+     rose halfway down the right of the screen, floating over the ocean. It was decoration on a
+     drawing that has enough of it. */
 
   /* rim, only while the whole sphere is in view */
   if(!filled){
@@ -8317,7 +8519,11 @@ function drawGlobe(){
      canvas. While the whole sphere is in view it sits only six pixels inside that edge, so
      a thirteen pixel fade ate the outer seven pixels of the globe itself: the rim, and the
      ocean under it, wiped out in a band across the top. It only runs when it is needed. */
-  if(filled){
+  /* ...and it must not run at all when the canvas is the window. The feather exists so a plate
+     that really does reach the edge of its card does not end on a hard line. The title screen
+     canvas ends on the edge of the phone, where a thirteen pixel fade to nothing is simply a
+     grey band down each side of the screen with the desk showing through it. */
+  if(filled&&!globe.window){
     var F=13,gEdge;
     ctx.save();
     ctx.globalCompositeOperation="destination-out";
@@ -11979,7 +12185,12 @@ function setMode(m,keepRegion){
   globe.lines=null;   /* the hand drawn lines belong to the game that asked for them */
   $("flagbox").hidden=(kind==="shape"||kind==="globle"||kind==="bigger");
   $("flagbox").className="flagbox"+
-    (kind==="locate"||kind==="cap"||kind==="imposter"||m==="dossier"?" plain":"");
+        /* A board whose subject builds its own card gets a plain box, or the card lands inside a
+       second card and the country ends up double framed. The capital trap deals the same
+       target card the capitals board does, and find the flag deals a name card: neither was on
+       this list, which is why those two boards had two frames and capitals had one. */
+    (kind==="locate"||kind==="cap"||kind==="imposter"||m==="dossier"||m==="trap"||m==="find"
+      ?" plain":"");
   $("opts").hidden=!((QUIZ[m]&&!QUIZ[m].typed)||kind==="bigger");
   $("typerow").hidden=!(kind==="shape"||kind==="route"||kind==="globle"||(QUIZ[m]&&QUIZ[m].typed));
   $("chain").hidden=!(kind==="route"||kind==="globle");
@@ -15288,7 +15499,10 @@ function runIntroBoot(){
   el.classList.add("playing");
   /* the planet comes up to speed, then eases to a full stop as the paperwork arrives:
      it is the choreography, and it also hands the frames to the cards */
-  var spin0=first?26:8,ramp=first?9200:3000,t0=performance.now();
+  /* The planet used to come up to twenty six times speed and take nine seconds to ease back
+     down, which is the thing that was competing with the paperwork for frames. It turns at a
+     walking pace from the first frame now: no run up, no ramp, nothing to ease. */
+  var spin0=1,ramp=first?9200:3000,t0=performance.now();
   globe.spinBoost=spin0;
   /* coarse while it races, sharp once it settles */
   /* The run up used to drop the canvas to a coarse density and put it back partway through,
