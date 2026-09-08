@@ -10,8 +10,8 @@
   ],
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#B0492A",
-  "theme_color": "#B0492A",
+  "background_color": "#B44E2E",
+  "theme_color": "#B44E2E",
   "description": "A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges.",
   "icons": [
     {

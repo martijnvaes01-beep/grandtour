@@ -8,8 +8,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
-<meta name="theme-color" content="#B0492A">
-<script>window.GT_BUILD="v17 · 2026-09-08 18:39";</script>
+<meta name="theme-color" content="#B44E2E">
+<script>window.GT_BUILD="v18 · 2026-09-08 19:12";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -5056,11 +5056,10 @@ html.splashOn #intro{visibility:hidden}
 :root[data-fit^="tight"][data-mode="trade"] .manlab{padding-bottom:3px}
 :root[data-fit^="tight"][data-mode="trade"] .manfoot{padding-top:3px;margin-top:3px}
 :root[data-fit^="tight"][data-mode="trade"] .manhead{margin-top:2px}
-/* the outline is the biggest single block on the tracing games, so it is capped against
-   the height that can be seen rather than left at whatever it was drawn at */
-:root[data-fit^="tight"][data-mode] .shapewrap canvas{max-height:calc(var(--fitH,100vh) * 0.30);height:auto}
-:root[data-fit^="tight"][data-mode="cap"] .shapewrap canvas,
-:root[data-fit^="tight"][data-mode="trap"] .shapewrap canvas{max-height:calc(var(--fitH,100vh) * 0.275)}
+/* The outline used to be capped here with a max-height. A canvas carries its size in two
+   inline pixel figures, so clamping one of them does not shrink the drawing, it flattens it:
+   the outline board came out 40 per cent wider than the country and the capitals watermark
+   66 per cent wider. The cap lives in drawShape now, where both sides can move together. */
 :root[data-fit^="tight"][data-mode="trade"] .manifest{font-size:15px;gap:0}
 :root[data-fit^="tight"][data-mode="trade"] .manrows{line-height:1.04;font-size:12.5px}
 :root[data-fit^="tight"][data-mode="trade"] .manlab,:root[data-fit^="tight"][data-mode="trade"] .manhead,:root[data-fit^="tight"][data-mode="trade"] .mannote{font-size:8px}
@@ -5148,6 +5147,11 @@ html.splashOn #intro{visibility:hidden}
    pixels more than the board. A timed game you have to scroll is a timed game you lose, so
    the flag gives the eight pixels up and twenty more besides. */
 :root[data-fit^="tight"][data-mode="sprint"] .flagbox svg{max-height:calc(var(--fitH,100vh) * 0.19)}
+/* The tighter tier caps every board flag at 0.18 of the screen through a selector that
+   also names :not(.plain), which outranks a plain [data-mode="sprint"] one. Same shape here,
+   or the sprint flag quietly keeps the general cap and the board runs 16 pixels long. */
+:root[data-fit="tighter"][data-mode="sprint"] .flagbox:not(.plain) svg,
+:root[data-fit="tighter"][data-mode="sprint"] .flagbox svg{max-height:calc(var(--fitH,100vh) * 0.15)}
 :root[data-fit^="tight"][data-mode="sprint"] .stage{gap:6px}
 
 /* THE IMPOSTER, WITH ROOM BETWEEN THE FOUR.
@@ -5222,14 +5226,12 @@ html.splashOn #intro{visibility:hidden}
 :root[data-fit="tighter"][data-mode="border"] .stage>.flagbox{
   margin:clamp(20px,calc(var(--fitH,100vh) * 0.10),84px) 0 0;
 }
-:root[data-mode="cap"] .shapewrap canvas{max-height:calc(var(--fitH,100vh) * 0.20);height:auto}
-:root[data-fit="tighter"][data-mode="cap"] .shapewrap canvas{max-height:calc(var(--fitH,100vh) * 0.175)}
 
 /* OUTLINE: THE FIELD SITS LOWER.
    With the keyboard no longer arriving uninvited the board keeps its full height, and the
    line you type on belongs nearer the thumb than the shape. */
-:root[data-mode="shape"] .typerow{margin-top:44px}
-:root[data-fit="tighter"][data-mode="shape"] .typerow{margin-top:24px}
+:root[data-mode="shape"] .typerow{margin-top:14px}
+:root[data-fit="tighter"][data-mode="shape"] .typerow{margin-top:4px}
 
 /* THE IMPOSTER.
 
@@ -5604,6 +5606,15 @@ body::before{background:#B44E2E}
 :root[data-mode="blind"] .eyebrow{padding-top:2px;padding-bottom:2px;margin-top:-4px}
 :root[data-mode="blind"] .flagbox{margin-top:-6px}
 
+/* AND THEY START AT THE TOP.
+   The stage centres what is on it, which is right for a board that fills it and wrong for one
+   that does not: find the flag has four names and a small flag, blind flags has a flag and a
+   text field, so both came out with the question sixty and ninety pixels lower than the same
+   question on every other board. They begin at the top, where the eye already is. */
+:root[data-mode="find"] .stage,
+:root[data-mode="blind"] .stage,
+:root[data-mode="sprint"] .stage{justify-content:flex-start}
+
 /* ============ gen52: the foot of the board, and four boards rearranged ============ */
 
 /* THE PERSONAL FILE, ON ONE SHEET.
@@ -5668,8 +5679,8 @@ body::before{background:#B44E2E}
    The bar now ends where the screen does, with the figures held clear of the indicator by the
    padding underneath them. */
 :root[data-mode] .stats{
-  background:var(--desk2);
-  border-top:0;
+  background:transparent;
+  border-top:1px solid rgba(246,238,220,.26);
   margin-bottom:calc(env(safe-area-inset-bottom) * -1);
   padding-bottom:calc(env(safe-area-inset-bottom) * 0.32);
 }
@@ -5679,11 +5690,11 @@ body::before{background:#B44E2E}
 }
 :root[data-mode] .stat{padding-top:4px;padding-bottom:4px}
 
-/* THE VERDICT SITS ON TOP.
-   The fade at the foot of the board is a fixed layer at the same depth as the verdict and
-   later in the paint order, so wherever the two met the answer went under the haze. It is the
-   one line on the board that has to be readable the instant it appears. */
-:root[data-mode] .stage>.verdict{z-index:3}
+/* THE VERDICT SITS ON TOP OF EVERYTHING.
+   The fade at the foot of the board, the ledger, the paper, the globe that hangs over its own
+   panel: the verdict is the one line that has to be readable the instant it appears, wherever
+   it lands, so it goes above all of them rather than into the middle of the stack. */
+:root[data-mode] .stage>.verdict{position:relative;z-index:20}
 
 /* THE LAND AND WATER TICKET.
    It was drawn narrower than the rest of the pile on the grounds that a badge is a small
@@ -7914,11 +7925,17 @@ function sizeGlobe(){
        of radius is a pixel of overshoot past the top of the board, twice over. A little cut off
        the top is wanted; a third of the planet is not. Forty five pixels of overshoot is the
        number, and whichever of the two constraints is tighter wins. */
-    var floorY=upTop+boxH+Math.max(0,downBot-30);   /* the foot of the board, in canvas space */
+    /* Lower, and a little further left. The underside used to stop on the ledger's top rule,
+       which reads as the planet having been trimmed to fit a row of numbers; it is allowed
+       into that strip instead, as far as the canvas below the panel will carry it. Moving the
+       foot down and holding the top where it is makes the sphere larger by half the drop,
+       which is the point: it is the instrument on these five boards. */
+    var DOWN=26,LEFTOF=8;
+    var floorY=upTop+boxH+Math.min(Math.max(0,downBot-30)+DOWN,Math.max(0,downBot-4));
     var byTop=(floorY-6+45)/2;
-    globe.base=Math.max(140,Math.min(cw-18,byTop));
+    globe.base=Math.max(140,Math.min(cw-14,byTop));
     globe.R=globe.base*globe.zoom;
-    globe.cx=cw;                          /* centre still on the right edge */
+    globe.cx=cw-LEFTOF;                   /* centre just inside the right edge */
     globe.cy=floorY-6-globe.base;
     sizePulse();
     return;
@@ -9144,6 +9161,7 @@ function globleReveal(){
 function drawShape(f,rotDeg){
   var cv=$("shape"),ctx=cv.getContext("2d");
   var wrapEl=cv.parentNode,room=roomFor(wrapEl)-24;
+  var framed=(mode==="cap"||mode==="trap"||mode==="border");
   var W=Math.max(220,Math.min(wrapEl.getBoundingClientRect().width||360,420));
   var H=Math.max(170,Math.min(room||300,340));
   if(mode==="cap"||mode==="trap"||mode==="border"){
@@ -9153,6 +9171,17 @@ function drawShape(f,rotDeg){
     H=Math.max(250,Math.round(host.height*0.60));
     W=Math.round(H*1.34);
   }
+  /* The one cap on this drawing, applied to both sides at once. The watermark behind the
+     three city boards is absolutely positioned and costs the layout nothing, so it is not
+     capped at all; the outline you are asked to name is the tallest single block on its
+     board and is held to a share of the height that can actually be seen. */
+  var capH=0;
+  if(!framed&&tightFit()){
+    var fitPx=parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue("--fitH"))||window.innerHeight||812;
+    capH=Math.round(fitPx*0.36);
+  }
+  if(capH&&H>capH){W=Math.round(W*capH/H);H=capH;}
   cv.style.width=W+"px";cv.style.height=H+"px";
   var dpr=Math.min(window.devicePixelRatio||1,2);
   cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
@@ -9175,7 +9204,6 @@ function drawShape(f,rotDeg){
     if(arr.length>2)pts.push(arr);
   });
   if(!pts.length||!maxr)return;
-  var framed=(mode==="cap"||mode==="trap"||mode==="border");
   var scale=(framed?0.50:0.42)*Math.min(W,H)/maxr;
   /* the daily hands the shape over at an angle: a silhouette you cannot orient is a much
      better puzzle than one already lined up with the atlas you learned it from */
@@ -15888,9 +15916,12 @@ sprintStart=function(){
      all showed through the dim, and the one thing that was not there yet was the game.
      data-count takes the board out of sight for the two seconds this lasts. */
   $("scorecard").hidden=true;
+  /* A question is dealt before the count starts and hidden under it. Not to be looked at:
+     it is there so the board is already the size it will be when the count ends, which is
+     the only way the title can already be where it is going. An empty stage centres its
+     title in the middle of the desk and then jumps it to the top when the flag arrives. */
+  nextQuestion();
   $("prompt").textContent=t("askSprint");
-  $("flagbox").innerHTML="";
-  $("opts").innerHTML="";
   $("verdict").innerHTML="";
   countdown(3,function(){baseSprintStart();});
 };
@@ -16214,7 +16245,7 @@ if(store.phone&&!INFRAME)phoneOn();
 /* A guaranteed ground behind everything. The root already carries the desk colour, but
    a fixed layer that overhangs the viewport leaves no seam for the home indicator strip to
    show through as black, whatever the browser decides the body measures. */
-body::before{content:"";position:fixed;inset:-4px;z-index:-2;background:var(--desk2,#B0492A)}
+body::before{content:"";position:fixed;inset:-4px;z-index:-2;background:var(--desk2,#B44E2E)}
 .masthead{margin-top:env(safe-area-inset-top)}
 /* The foot used to be lifted clear of the home indicator by a margin here. This block is the
    last stylesheet on the page, so it quietly beat the app own rule, and on a handset the whole
