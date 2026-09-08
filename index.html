@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#B0492A">
-<script>window.GT_BUILD="v16 · 2026-09-08 16:00";</script>
+<script>window.GT_BUILD="v17 · 2026-09-08 18:39";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -1154,7 +1154,6 @@ svg[viewBox="0 0 640 480"]{height:auto}
 .tag-scale{padding:14px 12px 11px;--paper2:var(--cream)}
 .tag-forgery{padding:14px 12px 11px;--paper2:var(--cream)}
 .tag-blind{padding:14px 12px 11px;--paper2:var(--ink)}
-.tag-wax{padding:14px 12px 11px;--paper2:var(--cream)}
 .tag-border{padding:14px 12px 11px;--paper2:var(--cream)}
 .tag-twin{padding:14px 12px 11px;--paper2:var(--cream)}
 .tag-census{padding:14px 12px 11px;--paper2:var(--cream)}
@@ -1242,8 +1241,7 @@ svg[viewBox="0 0 640 480"]{height:auto}
   border-bottom:2px solid transparent;
 }
 .introfoot .btn:hover{color:var(--gold);border-bottom-color:var(--gold);transform:none}
-.introfoot #introstart{color:#FBF3E2;border-bottom-color:var(--gold)}
-.introstats{display:none}
+.introfoot #introstats{color:#FBF3E2;border-bottom-color:var(--gold)}
 .hovername{
   position:absolute;z-index:6;background:var(--cream);color:var(--sepia);
   font-family:var(--geo);font-weight:400;font-size:11px;letter-spacing:.12em;padding:2px 7px;
@@ -1536,24 +1534,6 @@ svg[viewBox="0 0 640 480"]{height:auto}
 .tag-blind .dmeta{color:rgba(242,231,201,.78)}
 .tag-blind .idx{right:12px;bottom:7px;color:rgba(242,231,201,.7)}
 .tag-blind .over{display:none}
-
-/* 14 sealed dispatch: cream stock with a blob of red wax holding the fold shut */
-.tag-wax{
-  padding:13px 40px 13px 14px;--paper2:#F0E6CE;
-  clip-path:polygon(0 0,100% 0,100% 100%,0 100%,0 0);
-}
-.tag-wax::before{
-  content:"";position:absolute;right:0;top:0;bottom:0;width:34px;
-  background:linear-gradient(90deg,rgba(40,24,18,.1),rgba(40,24,18,.02));
-  border-left:1px dashed rgba(40,24,18,.35);
-}
-.tag-wax::after{
-  content:"";position:absolute;right:6px;top:50%;width:22px;height:22px;margin-top:-11px;
-  border-radius:50%;background:radial-gradient(circle at 36% 32%,#D6462F,#8E2418 72%);
-  box-shadow:0 1px 0 rgba(20,10,4,.4),inset 0 0 0 2px rgba(20,10,4,.14);
-}
-.tag-wax .idx{right:42px;bottom:7px}
-.tag-wax .over{display:none}
 
 /* 15 frontier post: the chevron bar they paint on a border barrier */
 .tag-border{
@@ -2171,7 +2151,6 @@ svg[viewBox="0 0 640 480"]{height:auto}
 .tag-scale{padding:17px 12px 9px 12px}
 .tag-forgery{padding:19px 13px 9px 13px}
 .tag-blind{padding:26px 13px 9px 13px}
-.tag-wax{padding:11px 38px 11px 13px}
 .tag-border{padding:18px 13px 9px 13px}
 .tag-twin{padding:11px 58px 11px 13px}
 .tag-census{padding:11px 42px 11px 13px}
@@ -2779,7 +2758,6 @@ svg[viewBox="0 0 640 480"]{height:auto}
 .minirow.tag-library .idx{bottom:auto;top:26px;inset-inline-end:14px}
 .minirow.tag-forgery .idx{inset-inline-end:14px}
 .minirow.tag-blind .idx{inset-inline-end:14px}
-.minirow.tag-wax .idx{inset-inline-end:44px}
 .minirow.tag-border .idx{inset-inline-end:14px}
 .minirow.tag-twin .idx{inset-inline-end:62px}
 .minirow.tag-census .idx{inset-inline-end:46px}
@@ -4962,32 +4940,7 @@ html.splashOn #intro{visibility:hidden}
 :root[data-fit="tighter"] .rslip.pace,
 :root[data-fit="tighter"] .rslip.pool{display:none}
 
-/* ============ gen35: the forgery desk, and the file that answers back ============ */
-
-/* THE FORGERY DESK. One flag, pinned flat on the blotter with its docket under it, and
-   four things a forger might have done to it. There is nothing to compare it against,
-   which is the whole game. */
-.forgeone{
-  display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;
-}
-.forgeone .forgeflag.big{width:min(224px,62vw)}
-.forgeone .forgeflag.big svg{
-  display:block;width:100%;height:auto;
-  border:1px solid var(--edge);
-  box-shadow:0 3px 0 rgba(36,24,18,.13),0 8px 18px -10px rgba(36,24,18,.5);
-}
-.forgeone>i{
-  font-family:var(--cond);font-style:normal;font-weight:500;
-  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ink);opacity:.68;
-}
-/* the four verdicts are sentences, not names, so they want room and a smaller face */
-.forgeopt{
-  display:block;font-family:var(--body);font-size:13.5px;line-height:1.28;
-  text-align:left;
-}
-:root[data-mode="forgery"] .opts{grid-template-columns:1fr}
-:root[data-mode="forgery"] .opt{text-align:left;padding-top:9px;padding-bottom:9px}
+/* ============ gen35: the file that answers back ============ */
 
 /* THE FILE. The line that came free is stamped as such, and the names already spent on
    it lie under the bundle, each one carrying how far off it was. */
@@ -5049,10 +5002,6 @@ html.splashOn #intro{visibility:hidden}
   :root[data-mode="trade"] .manhead{margin-top:3px}
   :root[data-mode="trade"] .mannote{margin:-3px 0 5px}
   :root[data-mode="trade"] .manfoot{margin-top:5px;padding-top:5px}
-  /* one flag on a blotter can afford to be smaller than one on a wall */
-  :root[data-mode="forgery"] .forgeone{gap:6px}
-  :root[data-mode="forgery"] .forgeone .forgeflag.big{width:min(184px,52vw)}
-  :root[data-mode="forgery"] .opt{padding-top:8px;padding-bottom:8px}
   :root[data-mode="bigger"] .bigwrap{gap:6px}
   /* The manifest used to scroll inside its own card here. It does not any more: the sheet
      lists three goods a side on a short screen instead of five, which is four rows fewer
@@ -5433,7 +5382,7 @@ body::before{background:#B44E2E}
 :root[data-fit^="tight"][data-mode="rangeloc"] .eyebrow,
 :root[data-fit^="tight"][data-mode="daily"] .eyebrow{padding-top:3px;padding-bottom:3px}
 :root[data-fit^="tight"][data-mode="daily"] .flagbox{max-height:calc(var(--fitH,100vh) * 0.115)}
-:root[data-fit^="tight"][data-mode="daily"] .chain{max-height:46px;overflow-y:auto;scrollbar-width:none}
+:root[data-fit^="tight"][data-mode="daily"] .chain{max-height:58px;overflow-y:auto;scrollbar-width:none}
 
 /* ============ gen43: an overhang that was dragging the board ============ */
 
@@ -5566,11 +5515,6 @@ body::before{background:#B44E2E}
 :root[data-mode] .stats{position:relative;z-index:2;background:transparent;border-top:0}
 :root[data-mode] .stats::before{display:none}
 
-/* THE FORGERY DESK. One flag and four sentences: the flag was taking the room the sentences
-   need to be read in. */
-:root[data-mode="forgery"] .forgeone .forgeflag.big{width:min(150px,42vw)}
-:root[data-fit^="tight"][data-mode="forgery"] .forgeone .forgeflag.big{width:min(132px,38vw)}
-
 /* THE TICKETS LANDING.
    Seven pieces of paper animating at once, each of them a textured background multiplied over a
    colour, under a soft shadow, being rotated and scaled. The blend and the shadow both have to be
@@ -5637,24 +5581,6 @@ body::before{background:#B44E2E}
 :root[data-fit="tighter"] .dosgrid{gap:5px}
 :root[data-fit="tighter"][data-mode="trap"] .stage{padding-bottom:2px;padding-top:2px;gap:5px}
 
-/* THE FORGERY DESK.
-   The flag was sized by a height cap, like every other board, while the frame around it was
-   sized by a width in pixels: 224 of flag inside 132 of frame, so the flag hung out of its own
-   card. Sized the way the lookalikes board sizes its flag, off the height, with the frame
-   shrink wrapping whatever that comes to. Smaller than the other boards on purpose: this one has
-   four sentences under it to read, not four names. */
-:root[data-mode="forgery"] .forgeone .forgeflag.big,
-:root[data-fit^="tight"][data-mode="forgery"] .forgeone .forgeflag.big{
-  width:auto;max-width:100%;
-}
-:root[data-mode="forgery"] .forgeone .forgeflag.big svg{
-  width:auto;height:auto;max-width:100%;
-  max-height:calc(var(--fitH,100vh) * 0.185);
-}
-:root[data-fit^="tight"][data-mode="forgery"] .forgeone .forgeflag.big svg{
-  max-height:calc(var(--fitH,100vh) * 0.165);
-}
-
 /* ============ gen50: the file, and three boards that start too low ============ */
 
 /* THE FILE, LONGER STILL. There is room on a phone and a file that reads as a note is the one
@@ -5677,6 +5603,151 @@ body::before{background:#B44E2E}
 :root[data-mode="imposter"] .eyebrow,
 :root[data-mode="blind"] .eyebrow{padding-top:2px;padding-bottom:2px;margin-top:-4px}
 :root[data-mode="blind"] .flagbox{margin-top:-6px}
+
+/* ============ gen52: the foot of the board, and four boards rearranged ============ */
+
+/* THE PERSONAL FILE, ON ONE SHEET.
+   Figures printed as figures, in two rows of four, with a dotted rule between them the way
+   the ledger along the foot of a board does it. The region bars go two to a row with the
+   label over the track, because a track and an eighty eight pixel label do not both fit in
+   half of a 375 pixel sheet. The tails are chips. */
+.dfour{display:grid;grid-template-columns:repeat(4,1fr);margin:6px 0 0}
+.dfour>span{
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  padding:4px 2px 5px;border-right:1px dotted var(--rule);
+}
+.dfour>span:last-child{border-right:0}
+.dfour b{font-family:var(--geo);font-weight:700;font-size:19px;line-height:1.05;
+  font-variant-numeric:tabular-nums}
+.dfour i{font-family:var(--type);font-style:normal;font-size:8px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink2);text-align:center;line-height:1.18}
+.dtwo{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.dtwo .dbar{
+  grid-template-columns:1fr auto;grid-template-areas:"k v" "t t";
+  gap:2px 6px;padding:4px 0;
+}
+.dtwo .dbar .dkey{grid-area:k}
+.dtwo .dbar .dval{grid-area:v}
+.dtwo .dbar .dtrack{grid-area:t}
+#statsmodal .sheet{grid-template-columns:1fr}
+#statsmodal .sheet>*{grid-column:1/-1;min-width:0}
+#statsmodal .dossierbody{width:100%}
+.dpairs{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;min-width:0}
+.dtwo,.dfour{min-width:0}
+.dtwo .dbar,.dfour>span,.dpair{min-width:0}
+.dbar .dkey{overflow:hidden;text-overflow:ellipsis}
+.dpair{
+  display:flex;align-items:baseline;gap:6px;padding:3px 0;
+  border-bottom:1px dotted var(--rule);
+}
+.dpair i{
+  font-style:normal;flex:1;min-width:0;font-family:var(--body);font-size:12.5px;
+  line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.dpair b{font-family:var(--type);font-size:11px;white-space:nowrap}
+/* The rank is printed as a title, and at twenty seven pixels Geographer Royal takes two
+   lines of a sheet that has none to give. */
+.dossierbody .drank{padding:7px 0 8px}
+.dossierbody .drank b{font-size:clamp(17px,4.8vw,22px)}
+.dossierbody .dhead{margin:6px 0 1px}
+.dossierbody .dbar{padding:4px 0}
+.dossierbody .dtwo .dbar{padding:3px 0}
+.dossierbody>*:last-child .dpair:last-child,
+.dossierbody>*:last-child .dpair:nth-last-child(2){border-bottom:0}
+
+
+/* THE LEDGER IS A BAR.
+   It had no ground of its own: it sat in the middle of the fade at the foot of the board, so
+   the tone behind the figures changed from the top of the strip to the bottom of it, and the
+   rule across its top read as the edge of something that had not been drawn. It gets the
+   colour the fade ends in, laid down as a solid, and it runs all the way to the bottom of the
+   glass so there is one bar and one colour rather than a haze with numbers in it.
+
+   And it rides lower. It is a readout, not a control: the strip the system keeps for the home
+   indicator is not a place to put a button, and it is a perfectly good place to put a number.
+   The bar now ends where the screen does, with the figures held clear of the indicator by the
+   padding underneath them. */
+:root[data-mode] .stats{
+  background:var(--desk2);
+  border-top:0;
+  margin-bottom:calc(env(safe-area-inset-bottom) * -1);
+  padding-bottom:calc(env(safe-area-inset-bottom) * 0.32);
+}
+:root[data-sim][data-mode] .stats{
+  margin-bottom:calc(var(--simB,0px) * -1);
+  padding-bottom:calc(var(--simB,0px) * 0.32);
+}
+:root[data-mode] .stat{padding-top:4px;padding-bottom:4px}
+
+/* THE VERDICT SITS ON TOP.
+   The fade at the foot of the board is a fixed layer at the same depth as the verdict and
+   later in the paint order, so wherever the two met the answer went under the haze. It is the
+   one line on the board that has to be readable the instant it appears. */
+:root[data-mode] .stage>.verdict{z-index:3}
+
+/* THE LAND AND WATER TICKET.
+   It was drawn narrower than the rest of the pile on the grounds that a badge is a small
+   thing, and came out the thickest ticket on the desk, because its own name would not fit on
+   one line in what was left beside the badge. Same width as its neighbours, badge pulled in,
+   one line, and it is now the thin one it was meant to be. */
+.tag-steamer{padding:8px 12px 9px 48px}
+.tag-steamer::before{left:5px;width:34px;height:34px;margin-top:-17px}
+.tag-steamer .dname{margin-top:2px}
+
+/* THE BORDER WALK.
+   Two flags and a leg between them. The arrow is drawn now rather than typed, so it wants a
+   box rather than a font size, and the flags stand a little larger with the names gone from
+   under them. */
+.target.route{gap:4px;align-items:center}
+:root[data-mode] .target.route .thumb svg{width:58px}
+.target .arrow svg{display:block;width:40px;height:14px}
+:root[data-mode] .target .arrow{color:#8A5A3C;line-height:0}
+
+/* HOT AND COLD, AND WORLDLE.
+   The guesses were at the top of the board, above the planet, and the box you type them in
+   was at the bottom: the two halves of one action at opposite ends of the screen. The chips
+   travel down to sit directly over the box, and on the outline board they land under the
+   outline, which is the thing they are narrowing down.
+
+   The unused goes are drawn as slots, so five is something you can see rather than something
+   the question told you once. */
+:root[data-kind="globle"][data-mode] .stage>.verdict{order:3;margin-top:auto}
+:root[data-kind="globle"][data-mode] .stage>.chain{order:4;margin-top:0}
+:root[data-kind="globle"][data-mode] .stage>.typerow{order:5;margin-top:0}
+:root[data-kind="globle"][data-mode] .stage>.acts{order:6}
+:root[data-kind="globle"][data-mode="worldle"] .stage>.shapewrap{order:2}
+:root[data-kind="globle"][data-mode="worldle"] .stage>.chain{order:3;margin-top:0}
+:root[data-kind="globle"][data-mode="worldle"] .stage>.verdict{order:4;margin-top:auto}
+:root[data-mode] .chainchip.heatchip{box-shadow:0 0 0 1px rgba(36,24,18,.45)}
+:root[data-mode] .chainchip.heatchip.slot{
+  background:transparent;border-color:rgba(246,238,220,.5);color:rgba(246,238,220,.55);
+  box-shadow:none;min-width:26px;text-align:center;
+}
+
+/* THE FILE, WITH THE KEYBOARD OUT OF THE WAY.
+   The board was laid out around a keyboard that came up the moment it was dealt, which took
+   the bottom half of the screen before the file had been read. It waits to be tapped now, so
+   the ten lines get the room back. */
+:root[data-mode="dossier"] .dosclue{min-height:56px;padding:9px 11px 10px}
+:root[data-mode="dossier"] .dosclue b{font-size:16px}
+/* the shortest screen has no room to give: it keeps the flaps it had */
+:root[data-fit="tighter"][data-mode="dossier"] .dosclue{min-height:37px;padding:2px 10px 3px}
+:root[data-fit="tighter"][data-mode="dossier"] .dosclue b{font-size:14px}
+
+/* THREE, TWO, ONE, OVER NOTHING.
+   The count is an overlay on the card, and the card was still holding the last round's flag,
+   its four names and the ledger, all of it showing through the dim. Everything but the title
+   and the dial steps out of sight for the two seconds it lasts. Hidden rather than removed:
+   the card has to keep its height or the dial would not be in the middle of anything. */
+:root[data-count] .chips,
+:root[data-count] .stats,
+:root[data-count] .tally,
+:root[data-count] .stage>.timerbar,
+:root[data-count] .stage>.flagbox,
+:root[data-count] .stage>.opts,
+:root[data-count] .stage>.typerow,
+:root[data-count] .stage>.verdict,
+:root[data-count] .stage>.acts{visibility:hidden}
 </style>
 <section class="splash" id="splash" hidden>
   <span class="splashveil"></span>
@@ -5717,13 +5788,12 @@ body::before{background:#B44E2E}
   <span class="grainveil"></span>
   <span class="globehint" id="globehint"></span>
   <div class="introfoot">
-    <button class="btn" id="introstart"></button>
+    <button class="btn" id="introstats"></button>
     <button class="btn ghost" id="introlang">NL</button>
     <button class="btn ghost" id="introsound"></button>
     <button class="btn ghost" id="introfs">&#9974;</button>
     <button class="btn ghost" id="introphone"></button>
   </div>
-  <div class="introstats" id="introstats"></div>
   <span class="hovername" id="hovername"></span>
   <span class="build" id="build"></span>
 </section>
@@ -6342,11 +6412,10 @@ en:{sub:"countries · flags, globe, atlas",
   correct:"Correct.",wrongFlag:"Not quite. That was",picked:"You picked",
   highlighted:"is highlighted",shown:"Shown.",ocean:"Ocean. Try again.",openSea:"Open ocean.",
   search:"Search country",countCountries:"countries",
-  globetip:"Drag to spin · scroll to zoom · click the country",
+  globetip:"Drag to spin · pinch to zoom · tap a country",
   typeHere:"Type the country name",typeAny:"Either language is accepted.",
   noShape:"7 micro-states are too small to outline",
-  mSprint:"Sprint",mDaily:"Daily",askSprint:"Name as many flags as you can",
-  sprintReady:"{n} seconds. Ready.",
+  mSprint:"Sprint",mDaily:"Daily",askSprint:"Name as many flags as you can!",
   scoreIn:"correct in",best:"Best",again:"Run again",
   askDaily:"Walk overland from one country to the other",steps:"steps",par:"shortest:",
   already:"is already in the chain",notAdjacent:"does not border",solved:"Solved.",
@@ -6397,33 +6466,30 @@ en:{sub:"countries · flags, globe, atlas",
   inkRed:"red",inkWhite:"white",inkBlack:"black",inkGreen:"green",inkBlue:"blue",
   inkYellow:"yellow",inkOrange:"orange",inkSky:"light blue",
   mTrade:"The manifest",dTrade:"Name the country from what it sells",
-  askTrade:"Whose docks are these?",manifest:"Customs manifest",
+  askTrade:"Which country sells this?",manifest:"Customs manifest",
   manSells:"Sells",manBuys:"Buys",manWorth:"Economy",
   manRest:"Everything else",manApprox:"Shares by value, approximate",
   manOfWorld:"in the world",
   paceLab:"Time taken",perQ:"{n}s a question",poolLab:"Played",ofN2:"of {n}",
   askRiver:"Which river runs through it?",
-  askSea:"Which water does it put its ports on?",
-  askRange:"Which range gives it its skyline?",
+  askSea:"Which sea does this country border?",
+  askRange:"Which mountain range runs through it?",
   mRiver:"Rivers",dRiver:"The water that made the place",
   mRiverLoc:"Trace the river",dRiverLoc:"Find it running across the globe",
   mRangeLoc:"Find the range",dRangeLoc:"The ridges, drawn on the globe",
-  askTraceRiver:"Where in the world does it run?",
-  askTraceRange:"Where in the world does it rise?",
+  askTraceRiver:"Where on the globe does this river run?",
+  askTraceRange:"Where on the globe is this range?",
   noLine:"Nothing there. Try nearer the line.",
   tracedRiver:"rivers traced",tracedRange:"ranges found",linesLab:"on the globe",
-  mSea:"Seas and oceans",dSea:"Which water washes the coast",
+  mSea:"Seas and oceans",dSea:"Which sea lies off the coast",
   mRange:"Mountains",dRange:"The ranges that raise the skyline",
   mNature:"Land and water",dNature:"Rivers, coasts and high ground",
   mAtlasWork:"On the map",dAtlasWork:"Where in the world it actually is",
   mFigures:"By the numbers",dFigures:"How big, how many, how rich, what it sells",
   mWorldle:"Worldle",dWorldle:"The outline, then warmer and warmer",
-  askWorldle:"Name the outline. Every miss gives you a bearing.",
+  askWorldle:"Which country is this outline? Five tries.",
   mBlind:"Blind flags",dBlind:"No options. Write the country.",
   askBlind:"Name this flag",
-  mForgery:"Forgery desk",dForgery:"One flag on the blotter. What was done to it?",
-  askForgery:"What was done to this flag?",
-  forgeLead:"Trust nothing",
   mBorder:"Neighbours",dBorder:"Capitals, and every wrong one is next door",
   askImposter:"One of these four has been tampered with",
   impLead:"Spot the forgery",impFake:"the forgery",impReal:"the real one",
@@ -6432,12 +6498,13 @@ en:{sub:"countries · flags, globe, atlas",
   impborrow:"a colour borrowed from a neighbour",
   impmirror:"the flag is hung back to front",impupend:"the flag is upside down",
   impslide:"the badge has wandered off its place",impcharge:"the badge is the wrong size",
-  impspin:"the badge has been turned",impclean:"nothing. It is genuine",
-  impAsFiled:"as filed",forgeGot:"Read correctly",forgeNo:"Not what was done",
+  impspin:"the badge has been turned",
+  impgraft:"the badge was taken from {c}",impflip:"the badge is upside down",
+  impquarter:"the bands run the wrong way",
   mCities:"Cities",dCities:"Capitals of the world",
   mCountry:"Countries",dCountry:"Where they are, what shape, how big",
   overLands:"Terra firma",overCities:"City desk",
-  roundDone:"Round complete",perfectRound:"A perfect round",newRound:"Deal another twenty",
+  roundDone:"Round complete",perfectRound:"A perfect round",newRound:"Another round",
   splashLead:"Start the",splashGo:"Tap to begin",splashSub:"World service · est. 1926",
   mCap:"Capitals",dCap:"Which city runs the country",askCapital:"What is the capital of",
   mlCoast:"Coastline",mlBorder:"Land border",
@@ -6471,12 +6538,12 @@ en:{sub:"countries · flags, globe, atlas",
   thisIs:"This is",pinned:"Pinned on the globe.",notPlayed:"not one of the 197",
   rerollLab:"Reroll the day",
   overIssued:"Issued",overReturned:"Returned",overToday:"Today only",
-  dragHint:"Drag the globe · click a country",
+  dragHint:"Drag to spin · pinch to zoom · tap a country",
   mGloble:"Hot or cold",dGloble:"Warmer, warmer… found",askGloble:"Which country am I thinking of?",
   globleTip:"Type any country · the colour tells you how close you are",
-  worldleTip:"You get the shape. Every miss gives you the distance and the way to go.",
   guessesLab:"guesses",already2:"already guessed",heat0:"Boiling",heat1:"Hot",heat2:"Warm",
   heat3:"Mild",heat4:"Cool",heat5:"Freezing",
+  outOfTries:"Out of tries.",
   foundIn:"Found in {n} guesses",itWas:"It was {c}",newSecret:"New country",giveUp:"Give up",
   kindRoute:"Border walk",kindGloble:"Hot or cold",kindShape:"Outline of the day",
   runOver:"Every country, once. Here is the sheet.",placedRight:"placed right",
@@ -6486,7 +6553,7 @@ en:{sub:"countries · flags, globe, atlas",
   clueLab:"Clue stamps",clueRegion:"Region",clueNorth:"North up",clueBorders:"Neighbours",
   clueNorthDone:"turned upright",clueBordersN:"{n} land borders",
   clueCost:"{n} spent",clueStarts:"It starts with {c}",
-  statsTitle:"Personal dossier",career:"Career",skillFlags:"Flags",skillMap:"On the map",
+  statsShort:"Stats",statsTitle:"Personal dossier",career:"Career",skillFlags:"Flags",skillMap:"On the map",
   skillShape:"Outlines",byRegion:"By region",habit:"Habit",dailyStreakLab:"Daily streak",
   dailyBestLab:"Longest daily streak",daysPlayed:"Days played",globleLab:"Hot or cold",
   playedLab:"Played",solvedLab:"Solved",avgGuess:"Average guesses",fewestGuess:"Fewest guesses",
@@ -6518,11 +6585,10 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   correct:"Exact.",wrongFlag:"Presque. C'était",picked:"Vous avez choisi",
   highlighted:"est mis en évidence",shown:"Révélé.",ocean:"L'océan. Réessayez.",openSea:"Haute mer.",
   search:"Chercher un pays",countCountries:"pays",
-  globetip:"Faites tourner · molette pour zoomer · cliquez le pays",
+  globetip:"Glissez pour tourner · pincez pour zoomer · touchez un pays",
   typeHere:"Tapez le nom du pays",typeAny:"Toutes les langues sont acceptées.",
   noShape:"7 micro-États sont trop petits pour avoir une silhouette",
-  mSprint:"Sprint",mDaily:"Du jour",askSprint:"Nommez autant de drapeaux que possible",
-  sprintReady:"{n} secondes. Prêt.",
+  mSprint:"Sprint",mDaily:"Du jour",askSprint:"Nommez autant de drapeaux que possible !",
   scoreIn:"exacts en",best:"Record",again:"Recommencer",
   askDaily:"Marchez par voie de terre d'un pays à l'autre",steps:"étapes",par:"le plus court :",
   already:"est déjà dans la chaîne",notAdjacent:"ne borde pas",solved:"Résolu.",
@@ -6573,33 +6639,30 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   inkRed:"rouge",inkWhite:"blanc",inkBlack:"noir",inkGreen:"vert",inkBlue:"bleu",
   inkYellow:"jaune",inkOrange:"orange",inkSky:"bleu clair",
   mTrade:"Le manifeste",dTrade:"Nommez le pays d'après ce qu'il vend",
-  askTrade:"À qui sont ces quais ?",manifest:"Manifeste de douane",
+  askTrade:"Quel pays vend cela ?",manifest:"Manifeste de douane",
   manSells:"Vend",manBuys:"Achète",manWorth:"Économie",
   manRest:"Tout le reste",manApprox:"Parts en valeur, approximatives",
   manOfWorld:"dans le monde",
   paceLab:"Temps",perQ:"{n}s par question",poolLab:"Joué",ofN2:"sur {n}",
   askRiver:"Quel fleuve le traverse ?",
-  askSea:"Sur quelle eau donne-t-il ses ports ?",
-  askRange:"Quelle chaîne lui donne son horizon ?",
+  askSea:"Quelle mer borde ce pays ?",
+  askRange:"Quelle chaîne de montagnes le traverse ?",
   mRiver:"Fleuves",dRiver:"L'eau qui a fait le lieu",
   mRiverLoc:"Suivre le fleuve",dRiverLoc:"Le retrouver sur le globe",
   mRangeLoc:"Trouver la chaîne",dRangeLoc:"Les crêtes, dessinées sur le globe",
-  askTraceRiver:"Où dans le monde coule-t-il ?",
-  askTraceRange:"Où dans le monde s'élève-t-elle ?",
+  askTraceRiver:"Où sur le globe coule ce fleuve ?",
+  askTraceRange:"Où sur le globe se trouve cette chaîne ?",
   noLine:"Rien ici. Essayez plus près du tracé.",
   tracedRiver:"fleuves suivis",tracedRange:"chaînes trouvées",linesLab:"sur le globe",
-  mSea:"Mers et océans",dSea:"Quelle eau baigne la côte",
+  mSea:"Mers et océans",dSea:"Quelle mer borde la côte",
   mRange:"Montagnes",dRange:"Les chaînes qui dressent l'horizon",
   mNature:"Terre et eau",dNature:"Fleuves, côtes et hauteurs",
   mAtlasWork:"Sur la carte",dAtlasWork:"Où il se trouve vraiment",
   mFigures:"En chiffres",dFigures:"Quelle taille, combien, quelle richesse, ce qu'il vend",
   mWorldle:"Worldle",dWorldle:"La silhouette, puis de plus en plus chaud",
-  askWorldle:"Nommez la silhouette. Chaque erreur vous donne un cap.",
+  askWorldle:"Quel pays a cette silhouette ? Cinq essais.",
   mBlind:"Drapeaux à l'aveugle",dBlind:"Aucune option. Écrivez le pays.",
   askBlind:"Nommez ce drapeau",
-  mForgery:"Bureau des faux",dForgery:"Un drapeau sur le sous-main. Que lui a-t-on fait ?",
-  askForgery:"Qu'a-t-on fait à ce drapeau ?",
-  forgeLead:"Ne croyez rien",
   mBorder:"Voisins",dBorder:"Des capitales, et chaque erreur est à côté",
   askImposter:"L'un de ces quatre a été trafiqué",
   impLead:"Repérez le faux",impFake:"le faux",impReal:"le vrai",
@@ -6608,12 +6671,13 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   impborrow:"une couleur empruntée à un voisin",
   impmirror:"le drapeau est accroché à l'envers",impupend:"le drapeau est la tête en bas",
   impslide:"l'emblème a quitté sa place",impcharge:"l'emblème n'est pas à la bonne taille",
-  impspin:"l'emblème a été tourné",impclean:"rien. Il est authentique",
-  impAsFiled:"tel que déposé",forgeGot:"Bien lu",forgeNo:"Ce n'est pas ce qui a été fait",
+  impspin:"l'emblème a été tourné",
+  impgraft:"l'emblème vient de {c}",impflip:"l'emblème est à l'envers",
+  impquarter:"les bandes vont dans le mauvais sens",
   mCities:"Villes",dCities:"Les capitales du monde",
   mCountry:"Pays",dCountry:"Où ils sont, quelle forme, quelle taille",
   overLands:"Terre ferme",overCities:"Bureau des villes",
-  roundDone:"Manche terminée",perfectRound:"Une manche parfaite",newRound:"Encore vingt",
+  roundDone:"Manche terminée",perfectRound:"Une manche parfaite",newRound:"Encore un tour",
   splashLead:"Commencez le",splashGo:"Touchez pour commencer",splashSub:"Service mondial · fondé en 1926",
   mCap:"Capitales",dCap:"Quelle ville gouverne le pays",askCapital:"Quelle est la capitale de",
   mlCoast:"Littoral",mlBorder:"Frontière terrestre",
@@ -6647,12 +6711,12 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   thisIs:"Voici",pinned:"Épinglé sur le globe.",notPlayed:"pas l'un des 197",
   rerollLab:"Retirer le jour",
   overIssued:"Délivré",overReturned:"Rendu",overToday:"Aujourd'hui seulement",
-  dragHint:"Faites tourner le globe · cliquez un pays",
+  dragHint:"Glissez pour tourner · pincez pour zoomer · touchez un pays",
   mGloble:"Chaud ou froid",dGloble:"Plus chaud, plus chaud… trouvé",askGloble:"À quel pays est-ce que je pense ?",
   globleTip:"Tapez n'importe quel pays · la couleur dit votre distance",
-  worldleTip:"Vous avez la forme. Chaque erreur donne la distance et la direction.",
   guessesLab:"essais",already2:"déjà proposé",heat0:"Brûlant",heat1:"Chaud",heat2:"Tiède",
   heat3:"Doux",heat4:"Frais",heat5:"Glacial",
+  outOfTries:"Plus d'essais.",
   foundIn:"Trouvé en {n} essais",itWas:"C'était {c}",newSecret:"Nouveau pays",giveUp:"Abandonner",
   kindRoute:"Marche des frontières",kindGloble:"Chaud ou froid",kindShape:"Silhouette du jour",
   runOver:"Chaque pays, une fois. Voici la feuille.",placedRight:"bien placés",
@@ -6662,7 +6726,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   clueLab:"Tampons d'indice",clueRegion:"Région",clueNorth:"Nord en haut",clueBorders:"Voisins",
   clueNorthDone:"remise à l'endroit",clueBordersN:"{n} frontières terrestres",
   clueCost:"{n} dépensés",clueStarts:"Cela commence par {c}",
-  statsTitle:"Dossier personnel",career:"Carrière",skillFlags:"Drapeaux",skillMap:"Sur la carte",
+  statsShort:"Stats",statsTitle:"Dossier personnel",career:"Carrière",skillFlags:"Drapeaux",skillMap:"Sur la carte",
   skillShape:"Silhouettes",byRegion:"Par région",habit:"Habitude",dailyStreakLab:"Série quotidienne",
   dailyBestLab:"Plus longue série quotidienne",daysPlayed:"Jours joués",globleLab:"Chaud ou froid",
   playedLab:"Joué",solvedLab:"Résolu",avgGuess:"Essais en moyenne",fewestGuess:"Moins d'essais",
@@ -6694,11 +6758,10 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   correct:"Richtig.",wrongFlag:"Fast. Das war",picked:"Du hast gewählt",
   highlighted:"ist hervorgehoben",shown:"Aufgedeckt.",ocean:"Ozean. Noch einmal.",openSea:"Offenes Meer.",
   search:"Land suchen",countCountries:"Länder",
-  globetip:"Ziehen zum Drehen · scrollen zum Zoomen · Land anklicken",
+  globetip:"Ziehen zum Drehen · mit zwei Fingern zoomen · Land antippen",
   typeHere:"Ländernamen eintippen",typeAny:"Jede Sprache wird akzeptiert.",
   noShape:"7 Kleinststaaten sind zu klein für einen Umriss",
-  mSprint:"Sprint",mDaily:"Tagesspiel",askSprint:"Benenne so viele Flaggen wie möglich",
-  sprintReady:"{n} Sekunden. Bereit.",
+  mSprint:"Sprint",mDaily:"Tagesspiel",askSprint:"Benenne so viele Flaggen wie möglich!",
   scoreIn:"richtig in",best:"Bestwert",again:"Nochmal",
   askDaily:"Geh über Land von einem Land zum anderen",steps:"Schritte",par:"kürzester Weg:",
   already:"ist schon in der Kette",notAdjacent:"grenzt nicht an",solved:"Gelöst.",
@@ -6749,33 +6812,30 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   inkRed:"rot",inkWhite:"weiß",inkBlack:"schwarz",inkGreen:"grün",inkBlue:"blau",
   inkYellow:"gelb",inkOrange:"orange",inkSky:"hellblau",
   mTrade:"Das Manifest",dTrade:"Benenne das Land nach dem, was es verkauft",
-  askTrade:"Wessen Hafen ist das?",manifest:"Zollmanifest",
+  askTrade:"Welches Land verkauft das?",manifest:"Zollmanifest",
   manSells:"Verkauft",manBuys:"Kauft",manWorth:"Wirtschaft",
   manRest:"Alles \u00fcbrige",manApprox:"Anteile am Wert, ungef\u00e4hr",
   manOfWorld:"weltweit",
   paceLab:"Zeit",perQ:"{n}s je Frage",poolLab:"Gespielt",ofN2:"von {n}",
   askRiver:"Welcher Fluss läuft hindurch?",
-  askSea:"An welchem Wasser liegen seine Häfen?",
-  askRange:"Welches Gebirge gibt ihm seine Silhouette?",
+  askSea:"An welches Meer grenzt dieses Land?",
+  askRange:"Welches Gebirge verläuft durch dieses Land?",
   mRiver:"Flüsse",dRiver:"Das Wasser, das den Ort gemacht hat",
   mRiverLoc:"Fluss verfolgen",dRiverLoc:"Ihn auf dem Globus wiederfinden",
   mRangeLoc:"Gebirge finden",dRangeLoc:"Die Kämme, auf den Globus gezeichnet",
-  askTraceRiver:"Wo auf der Welt läuft er?",
-  askTraceRange:"Wo auf der Welt erhebt es sich?",
+  askTraceRiver:"Wo auf dem Globus verläuft dieser Fluss?",
+  askTraceRange:"Wo auf dem Globus liegt dieses Gebirge?",
   noLine:"Dort ist nichts. Näher an der Linie versuchen.",
   tracedRiver:"Flüsse verfolgt",tracedRange:"Gebirge gefunden",linesLab:"auf dem Globus",
-  mSea:"Meere und Ozeane",dSea:"Welches Wasser umspült die Küste",
+  mSea:"Meere und Ozeane",dSea:"Welches Meer liegt vor der Küste",
   mRange:"Berge",dRange:"Die Ketten, die den Horizont heben",
   mNature:"Land und Wasser",dNature:"Flüsse, Küsten und Höhen",
   mAtlasWork:"Auf der Karte",dAtlasWork:"Wo es wirklich liegt",
   mFigures:"In Zahlen",dFigures:"Wie groß, wie viele, wie reich, was es verkauft",
   mWorldle:"Worldle",dWorldle:"Der Umriss, dann wärmer und wärmer",
-  askWorldle:"Benenne den Umriss. Jeder Fehlversuch gibt dir eine Peilung.",
+  askWorldle:"Welches Land hat diesen Umriss? Fünf Versuche.",
   mBlind:"Blinde Flaggen",dBlind:"Keine Auswahl. Schreib das Land.",
   askBlind:"Benenne diese Flagge",
-  mForgery:"Fälscherwerkstatt",dForgery:"Eine Flagge auf der Unterlage. Was wurde mit ihr gemacht?",
-  askForgery:"Was wurde mit dieser Flagge gemacht?",
-  forgeLead:"Trau nichts",
   mBorder:"Nachbarn",dBorder:"Hauptstädte, und jede falsche liegt nebenan",
   askImposter:"An einer dieser vier wurde gedreht",
   impLead:"Finde die Fälschung",impFake:"die Fälschung",impReal:"die echte",
@@ -6784,12 +6844,13 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   impborrow:"eine Farbe vom Nachbarn geliehen",
   impmirror:"die Flagge hängt seitenverkehrt",impupend:"die Flagge steht auf dem Kopf",
   impslide:"das Zeichen ist verrutscht",impcharge:"das Zeichen hat die falsche Größe",
-  impspin:"das Zeichen wurde gedreht",impclean:"nichts. Sie ist echt",
-  impAsFiled:"wie eingereicht",forgeGot:"Richtig gelesen",forgeNo:"So war es nicht",
+  impspin:"das Zeichen wurde gedreht",
+  impgraft:"das Zeichen stammt von {c}",impflip:"das Zeichen steht auf dem Kopf",
+  impquarter:"die Streifen laufen falsch herum",
   mCities:"Städte",dCities:"Hauptstädte der Welt",
   mCountry:"Länder",dCountry:"Wo sie liegen, welche Form, wie groß",
   overLands:"Fester Boden",overCities:"Städtepult",
-  roundDone:"Runde beendet",perfectRound:"Eine makellose Runde",newRound:"Noch zwanzig",
+  roundDone:"Runde beendet",perfectRound:"Eine makellose Runde",newRound:"Noch eine Runde",
   splashLead:"Beginne die",splashGo:"Tippen zum Starten",splashSub:"Weltdienst · gegr. 1926",
   mCap:"Hauptstädte",dCap:"Welche Stadt regiert das Land",askCapital:"Was ist die Hauptstadt von",
   mlCoast:"Küstenlinie",mlBorder:"Landgrenze",
@@ -6823,12 +6884,12 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   thisIs:"Das ist",pinned:"Auf dem Globus markiert.",notPlayed:"keines der 197",
   rerollLab:"Tag neu ziehen",
   overIssued:"Ausgestellt",overReturned:"Zurück",overToday:"Nur heute",
-  dragHint:"Globus ziehen · Land anklicken",
+  dragHint:"Ziehen zum Drehen · mit zwei Fingern zoomen · Land antippen",
   mGloble:"Heiß oder kalt",dGloble:"Wärmer, wärmer… gefunden",askGloble:"An welches Land denke ich?",
   globleTip:"Tippe ein Land ein · die Farbe sagt, wie nah du bist",
-  worldleTip:"Du bekommst die Form. Jeder Fehlversuch gibt Entfernung und Richtung.",
   guessesLab:"Versuche",already2:"schon geraten",heat0:"Kochend",heat1:"Heiß",heat2:"Warm",
   heat3:"Lau",heat4:"Kühl",heat5:"Eiskalt",
+  outOfTries:"Keine Versuche mehr.",
   foundIn:"Gefunden in {n} Versuchen",itWas:"Es war {c}",newSecret:"Neues Land",giveUp:"Aufgeben",
   kindRoute:"Grenzwanderung",kindGloble:"Heiß oder kalt",kindShape:"Umriss des Tages",
   runOver:"Jedes Land, einmal. Hier ist der Bogen.",placedRight:"richtig gesetzt",
@@ -6838,7 +6899,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   clueLab:"Hinweisstempel",clueRegion:"Region",clueNorth:"Norden oben",clueBorders:"Nachbarn",
   clueNorthDone:"aufgerichtet",clueBordersN:"{n} Landgrenzen",
   clueCost:"{n} ausgegeben",clueStarts:"Es beginnt mit {c}",
-  statsTitle:"Persönliche Akte",career:"Laufbahn",skillFlags:"Flaggen",skillMap:"Auf der Karte",
+  statsShort:"Statistik",statsTitle:"Persönliche Akte",career:"Laufbahn",skillFlags:"Flaggen",skillMap:"Auf der Karte",
   skillShape:"Umrisse",byRegion:"Nach Region",habit:"Gewohnheit",dailyStreakLab:"Tagesserie",
   dailyBestLab:"Längste Tagesserie",daysPlayed:"Gespielte Tage",globleLab:"Heiß oder kalt",
   playedLab:"Gespielt",solvedLab:"Gelöst",avgGuess:"Versuche im Schnitt",fewestGuess:"Wenigste Versuche",
@@ -6870,11 +6931,10 @@ es:{sub:"países · banderas, globo, atlas",
   correct:"Correcto.",wrongFlag:"Casi. Era",picked:"Elegiste",
   highlighted:"está resaltado",shown:"Revelado.",ocean:"Océano. Inténtalo otra vez.",openSea:"Mar abierto.",
   search:"Buscar país",countCountries:"países",
-  globetip:"Arrastra para girar · rueda para acercar · pulsa el país",
+  globetip:"Arrastra para girar · pellizca para acercar · toca un país",
   typeHere:"Escribe el nombre del país",typeAny:"Se acepta cualquier idioma.",
   noShape:"7 microestados son demasiado pequeños para tener silueta",
-  mSprint:"Sprint",mDaily:"Del día",askSprint:"Nombra tantas banderas como puedas",
-  sprintReady:"{n} segundos. Listo.",
+  mSprint:"Sprint",mDaily:"Del día",askSprint:"¡Nombra tantas banderas como puedas!",
   scoreIn:"aciertos en",best:"Récord",again:"Otra vez",
   askDaily:"Camina por tierra de un país al otro",steps:"pasos",par:"el más corto:",
   already:"ya está en la cadena",notAdjacent:"no linda con",solved:"Resuelto.",
@@ -6925,33 +6985,30 @@ es:{sub:"países · banderas, globo, atlas",
   inkRed:"rojo",inkWhite:"blanco",inkBlack:"negro",inkGreen:"verde",inkBlue:"azul",
   inkYellow:"amarillo",inkOrange:"naranja",inkSky:"azul claro",
   mTrade:"El manifiesto",dTrade:"Nombra el país por lo que vende",
-  askTrade:"¿De quién son estos muelles?",manifest:"Manifiesto de aduanas",
+  askTrade:"¿Qué país vende esto?",manifest:"Manifiesto de aduanas",
   manSells:"Vende",manBuys:"Compra",manWorth:"Economía",
   manRest:"Todo lo demás",manApprox:"Cuotas por valor, aproximadas",
   manOfWorld:"del mundo",
   paceLab:"Tiempo",perQ:"{n}s por pregunta",poolLab:"Jugado",ofN2:"de {n}",
   askRiver:"¿Qué río lo atraviesa?",
-  askSea:"¿A qué agua dan sus puertos?",
-  askRange:"¿Qué cordillera le da su horizonte?",
+  askSea:"¿A qué mar da este país?",
+  askRange:"¿Qué cordillera lo atraviesa?",
   mRiver:"Ríos",dRiver:"El agua que hizo el lugar",
   mRiverLoc:"Sigue el río",dRiverLoc:"Encuéntralo corriendo por el globo",
   mRangeLoc:"Encuentra la cordillera",dRangeLoc:"Las crestas, dibujadas en el globo",
-  askTraceRiver:"¿Por dónde del mundo corre?",
-  askTraceRange:"¿Dónde del mundo se levanta?",
+  askTraceRiver:"¿Dónde en el globo corre este río?",
+  askTraceRange:"¿Dónde en el globo está esta cordillera?",
   noLine:"Ahí no hay nada. Prueba más cerca de la línea.",
   tracedRiver:"ríos seguidos",tracedRange:"cordilleras halladas",linesLab:"en el globo",
-  mSea:"Mares y océanos",dSea:"Qué agua baña la costa",
+  mSea:"Mares y océanos",dSea:"Qué mar hay frente a la costa",
   mRange:"Montañas",dRange:"Las cordilleras que levantan el horizonte",
   mNature:"Tierra y agua",dNature:"Ríos, costas y alturas",
   mAtlasWork:"En el mapa",dAtlasWork:"Dónde está de verdad",
   mFigures:"En cifras",dFigures:"Qué tamaño, cuántos, qué riqueza, qué vende",
   mWorldle:"Worldle",dWorldle:"La silueta, y luego más y más caliente",
-  askWorldle:"Nombra la silueta. Cada fallo te da un rumbo.",
+  askWorldle:"¿Qué país tiene esta silueta? Cinco intentos.",
   mBlind:"Banderas a ciegas",dBlind:"Sin opciones. Escribe el país.",
   askBlind:"Nombra esta bandera",
-  mForgery:"Taller de falsificación",dForgery:"Una bandera sobre la carpeta. ¿Qué le han hecho?",
-  askForgery:"¿Qué le han hecho a esta bandera?",
-  forgeLead:"No te fíes de nada",
   mBorder:"Vecinos",dBorder:"Capitales, y cada respuesta falsa está al lado",
   askImposter:"Una de estas cuatro ha sido manipulada",
   impLead:"Encuentra la falsificación",impFake:"la falsificación",impReal:"la auténtica",
@@ -6960,12 +7017,13 @@ es:{sub:"países · banderas, globo, atlas",
   impborrow:"un color prestado de un vecino",
   impmirror:"la bandera está colgada al revés",impupend:"la bandera está boca abajo",
   impslide:"el emblema se ha salido de su sitio",impcharge:"el emblema no tiene el tamaño correcto",
-  impspin:"el emblema ha sido girado",impclean:"nada. Es auténtica",
-  impAsFiled:"tal como se presentó",forgeGot:"Bien leído",forgeNo:"No es lo que se hizo",
+  impspin:"el emblema ha sido girado",
+  impgraft:"el emblema es de {c}",impflip:"el emblema está boca abajo",
+  impquarter:"las franjas van en el sentido equivocado",
   mCities:"Ciudades",dCities:"Capitales del mundo",
   mCountry:"Países",dCountry:"Dónde están, qué forma, qué tamaño",
   overLands:"Tierra firme",overCities:"Mesa de ciudades",
-  roundDone:"Ronda completa",perfectRound:"Una ronda perfecta",newRound:"Otras veinte",
+  roundDone:"Ronda completa",perfectRound:"Una ronda perfecta",newRound:"Otra ronda",
   splashLead:"Empieza el",splashGo:"Pulsa para empezar",splashSub:"Servicio mundial · desde 1926",
   mCap:"Capitales",dCap:"Qué ciudad gobierna el país",askCapital:"¿Cuál es la capital de",
   mlCoast:"Costa",mlBorder:"Frontera terrestre",
@@ -6999,12 +7057,12 @@ es:{sub:"países · banderas, globo, atlas",
   thisIs:"Esto es",pinned:"Marcado en el globo.",notPlayed:"no es uno de los 197",
   rerollLab:"Volver a sortear el día",
   overIssued:"Expedido",overReturned:"Devuelto",overToday:"Solo hoy",
-  dragHint:"Arrastra el globo · pulsa un país",
+  dragHint:"Arrastra para girar · pellizca para acercar · toca un país",
   mGloble:"Frío o caliente",dGloble:"Más caliente, más caliente… encontrado",askGloble:"¿En qué país estoy pensando?",
   globleTip:"Escribe cualquier país · el color dice cuánto te acercas",
-  worldleTip:"Tienes la forma. Cada fallo te da la distancia y el rumbo.",
   guessesLab:"intentos",already2:"ya propuesto",heat0:"Ardiendo",heat1:"Caliente",heat2:"Templado",
   heat3:"Suave",heat4:"Fresco",heat5:"Helado",
+  outOfTries:"Sin intentos.",
   foundIn:"Encontrado en {n} intentos",itWas:"Era {c}",newSecret:"Nuevo país",giveUp:"Rendirse",
   kindRoute:"Paseo por las fronteras",kindGloble:"Frío o caliente",kindShape:"Silueta del día",
   runOver:"Cada país, una vez. Aquí está la hoja.",placedRight:"bien colocados",
@@ -7014,7 +7072,7 @@ es:{sub:"países · banderas, globo, atlas",
   clueLab:"Sellos de pista",clueRegion:"Región",clueNorth:"Norte arriba",clueBorders:"Vecinos",
   clueNorthDone:"puesta derecha",clueBordersN:"{n} fronteras terrestres",
   clueCost:"{n} gastados",clueStarts:"Empieza por {c}",
-  statsTitle:"Expediente personal",career:"Trayectoria",skillFlags:"Banderas",skillMap:"En el mapa",
+  statsShort:"Datos",statsTitle:"Expediente personal",career:"Trayectoria",skillFlags:"Banderas",skillMap:"En el mapa",
   skillShape:"Siluetas",byRegion:"Por región",habit:"Costumbre",dailyStreakLab:"Racha diaria",
   dailyBestLab:"Racha diaria más larga",daysPlayed:"Días jugados",globleLab:"Frío o caliente",
   playedLab:"Jugadas",solvedLab:"Resueltas",avgGuess:"Intentos de media",fewestGuess:"Menos intentos",
@@ -7046,24 +7104,23 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   correct:"Goed.",wrongFlag:"Net niet. Dit was",picked:"Je koos",
   highlighted:"is gemarkeerd",shown:"Getoond.",ocean:"Oceaan. Probeer opnieuw.",openSea:"Open zee.",
   search:"Zoek land",countCountries:"landen",
-  globetip:"Sleep om te draaien · scroll om te zoomen · klik het land",
-  typeHere:"Typ de landnaam",typeAny:"Beide talen worden goedgekeurd.",
+  globetip:"Sleep om te draaien · knijp om te zoomen · tik een land",
+  typeHere:"Typ de landnaam",typeAny:"Nederlands en Engels mogen allebei.",
   noShape:"7 ministaatjes zijn te klein voor een omtrek",
-  mSprint:"Sprint",mDaily:"Dagelijks",askSprint:"Noem zoveel mogelijk vlaggen",
-  sprintReady:"{n} seconden. Klaarstaan.",
+  mSprint:"Sprint",mDaily:"Dagelijks",askSprint:"Noem zoveel mogelijk vlaggen!",
   scoreIn:"goed in",best:"Record",again:"Nog een keer",
-  askDaily:"Loop over land van het ene land naar het andere",steps:"stappen",par:"kortste:",
+  askDaily:"Zoek een route over land tussen deze twee landen",steps:"stappen",par:"kortste:",
   already:"zit al in de rij",notAdjacent:"grenst niet aan",solved:"Opgelost.",
   noSuchCountry:"Geen land met die naam.",dailyHint:"Typ een buurland",
   tricky:"Lastig",missed:"Deze ronde gemist",copy:"Kopieer resultaat",copied:"Gekopieerd.",
-  tagline:"De wereld, netjes gearchiveerd",startPlay:"Open de la",continue:"Verder spelen",
+  tagline:"De wereld, netjes gearchiveerd",startPlay:"Beginnen",continue:"Verder spelen",
   rank:"Rang",levelUp:"Bevorderd",menu:"Menu",soundOn:"Geluid aan",soundOff:"Geluid uit",go:"START",
   done:"Klaar",newToday:"Nieuw vandaag",streakBest:"Beste reeks",sprintBest:"Beste sprint",
   mMinis:"Minigames",dMinis:"Wat nergens anders past",miniCount:"spellen",miniOne:"spel",overGames:"Speelkamer",
   mFlags:"Vlaggen",dFlags:"Noem ze en zoek ze",
   opensAt:"Gaat open bij",newGame:"Vrijgespeeld",promoteLab:"Debug: +100 XP",
-  rankOpens:"{n} nieuwe spellen, allemaal van jou",rankOnward:"Hier is niets nieuws verzegeld. Ga door.",
-  rankTake:"Naar de tafel",xpLab:"XP",phoneWaking:"De telefoon start nog op.",
+  rankOpens:"{n} nieuwe spellen, allemaal van jou",rankOnward:"Er gaat nu niets nieuws open. Speel verder.",
+  rankTake:"Aan de slag",xpLab:"XP",phoneWaking:"De telefoon start nog op.",
   mImposter:"Bedrieger",dImposter:"Drie echte vlaggen en één vervalsing",
   mLook:"Dubbelgangers",dLook:"Noem het, en elk fout antwoord lijkt erop",
   askLook:"Deze vier lijken op elkaar. Welk land is het?",
@@ -7077,7 +7134,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   askRich:"Verdient {c} meer of minder per hoofd dan {o}?",
   richMore:"Meer",richLess:"Minder",
   mDense:"Vol of leeg",dDense:"Welk land woont dichter op elkaar",
-  askDense:"Woont {c} dichter op elkaar of leger dan {o}?",
+  askDense:"Wonen er in {c} meer of minder mensen per km\u00b2 dan in {o}?",
   denseMore:"Dichter",denseLess:"Leger",
   mEconomy:"De grootste beurs",dEconomy:"Welke economie is in totaal groter",
   askEconomy:"Is heel {c} meer of minder waard dan {o}?",
@@ -7091,43 +7148,40 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   mDossier:"Het dossier",dDossier:"Noem het land aan de hand van zijn dossier",
   askDossier:"Van wie is dit dossier?",
   dosFile:"Vertrouwelijk dossier",dosWorth:"punten",
-  dosGot:"Gearchiveerd voor {n}",
+  dosGot:"Opgelost voor {n}",
   dosRegion:"Werelddeel",dosPeople:"Inwoners",dosLand:"Oppervlakte",dosInk:"Vlagkleuren",
-  dosWalk:"Landgrenzen",dosPurse:"Verdiend per hoofd",dosWater:"Water en gesteente",
+  dosWalk:"Landgrenzen",dosPurse:"Verdiend per hoofd",dosWater:"Water en bergen",
   dosFamous:"Bekend om",dosLetter:"Eerste letter",dosSeat:"Regeringszetel",
   ptsShort:"ptn",legOf:"spel {n} van {t}",dosRank:"Grootte in de wereld",dosRankVal:"{n} grootste",dosNextdoor:"Buurland",
-  dosLeft:"nog {n} namen",dosCold:"Ongelezen opgeborgen",
-  dosTotal:"Verdiende kosten",dosOutOf:"van {n}",dosRecord:"Beste middag",dosShort:"{n} tekort",
+  dosLeft:"nog {n} namen",dosCold:"Niet geraden",
+  dosTotal:"Totaal verdiend",dosOutOf:"van {n}",dosRecord:"Beste ronde",dosShort:"{n} tekort",
   inkRed:"rood",inkWhite:"wit",inkBlack:"zwart",inkGreen:"groen",inkBlue:"blauw",
   inkYellow:"geel",inkOrange:"oranje",inkSky:"lichtblauw",
-  mTrade:"De vrachtbrief",dTrade:"Noem het land aan wat het verkoopt",
-  askTrade:"Van wie zijn deze kades?",manifest:"Douanelijst",
+  mTrade:"De vrachtbrief",dTrade:"Herken het land aan wat het verkoopt",
+  askTrade:"Welk land verkoopt dit?",manifest:"Douanelijst",
   manSells:"Verkoopt",manBuys:"Koopt",manWorth:"Economie",
-  manRest:"Al de rest",manApprox:"Aandeel in waarde, bij benadering",
+  manRest:"De rest",manApprox:"Aandeel in de export, ongeveer",
   manOfWorld:"ter wereld",
   paceLab:"Tijd",perQ:"{n}s per vraag",poolLab:"Gespeeld",ofN2:"van {n}",
   askRiver:"Welke rivier loopt erdoor?",
-  askSea:"Aan welk water liggen de havens?",
-  askRange:"Welk gebergte bepaalt de horizon?",
-  mRiver:"Rivieren",dRiver:"Het water dat de plek maakte",
-  mRiverLoc:"Volg de rivier",dRiverLoc:"Vind hem op de globe",
+  askSea:"Aan welke zee ligt dit land?",
+  askRange:"Welk gebergte loopt door dit land?",
+  mRiver:"Rivieren",dRiver:"Welke rivier hoort bij welk land",
+  mRiverLoc:"Volg de rivier",dRiverLoc:"Vind de rivier op de globe",
   mRangeLoc:"Zoek het gebergte",dRangeLoc:"De ketens, getekend op de globe",
-  askTraceRiver:"Waar ter wereld loopt hij?",
-  askTraceRange:"Waar ter wereld rijst hij op?",
+  askTraceRiver:"Waar op de globe loopt deze rivier?",
+  askTraceRange:"Waar op de globe ligt dit gebergte?",
   noLine:"Daar ligt niets. Probeer dichter bij de lijn.",
   tracedRiver:"rivieren gevolgd",tracedRange:"ketens gevonden",linesLab:"op de globe",
-  mSea:"Zeeën en oceanen",dSea:"Welk water spoelt de kust",
-  mRange:"Bergen",dRange:"De ketens die de horizon optillen",
+  mSea:"Zeeën en oceanen",dSea:"Welke zee ligt voor de kust",
+  mRange:"Bergen",dRange:"De grote bergketens van de wereld",
   mNature:"Land en water",dNature:"Rivieren, kusten en hoogland",
   mAtlasWork:"Op de kaart",dAtlasWork:"Waar het werkelijk ligt",
   mFigures:"In cijfers",dFigures:"Hoe groot, hoeveel, hoe rijk, wat het verkoopt",
   mWorldle:"Worldle",dWorldle:"De omtrek, en dan warmer en warmer",
-  askWorldle:"Noem de omtrek. Elke misser geeft je een peiling.",
+  askWorldle:"Welk land heeft deze omtrek? Vijf pogingen.",
   mBlind:"Blinde vlaggen",dBlind:"Geen keuzes. Schrijf het land.",
   askBlind:"Noem deze vlag",
-  mForgery:"Vervalsingsbureau",dForgery:"Eén vlag op het vloeiblad. Wat is ermee gedaan?",
-  askForgery:"Wat is er met deze vlag gedaan?",
-  forgeLead:"Vertrouw niets",
   mBorder:"Buren",dBorder:"Hoofdsteden, en elke foute ligt naast de deur",
   askImposter:"Met één van deze vier vlaggen is geknoeid",
   impLead:"Zoek de vervalsing",impFake:"de vervalsing",impReal:"de echte",
@@ -7136,19 +7190,20 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   impborrow:"een kleur geleend van een buurland",
   impmirror:"de vlag hangt achterstevoren",impupend:"de vlag hangt ondersteboven",
   impslide:"het teken is van zijn plek geschoven",impcharge:"het teken heeft de verkeerde maat",
-  impspin:"het teken is gedraaid",impclean:"niets. Hij is echt",
-  impAsFiled:"zoals ingediend",forgeGot:"Goed gelezen",forgeNo:"Dat is niet wat er gebeurd is",
+  impspin:"het teken is gedraaid",
+  impgraft:"het teken komt van {c}",impflip:"het teken staat op zijn kop",
+  impquarter:"de banen lopen de verkeerde kant op",
   mCities:"Steden",dCities:"Hoofdsteden van de wereld",
   mCountry:"Landen",dCountry:"Waar ze liggen, welke vorm, hoe groot",
-  overLands:"Terra firma",overCities:"Stadsbureau",
-  roundDone:"Ronde compleet",perfectRound:"Een perfecte ronde",newRound:"Nog twintig",
+  overLands:"Vasteland",overCities:"Steden",
+  roundDone:"Ronde compleet",perfectRound:"Een perfecte ronde",newRound:"Nog een ronde",
   splashLead:"Start de",splashGo:"Tik om te beginnen",splashSub:"Wereldreisdienst · sinds 1926",
   mCap:"Hoofdsteden",dCap:"Welke stad bestuurt het land",askCapital:"Wat is de hoofdstad van",
   mlCoast:"Kustlijn",mlBorder:"Landgrens",
   askCoast:"Heeft {c} meer of minder kustlijn dan {o}?",askBorder:"Heeft {c} meer of minder landgrens dan {o}?",
   lenLonger:"Langer",lenShorter:"Korter",
   streakRan:"op een rij",newBest:"nieuw record",noLandBorder:"geen landgrens",
-  mBigger:"Meer of minder",dBigger:"Twee landen, \u00e9\u00e9n kolom, elke keer opnieuw geloot",
+  mBigger:"Meer of minder",dBigger:"Twee landen, \u00e9\u00e9n vraag, elke keer anders",
   askBigger:"Is {c} groter of kleiner dan {o}?",
   askRivers:"Lopen er meer of minder rivieren door {c} dan door {o}?",
   askRanges:"Doorkruisen meer of minder gebergtes {c} dan {o}?",
@@ -7158,9 +7213,9 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   mlEconomy:"De hele economie",mlDense:"Inwoners per km\u00b2",mlNeigh:"Landgrenzen",
   mlNorth:"Hoe ver noordelijk",mlRivers:"Rivieren",mlRanges:"Gebergtes",
   mlSeas:"Zee\u00ebn bereikt",
-  bigKnown:"Bekend",bigAsked:"Beoordeel deze",bigThan:"dan {o}",
+  bigKnown:"Bekend",bigAsked:"En deze?",bigThan:"dan {o}",
   bigBigger:"Groter",bigSmaller:"Kleiner",bigVs:"vs",
-  bigStreak:"Reeks {n}",bigBest:"record {n}",bigOut:"Andersom.",bigScore:"Reeks gestopt op {n}",
+  bigStreak:"Reeks {n}",bigBest:"record {n}",bigOut:"Net omgekeerd.",bigScore:"Reeks gestopt op {n}",
   kindBigger:"Groter of kleiner",
   cotdTitle:"Land van de dag",capital:"Hoofdstad",people:"Inwoners",areaLbl:"Oppervlak",
   borders:"Grenst aan",island:"Geen landgrenzen, een eilandstaat",locationLbl:"Ligt op",
@@ -7175,22 +7230,22 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   thisIs:"Dit is",pinned:"Aangeduid op de globe.",notPlayed:"geen van de 197",
   rerollLab:"Dag opnieuw",
   overIssued:"Afgegeven",overReturned:"Retour",overToday:"Alleen vandaag",
-  dragHint:"Sleep de globe · klik een land",
+  dragHint:"Sleep om te draaien · knijp om te zoomen · tik een land",
   mGloble:"Warm of koud",dGloble:"Warmer, warmer… gevonden",askGloble:"Aan welk land denk ik?",
   globleTip:"Typ een land · de kleur zegt hoe dichtbij je bent",
-  worldleTip:"Je krijgt de vorm. Elke misser geeft je de afstand en de richting.",
   guessesLab:"pogingen",already2:"al geraden",heat0:"Kokend",heat1:"Heet",heat2:"Warm",
   heat3:"Lauw",heat4:"Koel",heat5:"IJskoud",
+  outOfTries:"Pogingen op.",
   foundIn:"Gevonden in {n} pogingen",itWas:"Het was {c}",newSecret:"Nieuw land",giveUp:"Opgeven",
   kindRoute:"Grenswandeling",kindGloble:"Warm of koud",kindShape:"Omtrek van de dag",
   runOver:"Elk land, één keer. Dit is de uitslag.",placedRight:"goed geplaatst",
   boardKey:"Groen: goed. Rood: gemist.",
   rightLab:"goed",wrongLab:"fout",wasHere:"lag hier",
   askDailyShape:"Noem de omtrek van vandaag",dailyDone:"Vandaag opgelost",dailyAgain:"Nog eens",
-  clueLab:"Hintstempels",clueRegion:"Werelddeel",clueNorth:"Noorden boven",clueBorders:"Buren",
+  clueLab:"Hints",clueRegion:"Werelddeel",clueNorth:"Noorden boven",clueBorders:"Buren",
   clueNorthDone:"rechtgezet",clueBordersN:"{n} landgrenzen",
   clueCost:"{n} gebruikt",clueStarts:"Het begint met {c}",
-  statsTitle:"Persoonlijk dossier",career:"Carrière",skillFlags:"Vlaggen",skillMap:"Op de kaart",
+  statsShort:"Stats",statsTitle:"Persoonlijk dossier",career:"Carrière",skillFlags:"Vlaggen",skillMap:"Op de kaart",
   skillShape:"Omtrekken",byRegion:"Per werelddeel",habit:"Gewoonte",dailyStreakLab:"Dagelijkse reeks",
   dailyBestLab:"Langste dagreeks",daysPlayed:"Dagen gespeeld",globleLab:"Warm of koud",
   playedLab:"Gespeeld",solvedLab:"Opgelost",avgGuess:"Gemiddeld aantal pogingen",fewestGuess:"Minste pogingen",
@@ -8930,6 +8985,10 @@ function lineEnd(){
 }
 
 /* ================= hot and cold: colour tells you how close you stand ================= */
+/* Hot and cold has no limit on guesses, because there a guess costs a guess and nothing
+   else. Worldle hands you the outline first, so an unlimited walk towards it is a walk
+   that always arrives: five and then the answer. */
+var WORLDLE_TRIES=5;
 var globle={target:null,guesses:[],done:false,seeded:false};
 function capFirst(x){return x.charAt(0).toUpperCase()+x.slice(1);}
 function greatCircle(a,b){                     /* [lon,lat] pairs, kilometres */
@@ -8980,6 +9039,9 @@ function globleStart(seedKey){
   var pl=globlePool();
   var f=seedKey?pl[Math.floor(rngFrom(hashSeed("globle:"+daySeed(seedKey)))()*pl.length)]:pick(pl);
   globle.target=f.n;globle.guesses=[];globle.done=false;globle.seeded=!!seedKey;
+  /* the last country's verdict was still on the board under the new one: "Shown. It was
+     Peru" sitting over a fresh secret, which reads as the app having lost its place */
+  $("verdict").innerHTML="";
   if(!seedKey)globleStats().played++,save();
   resetGlobeView();
   /* worldle shows you the shape and still makes you walk to it: the outline narrows the
@@ -9014,6 +9076,13 @@ function globleTry(name){
   } else {
     flash(nameOf(name)+" · "+heatWord(km)+" · "+fmtNum(km)+" km "+globle.guesses[globle.guesses.length-1].arrow);
     snd.tap();
+    if(mode==="worldle"&&globle.guesses.length>=WORLDLE_TRIES){
+      globle.done=true;
+      verdict("no",t("outOfTries"),{b:fill(t("itWas"),{c:nameOf(globle.target)}),r:""});
+      snd.wrong();buzz(18);
+      if(globle.seeded)dailyFinish(WORLDLE_TRIES);
+      save();
+    }
   }
   globleRender();
 }
@@ -9036,15 +9105,24 @@ function globleList(){
     chip.textContent=nameOf(g.n)+"  "+(g.km===0?"★":fmtNum(g.km)+" km "+g.arrow);
     el.appendChild(chip);
   });
-  var meta=document.createElement("span");meta.className="chainmeta";
-  meta.textContent=globle.guesses.length+" "+t("guessesLab");
-  el.appendChild(meta);
+  /* Worldle is five goes: the ones not yet spent are drawn as empty slots, so the limit
+     is on the board rather than in a sentence about the board. Hot and cold has no limit
+     and no slots, and neither of them needs a line of type counting the chips above it. */
+  if(mode==="worldle"){
+    var left=WORLDLE_TRIES-globle.guesses.length,i;
+    for(i=0;i<left;i++){
+      var slot=document.createElement("span");
+      slot.className="chainchip heatchip slot";
+      slot.textContent="\u00b7";
+      el.appendChild(slot);
+    }
+  }
 }
 function globleStats(){return mode==="worldle"?store.stats.worldle:store.stats.globle;}
 function globleRender(){
   $("prompt").textContent=mode==="worldle"?t("askWorldle")
     :(globle.seeded?t("kindGloble"):t("askGloble"));
-  $("dailytip").textContent=t(mode==="worldle"?"worldleTip":"globleTip");
+  if(mode!=="worldle")$("dailytip").textContent=t("globleTip");
   $("guess").value="";
   globleList();
   globleHighlights();
@@ -9418,6 +9496,51 @@ function chargeParts(node){
   host.innerHTML="";
   return out;
 }
+/* The box the whole badge sits in: one rectangle round however many pieces it came in. */
+function partsBox(parts){
+  var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  if(!parts||!parts.length)return {x:0,y:0,w:0,h:0,cx:0,cy:0};
+  parts.forEach(function(q){
+    if(q.b.x<x0)x0=q.b.x;
+    if(q.b.y<y0)y0=q.b.y;
+    if(q.b.x+q.b.w>x1)x1=q.b.x+q.b.w;
+    if(q.b.y+q.b.h>y1)y1=q.b.y+q.b.h;
+  });
+  return {x:x0,y:y0,w:x1-x0,h:y1-y0,cx:(x0+x1)/2,cy:(y0+y1)/2};
+}
+/* A flag rebuilt from its own source with every id renamed, so its badge can be dropped
+   into another flag without the two of them fighting over a clip path called "a". */
+var graftSeq=0;
+function donorNode(of){
+  var src=FLAGSVG[of.c];
+  if(!src)return null;
+  var tag="_g"+(++graftSeq);
+  src=src.replace(/id="([A-Za-z][-\w]*)"/g,function(m,id){return 'id="'+id+tag+'"';})
+         .replace(/#([A-Za-z][-\w]*)\)/g,function(m,id){return "#"+id+tag+")";})
+         .replace(/href="#([A-Za-z][-\w]*)"/g,function(m,id){return 'href="#'+id+tag+'"';});
+  var doc=parser.parseFromString(
+    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '+
+    'viewBox="0 0 640 480">'+src+"</svg>","image/svg+xml");
+  var root=doc.documentElement;
+  if(root.nodeName==="parsererror"||root.getElementsByTagName("parsererror").length)return null;
+  return document.importNode(root,true);
+}
+/* Whatever the badge is clipped or painted with has to travel with it, or a grafted crest
+   arrives as an empty space. */
+function donorDefs(dn){
+  var out=[],k=dn.childNodes,i;
+  for(i=0;i<k.length;i++){
+    if(k[i].nodeType!==1)continue;
+    if(k[i].nodeName==="defs"||k[i].nodeName==="style"||k[i].nodeName==="clipPath"||
+       k[i].nodeName==="linearGradient"||k[i].nodeName==="radialGradient"||k[i].nodeName==="pattern")
+      out.push(k[i]);
+  }
+  return out;
+}
+/* Two flags read the same turned on their side: a disc dead centre, and a cross dead
+   centre. Everything else changes visibly, because bands that ran across now run down. */
+var QUARTER_SAME={jp:1,ch:1};
+
 /* Slip a group in where the charge was and move the charge into it, so the field stays
    nailed down and only the thing printed on it shifts. */
 function moveCharge(node,parts,tf){
@@ -9446,18 +9569,83 @@ function applyForge(f,family,kind,hard){
     if(FLAG_VSYM[f.c])return null;
     node=flagNode(f);turnFlag(node,"translate(0,480) scale(1,-1)");return node;
   }
+  if(kind==="quarter"){
+    /* the whole cloth turned a quarter turn and squeezed back into 640 by 480, so a
+       tricolour of bands across comes out as one of bands down: a flag nobody flies */
+    if(QUARTER_SAME[f.c])return null;
+    node=flagNode(f);
+    turnFlag(node,"translate(640,0) rotate(90) scale(0.75,1.3333)");
+    return node;
+  }
+  if(kind==="flip"){
+    node=flagNode(f);
+    parts=chargeParts(node);
+    if(!parts.length)return null;
+    /* a disc comes through a half turn unchanged, and a forgery nobody can see is a bug */
+    var round=true;
+    for(j=0;j<parts.length;j++){
+      var nn=parts[j].el.nodeName;
+      if(nn!=="circle"&&nn!=="ellipse"){round=false;break;}
+    }
+    if(round)return null;
+    z=partsBox(parts);
+    if(z.w<18||z.h<18)return null;
+    moveCharge(node,parts,"rotate(180,"+z.cx.toFixed(1)+","+z.cy.toFixed(1)+")");
+    return node;
+  }
+  if(kind==="graft"){
+    /* somebody else's badge, sized to the space this flag's own badge had */
+    var tb=partsBox(chargeParts(flagNode(f))||[]);
+    if(!(tb.w>=20&&tb.h>=20))return null;
+    /* the look-alikes first, because a badge off a flag already on the table is one the
+       reader has a chance of placing; then anybody, so the desk never runs dry */
+    var pool=shuffle((family||[]).filter(function(c){return c!==f.c;})
+              .map(function(c){return FLAGBYCODE[c];}).filter(Boolean))
+              .concat(shuffle(FLAGS.slice()).slice(0,30));
+    for(j=0;j<pool.length;j++){
+      if(!pool[j]||pool[j].c===f.c)continue;
+      var dn=donorNode(pool[j]);
+      if(!dn)continue;
+      var dp=chargeParts(dn);
+      if(!dp.length)continue;
+      var db=partsBox(dp);
+      if(db.w<20||db.h<20)continue;
+      /* a fresh cloth for every attempt, so a graft that arrives blank leaves no trace */
+      node=flagNode(f);
+      parts=chargeParts(node);
+      if(!parts.length)return null;
+      var k2=Math.min(tb.w/db.w,tb.h/db.h);
+      var g2=document.createElementNS(NS,"g");
+      g2.setAttribute("transform",
+        "translate("+tb.cx.toFixed(1)+","+tb.cy.toFixed(1)+") scale("+k2.toFixed(3)+") "+
+        "translate("+(-db.cx).toFixed(1)+","+(-db.cy).toFixed(1)+")");
+      donorDefs(dn).forEach(function(el){node.appendChild(el);});
+      dp.forEach(function(q){g2.appendChild(q.el);});
+      node.insertBefore(g2,parts[0].el);
+      parts.forEach(function(q){if(q.el.parentNode)q.el.parentNode.removeChild(q.el);});
+      /* and it has to have drawn. A crest that refers to something still sitting in the
+         flag it came from renders as empty space, and a fake with the badge simply gone
+         is not the fake the verdict goes on to describe. */
+      var hv=forgeHost();hv.innerHTML="";hv.appendChild(node);
+      var drew=false;
+      try{
+        var bb=g2.getBBox();
+        drew=bb.width>=db.w*k2*0.6&&bb.height>=db.h*k2*0.6;
+      }catch(e){}
+      hv.innerHTML="";
+      if(!drew)continue;
+      imp.donor=pool[j];
+      return node;
+    }
+    return null;
+  }
   if(kind==="slide"||kind==="charge"||kind==="spin"){
     node=flagNode(f);
     parts=chargeParts(node);
     if(!parts.length)return null;
-    var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
-    parts.forEach(function(q){
-      if(q.b.x<x0)x0=q.b.x;
-      if(q.b.y<y0)y0=q.b.y;
-      if(q.b.x+q.b.w>x1)x1=q.b.x+q.b.w;
-      if(q.b.y+q.b.h>y1)y1=q.b.y+q.b.h;
-    });
-    var w=x1-x0,h=y1-y0,mx=(x0+x1)/2,my=(y0+y1)/2,tf;
+    z=partsBox(parts);
+    var x0=z.x,y0=z.y,x1=z.x+z.w,y1=z.y+z.h;
+    var w=z.w,h=z.h,mx=z.cx,my=z.cy,tf;
     if(w<16||h<16)return null;
     if(kind==="slide"){
       /* far enough to be seen, and never so far that it falls off the cloth */
@@ -9509,18 +9697,13 @@ function applyForge(f,family,kind,hard){
   repaint(node,map);
   return node;
 }
-/* The loud bench and the quiet one. The imposter desk wants a fake that can be caught by
-   four flags side by side, so it hangs cloth the wrong way round; the forgery desk wants
-   one that survives being stared at, so it only ever nudges. */
-var FORGE_LOUD=["mirror","upend","slide","charge","swap","borrow","spin"];
-var FORGE_QUIET=["shade","spin","charge","borrow","slide"];
-var FORGE_ALL=["mirror","upend","slide","charge","spin","swap","shade","borrow"];
 /* Structure first, paint second. Left to a straight shuffle the colour swap wins far too
    often, because it is the one treatment that works on nearly every flag: the structural
    ones each fail on some, and every failure hands the turn back to the paint. Trying them
    in two tiers keeps the desk varied. */
 function forgeFlag(f,family,hard){
-  var struct=hard?["spin","charge","slide"]:["mirror","upend","slide","charge","spin"];
+  var struct=hard?["spin","charge","slide"]
+                 :["graft","flip","quarter","mirror","upend","slide","charge","spin"];
   var paint=hard?["shade","borrow"]:["swap","borrow","shade"];
   /* Whichever tier leads, the other one is still there to catch a flag the first cannot
      take. Paint leads about one time in three: a structural treatment works on nearly
@@ -10787,7 +10970,7 @@ function famFor(f){
   var g=pick(hits).filter(function(c){return c!==f.c;});
   return shuffle(g).slice(0,3).map(function(c){return FLAGBYCODE[c];});
 }
-var imp={kind:"",fake:null};
+var imp={kind:"",fake:null,donor:null};
 
 /* Three of the games below ask the same question about a different column: this country,
    which river / which water / which range. The distractors have to differ by ANSWER and
@@ -10865,7 +11048,6 @@ var QUIZ={
     score:function(){return masteredIn(store.cap)+"/"+FLAGS.length;}
   },
   imposter:imposterDesk(4),
-  forgery:forgeryDesk(9),
   /* Capitals, except the three wrong answers are the capitals of countries that actually
      border this one. Knowing the region stops helping and you have to know the country. */
   border:{
@@ -10961,7 +11143,9 @@ var QUIZ={
           row.appendChild(nm);row.appendChild(bar);row.appendChild(pc);
           rows.appendChild(row);
         });
-        if(rest>2){
+        /* Everything else, which on a handset is a row that costs nineteen pixels to say
+           what the three rows above it already implied. */
+        if(rest>2&&!tightFit()){
           var row2=document.createElement("span");row2.className="manrow rest";
           var nm2=document.createElement("b");nm2.textContent=t("manRest");
           var bar2=document.createElement("span");bar2.className="manbar";
@@ -11062,7 +11246,10 @@ var DOS_BASE=14;
 /* what a wrong name costs off the fee, and how many the clerk will hear */
 var DOS_MISS=3,DOS_TRIES=3;
 var dossier={open:{},spent:0,forName:null,tries:DOS_TRIES,said:[],free:null};
-function dossierScore(){return Math.max(1,DOS_BASE-dossier.spent);}
+/* A case pays fourteen and the ten lines in it cost twenty one between them, so a file
+   read all the way through now runs at a loss. That is the game: the fee is what is left
+   of the retainer after you have paid for what you had to be told. */
+function dossierScore(){return DOS_BASE-dossier.spent;}
 /* Where a country stands in the world by area, worked out once off the same table the
    comparison board uses, so the file and the scales can never disagree. */
 var AREARANK=null;
@@ -11250,9 +11437,15 @@ function buyClue(id){
   var w=document.querySelector(".dosworth b");
   if(w){w.textContent=dossierScore();w.parentNode.classList.remove("tick");
     void w.parentNode.offsetWidth;w.parentNode.classList.add("tick");}
-  var g=$("guess");if(g)g.focus();
 }
 
+/* What was done, said in words. The grafted badge names the country it was taken from,
+   because "the badge belongs to another country" is a riddle and "the badge is Chad's" is
+   an answer. Every other treatment has nothing to fill in. */
+function impTell(){
+  var s=t("imp"+imp.kind);
+  return imp.donor?fill(s,{c:cname(imp.donor)}):s;
+}
 /* ---------- the imposter desk: four flags, one of them tampered with ---------- */
 function imposterDesk(gate){
   return {
@@ -11260,6 +11453,7 @@ function imposterDesk(gate){
     has:function(f){return !!IMPIN[f.c];},
     prep:function(f){
       var fam=famFor(f)||[];
+      imp.donor=null;
       var forged=forgeFlag(f,fam.map(function(o){return o.c;}).concat(f.c),false);
       imp.kind=forged?forged.kind:"swap";
       imp.fake=forged?forged.node:flagNode(f);
@@ -11274,7 +11468,7 @@ function imposterDesk(gate){
     option:function(o,right){return right?imp.fake.cloneNode(true):flagNode(o);},
     said:function(right,picked){
       return right
-        ? ["ok",t("impFound"),{b:cname(current),r:t("imp"+imp.kind)}]
+        ? ["ok",t("impFound"),{b:cname(current),r:impTell()}]
         : ["no",t("impMiss"),{b:picked?cname(picked):"",r:""}];
     },
     after:function(){
@@ -11292,7 +11486,7 @@ function imposterDesk(gate){
       });
       box.appendChild(row);
       var tell=document.createElement("div");tell.className="forgetell";
-      tell.textContent=cname(current)+" \u00b7 "+t("imp"+imp.kind);
+      tell.textContent=cname(current)+" \u00b7 "+impTell();
       box.appendChild(tell);
       Array.prototype.forEach.call($("opts").children,function(b,i){
         if(options[i]&&options[i].n===current.n)b.classList.add("fake");
@@ -11302,75 +11496,6 @@ function imposterDesk(gate){
          The four you were choosing between have done their job by then, so they stand down
          and give the room back rather than the board growing into a scroller. */
       $("opts").classList.add("settled");
-    },
-    score:function(){return masteredIn(store.fake)+"/"+IMPCOUNT;}
-  };
-}
-/* ---------- the forgery desk ----------
-   The imposter desk asks which of four is the fake, and answers itself the moment you
-   line the four up. Asking the same question more quietly is not a second game, it is the
-   first one with the lights down: whichever way you dress it, you are still comparing.
-   So this desk takes the comparison away. One flag on the blotter, its name written on the
-   docket, and the question is what was done to it. Nothing may have been done to it. */
-function forgeryDesk(gate){
-  return {
-    /* "box" names the drawer in the save this desk marks progress in, not a class */
-    ask:"askForgery",box:"fake",gate:gate,hold:true,
-    has:function(f){return !!IMPIN[f.c];},
-    prep:function(f){
-      var fam=famFor(f)||[];
-      /* better than one file in four comes through this desk clean, and saying so out
-         loud is the answer: a clerk who cries forgery at everything is no use either */
-      var clean=Math.random()<0.28;
-      var forged=clean?null:forgeFlag(f,fam.map(function(o){return o.c;}).concat(f.c),true);
-      if(!forged)clean=true;
-      imp.kind=clean?"clean":forged.kind;
-      imp.fake=clean?flagNode(f):forged.node;
-      imp.others=[];
-    },
-    subject:function(f){
-      var wrap=document.createElement("div");wrap.className="forgeone";
-      var fr=document.createElement("span");fr.className="forgeflag big";
-      fr.appendChild(imp.fake.cloneNode(true));
-      var nm=document.createElement("i");nm.textContent=cname(f);
-      wrap.appendChild(fr);wrap.appendChild(nm);
-      return wrap;
-    },
-    from:function(f){
-      /* the truth, and three other things a forger might have done instead */
-      var pool2=FORGE_ALL.concat(["clean"]).filter(function(k){return k!==imp.kind;});
-      return [{n:f.n,k:imp.kind}].concat(shuffle(pool2).slice(0,3).map(function(k,i){
-        return {n:"__forge"+i,k:k};
-      }));
-    },
-    option:function(o){
-      var sp=document.createElement("span");sp.className="forgeopt";
-      sp.textContent=t("imp"+o.k);
-      return sp;
-    },
-    said:function(right){
-      return right
-        ? ["ok",t("forgeGot"),{b:t("imp"+imp.kind),r:cname(current)}]
-        : ["no",t("forgeNo"),{b:t("imp"+imp.kind),r:cname(current)}];
-    },
-    after:function(){
-      /* what came in, and what it should have been, side by side */
-      var box=$("flagbox");
-      box.innerHTML="";
-      box.className="flagbox plain forged";
-      var row=document.createElement("div");row.className="forgerow";
-      [[imp.fake.cloneNode(true),imp.kind==="clean"?t("impAsFiled"):t("impFake")],
-       [flagNode(current),t("impReal")]].forEach(function(pair){
-        var cell=document.createElement("span");cell.className="forgecell";
-        var fr=document.createElement("span");fr.className="forgeflag";fr.appendChild(pair[0]);
-        var lb=document.createElement("i");lb.textContent=pair[1];
-        cell.appendChild(fr);cell.appendChild(lb);
-        row.appendChild(cell);
-      });
-      box.appendChild(row);
-      var tell=document.createElement("div");tell.className="forgetell";
-      tell.textContent=cname(current)+" \u00b7 "+t("imp"+imp.kind);
-      box.appendChild(tell);
     },
     score:function(){return masteredIn(store.fake)+"/"+IMPCOUNT;}
   };
@@ -11393,7 +11518,10 @@ function renderQuiz(q){
   $("prompt").textContent=(typeof q.ask==="function"?q.ask(f):t(q.ask));
   if(q.prep)q.prep(f);
   if(q.subject){var sub=q.subject(f);if(sub)$("flagbox").appendChild(sub);}
-  if(q.typed){$("guess").focus();return;}
+  /* The field is not focused here. A keyboard that comes up by itself takes the bottom
+     half of a phone before the flag at the top has been looked at, and on the file board
+     it covered the file. Tapping the box is one tap, and it is the reader's move. */
+  if(q.typed)return;
   buildOptions(function(o,right){return q.option(o,right);},!!q.flags,q.from?q.from(f):null);
 }
 
@@ -11504,8 +11632,10 @@ function flash(msg){
    already end themselves: the timed sprint, the daily, one-country hunts and the line
    walks: keep their own ending. */
 var ROUND_LEN=20;
-/* a dossier takes a minute to read; twenty of them is an afternoon */
-var ROUND_OF={dossier:8};
+/* A dossier takes a minute to read and twenty of them is an afternoon. The manifest is
+   the same kind of board: a sheet to work through rather than a flag to recognise, and
+   twenty sheets is a shift. */
+var ROUND_OF={dossier:8,trade:10};
 
 /* THE DAY TICKET.
 
@@ -11540,7 +11670,7 @@ function runStart(){
 /* games the day is allowed to draw: earned, and played in rounds rather than ending on their
    own terms. A timed sprint or a one country hunt cannot be five questions long. */
 function dailyPool(){
-  return ["name","find","cap","look","imposter","sea","trap","trade","blind","forgery",
+  return ["name","find","cap","look","imposter","sea","trap","trade","blind",
           "locate","shape","bigger","dossier"].filter(function(m){
     return unlocked(m)&&roundable(m);
   });
@@ -11760,7 +11890,6 @@ function answerShape(){
     paintDosTries();
     var wf=document.querySelector(".dosworth b");
     if(wf)wf.textContent=dossierScore();
-    var gi=$("guess");if(gi)gi.focus();
     return;
   }
   locked=true;
@@ -12076,7 +12205,7 @@ function paintChips(){
    filled the wrong answers with the capitals next door, which is Capitals with a better
    class of distractor rather than a different question. The trick it was built on is
    worth keeping, so it now lives inside Capitals, where it belongs. */
-var TABS=["name","find","look","imposter","blind","forgery","dossier","cap","trap",
+var TABS=["name","find","look","imposter","blind","dossier","cap","trap",
   "locate","shape","bigger","trade","riverloc","sea","rangeloc",
   "globle","worldle","sprint","daily","atlas"];
 function buildTabs(){
@@ -12190,11 +12319,12 @@ function setMode(m,keepRegion){
        target card the capitals board does, and find the flag deals a name card: neither was on
        this list, which is why those two boards had two frames and capitals had one. */
     (kind==="locate"||kind==="cap"||kind==="imposter"||m==="dossier"||m==="trap"||m==="find"
+      ||kind==="route"
       ?" plain":"");
   $("opts").hidden=!((QUIZ[m]&&!QUIZ[m].typed)||kind==="bigger");
   $("typerow").hidden=!(kind==="shape"||kind==="route"||kind==="globle"||(QUIZ[m]&&QUIZ[m].typed));
   $("chain").hidden=!(kind==="route"||kind==="globle");
-  $("dailytip").hidden=!(kind==="route"||kind==="globle");
+  $("dailytip").hidden=!((kind==="route"||kind==="globle")&&m!=="worldle");
   $("timerbar").hidden=m!=="sprint";
   $("scorecard").hidden=true;
   $("skip").hidden=true;
@@ -12994,17 +13124,25 @@ function dailyRender(){
   box.innerHTML="";
   $("prompt").textContent=t("askDaily");
   $("dailytip").textContent=t("dailyHint");
-  var row=document.createElement("div");row.className="target";
+  var row=document.createElement("div");row.className="target route";
   [daily.from,daily.to].forEach(function(n,i){
     if(i){
-      var arrow=document.createElement("span");arrow.className="arrow";arrow.textContent="→";
+      /* A leg drawn the way a leg is drawn on a map: a dashed run with a head on it.
+         The arrow used to be the character, set in the label face at twenty pixels,
+         which is a punctuation mark standing in for a diagram. */
+      var arrow=document.createElement("span");arrow.className="arrow";
+      arrow.innerHTML='<svg viewBox="0 0 48 16" aria-hidden="true">'+
+        '<path d="M2 8h30" fill="none" stroke="currentColor" stroke-width="2.2" '+
+        'stroke-linecap="round" stroke-dasharray="5 4.5"/>'+
+        '<path d="M32 2.2 44 8 32 13.8Z" fill="currentColor"/></svg>';
       row.appendChild(arrow);
     }
     var wrap=document.createElement("span");wrap.className="thumb";
     if(FLAGBYNAME[n])wrap.appendChild(flagNode(FLAGBYNAME[n]));
-    var cap=document.createElement("span");cap.className="thumbcap";cap.textContent=nameOf(n);
+    /* No name under the flag. Recognising the two flags is the first half of the puzzle,
+       and printing the answer under each of them gave it away twice over. */
     var col=document.createElement("span");col.className="thumbcol";
-    col.appendChild(wrap);col.appendChild(cap);
+    col.appendChild(wrap);
     row.appendChild(col);
   });
   box.appendChild(row);
@@ -13607,13 +13745,47 @@ function openStats(){
   top.appendChild(rn);top.appendChild(rx);
   host.appendChild(top);
 
-  dossierHead(host,t("career"));
-  var acc=store.seen?Math.round(store.correct/store.seen*100)+"%":"··";
-  dossierRow(host,t("seen"),String(store.seen||0));
-  dossierRow(host,t("accuracyLab"),acc,(store.correct||0)+"/"+(store.seen||0));
-  dossierRow(host,t("streakBest"),String(store.best||0));
-  dossierRow(host,t("sprintBest"),String(store.bestSprint||0));
-  dossierRow(host,t("stampsLab"),String(Object.keys(store.stamps||{}).length));
+  /* Eight figures, printed as figures. They were eight ruled lines with a word on the
+     left and a number on the right, which is a third of a sheet spent saying eight
+     numbers, and the numbers were the small part of each line. */
+  function four(rows){
+    var box=document.createElement("div");box.className="dfour";
+    rows.forEach(function(r){
+      var cell=document.createElement("span");
+      var b=document.createElement("b");b.textContent=r[1];
+      var i=document.createElement("i");i.textContent=r[0];
+      cell.appendChild(b);cell.appendChild(i);
+      box.appendChild(cell);
+    });
+    host.appendChild(box);
+  }
+  /* two columns of name and figure. Six long country names as chips came to six rows;
+     as a pair of columns with the name clipped they come to three. */
+  function pairs(list){
+    var box=document.createElement("div");box.className="dpairs";
+    if(!list.length){
+      var e=document.createElement("div");e.className="dpair";
+      var ei=document.createElement("i");ei.textContent=t("noneYet");
+      e.appendChild(ei);box.appendChild(e);
+    }
+    list.forEach(function(r){
+      var row=document.createElement("div");row.className="dpair";
+      var i=document.createElement("i");i.textContent=r[0];
+      var b=document.createElement("b");b.textContent=r[1];
+      row.appendChild(i);row.appendChild(b);
+      box.appendChild(row);
+    });
+    host.appendChild(box);
+  }
+  var acc=store.seen?Math.round(store.correct/store.seen*100)+"%":"\u00b7\u00b7";
+  four([[t("seen"),String(store.seen||0)],
+        [t("accuracyLab"),acc],
+        [t("streakBest"),String(store.best||0)],
+        [t("daysPlayed"),String(Object.keys(st.days||{}).length)]]);
+  four([[t("sprintBest"),String(store.bestSprint||0)],
+        [t("dailyStreakLab"),String(dy.streak||0)],
+        [t("solvedLab"),String(g.solved||0)],
+        [t("stampsLab"),String(Object.keys(store.stamps||{}).length)]]);
 
   dossierHead(host,t("mast"));
   dossierBar(host,t("skillFlags"),masteredIn(store.box),FLAGS.length);
@@ -13622,39 +13794,28 @@ function openStats(){
   dossierBar(host,t("mCap"),masteredIn(store.cap),FLAGS.length);
 
   dossierHead(host,t("byRegion"));
+  var two=document.createElement("div");two.className="dtwo";host.appendChild(two);
   ["AF","AS","EU","NA","SA","OC"].forEach(function(code){
     var set=FLAGS.filter(function(f){return f.r===code;});
     var known=set.filter(function(f){return (store.box[f.n]||0)>MASTER;}).length;
-    dossierBar(host,regionName(code),known,set.length);
+    dossierBar(two,regionName(code),known,set.length);
   });
 
-  dossierHead(host,t("habit"));
-  dossierRow(host,t("daysPlayed"),String(Object.keys(st.days||{}).length));
-  dossierRow(host,t("dailyStreakLab"),String(dy.streak||0),t("dailyBestLab")+" "+(dy.best||0));
-  dossierRow(host,t("solvedLab"),String(dy.solved||0),t("playedLab")+" "+(dy.played||0));
-
-  dossierHead(host,t("globleLab"));
-  dossierRow(host,t("playedLab"),String(g.played||0),t("solvedLab")+" "+(g.solved||0));
-  dossierRow(host,t("avgGuess"),g.solved?(g.guesses/g.solved).toFixed(1):"··");
-  dossierRow(host,t("fewestGuess"),g.best?String(g.best):"··");
-
-  dossierHead(host,t("modesLab"));
+  /* which boards have had the hours, and which countries keep getting away. Chips: the
+     order is the whole message and the tail of either list is noise. */
   var rows=[];
-  MODE_KEYS.forEach(function(row){
-    var c=st.modes[row[0]]||0;
-    if(c)rows.push([t(row[1]),c]);
+  TABS.forEach(function(k){
+    var c=(st.modes||{})[k]||0;
+    if(c&&MODE_LABEL[k])rows.push([t(MODE_LABEL[k]),c]);
   });
   rows.sort(function(a,b){return b[1]-a[1];});
-  if(!rows.length)dossierRow(host,t("noneYet"),"··");
-  rows.forEach(function(r){dossierRow(host,r[0],String(r[1]));});
+  dossierHead(host,t("modesLab"));
+  pairs(rows.slice(0,6).map(function(r){return [r[0],String(r[1])];}));
 
-  dossierHead(host,t("troubleLab"));
   var miss=Object.keys(store.miss||{}).filter(function(k){return store.miss[k]>0;});
   miss.sort(function(a,b){return store.miss[b]-store.miss[a];});
-  if(!miss.length)dossierRow(host,t("noneYet"),"··");
-  miss.slice(0,6).forEach(function(name){
-    dossierRow(host,nameOf(name),store.miss[name]+"×");
-  });
+  dossierHead(host,t("troubleLab"));
+  pairs(miss.slice(0,6).map(function(n){return [nameOf(n),store.miss[n]+"\u00d7"];}));
 
   $("statsmodal").hidden=false;
   snd.card();
@@ -14515,13 +14676,13 @@ function knownMore(f){
 /* A folder off the desk, opened flat, with the same little tickets still clipped inside.
    The rows are the real ticket shapes at a smaller size, not a plain list. */
 var MODE_LABEL={name:"mName",find:"mFind",look:"mLook",imposter:"mImposter",blind:"mBlind",
-  forgery:"mForgery",cap:"mCap",trap:"mTrap",border:"mBorder",locate:"mLocate",
+  cap:"mCap",trap:"mTrap",border:"mBorder",locate:"mLocate",
   globle:"mGloble",worldle:"mWorldle",shape:"mShape",bigger:"mBigger",
   trade:"mTrade",riverloc:"mRiverLoc",sea:"mSea",rangeloc:"mRangeLoc",
   dossier:"mDossier",
   sprint:"mSprint",daily:"mDaily",atlas:"mAtlas"};
 var MODE_DESC={name:"dName",find:"dFind",look:"dLook",imposter:"dImposter",blind:"dBlind",
-  forgery:"dForgery",cap:"dCap",trap:"dTrap",border:"dBorder",locate:"dLocate",
+  cap:"dCap",trap:"dTrap",border:"dBorder",locate:"dLocate",
   globle:"dGloble",worldle:"dWorldle",shape:"dShape",bigger:"dBigger",crowd:"dCrowd",
   rich:"dRich",trade:"dTrade",riverloc:"dRiverLoc",sea:"dSea",rangeloc:"dRangeLoc",
   dossier:"dDossier",
@@ -15115,7 +15276,7 @@ var MODE_KEYS=[
 /* The title screen deals folders, not one ticket per game. Anything that belongs to the
    same subject travels together; the tabs inside the game still reach every engine. */
 var FOLDERS={
-  flags  :["name","find","look","imposter","blind","forgery","sprint"],
+  flags  :["name","find","look","imposter","blind","sprint"],
   atlaswork:["locate","shape","globle","worldle"],
   cities :["cap","trap"],
   nature :["riverloc","sea","rangeloc"],
@@ -15167,7 +15328,6 @@ var TAG_LAYOUT={
   find    :["admit"  ,0, 240, 1.4, 6],
   imposter:["forgery",0, 250,-1.3, 7],
   blind   :["blind"  ,0, 244, 1.1, 8],
-  forgery :["wax"    ,0, 248,-0.9, 9],
   border  :["border" ,0, 246, 1.2, 7],
   look    :["twin"   ,0, 250, 0.9, 6],
   crowd   :["scale"  ,0, 246,-1.1, 9],
@@ -15176,7 +15336,7 @@ var TAG_LAYOUT={
   dossier :["file"   ,0, 246, 1.3, 7],
   rich    :["bond"   ,0, 248, 1.0, 8],
   trade   :["crate"  ,0, 250,-1.0, 7],
-  nature  :["steamer",0, 190, 1.1, 7],
+  nature  :["steamer",0, 246, 1.1, 7],
   riverloc:["river"  ,0, 250,-1.0, 6],
   sea     :["ocean"  ,0, 246, 1.2, 7],
   rangeloc:["summit" ,0, 250, 0.9, 9],
@@ -15351,7 +15511,7 @@ function paintIntro(){
   var bs=$("build");
   if(bs)bs.textContent=(typeof window.GT_BUILD==="string")?window.GT_BUILD:"";
   $("introtag").textContent=t("tagline");
-  $("introstart").textContent=store.mode?t("continue"):t("startPlay");
+  $("introstats").textContent=t("statsShort");
   $("introlang").textContent=langShort(langNext(lang));
   $("introsound").textContent=(window.innerWidth<=560||window.innerHeight<=900)
     ?(store.sound?"♪":"♪̶"):(store.sound?t("soundOn"):t("soundOff"));
@@ -15370,17 +15530,6 @@ function paintIntro(){
   paintCotdCard();
   paintStampRow();
   paintRank();
-  var s=$("introstats");
-  s.innerHTML="";
-  [[t("mast"),masteredIn(store.box)+"/"+FLAGS.length],
-   [t("streakBest"),store.best||0],
-   [t("sprintBest"),store.bestSprint||0],
-   [t("seen"),store.seen||0]].forEach(function(row){
-    var w=document.createElement("span");
-    var b=document.createElement("b");b.textContent=row[1];
-    w.appendChild(b);w.appendChild(document.createTextNode(" "+row[0]));
-    s.appendChild(w);
-  });
 }
 function spinGlobe(){
   stopSpin();
@@ -15627,6 +15776,7 @@ function startMode(m){
 var countTimer=0,countBox=null,countRun=0;
 function countdownStop(){
   countRun++;
+  document.documentElement.removeAttribute("data-count");
   if(countTimer){clearTimeout(countTimer);countTimer=0;}
   if(countBox){
     if(countBox.parentNode)countBox.parentNode.removeChild(countBox);
@@ -15640,6 +15790,7 @@ function countdown(from,done){
      how you know when to start reading. The stylesheet already drops the pop and the sweep
      under that setting, so the figures simply appear and change in place. */
   var mine=countRun,host=$("drill");
+  document.documentElement.setAttribute("data-count","1");
   var box=document.createElement("div");
   box.className="countdown";
   box.innerHTML='<span class="countring" aria-hidden="true">'+
@@ -15667,6 +15818,7 @@ function countdown(from,done){
       countTimer=0;
       if(countBox&&countBox.parentNode)countBox.parentNode.removeChild(countBox);
       countBox=null;
+      document.documentElement.removeAttribute("data-count");
       done();
     }
   })();
@@ -15731,18 +15883,13 @@ revealAnswer=function(){
   baseReveal();
 };
 sprintStart=function(){
+  /* The count gets the screen to itself: the title, and three two one under it. It used
+     to run over a live board, so the previous round's flag, its four names and the ledger
+     all showed through the dim, and the one thing that was not there yet was the game.
+     data-count takes the board out of sight for the two seconds this lasts. */
   $("scorecard").hidden=true;
-  /* clear the page the countdown is laid over: the previous drill's flag and prompt
-     showing through the dim read as a bug */
   $("prompt").textContent=t("askSprint");
-  /* an empty stage under a counting circle reads as a broken page. Put the sixty seconds
-     on the table instead, so there is something to count down over. */
   $("flagbox").innerHTML="";
-  var card=document.createElement("div");
-  card.className="namecard lead sprintlead";
-  card.textContent=fill(t("sprintReady"),{n:SPRINT_SECONDS});
-  $("flagbox").appendChild(card);
-  $("flagbox").hidden=false;
   $("opts").innerHTML="";
   $("verdict").innerHTML="";
   countdown(3,function(){baseSprintStart();});
@@ -15869,10 +16016,7 @@ $("introreroll").onclick=function(){
 };
 window.addEventListener("resize",sizeDevice);
 if(INFRAME){$("phone").hidden=true;$("introphone").hidden=true;$("debugbar").hidden=true;}
-$("introstart").onclick=function(){
-  snd.card();
-  startMode(store.mode&&store.mode!=="sprint"?store.mode:"name");
-};
+$("introstats").onclick=openStats;
 $("introlang").onclick=function(){
   lang=langNext(lang);store.lang=lang;save();
   applyLang();paintIntro();
@@ -15982,7 +16126,7 @@ document.addEventListener("keydown",function(e){
   }
   if(splashUp()){e.preventDefault();startFromSplash();return;}
   if(introOpen){
-    if(e.key==="Enter"){e.preventDefault();$("introstart").click();}
+    if(e.key==="Enter"){e.preventDefault();startMode(store.mode&&store.mode!=="sprint"?store.mode:"name");}
     return;
   }
   var a=document.activeElement;
@@ -16147,32 +16291,36 @@ html,body{overscroll-behavior:none;-webkit-user-select:none;user-select:none;
    Firefox rather than Safari the instructions say to change browser first, because only
    Safari's Add to Home Screen produces something that launches without a browser round it. */
 (function(){
+  /* "For the whole screen" described the result rather than the action, and "Install"
+     describes something iOS does not offer: there is no install on an iPhone, there is
+     Share and then Add to Home Screen. So the slip says the thing to do, names the two
+     taps it takes, and leads with where the app ends up. */
   var COPY={
-    en:{ios:"For the whole screen: <b>Share</b>, then <b>Add to Home Screen</b>.",
-        other:"Open this page in <b>Safari</b>, then Share and <b>Add to Home Screen</b>.",
-        menu:"For the whole screen: browser menu, then <b>Install app</b>.",
-        can:"Install Grand Tour and it runs with nothing above or below it.",
-        go:"Install",x:"Dismiss"},
-    nl:{ios:"Voor het hele scherm: <b>Deel</b>, dan <b>Zet op beginscherm</b>.",
-        other:"Open deze pagina in <b>Safari</b>, dan Deel en <b>Zet op beginscherm</b>.",
-        menu:"Voor het hele scherm: browsermenu, dan <b>App installeren</b>.",
-        can:"Installeer Grand Tour en er staat niets meer boven of onder.",
-        go:"Installeren",x:"Sluiten"},
-    fr:{ios:"Pour l'écran entier : <b>Partager</b>, puis <b>Sur l'écran d'accueil</b>.",
-        other:"Ouvrez cette page dans <b>Safari</b>, puis Partager et <b>Sur l'écran d'accueil</b>.",
-        menu:"Pour l'écran entier : menu du navigateur, puis <b>Installer l'application</b>.",
-        can:"Installez Grand Tour et rien ne reste au-dessus ni en dessous.",
-        go:"Installer",x:"Fermer"},
-    de:{ios:"Für den ganzen Bildschirm: <b>Teilen</b>, dann <b>Zum Home-Bildschirm</b>.",
-        other:"Diese Seite in <b>Safari</b> öffnen, dann Teilen und <b>Zum Home-Bildschirm</b>.",
-        menu:"Für den ganzen Bildschirm: Browsermenü, dann <b>App installieren</b>.",
-        can:"Installiere Grand Tour, dann bleibt nichts darüber oder darunter.",
-        go:"Installieren",x:"Schließen"},
-    es:{ios:"Para toda la pantalla: <b>Compartir</b>, luego <b>Añadir a inicio</b>.",
-        other:"Abre esta página en <b>Safari</b>, luego Compartir y <b>Añadir a inicio</b>.",
-        menu:"Para toda la pantalla: menú del navegador, luego <b>Instalar app</b>.",
-        can:"Instala Grand Tour y no queda nada arriba ni abajo.",
-        go:"Instalar",x:"Cerrar"}
+    en:{ios:"Put Grand Tour on your home screen: tap <b>Share</b>, then <b>Add to Home Screen</b>.",
+        other:"Open this page in <b>Safari</b>, tap <b>Share</b>, then <b>Add to Home Screen</b>.",
+        menu:"Put Grand Tour on your home screen: browser menu, then <b>Install app</b>.",
+        can:"Put Grand Tour on your home screen and it runs with nothing above or below it.",
+        go:"Add",x:"Dismiss"},
+    nl:{ios:"Zet Grand Tour op je startscherm: tik op <b>Delen</b> en dan op <b>Zet op beginscherm</b>.",
+        other:"Open deze pagina in <b>Safari</b>, tik op <b>Delen</b> en dan op <b>Zet op beginscherm</b>.",
+        menu:"Zet Grand Tour op je startscherm: browsermenu, dan <b>App installeren</b>.",
+        can:"Zet Grand Tour op je startscherm en je speelt zonder balken erboven of eronder.",
+        go:"Toevoegen",x:"Sluiten"},
+    fr:{ios:"Mettez Grand Tour sur votre écran d'accueil : touchez <b>Partager</b>, puis <b>Sur l'écran d'accueil</b>.",
+        other:"Ouvrez cette page dans <b>Safari</b>, touchez <b>Partager</b>, puis <b>Sur l'écran d'accueil</b>.",
+        menu:"Mettez Grand Tour sur votre écran d'accueil : menu du navigateur, puis <b>Installer l'application</b>.",
+        can:"Mettez Grand Tour sur votre écran d'accueil et rien ne reste au-dessus ni en dessous.",
+        go:"Ajouter",x:"Fermer"},
+    de:{ios:"Lege Grand Tour auf deinen Startbildschirm: <b>Teilen</b>, dann <b>Zum Home-Bildschirm</b>.",
+        other:"Diese Seite in <b>Safari</b> öffnen, <b>Teilen</b>, dann <b>Zum Home-Bildschirm</b>.",
+        menu:"Lege Grand Tour auf deinen Startbildschirm: Browsermenü, dann <b>App installieren</b>.",
+        can:"Lege Grand Tour auf deinen Startbildschirm, dann bleibt nichts darüber oder darunter.",
+        go:"Hinzufügen",x:"Schließen"},
+    es:{ios:"Pon Grand Tour en tu pantalla de inicio: toca <b>Compartir</b> y luego <b>Añadir a inicio</b>.",
+        other:"Abre esta página en <b>Safari</b>, toca <b>Compartir</b> y luego <b>Añadir a inicio</b>.",
+        menu:"Pon Grand Tour en tu pantalla de inicio: menú del navegador, luego <b>Instalar app</b>.",
+        can:"Pon Grand Tour en tu pantalla de inicio y no queda nada arriba ni abajo.",
+        go:"Añadir",x:"Cerrar"}
   };
   /* the app keeps its language in its own store; fall back to the phone */
   function lang(){
