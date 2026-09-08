@@ -5008,7 +5008,7 @@ html.splashOn #intro{visibility:hidden}
 :root[data-mode="dossier"] .dosclue b{font-size:15px}
 :root[data-mode="dossier"] .dostries{margin-top:6px}
 @media (max-height:880px){
-  :root[data-mode="dossier"] .dosclue{min-height:42px;padding:5px 10px 6px}
+  :root[data-mode="dossier"] .dosclue{min-height:40px;padding:4px 10px 5px}
   :root[data-mode="dossier"] .dosclue b{font-size:14px}
   :root[data-mode="dossier"] .dosgrid{gap:5px}
 }
@@ -5079,7 +5079,10 @@ html.splashOn #intro{visibility:hidden}
 /* The round counter goes rather than the type shrinking. It says 01/20; the ledger strip
    at the foot of the card is already carrying the same figure under ANSWERED, so this is
    the one thing on the board that can be removed without removing information. */
-:root[data-fit^="tight"][data-mode] #roundtally{display:none}
+/* The counter stays. It was hidden here on the grounds that the ledger repeated it, and
+   the ledger does not: that strip carries lifetime accuracy, streak, answers and rank,
+   so hiding this left a twenty question round with nothing saying which question it was
+   on. Twenty two pixels, and the boards were measured with it showing. */
 :root[data-fit^="tight"][data-mode] .dossier{padding:11px 11px 10px;gap:0 9px}
 :root[data-fit^="tight"][data-mode] .namecard{padding:9px 12px}
 /* the two heaviest cards: the file and the cargo list both run long, so their rows close
@@ -5088,7 +5091,7 @@ html.splashOn #intro{visibility:hidden}
 :root[data-fit^="tight"][data-mode="dossier"] .dosgrid>*{padding-top:2px;padding-bottom:2px}
 :root[data-fit^="tight"][data-mode="dossier"] .dosband{padding:5px 9px}
 :root[data-fit^="tight"][data-mode="trade"] .manifest{padding:8px 10px;gap:1px}
-:root[data-fit^="tight"][data-mode="trade"] .manrows{line-height:1.12;gap:2px;margin-bottom:3px}
+:root[data-fit^="tight"][data-mode="trade"] .manrows{line-height:1.12;gap:2px;margin-bottom:1px}
 :root[data-fit^="tight"][data-mode="trade"] .manlab{padding-bottom:3px}
 :root[data-fit^="tight"][data-mode="trade"] .manfoot{padding-top:3px;margin-top:3px}
 :root[data-fit^="tight"][data-mode="trade"] .manhead{margin-top:2px}
@@ -5110,7 +5113,13 @@ html.splashOn #intro{visibility:hidden}
 :root[data-fit="tighter"][data-mode] .flagbox svg{max-height:calc(var(--fitH,100vh) * 0.18)}
 :root[data-fit="tighter"][data-mode] .opt{min-height:44px;padding:5px 10px 5px 26px;font-size:14px}
 :root[data-fit="tighter"][data-mode] #prompt{font-size:15px}
+/* Twenty six pixels the shortest screen has not got: the counter costs a 19 pixel chip
+   and the gap under it, and on a 647 pixel screen four boards went over by up to 16.
+   Tucking it into the heading row cleared that and put it across the question instead,
+   so here it goes and the file game keeps its own chip below, which carries the fee
+   total and is the only number that game is played for. */
 :root[data-fit="tighter"][data-mode] #roundtally{display:none}
+:root[data-fit="tighter"][data-mode="dossier"] #roundtally{display:inline-flex}
 :root[data-fit="tighter"][data-mode] .stat{padding:3px 6px}
 :root[data-fit="tighter"][data-mode] .stat .v{font-size:13px}
 :root[data-fit="tighter"][data-mode] .stat .k{font-size:9px}
@@ -5385,14 +5394,9 @@ body::before{background:#B44E2E}
 
 /* ============ gen41: the case number on a small screen ============ */
 
-/* The round counter is hidden on a phone because the ledger along the bottom already carries
-   the same figure. It does not carry the file game: that one is scored in fees, and neither
-   accuracy nor streak is the number you are playing for. So the chip comes back for the file
-   game alone, with the fee total on it. */
-:root[data-fit^="tight"][data-mode="dossier"] #roundtally,
-:root[data-fit="tighter"][data-mode="dossier"] #roundtally{
-  display:inline-flex;align-items:baseline;gap:1px;
-}
+/* The file game hangs its fee total off the same chip, which is why it is a row of parts
+   rather than a single number. */
+:root[data-mode="dossier"] #roundtally{display:inline-flex;align-items:baseline;gap:1px}
 .tally s{
   text-decoration:none;font-family:var(--type);font-size:9px;letter-spacing:.1em;
   margin-left:7px;padding-left:7px;border-left:1px solid rgba(242,218,142,.35);
@@ -7530,7 +7534,7 @@ function sizeGlobe(){
     var corner=Math.sqrt(vw*vw+vh*vh)/2;
     availW=Math.min(Math.max(Math.max(vw,vh)*1.06,2*(corner+12)+12),1280);
     var side0=Math.round(Math.max(320,availW));
-    var dpr0=globeDpr(side0,globe.blur?0.9:1.6);
+    var dpr0=globeDpr(side0,globe.blur?0.62:1.6,globe.blur?0.62:1);
     cv.style.width=side0+"px";cv.style.height=side0+"px";
     cv.width=Math.round(side0*dpr0);cv.height=Math.round(side0*dpr0);
     globe.ctx.setTransform(dpr0,0,0,dpr0,0,0);
@@ -7749,10 +7753,15 @@ function grainPattern(ctx){
 }
 /* how sharp a canvas of this many CSS pixels a side is allowed to be */
 var GLOBE_PIXELS=1.15e6;
-function globeDpr(side,cap){
+/* The floor is an argument rather than a constant because the title spin genuinely does
+   not want it. One canvas pixel per CSS pixel is the right floor for a globe you are
+   reading; a planet crossing the screen at twenty six times speed is not being read, and
+   holding it at density there was costing 0.86 M pixels a frame at exactly the moment the
+   tickets needed the main thread. */
+function globeDpr(side,cap,floor){
   var want=Math.min(window.devicePixelRatio||1,cap);
   var afford=Math.sqrt(GLOBE_PIXELS)/Math.max(1,side);
-  return Math.max(1,Math.min(want,afford));
+  return Math.max(floor||1,Math.min(want,afford));
 }
 /* The part of the canvas the window can actually show, in canvas coordinates.
 
@@ -12423,7 +12432,11 @@ function dailyKind(key){
 var GATES={shape:1,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8};
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc";}
 function gateOf(m){var q=QUIZ[m];return (q&&q.gate)||GATES[m]||0;}
-function unlocked(m){return rankIndex(store.xp||0)>=gateOf(m);}
+/* TESTING: every board open regardless of rank. Delete the first line to put the gates
+   back, and nothing else changes: the ranks, the experience and the promotion notices all
+   still work, they just stop being a door. */
+var UNLOCK_ALL=true;
+function unlocked(m){return UNLOCK_ALL||rankIndex(store.xp||0)>=gateOf(m);}
 function gateLabel(m){return t("opensAt")+" "+rankName(gateOf(m));}
 function syncTabs(){
   TABS.forEach(function(k){
@@ -15008,12 +15021,20 @@ function paintIntro(){
 function spinGlobe(){
   stopSpin();
   if(globe.glideId){cancelAnimationFrame(globe.glideId);globe.glideId=0;globe.vel=0;}
+  var half=0;
   spinId=requestAnimationFrame(function step(){
     globe.vel*=0.94;
     var k=globe.spinBoost==null?1:globe.spinBoost;
     var d=(0.07+globe.vel)*k;
     /* a standstill costs nothing: no turn, no redraw, and the paperwork gets the frames */
-    if(d>0.0005||d<-0.0005){globe.lam+=d;drawGlobe();}
+    if(d>0.0005||d<-0.0005){
+      globe.lam+=d;
+      /* While the title sequence has the planet boosted, every other frame is enough: at
+         that speed a single frame is a blur either way, and the one that is skipped goes
+         to the tickets landing on top of it. Once the boost is off, every frame draws. */
+      half=(half+1)&1;
+      if(k<=2||half===0)drawGlobe();
+    }
     spinId=requestAnimationFrame(step);
   });
 }
@@ -15124,10 +15145,16 @@ function runIntroBoot(){
     if(!introOpen)return;
     var k=Math.min(1,(performance.now()-t0)/ramp);
     globe.spinBoost=1+(spin0-1)*Math.pow(1-k,2.4);
+    /* Sharpen as soon as it is slow enough to be looked at rather than at the end of the
+       ramp: the decay curve means the last third of those nine seconds is a planet that
+       has all but stopped, and holding it coarse through that is the one place the low
+       density would actually show. */
+    if(globe.blur&&globe.spinBoost<3){globe.blur=false;sizeGlobe();}
     if(k<1)requestAnimationFrame(ease);
     else{
       globe.spinBoost=1;
-      if(globe.blur){globe.blur=false;sizeGlobe();drawGlobe();}
+      if(globe.blur){globe.blur=false;sizeGlobe();}
+      drawGlobe();
     }
   })();
   /* one paper sound per ticket, on the beat it lands */
