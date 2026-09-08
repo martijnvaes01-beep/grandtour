@@ -5443,11 +5443,36 @@ body::before{background:#B44E2E}
    the file by 17. The ledger already scrolls inside its own card, so it gives up the height;
    the file gives up the space between its tickets. */
 :root[data-fit="tighter"][data-mode="trade"] .flagbox{max-height:calc(var(--fitH,100vh) * 0.30)}
-/* the file game on a 667 tall screen is still 17 pixels long: left alone, because the two
+/* The file game on a 667 tall screen is still seventeen pixels long. Left alone: both of the
+   obvious trims, tighter clue tickets and a smaller grid gap, made it worse rather than better,
+   because the clue text simply rewrapped onto another line. It wants looking at properly. */
+
+/* The waybill came out eight tenths of a pixel long on a 812 tall screen once the sphere went
+   back to its old size. Nothing to look at, and still a board a thumb can nudge. */
+:root[data-fit="tight"][data-mode="trade"] .manifest{max-height:calc(27vh - 14px);overflow-y:auto;scrollbar-width:none}
+
 /* and the last eight pixels off the day ticket */
 :root[data-fit^="tight"][data-mode="daily"] .typerow{margin-top:-2px}
 :root[data-fit^="tight"][data-mode="daily"] .acts{padding-top:0}
 :root[data-fit^="tight"][data-mode="daily"] .flagbox{max-height:calc(var(--fitH,100vh) * 0.10)}
+
+/* ============ gen44: the grain stops costing a frame ============ */
+
+/* A full screen layer with mix-blend-mode over a canvas that repaints is the most expensive
+   thing on the title screen, and none of it is the drawing. Blending forces everything beneath
+   the veil to be composited into a texture again on every frame the planet turns: seven tickets,
+   the wordmark, the sticker and a sphere the size of the screen, re-flattened sixty times a
+   second so that a layer of paper grain can be multiplied over the result. On a handset that is
+   the jitter in the ticket animation, and the buffer being dropped and remade is the noise
+   flashing in and out.
+
+   The grain is worth a couple of percent of the picture, not a third of the frame. Plain alpha,
+   no blend, no stacking context, no backdrop capture. The desk under it already carries its own
+   fibre and speckle, blended once into a background that never changes. */
+.grainveil{
+  mix-blend-mode:normal;
+  opacity:.09;
+}
 </style>
 <section class="splash" id="splash" hidden>
   <span class="splashveil"></span>
@@ -7570,14 +7595,13 @@ function sizeGlobe(){
   }
   if(stack&&stack.classList){stack.classList.remove("bleed");stack.style.height="";}
   var phone=window.innerWidth<=640&&!sideBySide();
-  /* The sphere used to be allowed to run past the bottom of the card and let the page scroll,
-     on the grounds that it is the instrument and the rows underneath can wait their turn. That
-     is where the two line games got their overflow from: freeing space above them did nothing,
-     because the sphere was sized off the width of the column and never looked at what was left.
-     Nothing in this app scrolls any more, so the room left is the room. The floor is now a plain
-     minimum rather than a share of the width, which keeps it an instrument and not a thumbnail
-     without letting it decide the height of the board. */
-  var floor=phone?240:Math.min(wide*0.92,760);
+  /* The sphere is the instrument: on a phone it fills the column and is allowed to run past the
+     bottom of the card, rather than shrinking to whatever the rows below happened to leave.
+
+     This was briefly floored at a flat 240 to stop the two line games overflowing, which did
+     not fix them and made the globe small on every board that has one. What actually fixed them
+     was clipping the board so the overhang cannot be dragged. The floor is back where it was. */
+  var floor=phone?wide*0.94:Math.min(wide*0.92,760);
   var side=Math.round(Math.max(240,Math.min(wide,Math.max(tall,floor),980)));
   var dpr=globeDpr(side,globe.blur?1:2);
   cv.style.width=side+"px";cv.style.height=side+"px";
@@ -7832,12 +7856,23 @@ function drawGlobe(){
   if(vb){ctx.beginPath();ctx.rect(vb[0],vb[1],vb[2],vb[3]);ctx.clip();}
   ctx.lineJoin="round";ctx.lineCap="round";
 
-  /* graticule, faint */
-  ctx.strokeStyle=grat;ctx.lineWidth=Math.min(0.9,0.5*Math.sqrt(globe.zoom));
+  /* THE GRATICULE.
+
+     Seventeen stroked polylines at four degrees a point is about a thousand projections every
+     frame, for a grid drawn at seventeen per cent grey. While the title sequence has the planet
+     boosted it is a smear that nobody can follow round, so it is simply not drawn: those frames
+     belong to the tickets landing on top of it. Six degrees rather than four the rest of the
+     time, which at this radius is a difference you would need the two side by side to see.
+
+     var fine is the arc between points; the two step variables below are the spacing between
+     the lines themselves and are unchanged. */
+  var racing=(globe.spinBoost||1)>3;
   var lon,lat,first,r,px,py,cl,step=globe.zoom>2.5?15:30;
-  for(lon=-180;lon<180;lon+=step){
+  var fine=6;
+  ctx.strokeStyle=grat;ctx.lineWidth=Math.min(0.9,0.5*Math.sqrt(globe.zoom));
+  if(!racing)for(lon=-180;lon<180;lon+=step){
     ctx.beginPath();first=true;
-    for(lat=-90;lat<=90;lat+=4){
+    for(lat=-90;lat<=90;lat+=fine){
       cl=Math.cos(lat*RAD);
       r=rot(cl*Math.sin(lon*RAD),Math.sin(lat*RAD),cl*Math.cos(lon*RAD),c);
       if(r[2]<=0){first=true;continue;}
@@ -7846,9 +7881,9 @@ function drawGlobe(){
     }
     ctx.stroke();
   }
-  for(lat=-60;lat<=60;lat+=step){
+  if(!racing)for(lat=-60;lat<=60;lat+=step){
     ctx.beginPath();first=true;cl=Math.cos(lat*RAD);
-    for(lon=-180;lon<=180;lon+=4){
+    for(lon=-180;lon<=180;lon+=fine){
       r=rot(cl*Math.sin(lon*RAD),Math.sin(lat*RAD),cl*Math.cos(lon*RAD),c);
       if(r[2]<=0){first=true;continue;}
       px=cx+R*r[0];py=cy-R*r[1];
@@ -7861,18 +7896,34 @@ function drawGlobe(){
   var labels=[];
   geoActive().list.forEach(function(f){
     var tone=globe.hi[f.name]||(f.name===globe.hover?css("--hi"):null);
+    /* whether a country is one of the 197 is a fact about the country, not about each of
+       its islands: Indonesia was asking the same question of the same table sixty times */
+    var live=inPlay(f);
     var biggest=0,bigPos=null;
     f.shapes.forEach(function(s){
       var cap=s.cap,q=rot(cap[0],cap[1],cap[2],c);
       if(Math.acos(Math.max(-1,Math.min(1,q[2])))-cap[3]>Math.PI/2+0.08)return;
-      if(globe.zoom>1.2){
-        var sx0=cx+R*q[0],sy0=cy-R*q[1];
-        var rad0=R*Math.sin(Math.min(cap[3],1.45))+R*0.06+24;
-        if(Math.hypot(sx0-cx,sy0-cy)-rad0>Math.hypot(cx,cy))return;
-      }
+      /* THE CULL THAT WAS ONLY RUNNING WHEN ZOOMED IN.
+
+         Measured: the land is eighty four per cent of a frame, and the rest of the picture
+         together is a sixth of a millisecond. So the only thing worth doing to a frame is
+         projecting fewer coastlines, and on the title screen there is a great deal of coastline
+         being projected for nobody: the canvas is 966 points wide so that the sphere reaches
+         every corner, the window is 390, and everything in the two thirds hanging off the sides
+         was fully unpacked, clipped and filled all the same. The rasteriser was told about it,
+         through the visible box, but the projection happens first and nothing was telling that.
+
+         The bounding cap already gives each shape a disc on screen. Testing that disc against
+         the rectangle the window can actually see is four comparisons, and it throws the shape
+         away before a single vertex is unpacked. It was gated behind zoom > 1.2, which is the
+         one situation it was needed least. */
+      var sx0=cx+R*q[0],sy0=cy-R*q[1];
+      var rad0=R*Math.sin(Math.min(cap[3],1.45))+R*0.06+24;
+      if(vb&&(sx0+rad0<vb[0]||sx0-rad0>vb[0]+vb[2]||
+              sy0+rad0<vb[1]||sy0-rad0>vb[1]+vb[3]))return;
+      if(globe.zoom>1.2&&Math.hypot(sx0-cx,sy0-cy)-rad0>Math.hypot(cx,cy))return;
       var segs=ringSegments(s.rings[0],c);
       if(!segs.length)return;
-      var live=inPlay(f);
       ctx.fillStyle=tone?tonePattern(ctx,tone):(live?land:offLand);
       ctx.beginPath();tracePath(ctx,segs);ctx.fill();
       /* ground that is not one of the 197 is greyed and dashed, so nobody spends a
@@ -15021,7 +15072,7 @@ function paintIntro(){
 function spinGlobe(){
   stopSpin();
   if(globe.glideId){cancelAnimationFrame(globe.glideId);globe.glideId=0;globe.vel=0;}
-  var half=0;
+  var tick=0;
   spinId=requestAnimationFrame(function step(){
     globe.vel*=0.94;
     var k=globe.spinBoost==null?1:globe.spinBoost;
@@ -15029,11 +15080,14 @@ function spinGlobe(){
     /* a standstill costs nothing: no turn, no redraw, and the paperwork gets the frames */
     if(d>0.0005||d<-0.0005){
       globe.lam+=d;
-      /* While the title sequence has the planet boosted, every other frame is enough: at
-         that speed a single frame is a blur either way, and the one that is skipped goes
-         to the tickets landing on top of it. Once the boost is off, every frame draws. */
-      half=(half+1)&1;
-      if(k<=2||half===0)drawGlobe();
+      /* The frames the planet does not need go to the paperwork landing on top of it. At a
+         boost of eight and up it is a smear whatever we do, so it draws one frame in three;
+         still fast, one in two; at walking pace every frame. The seven tickets sail in during
+         exactly the stretch where the boost is highest, which is why that window is the one
+         worth buying: the canvas is the only thing on the screen the compositor cannot skip. */
+      var skip=k>8?3:(k>2?2:1);
+      tick=(tick+1)%skip;
+      if(tick===0)drawGlobe();
     }
     spinId=requestAnimationFrame(step);
   });
@@ -15662,7 +15716,13 @@ if(/[?&]dbg=1/.test(location.search)){
   window.__VEXDBG={setMode:setMode,startMode:startMode,MODES:(typeof MODES!=="undefined"?MODES:null),
     QUIZ:QUIZ,fit:fitViewport,fitDrawers:fitDrawers,showIntro:showIntro,hideIntro:hideIntro,
     store:store,globe:globe,relayout:relayout,next:(typeof nextQuestion==="function"?nextQuestion:null),
-    run:function(){return run;},day:function(){return dayRun;},setRunN:function(v){run.n=v;run.right=v;}};
+    run:function(){return run;},day:function(){return dayRun;},setRunN:function(v){run.n=v;run.right=v;},
+    draw:drawGlobe,size:sizeGlobe,vis:visibleBox,geo:GEOS,
+    prof:function(n){
+      var i,t=performance.now();
+      for(i=0;i<(n||30);i++){globe.lam+=0.4;drawGlobe();}
+      return (performance.now()-t)/(n||30);
+    }};
 }
 showSplash();
 if(store.phone&&!INFRAME)phoneOn();
