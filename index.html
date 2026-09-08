@@ -5329,6 +5329,113 @@ body::before{background:#B44E2E}
    It runs the whole game a second time inside itself at a third of the size, which is a desk
    toy for building the thing and nothing at all for playing it on the actual handset. */
 .introfoot #introphone{display:none}
+
+/* ============ gen40: the foot, and a tick you can find ============ */
+
+/* THE FOOT, AS LOW AS IT GOES.
+   The row used to be held a full home indicator clear of the bottom, which put the words a
+   centimetre up the screen and made the fade behind them tall enough to read as a band. It
+   keeps a little under half that strip now: enough that the indicator never draws through a
+   letter, not so much that the row looks like it is floating. The fade is the height of the
+   row and nothing more. */
+.introfoot{
+  padding:5px 14px calc(5px + env(safe-area-inset-bottom) * 0.42);
+}
+:root[data-sim] .introfoot{
+  padding-bottom:calc(5px + var(--simB,0px) * 0.42);
+}
+
+/* AND IT IS THERE FROM THE FIRST FRAME.
+   It used to sail in four and a half seconds after boot, behind the globe and the whole pile
+   of tickets, so the bottom of the screen was bare for most of the overture and then grew a
+   bar. The controls are furniture, not a reveal: they start where they end. */
+#intro .introfoot,
+#intro:not(.playing):not(.settled) .introfoot{opacity:1;animation:none}
+#intro.playing .introfoot{animation:none}
+
+/* THE VERDICT MARK.
+   A dark green tick straight onto the answer works until the answer is a green flag, and then
+   it is a dark green tick on dark green. Both marks get a disc to sit on: the paper the rest of
+   the app is printed on, ringed in the colour that carries the meaning, so the shape reads at a
+   glance whatever is underneath it. */
+:root[data-mode] .opt.right::after,
+:root[data-mode] .opt.wrong::after{
+  width:23px;height:23px;box-sizing:border-box;
+  display:grid;place-items:center;padding-bottom:1px;
+  border-radius:50%;background:#F7F1E1;
+  font-size:14px;line-height:1;opacity:1;
+  box-shadow:0 0 0 2px currentColor,0 2px 6px -1px rgba(20,14,8,.55);
+}
+:root[data-mode] .opt.right::after{color:#2F6B4F}
+:root[data-mode] .opt.wrong::after{color:#C0392B}
+/* the tight tiers used to grow the bare glyph; a disc keeps its size and moves in instead */
+:root[data-fit^="tight"][data-mode] .opt.right::after,
+:root[data-fit^="tight"][data-mode] .opt.wrong::after{font-size:14px;width:23px;height:23px;right:12px}
+:root[data-mode="find"] .opt.flagopt.right::after,
+:root[data-mode="find"] .opt.flagopt.wrong::after{right:6px;bottom:6px;top:auto;transform:rotate(-9deg)}
+
+/* ============ gen41: the case number on a small screen ============ */
+
+/* The round counter is hidden on a phone because the ledger along the bottom already carries
+   the same figure. It does not carry the file game: that one is scored in fees, and neither
+   accuracy nor streak is the number you are playing for. So the chip comes back for the file
+   game alone, with the fee total on it. */
+:root[data-fit^="tight"][data-mode="dossier"] #roundtally,
+:root[data-fit="tighter"][data-mode="dossier"] #roundtally{
+  display:inline-flex;align-items:baseline;gap:1px;
+}
+.tally s{
+  text-decoration:none;font-family:var(--type);font-size:9px;letter-spacing:.1em;
+  margin-left:7px;padding-left:7px;border-left:1px solid rgba(242,218,142,.35);
+  color:#F2DA8E;opacity:.92;
+}
+
+/* ============ gen42: three boards that still ran long ============ */
+
+/* These three were never measured properly before: every game past the opening rank is sealed
+   until it is earned, and setMode quietly answers a sealed game with the first board instead,
+   so a sweep across every mode was in fact sweeping the same board over and over. Unsealed and
+   measured, the day ticket ran 28 to 34 pixels long on a handset and the two line games 12 to
+   17. It comes out of the space between things and off the prompt, not off the globe: the globe
+   is what those three games are. */
+:root[data-fit^="tight"][data-mode="riverloc"] .stage,
+:root[data-fit^="tight"][data-mode="rangeloc"] .stage,
+:root[data-fit^="tight"][data-mode="daily"] .stage{gap:4px;padding-top:5px}
+:root[data-fit^="tight"][data-mode="riverloc"] #prompt,
+:root[data-fit^="tight"][data-mode="rangeloc"] #prompt,
+:root[data-fit^="tight"][data-mode="daily"] #prompt{font-size:14px;line-height:1.18}
+:root[data-fit^="tight"][data-mode="riverloc"] .eyebrow,
+:root[data-fit^="tight"][data-mode="rangeloc"] .eyebrow,
+:root[data-fit^="tight"][data-mode="daily"] .eyebrow{padding-top:3px;padding-bottom:3px}
+:root[data-fit^="tight"][data-mode="daily"] .flagbox{max-height:calc(var(--fitH,100vh) * 0.115)}
+:root[data-fit^="tight"][data-mode="daily"] .chain{max-height:46px;overflow-y:auto;scrollbar-width:none}
+
+/* ============ gen43: an overhang that was dragging the board ============ */
+
+/* The sphere on the globe games is deliberately bigger than the box it sits in: the box keeps
+   the layout height, the canvas is centred over it and the card crops what sticks out. What was
+   missed is that an absolutely positioned overhang still counts towards the scrollable overflow
+   of the panel above it. So on the two line games the layout fitted exactly and the board could
+   still be dragged thirty pixels up and down, by a canvas nobody can see the edge of.
+
+   clip is the one overflow value that crops without ever creating a scroll, and the margin lets
+   the overhang go on being visible while it does. */
+.globestack.bleed{overflow:clip;overflow-clip-margin:260px}
+/* clip alone did not settle it, because the margin that keeps the overhang visible keeps it
+   in the clip region too. On the two line games the rows themselves come to 571 of the 599
+   there are, so there is nothing under the fold to reach: the board simply stops scrolling. */
+:root[data-mode="riverloc"] .stage,
+:root[data-mode="rangeloc"] .stage{overflow:clip}
+/* the smallest screen still had two boards a thumb could drag: the waybill by 22 pixels and
+   the file by 17. The ledger already scrolls inside its own card, so it gives up the height;
+   the file gives up the space between its tickets. */
+:root[data-fit="tighter"][data-mode="trade"] .manifest{max-height:21vh}
+:root[data-fit="tighter"][data-mode="trade"] .flagbox{max-height:calc(var(--fitH,100vh) * 0.30)}
+/* the file game on a 667 tall screen is still 17 pixels long: left alone, because the two
+/* and the last eight pixels off the day ticket */
+:root[data-fit^="tight"][data-mode="daily"] .typerow{margin-top:-2px}
+:root[data-fit^="tight"][data-mode="daily"] .acts{padding-top:0}
+:root[data-fit^="tight"][data-mode="daily"] .flagbox{max-height:calc(var(--fitH,100vh) * 0.10)}
 </style>
 <section class="splash" id="splash" hidden>
   <span class="splashveil"></span>
@@ -6013,7 +6120,7 @@ en:{sub:"countries · flags, globe, atlas",
   rankTake:"To the desk",xpLab:"XP",phoneWaking:"The phone is still waking up.",
   mImposter:"Imposter",dImposter:"Three real flags and one forgery",
   mLook:"Lookalikes",dLook:"Name it, and every wrong answer looks like it",
-  askLook:"Which of these flies this flag?",
+  askLook:"These four look alike. Which flies it?",
   mTrap:"Capital trap",dTrap:"The famous city is rarely the one in charge",
   askTrap:"Which of these runs the country?",
   trapNo:"Famous, but not the capital.",
@@ -6042,7 +6149,7 @@ en:{sub:"countries · flags, globe, atlas",
   dosRegion:"Part of the world",dosPeople:"People",dosLand:"Land",dosInk:"Flag colours",
   dosWalk:"Land borders",dosPurse:"Earned a head",dosWater:"Water and rock",
   dosFamous:"Known for",dosLetter:"First letter",dosSeat:"Seat of government",
-  dosRank:"Size in the world",dosRankVal:"{n} largest",dosNextdoor:"Next door",
+  ptsShort:"pts",dosRank:"Size in the world",dosRankVal:"{n} largest",dosNextdoor:"Next door",
   dosLeft:"{n} names left",dosCold:"Filed unread",
   dosTotal:"Fees earned",dosOutOf:"of {n}",dosRecord:"Best afternoon",dosShort:"{n} short",
   inkRed:"red",inkWhite:"white",inkBlack:"black",inkGreen:"green",inkBlue:"blue",
@@ -6189,7 +6296,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   rankTake:"Au bureau",xpLab:"XP",phoneWaking:"Le téléphone démarre encore.",
   mImposter:"L'imposteur",dImposter:"Trois vrais drapeaux et un faux",
   mLook:"Sosies",dLook:"Nommez-le, et chaque mauvaise réponse lui ressemble",
-  askLook:"Lequel de ces pays arbore ce drapeau ?",
+  askLook:"Ces quatre se ressemblent. Lequel est-ce ?",
   mTrap:"Piège des capitales",dTrap:"La ville célèbre est rarement celle qui gouverne",
   askTrap:"Laquelle de ces villes gouverne le pays ?",
   trapNo:"Célèbre, mais pas la capitale.",
@@ -6218,7 +6325,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   dosRegion:"Partie du monde",dosPeople:"Habitants",dosLand:"Superficie",dosInk:"Couleurs du drapeau",
   dosWalk:"Frontières terrestres",dosPurse:"Gagné par habitant",dosWater:"Eau et roche",
   dosFamous:"Connu pour",dosLetter:"Première lettre",dosSeat:"Siège du gouvernement",
-  dosRank:"Taille dans le monde",dosRankVal:"{n} plus grand",dosNextdoor:"Pays voisin",
+  ptsShort:"pts",dosRank:"Taille dans le monde",dosRankVal:"{n} plus grand",dosNextdoor:"Pays voisin",
   dosLeft:"{n} noms restants",dosCold:"Classé sans réponse",
   dosTotal:"Honoraires gagnés",dosOutOf:"sur {n}",dosRecord:"Meilleure journée",dosShort:"{n} de moins",
   inkRed:"rouge",inkWhite:"blanc",inkBlack:"noir",inkGreen:"vert",inkBlue:"bleu",
@@ -6365,7 +6472,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   rankTake:"Zum Schreibtisch",xpLab:"XP",phoneWaking:"Das Telefon fährt noch hoch.",
   mImposter:"Der Hochstapler",dImposter:"Drei echte Flaggen und eine Fälschung",
   mLook:"Doppelgänger",dLook:"Benenne sie, und jede falsche Antwort sieht ihr ähnlich",
-  askLook:"Wer von diesen führt diese Flagge?",
+  askLook:"Diese vier ähneln sich. Welches ist es?",
   mTrap:"Hauptstadtfalle",dTrap:"Die berühmte Stadt regiert nur selten",
   askTrap:"Welche dieser Städte regiert das Land?",
   trapNo:"Berühmt, aber nicht die Hauptstadt.",
@@ -6394,7 +6501,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   dosRegion:"Teil der Welt",dosPeople:"Einwohner",dosLand:"Fläche",dosInk:"Flaggenfarben",
   dosWalk:"Landgrenzen",dosPurse:"Verdient pro Kopf",dosWater:"Wasser und Fels",
   dosFamous:"Bekannt für",dosLetter:"Erster Buchstabe",dosSeat:"Regierungssitz",
-  dosRank:"Größe in der Welt",dosRankVal:"{n} größtes",dosNextdoor:"Nachbarland",
+  ptsShort:"Pkt",dosRank:"Größe in der Welt",dosRankVal:"{n} größtes",dosNextdoor:"Nachbarland",
   dosLeft:"noch {n} Namen",dosCold:"Ungelesen abgelegt",
   dosTotal:"Verdiente Gebühren",dosOutOf:"von {n}",dosRecord:"Bester Nachmittag",dosShort:"{n} zu wenig",
   inkRed:"rot",inkWhite:"weiß",inkBlack:"schwarz",inkGreen:"grün",inkBlue:"blau",
@@ -6541,9 +6648,9 @@ es:{sub:"países · banderas, globo, atlas",
   rankTake:"Al escritorio",xpLab:"XP",phoneWaking:"El teléfono todavía está arrancando.",
   mImposter:"El impostor",dImposter:"Tres banderas de verdad y una falsificación",
   mLook:"Parecidas",dLook:"Nómbrala, y cada respuesta falsa se le parece",
-  askLook:"¿Cuál de estos lleva esta bandera?",
+  askLook:"Estas cuatro se parecen. ¿Cuál es?",
   mTrap:"Trampa de capitales",dTrap:"La ciudad famosa rara vez es la que manda",
-  askTrap:"¿Cuál de estas gobierna el país?",
+  askTrap:"¿Cuál de estas ciudades gobierna el país?",
   trapNo:"Famosa, pero no es la capital.",
   mCrowd:"Más o menos",dCrowd:"Qué país tiene más habitantes",
   askCrowd:"¿Tiene {c} más o menos habitantes que {o}?",
@@ -6570,7 +6677,7 @@ es:{sub:"países · banderas, globo, atlas",
   dosRegion:"Parte del mundo",dosPeople:"Habitantes",dosLand:"Superficie",dosInk:"Colores de la bandera",
   dosWalk:"Fronteras terrestres",dosPurse:"Ganado por habitante",dosWater:"Agua y roca",
   dosFamous:"Conocido por",dosLetter:"Primera letra",dosSeat:"Sede del gobierno",
-  dosRank:"Tamaño en el mundo",dosRankVal:"{n} más grande",dosNextdoor:"País vecino",
+  ptsShort:"pts",dosRank:"Tamaño en el mundo",dosRankVal:"{n} más grande",dosNextdoor:"País vecino",
   dosLeft:"quedan {n} nombres",dosCold:"Archivado sin leer",
   dosTotal:"Honorarios ganados",dosOutOf:"de {n}",dosRecord:"Mejor tarde",dosShort:"{n} menos",
   inkRed:"rojo",inkWhite:"blanco",inkBlack:"negro",inkGreen:"verde",inkBlue:"azul",
@@ -6717,12 +6824,12 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   rankTake:"Naar de tafel",xpLab:"XP",phoneWaking:"De telefoon start nog op.",
   mImposter:"Bedrieger",dImposter:"Drie echte vlaggen en één vervalsing",
   mLook:"Dubbelgangers",dLook:"Noem het, en elk fout antwoord lijkt erop",
-  askLook:"Welke van deze voert deze vlag?",
+  askLook:"Deze vier lijken op elkaar. Welk land is het?",
   mTrap:"Hoofdstadval",dTrap:"De beroemde stad is zelden de baas",
-  askTrap:"Welke van deze bestuurt het land?",
+  askTrap:"Welke van deze steden bestuurt het land?",
   trapNo:"Beroemd, maar niet de hoofdstad.",
   mCrowd:"Meer of minder",dCrowd:"Welk land herbergt meer mensen",
-  askCrowd:"Heeft {c} meer of minder mensen dan {o}?",
+  askCrowd:"Heeft {c} meer of minder inwoners dan {o}?",
   crowdMore:"Meer",crowdFewer:"Minder",
   mRich:"Rijker of armer",dRich:"Welk land verdient meer per hoofd",
   askRich:"Verdient {c} meer of minder per hoofd dan {o}?",
@@ -6746,7 +6853,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   dosRegion:"Werelddeel",dosPeople:"Inwoners",dosLand:"Oppervlakte",dosInk:"Vlagkleuren",
   dosWalk:"Landgrenzen",dosPurse:"Verdiend per hoofd",dosWater:"Water en gesteente",
   dosFamous:"Bekend om",dosLetter:"Eerste letter",dosSeat:"Regeringszetel",
-  dosRank:"Grootte in de wereld",dosRankVal:"{n} grootste",dosNextdoor:"Buurland",
+  ptsShort:"ptn",dosRank:"Grootte in de wereld",dosRankVal:"{n} grootste",dosNextdoor:"Buurland",
   dosLeft:"nog {n} namen",dosCold:"Ongelezen opgeborgen",
   dosTotal:"Verdiende kosten",dosOutOf:"van {n}",dosRecord:"Beste middag",dosShort:"{n} tekort",
   inkRed:"rood",inkWhite:"wit",inkBlack:"zwart",inkGreen:"groen",inkBlue:"blauw",
@@ -6780,7 +6887,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   askForgery:"Wat is er met deze vlag gedaan?",
   forgeLead:"Vertrouw niets",
   mBorder:"Buren",dBorder:"Hoofdsteden, en elke foute ligt naast de deur",
-  askImposter:"Aan één van deze vier is geknoeid",
+  askImposter:"Met één van deze vier vlaggen is geknoeid",
   impLead:"Zoek de vervalsing",impFake:"de vervalsing",impReal:"de echte",
   impFound:"Vervalsing gevonden",impMiss:"Die is echt",
   impswap:"twee kleuren zijn verwisseld",impshade:"de tint klopt niet",
@@ -7451,9 +7558,14 @@ function sizeGlobe(){
   }
   if(stack&&stack.classList){stack.classList.remove("bleed");stack.style.height="";}
   var phone=window.innerWidth<=640&&!sideBySide();
-  /* the sphere is the instrument: it is allowed to run past the bottom of the card and
-     let the page scroll, rather than shrink to whatever the rows below left over */
-  var floor=phone?wide*0.94:Math.min(wide*0.92,760);
+  /* The sphere used to be allowed to run past the bottom of the card and let the page scroll,
+     on the grounds that it is the instrument and the rows underneath can wait their turn. That
+     is where the two line games got their overflow from: freeing space above them did nothing,
+     because the sphere was sized off the width of the column and never looked at what was left.
+     Nothing in this app scrolls any more, so the room left is the room. The floor is now a plain
+     minimum rather than a share of the width, which keeps it an instrument and not a thumbnail
+     without letting it decide the height of the board. */
+  var floor=phone?240:Math.min(wide*0.92,760);
   var side=Math.round(Math.max(240,Math.min(wide,Math.max(tall,floor),980)));
   var dpr=globeDpr(side,globe.blur?1:2);
   cv.style.width=side+"px";cv.style.height=side+"px";
@@ -10360,7 +10472,7 @@ var QUIZ={
     score:function(){return masteredIn(store.box)+"/"+FLAGS.length;}
   },
   sprint:{
-    ask:"askSprint",
+    ask:"askSprint",gate:1,
     subject:function(f){return flagNode(f);},
     option:function(o){var s=document.createElement("span");s.textContent=cname(o);return s;},
     score:function(){return t("best")+" "+(store.bestSprint||0);}
@@ -10374,7 +10486,7 @@ var QUIZ={
     score:function(){return masteredIn(store.box)+"/"+FLAGS.length;}
   },
   cap:{
-    ask:"askCapital",box:"cap",
+    ask:"askCapital",box:"cap",gate:2,
     has:function(f){return !!capitalOf(f);},
     prep:function(f){if(!GEOS.hi)geoHi();drawShape(f);},
     subject:function(f){return targetCard(f);},
@@ -10383,8 +10495,8 @@ var QUIZ={
     },
     score:function(){return masteredIn(store.cap)+"/"+FLAGS.length;}
   },
-  imposter:imposterDesk(0),
-  forgery:forgeryDesk(3),
+  imposter:imposterDesk(4),
+  forgery:forgeryDesk(9),
   /* Capitals, except the three wrong answers are the capitals of countries that actually
      border this one. Knowing the region stops helping and you have to know the country. */
   border:{
@@ -10401,7 +10513,7 @@ var QUIZ={
   /* Same question as Name the flag, except the three wrong answers all fly something that
      looks like this one. Knowing roughly what it is stops being enough. */
   look:{
-    ask:"askLook",
+    ask:"askLook",gate:3,
     has:function(f){return !!IMPIN[f.c];},
     subject:function(f){return flagNode(f);},
     from:function(f){return [f].concat(famFor(f)||[]);},
@@ -10411,7 +10523,7 @@ var QUIZ={
   /* The famous city is almost never the one that runs the country, so all three wrong
      answers are cities of the same country you are being asked about. */
   trap:{
-    ask:"askTrap",box:"cap",gate:2,
+    ask:"askTrap",box:"cap",gate:6,
     has:function(f){return !!DECOY[f.c]&&!!capitalOf(f);},
     prep:function(f){if(!GEOS.hi)geoHi();drawShape(f);},
     subject:function(f){return targetCard(f);},
@@ -10435,7 +10547,7 @@ var QUIZ={
      say whose docks they are. The wrong answers come from the same part of the world so
      that a continent alone will not carry you. */
   trade:{
-    ask:"askTrade",box:"trade",gate:1,
+    ask:"askTrade",box:"trade",gate:7,
     has:function(f){return !!EXPORTS[f.c];},
     subject:function(f){
       /* A country's trade in one glance, the way a customs sheet would put it: what goes
@@ -10518,7 +10630,7 @@ var QUIZ={
   },
   /* the water it puts its ports on */
   sea:{
-    ask:"askSea",box:"terra",
+    ask:"askSea",box:"terra",gate:5,
     has:featureHas(SEA),from:featureFrom(SEA),option:featureOption(SEA),
     subject:function(f){return targetCard(f);},
     score:featureScore(SEA)
@@ -10526,12 +10638,12 @@ var QUIZ={
   /* No options at all: read the flag, write the country. The same check the outline game
      uses, so a near miss and a spelling slip are both forgiven. */
   blind:{
-    ask:"askBlind",box:"blind",typed:true,gate:1,
+    ask:"askBlind",box:"blind",typed:true,gate:7,
     subject:function(f){return flagNode(f);},
     score:function(){return masteredIn(store.blind)+"/"+FLAGS.length;}
   },
   dossier:{
-    ask:"askDossier",box:"dossier",typed:true,gate:1,
+    ask:"askDossier",box:"dossier",typed:true,gate:10,
     prep:function(f){
       /* the file is only re-filed when the country changes: buying a clue redraws it */
       if(dossier.forName===f.n)return;
@@ -11032,6 +11144,15 @@ function paintRound(){
   var a=document.createElement("b");a.textContent=("0"+Math.min(run.n+1,roundLen())).slice(-2);
   var b=document.createElement("i");b.textContent="/"+roundLen();
   el.appendChild(a);el.appendChild(b);
+  /* The file game is scored in fees rather than in right answers, so the count of cases on
+     its own says nothing about how the afternoon is going. The running total goes on the same
+     chip, which is also the only place a phone can see it: the ledger strip along the bottom
+     carries accuracy and streak, neither of which is what this game pays. */
+  if(mode==="dossier"){
+    var c=document.createElement("s");
+    c.textContent=(run.pts||0)+" "+t("ptsShort");
+    el.appendChild(c);
+  }
 }
 function runEnd(){
   stopAuto();
@@ -12198,7 +12319,9 @@ function dailyKind(key){
 /* which engine is on screen right now: the daily borrows the others */
 /* Games that run on their own engine still take a rank, so the ladder is one list and not
    a rule that only applies to the quizzes. */
-var GATES={worldle:2,riverloc:0,rangeloc:1};
+/* The games that run on their own engine take a rung like everything else. Roughly two open
+   at every rank: one board and one map, so neither half of the app arrives all at once. */
+var GATES={shape:1,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8};
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc";}
 function gateOf(m){var q=QUIZ[m];return (q&&q.gate)||GATES[m]||0;}
 function unlocked(m){return rankIndex(store.xp||0)>=gateOf(m);}
@@ -12861,13 +12984,25 @@ function buzz(ms){
 }
 
 /* ================= rank and points ================= */
+/* Six ranks with almost every game sitting behind the first of them is not a ladder, it is a
+   door with a sign on it. There are twelve now, and the old six keep the exact numbers they
+   always had, so a save carries across without ever losing a game it had already earned: the
+   six that are new fall in the gaps between them. Two games open at nearly every rung up to the
+   tenth, which leaves the last two as what a last rank should be, a title rather than a
+   purchase. */
 var RANKS=[
   {xp:0,en:"Filing Clerk",nl:"Archiefklerk",fr:"Commis aux archives",de:"Archivgehilfe",es:"Auxiliar de archivo"},
+  {xp:180,en:"Junior Draughtsman",nl:"Tekenaar in opleiding",fr:"Dessinateur junior",de:"Zeichner im Lehrjahr",es:"Delineante junior"},
   {xp:400,en:"Map Reader",nl:"Kaartlezer",fr:"Liseur de cartes",de:"Kartenleser",es:"Lector de mapas"},
-  {xp:1200,en:"Apprentice Cartographer",nl:"Leerling-cartograaf",fr:"Apprenti cartographe",de:"Kartograf im Lehrjahr",es:"Aprendiz de cart\u00f3grafo"},
-  {xp:2600,en:"Atlas Keeper",nl:"Atlasbeheerder",fr:"Gardien de l'atlas",de:"H\u00fcter des Atlas",es:"Guardi\u00e1n del atlas"},
-  {xp:5000,en:"Chief Vexillologist",nl:"Hoofdvexilloloog",fr:"Vexillologue en chef",de:"Chefvexillologe",es:"Vexil\u00f3logo jefe"},
-  {xp:9000,en:"Bureau Director",nl:"Bureaudirecteur",fr:"Directeur du bureau",de:"B\u00fcrodirektor",es:"Director de la oficina"}
+  {xp:750,en:"Route Planner",nl:"Routeplanner",fr:"Traceur d’itinéraires",de:"Routenplaner",es:"Trazador de rutas"},
+  {xp:1200,en:"Apprentice Cartographer",nl:"Leerling-cartograaf",fr:"Apprenti cartographe",de:"Kartograf im Lehrjahr",es:"Aprendiz de cartógrafo"},
+  {xp:1850,en:"Surveyor",nl:"Landmeter",fr:"Géomètre",de:"Landvermesser",es:"Agrimensor"},
+  {xp:2600,en:"Atlas Keeper",nl:"Atlasbeheerder",fr:"Gardien de l'atlas",de:"Hüter des Atlas",es:"Guardián del atlas"},
+  {xp:3700,en:"Chart Corrector",nl:"Kaartcorrector",fr:"Correcteur de cartes",de:"Kartenkorrektor",es:"Corrector de cartas"},
+  {xp:5000,en:"Chief Vexillologist",nl:"Hoofdvexilloloog",fr:"Vexillologue en chef",de:"Chefvexillologe",es:"Vexilólogo jefe"},
+  {xp:6800,en:"Keeper of Seals",nl:"Zegelbewaarder",fr:"Garde des sceaux",de:"Siegelbewahrer",es:"Guardián de los sellos"},
+  {xp:9000,en:"Bureau Director",nl:"Bureaudirecteur",fr:"Directeur du bureau",de:"Bürodirektor",es:"Director de la oficina"},
+  {xp:12000,en:"Geographer Royal",nl:"Rijksgeograaf",fr:"Géographe du Roi",de:"Königlicher Geograph",es:"Geógrafo real"}
 ];
 if(!store.xp)store.xp=0;
 function rankIndex(xp){
