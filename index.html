@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#B0492A">
+<script>window.GT_BUILD="v2 · 2026-09-08 14:55";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -5473,6 +5474,62 @@ body::before{background:#B44E2E}
   mix-blend-mode:normal;
   opacity:.09;
 }
+
+/* ============ gen45: the title canvas is a window, not a disc ============ */
+
+/* The canvas used to be a square larger than the screen with the sphere drawn inside it, and a
+   fifty per cent radius turned that square into a circle that happened to sit exactly where the
+   sphere did. The canvas is the window now, so the same rule would cut an ellipse out of the
+   screen. There is nothing left to round: the sphere draws its own edge. */
+.introglobe #globe{border-radius:0;box-shadow:none}
+.introglobe #pulse{border-radius:0}
+
+/* ============ gen46: the map canvas sits in its box ============ */
+
+/* The bleed rules pulled the canvas out of the flow and hung it off the left so an oversized
+   sphere could be centred over a smaller box. The canvas is exactly the box now and the sphere
+   is placed inside it by the drawing code, so all of that positioning has to go or it would
+   shove a correctly sized canvas sideways. */
+.globestack.bleed>canvas,
+.globestack.bleed>canvas#globe{
+  position:static;left:auto;right:auto;top:auto;transform:none;
+  border-radius:0;box-shadow:none;
+}
+.globestack.bleed{overflow:visible;overflow-clip-margin:0}
+
+/* ============ gen47: the foot of a board ============ */
+
+/* THE LEDGER RIDES DOWN.
+   It cleared the whole home indicator strip, which on a board with nothing under it is a
+   centimetre of desk below the last thing you can read. It is a readout, not a control, so it is
+   allowed into the part of that strip the system does not draw on. */
+:root[data-mode] .stats{
+  margin-bottom:calc(env(safe-area-inset-bottom) * -0.55);
+  position:relative;
+}
+:root[data-sim][data-mode] .stats{margin-bottom:calc(var(--simB,0px) * -0.55)}
+
+/* AND IT GETS THE SAME EDGE THE TITLE SCREEN HAS.
+   The fade at the bottom of the desk was written for the title screen and stopped existing the
+   moment a game started, so the two screens ended differently for no reason anybody chose. Same
+   two stops, same direction, sitting on top of the ledger rather than under it. */
+:root[data-mode] .stats::before{
+  content:"";position:absolute;left:0;right:0;bottom:100%;height:34px;
+  background:linear-gradient(to top,var(--desk2) 0,rgba(210,98,60,0) 100%);
+  pointer-events:none;
+}
+
+/* THE BUILD STAMP.
+   Small, dim, out of the way, and it never covers a control: the foot row is centred and this
+   sits in the corner beside it. */
+.build{
+  position:absolute;right:8px;z-index:6;pointer-events:none;
+  bottom:calc(3px + env(safe-area-inset-bottom) * 0.42);
+  font-family:var(--type);font-size:8px;letter-spacing:.1em;
+  color:#FBF3E2;opacity:.42;
+}
+:root[data-sim] .build{bottom:calc(3px + var(--simB,0px) * 0.42)}
+.build:empty{display:none}
 </style>
 <section class="splash" id="splash" hidden>
   <span class="splashveil"></span>
@@ -5521,6 +5578,7 @@ body::before{background:#B44E2E}
   </div>
   <div class="introstats" id="introstats"></div>
   <span class="hovername" id="hovername"></span>
+  <span class="build" id="build"></span>
 </section>
 <div id="device" hidden>
   <div class="bezel">
@@ -7530,6 +7588,7 @@ function roomFor(el){
   return h;
 }
 function sizeGlobe(){
+  globe.dirty=true;   /* a reallocated backing store is a blank one */
   var cv=globe.cv,wrapEl=cv.parentNode;
   if(wrapEl&&wrapEl.className&&wrapEl.className.indexOf("globestack")>=0)wrapEl=wrapEl.parentNode;
   /* measure the container, never the card itself: the card grows with the canvas */
@@ -7547,23 +7606,32 @@ function sizeGlobe(){
     /* the games hand the canvas back still wearing their layout: strip it */
     var st0=cv.parentNode;
     if(st0&&st0.classList){st0.classList.remove("bleed");st0.style.height="";}
-    /* no frame at all: the sphere runs off every edge of the screen */
-    /* The sphere is centred on the screen, so the first thing to leave it is a corner. Sized
-       off the longer side it fell short of them by a couple of centimetres, and the desk showed
-       through as two wedges in the bottom corners with the ocean between them: a dark bar lying
-       across the foot of the screen that nothing in the design put there. Size it off the
-       corner instead and the planet reaches every edge, which is what it was always meant to
-       do. It costs nothing to draw: the pixel budget below fixes the backing store whatever
-       the sphere measures, and only the part of it the window can see is ever painted. */
-    var vw=window.innerWidth||375,vh=window.innerHeight||800;
-    var corner=Math.sqrt(vw*vw+vh*vh)/2;
-    availW=Math.min(Math.max(Math.max(vw,vh)*1.06,2*(corner+12)+12),1280);
-    var side0=Math.round(Math.max(320,availW));
-    var dpr0=globeDpr(side0,globe.blur?0.62:1.6,globe.blur?0.62:1);
-    cv.style.width=side0+"px";cv.style.height=side0+"px";
-    cv.width=Math.round(side0*dpr0);cv.height=Math.round(side0*dpr0);
+    /* THE TITLE CANVAS IS THE WINDOW.
+
+       It used to be a square big enough to hold the whole sphere: 966 by 966 on a 390 by 844
+       phone, of which about a third was ever on screen. That square was not needed by anything.
+       The sphere is three numbers, cx, cy and R, and none of them has to have any relationship
+       to the size of the canvas: give the canvas the window and the sphere is clipped by the
+       edge of it, for free, which is the entire effect the oversized square was buying.
+
+       What that square was costing, on a handset: two and a half times the pixels to allocate,
+       clear and composite, on two canvases rather than one, plus a getBoundingClientRect four
+       times a second so the drawing could be clipped to the part that showed. A page under that
+       much texture pressure is a page iOS starts throwing canvas backing stores away from, and a
+       canvas whose backing store has been thrown away comes back blank. That is the planet
+       disappearing, and it is the texture flashing.
+
+       The radius goes back to what it was before any of this: the sphere reaches the edges but
+       not the corners, and the corners show desk. That is what it looked like when he liked it,
+       and the desk is the right colour there now. */
+    var vw=Math.max(320,window.innerWidth||375),vh=Math.max(320,window.innerHeight||800);
+    var dpr0=globeDpr(Math.max(vw,vh),1.6,1);
+    cv.style.width=vw+"px";cv.style.height=vh+"px";
+    cv.width=Math.round(vw*dpr0);cv.height=Math.round(vh*dpr0);
     globe.ctx.setTransform(dpr0,0,0,dpr0,0,0);
-    globe.cx=side0/2;globe.cy=side0/2;globe.base=side0/2-6;globe.R=globe.base*globe.zoom;
+    globe.cx=vw/2;globe.cy=vh/2;
+    globe.base=Math.max(vw,vh)*0.53-6;
+    globe.R=globe.base*globe.zoom;
     sizePulse();
     return;
   }
@@ -7576,20 +7644,36 @@ function sizeGlobe(){
      never below a floor, so the globe is never a thumbnail. */
   var wide=Math.max(240,box.width-4||520);
   var tall=Math.max(0,room||0);
-  /* on the globe games the sphere is allowed to be bigger than its box: the stack
-     keeps the layout height, the canvas is centred over it and the card crops it */
+  /* THE MAP GAMES.
+
+     The sphere used to be drawn on a canvas half again as big as its box and centred over it, so
+     the card cropped it on all four sides. That is where the flat cut across the top and bottom
+     of the planet came from, and it was cropping the thing the game is about.
+
+     A circle whose top and bottom are both inside a box can be no wider than that box is tall.
+     That is the whole geometry, and it is why the planet gets smaller here: the old one was only
+     that big because it was cut. So the diameter is the height there is, and the sphere is put
+     against the right hand edge, which leaves the desk on the left and the left limb always in
+     view. If ever the panel is taller than it is wide the anchor flips, so that the overhang
+     falls off the right and never off the left.
+
+     Note the centre is placed off globe.base rather than globe.R: zooming in must move the map
+     under the sphere, not slide the sphere across its panel. */
   var stack=cv.parentNode,kind=playKind();
   var bleed=(kind==="locate"||kind==="globle"||kind==="route");
   if(bleed&&stack&&stack.classList){
     var boxH=Math.max(220,tall);
     stack.classList.add("bleed");
     stack.style.height=boxH+"px";
-    var big=Math.round(Math.max(300,Math.min(Math.max(wide,boxH)*1.5,1180)));
-    var dprB=globeDpr(big,globe.blur?0.95:1.8);
-    cv.style.width=big+"px";cv.style.height=big+"px";
-    cv.width=Math.round(big*dprB);cv.height=Math.round(big*dprB);
+    var cw=Math.max(200,Math.round(wide)),ch=Math.round(boxH);
+    var dprB=globeDpr(Math.max(cw,ch),1.8,0.9);
+    cv.style.width=cw+"px";cv.style.height=ch+"px";
+    cv.width=Math.round(cw*dprB);cv.height=Math.round(ch*dprB);
     globe.ctx.setTransform(dprB,0,0,dprB,0,0);
-    globe.cx=big/2;globe.cy=big/2;globe.base=big/2-6;globe.R=globe.base*globe.zoom;
+    globe.base=Math.max(100,ch/2-3);
+    globe.R=globe.base*globe.zoom;
+    globe.cx=Math.max(globe.base,cw-globe.base);
+    globe.cy=ch/2;
     sizePulse();
     return;
   }
@@ -7795,15 +7879,20 @@ function globeDpr(side,cap,floor){
    measurement is a forced layout, so it is taken four times a second at most, and it is
    padded, because being a little too generous costs a few pixels and being a little too
    mean would cut the sphere. */
-var visAt=0,visBox=null;
+/* The measurement is a forced layout, so it is taken four times a second at most and cached.
+   Except that the cache test was "have I got a box", and no clip needed is a perfectly good
+   answer that happens to be null: whenever the canvas was fully on screen the cache never hit,
+   and every call went to the layout engine. drawGlobe asks three times a frame. Cache the fact
+   that an answer was reached, not the answer. */
+var visAt=0,visBox=null,visHas=false;
 function visibleBox(){
   var now=Date.now();
-  if(visBox!==null&&now-visAt<250)return visBox;
-  visAt=now;visBox=null;
+  if(visHas&&now-visAt<250)return visBox;
+  visAt=now;visBox=null;visHas=true;
   var cv=globe.cv;
-  if(!cv)return null;
+  if(!cv){visHas=false;return null;}
   var r=cv.getBoundingClientRect();
-  if(!r.width||!r.height)return null;
+  if(!r.width||!r.height){visHas=false;return null;}
   var w=globe.cx*2,h=globe.cy*2;
   var sx=w/r.width,sy=h/r.height,pad=24;
   var x0=Math.max(0,(0-r.left)*sx-pad),y0=Math.max(0,(0-r.top)*sy-pad);
@@ -7836,7 +7925,7 @@ function drawGlobe(){
   /* clearing is a fill like any other: only the part that gets redrawn needs it */
   var vbC=visibleBox();
   if(vbC)ctx.clearRect(vbC[0],vbC[1],vbC[2],vbC[3]);
-  else ctx.clearRect(0,0,side,side);
+  else ctx.clearRect(0,0,side,globe.cy*2);
 
   /* The sphere used to cast its own shadow here, inside the canvas. The canvas is a circle
      only because border-radius makes it one, and that clip sits 6.5px outside the sphere,
@@ -13854,12 +13943,19 @@ function pulseInit(){
   if(!pulse.cv)return;
   pulse.ctx=pulse.cv.getContext("2d");
 }
+/* The pin canvas is the same size as the globe canvas and, until now, had no pixel budget at
+   all: the globe was capped at GLOBE_PIXELS and this one was capped at nothing but a device
+   ratio of 2. On an iPhone that made it 1932 by 1932, near four million pixels and about
+   fifteen megabytes of texture, to draw one map pin. It is the single largest thing the app
+   allocates and it was allocating it to hold a drawing the size of a thumbnail.
+
+   Same budget as the globe, and the same shape as the globe, which is no longer square. */
 function sizePulse(){
   pulseInit();
   if(!pulse.ctx||!globe.cv)return;
-  var side=globe.cx*2,dpr=Math.min(window.devicePixelRatio||1,2);
-  pulse.cv.style.width=side+"px";pulse.cv.style.height=side+"px";
-  pulse.cv.width=Math.round(side*dpr);pulse.cv.height=Math.round(side*dpr);
+  var w=globe.cx*2,h=globe.cy*2,dpr=globeDpr(Math.max(w,h),1.5,0.75);
+  pulse.cv.style.width=w+"px";pulse.cv.style.height=h+"px";
+  pulse.cv.width=Math.round(w*dpr);pulse.cv.height=Math.round(h*dpr);
   pulse.ctx.setTransform(dpr,0,0,dpr,0,0);
   pulse.box=null;      /* a resized canvas is already blank */
 }
@@ -13921,17 +14017,17 @@ function drawRose(ctx,x,y,r,ink,paper){
 function drawPulse(){
   pulseInit();
   if(!pulse.ctx)return;
-  var ctx=pulse.ctx,side=globe.cx*2;
+  var ctx=pulse.ctx,side=globe.cx*2,tall=globe.cy*2;
   /* this canvas is as big as the globe but paints a pin. Clearing all of it every frame
      re-uploaded a full-screen texture; only the patch the pin last occupied is wiped. */
   var pad=90,lastBox=pulse.box;
   if(lastBox)ctx.clearRect(lastBox[0],lastBox[1],lastBox[2],lastBox[3]);
-  else ctx.clearRect(0,0,side,side);
+  else ctx.clearRect(0,0,side,tall);
   pulse.box=null;
   var spot=cotdSpot();
   if(!spot)return;
   var x=spot[0],y=spot[1];
-  if(x<-40||y<-40||x>side+40||y>side+40)return;
+  if(x<-40||y<-40||x>side+40||y>tall+40)return;
   var accent=css("--accent"),paper=css("--card"),edge=css("--landline");
   var phase=((performance.now()-pulse.t0)%2100)/2100;
   var scale=Math.max(0.7,Math.min(2.3,globe.R/165));
@@ -13956,14 +14052,16 @@ function pulseOn(){
   pulse.t0=pulse.t0||performance.now();
   if(pulse.id)return;
   (function loop(){
-    drawPulse();
+    /* a pin bobbing under a planet turning at twenty six times speed is a pin nobody can
+       see, and it is a second full screen canvas being cleared and painted for the privilege */
+    if((globe.spinBoost||1)<=3)drawPulse();
     pulse.id=requestAnimationFrame(loop);
   })();
 }
 function pulseOff(){
   if(pulse.id){cancelAnimationFrame(pulse.id);pulse.id=0;}
   pulse.box=null;
-  if(pulse.ctx)pulse.ctx.clearRect(0,0,globe.cx*2,globe.cx*2);
+  if(pulse.ctx)pulse.ctx.clearRect(0,0,globe.cx*2,globe.cy*2);
   pulse.target=null;
 }
 /* drop the pin on one country and keep it there until the next question */
@@ -15037,6 +15135,10 @@ function buildDrawers(){
 }
 
 function paintIntro(){
+  /* Which file is actually on the phone. The home screen build stamps a number into the page
+     at build time; the artifact build has none and the corner stays empty. */
+  var bs=$("build");
+  if(bs)bs.textContent=(typeof window.GT_BUILD==="string")?window.GT_BUILD:"";
   $("introtag").textContent=t("tagline");
   $("introstart").textContent=store.mode?t("continue"):t("startPlay");
   $("introlang").textContent=langShort(langNext(lang));
@@ -15085,9 +15187,12 @@ function spinGlobe(){
          still fast, one in two; at walking pace every frame. The seven tickets sail in during
          exactly the stretch where the boost is highest, which is why that window is the one
          worth buying: the canvas is the only thing on the screen the compositor cannot skip. */
+      /* A resize reallocates the backing store, which blanks it. Skipping the frame after one
+         leaves the screen empty until the next draw comes round, which at one in three is a
+         third of a second of nothing: the planet vanishing and coming back. */
       var skip=k>8?3:(k>2?2:1);
       tick=(tick+1)%skip;
-      if(tick===0)drawGlobe();
+      if(tick===0||globe.dirty){globe.dirty=false;drawGlobe();}
     }
     spinId=requestAnimationFrame(step);
   });
@@ -15186,7 +15291,11 @@ function runIntroBoot(){
   var spin0=first?26:8,ramp=first?9200:3000,t0=performance.now();
   globe.spinBoost=spin0;
   /* coarse while it races, sharp once it settles */
-  if(spin0>2){
+  /* The run up used to drop the canvas to a coarse density and put it back partway through,
+     which meant reallocating and therefore blanking both canvases in the middle of the one
+     animation anybody ever watches. The canvas is the size of the window now, so the full
+     density is affordable from the first frame and there is nothing to trade. */
+  if(false){
     globe.blur=true;sizeGlobe();
     /* the ramp below hands the resolution back when it reaches the end, but it is driven
        by animation frames and a phone that is still launching does not always deliver
@@ -15203,11 +15312,10 @@ function runIntroBoot(){
        ramp: the decay curve means the last third of those nine seconds is a planet that
        has all but stopped, and holding it coarse through that is the one place the low
        density would actually show. */
-    if(globe.blur&&globe.spinBoost<3){globe.blur=false;sizeGlobe();}
+    /* nothing to sharpen: the density never dropped */
     if(k<1)requestAnimationFrame(ease);
     else{
       globe.spinBoost=1;
-      if(globe.blur){globe.blur=false;sizeGlobe();}
       drawGlobe();
     }
   })();
