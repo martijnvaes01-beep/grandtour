@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#B44E2E">
-<script>window.GT_BUILD="v20 · 2026-09-08 22:08";</script>
+<script>window.GT_BUILD="v21 · 2026-09-08 22:16";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -12993,13 +12993,12 @@ function dailyKind(key){
 /* The games that run on their own engine take a rung like everything else. Roughly two open
    at every rank: one board and one map, so neither half of the app arrives all at once. */
 var GATES={shape:1,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8};
+/* Bump this when publishing the artifact. The home screen build counts its own in build.json
+   and overwrites this on the way through standalone.js. */
+var VERSION="v21";
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc";}
 function gateOf(m){var q=QUIZ[m];return (q&&q.gate)||GATES[m]||0;}
-/* TESTING: every board open regardless of rank. Delete the first line to put the gates
-   back, and nothing else changes: the ranks, the experience and the promotion notices all
-   still work, they just stop being a door. */
-var UNLOCK_ALL=true;
-function unlocked(m){return UNLOCK_ALL||rankIndex(store.xp||0)>=gateOf(m);}
+function unlocked(m){return rankIndex(store.xp||0)>=gateOf(m);}
 function gateLabel(m){return t("opensAt")+" "+rankName(gateOf(m));}
 function syncTabs(){
   TABS.forEach(function(k){
@@ -15588,10 +15587,12 @@ function buildDrawers(){
 }
 
 function paintIntro(){
-  /* Which file is actually on the phone. The home screen build stamps a number into the page
-     at build time; the artifact build has none and the corner stays empty. */
+  /* Which file is actually being looked at. standalone.js stamps a counted number into the
+     head of the home screen build, so that one wins where it exists; VERSION below is the
+     artifact's own, and it is bumped by hand at publish time. Without it the corner of the
+     artifact was blank and there was no way to tell one published build from the next. */
   var bs=$("build");
-  if(bs)bs.textContent=(typeof window.GT_BUILD==="string")?window.GT_BUILD:"";
+  if(bs)bs.textContent=(typeof window.GT_BUILD==="string")?window.GT_BUILD:VERSION;
   $("introtag").textContent=t("tagline");
   $("introstats").textContent=t("statsShort");
   $("introlang").textContent=langShort(langNext(lang));
