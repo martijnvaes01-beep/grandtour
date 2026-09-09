@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="background:#B44E2E">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#B44E2E">
-<script>window.GT_BUILD="v34 · 2026-09-09 15:18";</script>
+<script>window.GT_BUILD="v47 · 2026-09-09 18:40";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -5907,6 +5907,141 @@ img,svg{-webkit-user-drag:none;user-drag:none}
    rest as a gradient, and the ledger now has a ground of its own anyway. */
 :root[data-mode] .wrap::after{height:46px}
 
+
+/* ============ gen54: portrait only, and said so out loud ============ */
+
+/* LANDSCAPE.
+
+   Every board in this app is a column: a question, a thing to look at, four answers under it and
+   a ledger at the foot. Turned on its side there is no height left for any of that, and the honest
+   choices were to lay all twenty two boards out a second time or to say the game is played one way
+   up. It is played one way up.
+
+   The manifest already asks for portrait, and iOS honours that in an installed app and ignores it
+   in a Safari tab, so a tab still needs telling. Rather than let the boards collapse, the whole
+   thing is covered by a card that says which way to hold it.
+
+   Gated on height as well as orientation so it can never fire on a laptop, where a wide window is
+   not a phone lying down. */
+/* hidden by default; the query below is the only thing that shows it, and it has to come
+   after this line or it loses on order */
+#turnme{display:none}
+@media (orientation:landscape) and (max-height:520px){
+  #turnme{
+    position:fixed;inset:0;z-index:99998;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;gap:14px;
+    background:#B44E2E;color:#FBF3E2;text-align:center;padding:24px;
+  }
+  #turnme .tmark{
+    font-family:var(--display,Georgia,serif);font-size:34px;line-height:1;
+    letter-spacing:.01em;
+  }
+  #turnme .tsay{
+    font-family:var(--type,ui-monospace,monospace);font-size:12px;letter-spacing:.2em;
+    text-transform:uppercase;opacity:.85;max-width:22ch;line-height:1.7;
+  }
+  #turnme .tphone{
+    width:38px;height:62px;border:2px solid #FBF3E2;border-radius:7px;opacity:.9;
+    animation:turnTip 2.4s ease-in-out infinite;
+  }
+  /* and nothing behind it runs its own layout while it is up */
+  body>*:not(#turnme){visibility:hidden}
+}
+@keyframes turnTip{
+  0%,45%  {transform:rotate(90deg)}
+  55%,100%{transform:rotate(0deg)}
+}
+
+
+/* ============ gen55: the personal file, legible; and the veil, cheap ============ */
+
+/* THE STATS SHEET WAS CREAM ON CREAM.
+
+   The sheet lays down a light paper ground and then inherits its text colour from --ink, which in
+   the dark palette is the cream the app writes on dark furniture with. Measured on the built page:
+   every figure and value came out at a contrast ratio of 1.09 to 1 against its own background, and
+   every label at 1.86. The readable floor is 4.5 for text this size. That is not hard to read, it
+   is not there at all.
+
+   The sheet is paper, so it gets ink. Stated on the sheet rather than inherited, because the thing
+   that broke it was inheritance. */
+#statsmodal .sheet,
+#statsmodal .dossierbody{color:#2C241C}
+#statsmodal .dfour b,
+#statsmodal .dpair i,
+#statsmodal .dpair b,
+#statsmodal .dbar .dval,
+#statsmodal .drank b{color:#2C241C}
+/* the quiet labels stay quiet, but quiet is 4.6 to 1, not 1.86 */
+#statsmodal .dfour i,
+#statsmodal .dbar .dkey,
+#statsmodal .dhead,
+#statsmodal .dhead i{color:#6B5F49}
+
+/* AND THEY WERE TOO SMALL.
+   Eight pixels is a footnote in a printed book held at reading distance, not a label on a phone. */
+#statsmodal .dfour i,
+#statsmodal .dbar .dkey,
+#statsmodal .dhead,
+#statsmodal .dhead i{font-size:9.5px;letter-spacing:.1em}
+#statsmodal .dpair b,
+#statsmodal .dbar .dval{font-size:12px}
+#statsmodal .dpair i{font-size:13px}
+#statsmodal .dfour b{font-size:20px}
+
+/* THE GRAIN OVER EVERY BOARD.
+   A full screen layer with mix-blend-mode forces everything under it to be composited into a
+   texture again on every frame anything moves: the deal, the globe, the sprint timer. It is the
+   same layer, and the same cost, that came off the title screen for the same reason. The grain is
+   worth a couple of percent of the picture, not a third of the frame, so it is plain alpha at the
+   weight soft-light was giving it. */
+:root[data-mode] body::after{
+  mix-blend-mode:normal;
+  opacity:.07;
+}
+
+
+/* ============ gen56: more or less, as a streak ============ */
+
+/* The question is a whole sentence naming two countries and a column, so it wraps to two lines
+   and then sat a long way down a board whose two cards are the thing you are looking at. Up. */
+:root[data-mode="bigger"] .stage,
+:root[data-mode="crowd"] .stage,
+:root[data-mode="rich"] .stage,
+:root[data-mode="dense"] .stage{padding-top:2px}
+:root[data-mode="bigger"] .eyebrow,
+:root[data-mode="crowd"] .eyebrow,
+:root[data-mode="rich"] .eyebrow,
+:root[data-mode="dense"] .eyebrow{padding-top:2px;padding-bottom:3px;margin-top:-4px}
+
+/* and the one line left on the end card gets room to be read rather than being one of twelve */
+.rollout.bigend .rollrow{
+  display:grid;grid-template-columns:1fr;gap:2px;
+  padding:9px 12px 10px;text-align:center;
+}
+.rollout.bigend .rollrow i{font-size:9px;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.rollout.bigend .rollrow b{font-size:15px}
+.rollout.bigend .rollrow span{font-size:13px;opacity:.85}
+
+
+/* ============ gen57: one way out, and one set of arrows ============ */
+
+/* TWO WAYS TO CLOSE THE SAME SHEET.
+   Every sheet already carries a cross in its corner, which is where a thumb goes and what every
+   other card in the app uses. The word underneath it was a second door onto the same street. */
+#statsok,#miniok{display:none}
+
+/* EIGHT ARROWS FROM EIGHT DIFFERENT FONTS. See the note above arrowEl. One face for all eight,
+   on the arrow alone, and a fixed width so a column of them lines up whatever the face turns out
+   to have. The id raises this over :root[data-mode] .chainchip, which set the chip font and beat
+   the first attempt at this on specificity alone. */
+:root .arw,
+:root[data-mode] .arw{
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","Arial Unicode MS",sans-serif;
+  font-style:normal;font-weight:400;
+  display:inline-block;width:1.05em;text-align:center;
+}
+
 </style>
 <section class="splash" id="splash" hidden>
   <span class="splashveil"></span>
@@ -5956,6 +6091,11 @@ img,svg{-webkit-user-drag:none;user-drag:none}
   <span class="hovername" id="hovername"></span>
   <span class="build" id="build"></span>
 </section>
+<div id="turnme" aria-hidden="true">
+  <span class="tphone"></span>
+  <span class="tmark">Grand Tour</span>
+  <span class="tsay" id="turnsay">Turn your phone upright</span>
+</div>
 <div id="device" hidden>
   <div class="bezel">
     <span class="notch"></span>
@@ -6619,7 +6759,7 @@ en:{sub:"countries · flags, globe, atlas",
   dosRegion:"Part of the world",dosPeople:"People",dosLand:"Land",dosInk:"Flag colours",
   dosWalk:"Land borders",dosPurse:"Earned a head",dosWater:"Water and rock",
   dosFamous:"Known for",dosLetter:"First letter",dosSeat:"Seat of government",
-  ptsShort:"pts",legOf:"game {n} of {t}",dosRank:"Size in the world",dosRankVal:"{n} largest",dosNextdoor:"Next door",
+  ptsShort:"pts",notInRegion:"fuera de esta región",notInRegion:"hors de cette région",notInRegion:"not in this region",turnUp:"Turn your phone upright",legOf:"game {n} of {t}",dosRank:"Size in the world",dosRankVal:"{n} largest",dosNextdoor:"Next door",
   dosLeft:"{n} names left",dosCold:"Filed unread",
   dosTotal:"Fees earned",dosOutOf:"of {n}",dosRecord:"Best afternoon",dosShort:"{n} short",
   inkRed:"red",inkWhite:"white",inkBlack:"black",inkGreen:"green",inkBlue:"blue",
@@ -6792,7 +6932,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   dosRegion:"Partie du monde",dosPeople:"Habitants",dosLand:"Superficie",dosInk:"Couleurs du drapeau",
   dosWalk:"Frontières terrestres",dosPurse:"Gagné par habitant",dosWater:"Eau et roche",
   dosFamous:"Connu pour",dosLetter:"Première lettre",dosSeat:"Siège du gouvernement",
-  ptsShort:"pts",legOf:"jeu {n} sur {t}",dosRank:"Taille dans le monde",dosRankVal:"{n} plus grand",dosNextdoor:"Pays voisin",
+  ptsShort:"pts",turnUp:"Tournez le téléphone à la verticale",legOf:"jeu {n} sur {t}",dosRank:"Taille dans le monde",dosRankVal:"{n} plus grand",dosNextdoor:"Pays voisin",
   dosLeft:"{n} noms restants",dosCold:"Classé sans réponse",
   dosTotal:"Honoraires gagnés",dosOutOf:"sur {n}",dosRecord:"Meilleure journée",dosShort:"{n} de moins",
   inkRed:"rouge",inkWhite:"blanc",inkBlack:"noir",inkGreen:"vert",inkBlue:"bleu",
@@ -6965,7 +7105,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   dosRegion:"Teil der Welt",dosPeople:"Einwohner",dosLand:"Fläche",dosInk:"Flaggenfarben",
   dosWalk:"Landgrenzen",dosPurse:"Verdient pro Kopf",dosWater:"Wasser und Fels",
   dosFamous:"Bekannt für",dosLetter:"Erster Buchstabe",dosSeat:"Regierungssitz",
-  ptsShort:"Pkt",legOf:"Spiel {n} von {t}",dosRank:"Größe in der Welt",dosRankVal:"{n} größtes",dosNextdoor:"Nachbarland",
+  ptsShort:"Pkt",notInRegion:"nicht in dieser Region",turnUp:"Halte das Telefon hochkant",legOf:"Spiel {n} von {t}",dosRank:"Größe in der Welt",dosRankVal:"{n} größtes",dosNextdoor:"Nachbarland",
   dosLeft:"noch {n} Namen",dosCold:"Ungelesen abgelegt",
   dosTotal:"Verdiente Gebühren",dosOutOf:"von {n}",dosRecord:"Bester Nachmittag",dosShort:"{n} zu wenig",
   inkRed:"rot",inkWhite:"weiß",inkBlack:"schwarz",inkGreen:"grün",inkBlue:"blau",
@@ -7138,7 +7278,7 @@ es:{sub:"países · banderas, globo, atlas",
   dosRegion:"Parte del mundo",dosPeople:"Habitantes",dosLand:"Superficie",dosInk:"Colores de la bandera",
   dosWalk:"Fronteras terrestres",dosPurse:"Ganado por habitante",dosWater:"Agua y roca",
   dosFamous:"Conocido por",dosLetter:"Primera letra",dosSeat:"Sede del gobierno",
-  ptsShort:"pts",legOf:"juego {n} de {t}",dosRank:"Tamaño en el mundo",dosRankVal:"{n} más grande",dosNextdoor:"País vecino",
+  ptsShort:"pts",turnUp:"Gira el teléfono en vertical",legOf:"juego {n} de {t}",dosRank:"Tamaño en el mundo",dosRankVal:"{n} más grande",dosNextdoor:"País vecino",
   dosLeft:"quedan {n} nombres",dosCold:"Archivado sin leer",
   dosTotal:"Honorarios ganados",dosOutOf:"de {n}",dosRecord:"Mejor tarde",dosShort:"{n} menos",
   inkRed:"rojo",inkWhite:"blanco",inkBlack:"negro",inkGreen:"verde",inkBlue:"azul",
@@ -7311,7 +7451,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   dosRegion:"Werelddeel",dosPeople:"Inwoners",dosLand:"Oppervlakte",dosInk:"Vlagkleuren",
   dosWalk:"Landgrenzen",dosPurse:"Verdiend per hoofd",dosWater:"Water en bergen",
   dosFamous:"Bekend om",dosLetter:"Eerste letter",dosSeat:"Regeringszetel",
-  ptsShort:"ptn",legOf:"spel {n} van {t}",dosRank:"Grootte in de wereld",dosRankVal:"{n} grootste",dosNextdoor:"Buurland",
+  ptsShort:"ptn",notInRegion:"niet in deze regio",turnUp:"Draai je telefoon rechtop",legOf:"spel {n} van {t}",dosRank:"Grootte in de wereld",dosRankVal:"{n} grootste",dosNextdoor:"Buurland",
   dosLeft:"nog {n} namen",dosCold:"Niet geraden",
   dosTotal:"Totaal verdiend",dosOutOf:"van {n}",dosRecord:"Beste ronde",dosShort:"{n} tekort",
   inkRed:"rood",inkWhite:"wit",inkBlack:"zwart",inkGreen:"groen",inkBlue:"blauw",
@@ -7446,8 +7586,8 @@ kr:"Zuid-Korea",lk:"Sri Lanka",sy:"Syrië",tw:"Taiwan",tj:"Tadzjikistan",th:"Tha
 tl:"Oost-Timor",tr:"Turkije",tm:"Turkmenistan",ae:"Verenigde Arabische Emiraten",uz:"Oezbekistan",
 vn:"Vietnam",ye:"Jemen",
 dz:"Algerije",ao:"Angola",bj:"Benin",bw:"Botswana",bf:"Burkina Faso",bi:"Burundi",cv:"Kaapverdië",
-cm:"Kameroen",cf:"Centraal-Afrikaanse Republiek",td:"Tsjaad",km:"Comoren",cd:"Congo-Kinshasa",
-cg:"Congo-Brazzaville",ci:"Ivoorkust",dj:"Djibouti",eg:"Egypte",gq:"Equatoriaal-Guinea",er:"Eritrea",
+cm:"Kameroen",cf:"Centraal-Afrikaanse Republiek",td:"Tsjaad",km:"Comoren",cd:"DR Congo",
+cg:"Republiek Congo",ci:"Ivoorkust",dj:"Djibouti",eg:"Egypte",gq:"Equatoriaal-Guinea",er:"Eritrea",
 sz:"Eswatini",et:"Ethiopië",ga:"Gabon",gm:"Gambia",gh:"Ghana",gn:"Guinee",gw:"Guinee-Bissau",
 ke:"Kenia",ls:"Lesotho",lr:"Liberia",ly:"Libië",mg:"Madagaskar",mw:"Malawi",ml:"Mali",
 mr:"Mauritanië",mu:"Mauritius",ma:"Marokko",mz:"Mozambique",na:"Namibië",ne:"Niger",ng:"Nigeria",
@@ -9042,6 +9182,16 @@ function globeClick(e){
   if(mode!=="locate")return;
   if(locked){flash(name?(FLAGBYNAME[name]?cname(FLAGBYNAME[name]):name):t("openSea"));return;}
   if(!name||!FLAGBYNAME[name]){flash(t("ocean"));return;}
+  /* A country already placed in this pass is not a question any more, and a country from
+     another continent was never one: during a Europe round, Brazil is scenery. Both used to be
+     accepted, which meant a wrong answer could be a country the round had already asked about,
+     or one it never would. Say what happened instead of scoring it. */
+  if(runSolved[name]||runMissed[name]){
+    flash(cname(FLAGBYNAME[name])+" \u00b7 "+t("already2"));snd.tap();return;
+  }
+  if(!inRound(name)){
+    flash(cname(FLAGBYNAME[name])+" \u00b7 "+t("notInRegion"));snd.tap();return;
+  }
   answerLocation(name);
 }
 
@@ -9100,7 +9250,7 @@ function lineTry(name){
   if(right){
     store.streak++;
     if(store.streak>store.best)store.best=store.streak;
-    addXP(24+Math.min(store.streak,10));
+    addXP(paidAnswer(store.streak));
     snd.correct(store.streak);buzz(18);
     verdict("ok",t("correct"),{b:lineRun.target,r:""});
   } else {
@@ -9144,7 +9294,8 @@ function lineEnd(){
   pct.textContent=(total?Math.round(lineRun.right/total*100):0)+"%";
   card.appendChild(pct);
   $("next").textContent=t("again");
-  addXP(total*4);
+  /* A full pass down a river or a range is a long sitting: paid by the line, at the rate. */
+  addXP(Math.max(8,Math.round(total*answerXP()*0.8)));
   snd.win();
   relayoutSoon();
 }
@@ -9163,6 +9314,21 @@ function greatCircle(a,b){                     /* [lon,lat] pairs, kilometres */
   return 2*R*Math.asin(Math.min(1,Math.sqrt(h)));
 }
 var ARROWS=["↑","↗","→","↘","↓","↙","←","↖"];
+/* THE EIGHT ARROWS CAME FROM EIGHT FONTS.
+
+   They are the eight glyphs of the Arrows block, and not one of the faces this app embeds
+   carries any of them, so the browser went looking per glyph. The four cardinals landed in one
+   fallback face and the four diagonals in another: measured at sixteen pixels the cardinals came
+   out 8 and 16 wide and the diagonals 11.7, which is three different fonts in one row of chips.
+
+   Wrapping the arrow in its own element is what lets a face be named for it without dragging the
+   country name into a symbol font along with it. */
+function arrowEl(ch){
+  var i=document.createElement("i");
+  i.className="arw";
+  i.textContent=ch||"";
+  return i;
+}
 function bearingArrow(a,b){
   var p1=a[1]*RAD,p2=b[1]*RAD,dl=(b[0]-a[0])*RAD;
   var y=Math.sin(dl)*Math.cos(p2);
@@ -9235,7 +9401,10 @@ function globleTry(name){
     var st=globleStats();
     st.solved++;st.guesses+=tries;
     if(!st.best||tries<st.best)st.best=tries;
-    addXP(Math.max(12,64-tries*4));
+    /* A minute of narrowing down deserves a minute of pay. The old ceiling was sixty four less
+       four a guess, which came out around forty for a normal solve: two thirds of what the same
+       minute earns on a board of flags. Raised so the two meet. */
+    addXP(Math.max(20,72-tries*4));
     if(globle.seeded)dailyFinish(tries);
     save();
   } else {
@@ -9267,7 +9436,8 @@ function globleList(){
     chip.className="chainchip heatchip"+(g.km===0?" goal":"");
     var col=g.km===0?css("--good"):heatColour(g.km);
     chip.style.background=col;chip.style.borderColor=col;
-    chip.textContent=nameOf(g.n)+"  "+(g.km===0?"★":fmtNum(g.km)+" km "+g.arrow);
+    chip.textContent=nameOf(g.n)+"  "+(g.km===0?"★":fmtNum(g.km)+" km ");
+    if(g.km!==0)chip.appendChild(arrowEl(g.arrow));
     el.appendChild(chip);
   });
   /* Worldle is five goes: the ones not yet spent are drawn as empty slots, so the limit
@@ -9420,6 +9590,14 @@ function inPlay(f){
   if(region==="ALL"||region==="TRICKY")return true;
   var fl=FLAGBYNAME[f.name];
   return !fl||fl.r===region;
+}
+/* Is this country one of the ones this round is actually about? Asked of the pool rather than
+   worked out again from the region, so the tricky list and the has it got a location filter are
+   answered by the same code that built the round. */
+function inRound(name){
+  var p=pool();
+  for(var i=0;i<p.length;i++)if(p[i].n===name)return true;
+  return false;
 }
 function pool(){
   var p;
@@ -9735,7 +9913,10 @@ function rnd(a,b){return a+Math.random()*(b-a);}
 function coin(){return Math.random()<0.5?-1:1;}
 /* One tamper, applied. Null means this flag cannot take this particular treatment, and
    the caller moves on down its list. */
-function applyForge(f,family,kind,hard){
+/* base, when given, is a flag this bench has already altered: the paint goes on top of that
+   rather than on a fresh copy, which is how a colour trade can ride along with a structural
+   change instead of being the whole of the forgery. */
+function applyForge(f,family,kind,hard,base){
   var node,parts,j,z;
   if(kind==="mirror"){
     if(FLAG_HSYM[f.c])return null;
@@ -9869,7 +10050,7 @@ function applyForge(f,family,kind,hard){
     if(got){map={};map[paint[0]]=got;}
   }
   if(!map)return null;
-  node=flagNode(f);
+  node=base||flagNode(f);
   repaint(node,map);
   return node;
 }
@@ -9877,18 +10058,50 @@ function applyForge(f,family,kind,hard){
    often, because it is the one treatment that works on nearly every flag: the structural
    ones each fail on some, and every failure hands the turn back to the paint. Trying them
    in two tiers keeps the desk varied. */
+/* THE TELL HAS TO BE A SHAPE.
+
+   The bench used to lead with a paint job about one time in three, and one of those paint jobs
+   was a hue nudge of thirteen to fifty degrees. Between them that meant a good third of the
+   forgeries could only be spotted by comparing two colours, which for anyone who does not see
+   colour well is not a hard question, it is an impossible one dressed as a hard one. Red and
+   green at the same lightness are the same flag to a lot of people.
+
+   So the forgery is always structural. Something is mirrored, turned, moved, duplicated or
+   swapped end for end, and that is visible to everybody. A colour trade may still ride along on
+   top of it, because a fake that is bent and repainted is a better fake than one that is only
+   bent, but it is never the whole of the trick.
+
+   The hue nudge is gone from the bench altogether. A full trade of two colours survives only as
+   a last resort, for the handful of flags that no structural treatment will take: a plain
+   tricolour with no charge, nothing to mirror and nothing to move. Even then it is a whole
+   colour swapped for another, not a shade of the same one.
+
+   The kind that comes back is always the structural one, because that is the tell that is
+   always there, and it is what the reveal is going to name. */
 function forgeFlag(f,family,hard){
   var struct=hard?["spin","charge","slide"]
                  :["graft","flip","quarter","mirror","upend","slide","charge","spin"];
-  var paint=hard?["shade","borrow"]:["swap","borrow","shade"];
-  /* Whichever tier leads, the other one is still there to catch a flag the first cannot
-     take. Paint leads about one time in three: a structural treatment works on nearly
-     every flag, so left to itself it would crowd the colour forgeries out entirely, and a
-     traded pair of colours is the oldest fake on the desk. */
-  var a2=shuffle(struct.slice()),b2=shuffle(paint.slice());
-  var kinds=(Math.random()<0.34?b2.concat(a2):a2.concat(b2)),node=null,kind="";
+  var paint=["swap","borrow"];
+  var kinds=shuffle(struct.slice()),node=null,kind="";
   while(kinds.length&&!node){
     kind=kinds.shift();
+    node=applyForge(f,family,kind,hard);
+  }
+  if(node){
+    /* and sometimes the colours go over as well, on the shape that is already there */
+    if(Math.random()<0.38){
+      var over=shuffle(paint.slice());
+      while(over.length){
+        var also=applyForge(f,family,over.shift(),hard,node);
+        if(also){node=also;break;}
+      }
+    }
+    return {node:node,kind:kind};
+  }
+  /* nothing structural takes on this cloth: a whole colour traded, never a shade of one */
+  var last=shuffle(paint.slice());
+  while(last.length&&!node){
+    kind=last.shift();
     node=applyForge(f,family,kind,hard);
   }
   return node?{node:node,kind:kind}:null;
@@ -11582,7 +11795,8 @@ function paintDosTries(){
     var chip=document.createElement("span");chip.className="dostry";
     var col=heatColour(g.km);
     chip.style.background=col;chip.style.borderColor=col;
-    chip.textContent=(FLAGBYNAME[g.n]?cname(FLAGBYNAME[g.n]):g.n)+"  "+fmtNum(g.km)+" km "+g.arrow;
+    chip.textContent=(FLAGBYNAME[g.n]?cname(FLAGBYNAME[g.n]):g.n)+"  "+fmtNum(g.km)+" km ";
+    chip.appendChild(arrowEl(g.arrow));
     host.appendChild(chip);
   });
   var left=document.createElement("span");left.className="dosleft";
@@ -11828,14 +12042,25 @@ var DAILY_EACH=5,DAILY_LEGS=3;
 var dayRun={on:false,legs:[],leg:0,right:0,total:0,jump:false};
 function roundLen(m){
   if(dayRun.on)return DAILY_EACH;
-  return ROUND_OF[m||mode]||ROUND_LEN;
+  m=m||mode;
+  /* Locate is a pass over a region rather than a round of twenty. Europe is forty six countries
+     and the game is to place all forty six; asking for twenty of them and stopping leaves the
+     map half done and the whole point of choosing a region on the wall. The pool already knows
+     its own size and already respects the region and the tricky list, so it is the authority. */
+  if(m==="locate"&&mode==="locate")return Math.max(1,pool().length);
+  return ROUND_OF[m]||ROUND_LEN;
 }
 function roundable(m){
   m=m||mode;
   if(m==="sprint"||m==="daily"||m==="atlas")return false;
   if(isTrace(m))return false;
   if(playKind(m)==="globle")return false;
-  return !!QUIZ[m]||m==="locate"||m==="shape"||!!METRIC[m];
+  /* More or less already ends itself: one wrong call and the run is over, which is the whole
+     shape of the game. Wrapping it in a round of twenty as well put a counter on a board that
+     is not counting to anything, and ended the run at twenty right answers as though that were
+     a finish rather than a good start. The streak is the score. */
+  if(METRIC[m])return false;
+  return !!QUIZ[m]||m==="locate"||m==="shape";
 }
 var run={n:0,right:0,missed:[],on:false,done:false};
 function runStart(){
@@ -11918,7 +12143,9 @@ function runEnd(){
   ["opts","flagbox","globewrap","bigwrap","shapewrap","typerow","chain","dailytip",
    "reveal","skip"].forEach(function(id){var el=$(id);if(el)el.hidden=true;});
   $("verdict").innerHTML="";
-  var bonus=score*6+(score===LEN?80:0);
+  /* Finishing is worth something, but the round already paid for itself answer by answer: this
+     is the handshake at the end, not a second wage. */
+  var bonus=Math.round(score*answerXP()*0.4)+(score===LEN?Math.round(LEN*answerXP()*0.3):0);
   var secs=run.t0?Math.max(1,Math.round((Date.now()-run.t0)/1000)):0;
   var rankBefore=rankIndex(store.xp||0);
   addXP(bonus);
@@ -12038,8 +12265,13 @@ function answerLocation(name){
   paintSolved();
   if(right)verdict("ok",t("correct"),{b:cname(current),r:regionName(current.r)});
   else verdict("no",t("picked"),{b:cname(FLAGBYNAME[name])||name,r:cname(current)+" "+t("wasHere")});
-  var c=locationOf(current.n);
-  spinTo(c[0],c[1]);
+  /* A right answer needs no tour: you just pointed at it, and flying the planet to a place the
+     thumb is already on spends the reveal on the one thing you did not need shown. A wrong one
+     is the opposite: that is the moment the answer is worth travelling to. */
+  if(!right){
+    var c=locationOf(current.n);
+    if(c)spinTo(c[0],c[1]);
+  }
   scheduleNext(right?1250:2100);
 }
 function answerShape(){
@@ -12397,6 +12629,8 @@ function buildTabs(){
   });
 }
 function applyLang(){
+  var tm=document.getElementById("turnsay");
+  if(tm)tm.textContent=t("turnUp");
   document.documentElement.setAttribute("lang",lang);
   $("sub").textContent=FLAGS.length+" "+t("sub");
   if(!$("m-name"))buildTabs();   /* language can be switched before the strip is dealt */
@@ -12876,7 +13110,8 @@ function biggerTry(saysBigger){
       va:metricStr(bigger.holder),vb:metricStr(bigger.other)});
     var st=biggerStats();
     if(bigger.streak>(st.best||0))st.best=bigger.streak;
-    addXP(9+Math.min(bigger.streak,12));
+    /* Paid at the end, off the streak, rather than a little at a time: a run of twenty is worth
+       more than twenty runs of one, because holding a streak is the difficulty. */
     snd.correct(bigger.streak);buzz(16);
     $("bigtip").textContent=fill(t("bigStreak"),{n:bigger.streak})+
       "   ·   "+metricStr(bigger.other);
@@ -12904,6 +13139,9 @@ function biggerTry(saysBigger){
   } else {
     bigger.over=true;bigger.busy=false;
     snd.wrong();buzz([14,60,14]);
+    /* Every call was about three seconds of thinking, and the run is the thing being scored, so
+       it pays for its own length with a little over the odds for having held it together. */
+    if(!bigger.seeded&&bigger.streak>0)addXP(Math.round(bigger.streak*answerXP()*1.2));
     save();
     verdict("no",t("bigOut"),{b:metricStr(bigger.holder)+"  ·  "+metricStr(bigger.other),r:""});
     $("bigtip").textContent=fill(t("bigScore"),{n:bigger.streak});
@@ -12929,18 +13167,19 @@ function biggerSheet(){
   var bl=document.createElement("span");bl.className="scorebest";
   bl.textContent=t("best")+" "+best+(bigger.streak>=best&&bigger.streak>0?" · "+t("newBest"):"");
   card.appendChild(bl);
-  if(bigger.log.length){
-    var box=document.createElement("div");box.className="rollout";
-    bigger.log.slice(-12).forEach(function(row){
-      var line=document.createElement("div");line.className="rollrow";
-      var k=document.createElement("i");k.textContent=t(MIXLAB[row.k]||"mlArea");
-      var v=document.createElement("b");v.textContent=row.b+" "+row.vb;
-      var w=document.createElement("span");w.textContent=row.a+" "+row.va;
-      line.appendChild(k);line.appendChild(v);line.appendChild(w);
-      box.appendChild(line);
-    });
-    card.appendChild(box);
-  }
+  /* Twelve rows of everything that went right is a list nobody reads and a card that does not
+     fit the screen. The only line worth keeping is the one that ended it: which column it was,
+     and the two numbers that were not what you thought. */
+  var box=document.createElement("div");box.className="rollout bigend";
+  var line=document.createElement("div");line.className="rollrow";
+  var k=document.createElement("i");k.textContent=t(MIXLAB[mixKey]||"mlArea");
+  var v=document.createElement("b");
+  v.textContent=cname(bigger.other)+" "+metricStr(bigger.other);
+  var w=document.createElement("span");
+  w.textContent=cname(bigger.holder)+" "+metricStr(bigger.holder);
+  line.appendChild(k);line.appendChild(v);line.appendChild(w);
+  box.appendChild(line);
+  card.appendChild(box);
   relayoutSoon();
 }
 function biggerReveal(){
@@ -13819,6 +14058,45 @@ function floater(text,good){
   host.appendChild(el);
   setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},950);
 }
+/* THE RATE CARD.
+
+   The old economy paid by the answer, so a flag at fourteen to twenty four experience for two
+   seconds work came to something like five hundred and seventy an hour of playing; hot and cold,
+   which is a minute of actual thinking, paid about thirty five. Sixteen to one, in favour of the
+   board that asks the least. That is not a difficulty curve, it is an instruction to play the
+   shallow games, and the whole ladder was climbed in an afternoon because of it.
+
+   So experience is paid for time, not for taps. One point a second of the work a board actually
+   asks for, which makes every game worth playing at the same rate and leaves the choice of what
+   to play a matter of taste rather than of arithmetic.
+
+   The seconds below are how long one answer takes, measured the honest way: a flag you either
+   know or you do not, a capital wants a moment of reading, a country on a globe wants finding,
+   a file wants reading and three guesses. Anything not named takes four.
+
+   The whole ladder to Geographer Royal is twelve thousand, so about three and a half hours of
+   play, and the first promotion arrives after three minutes. */
+var PACE={
+  sprint:2,                                    /* a race: the whole point is speed */
+  name:3, find:3, look:3, imposter:3, blind:3,
+  bigger:3, crowd:3, rich:3, border:3,
+  cap:4, trap:4, sea:4, trade:4, forgery:4,    /* more to read before you can answer */
+  locate:6,                                    /* it has to be found, not just recognised */
+  shape:8, riverloc:8, rangeloc:8
+};
+var XP_PER_SECOND=1;
+/* What one answer on this board is worth, before the streak. */
+function answerXP(m){
+  return Math.max(1,Math.round((PACE[m||mode]||4)*XP_PER_SECOND));
+}
+/* A streak is worth having but it is not worth more than the work: half as much again at ten in
+   a row, and no more after that. */
+function streakMul(k){
+  return 1+Math.min(k||0,10)/20;
+}
+function paidAnswer(k){
+  return Math.max(1,Math.round(answerXP()*streakMul(k)));
+}
 function addXP(points){
   if(points<=0)return;
   var before=rankIndex(store.xp);
@@ -14383,7 +14661,7 @@ de:["Over a thousand different kinds of sausage.","Meer dan duizend verschillend
 es:["Among the countries with the most World Heritage sites.","Een van de landen met de meeste werelderfgoedplekken."],
 gb:["Four nations under one flag.","Vier landen onder één vlag."],
 sa:["Not one permanent river in the whole country.","Geen enkele permanente rivier in het hele land."],
-th:["Never colonised by a European power.","Nooit gekoloniseerd door een Europese mogendheid."],
+th:["Never colonised by a European power.","Als enige in de regio nooit gekoloniseerd door Europa."],
 vn:["Second-largest coffee grower in the world.","Op één na grootste koffieproducent ter wereld."],
 kr:["Its alphabet was deliberately invented, in 1443.","Zijn alfabet is bewust ontworpen, in 1443."],
 ir:["It was called Persia until 1935.","Het heette Perzië tot 1935."],
@@ -15801,7 +16079,11 @@ function paintIntro(){
   if(bs&&!bs.__ruler){
     bs.__ruler=1;
     bs.style.pointerEvents="auto";
-    bs.addEventListener("click",function(e){e.stopPropagation();toggleRuler();});
+    /* The ruler was a tool for one bug and it was opened by accident, which is what a tap on a
+       version number in the corner of a title screen deserves. It lives on behind ?ruler=1 so it
+       can be called back when it is wanted, and never by a thumb. */
+    if(/[?&]ruler=1/.test(location.search))
+      bs.addEventListener("click",function(e){e.stopPropagation();toggleRuler();});
   }
   if(bs){
     var stamp=(typeof window.GT_BUILD==="string")?window.GT_BUILD:VERSION;
@@ -15911,10 +16193,24 @@ function startFromSplash(){
   var el=$("splash");
   fanfare();                       /* first gesture: now it is allowed to sound */
   el.classList.add("out");
+  /* THE STUTTER AT THE DOOR.
+
+     The title screen used to be built at the end of the fade: seven ticket trees with their
+     own inline artwork, two full screen canvases allocated, the first draw of the planet, and
+     ten elements starting animations, all in the frame after the splash lifted. The fade ran
+     smoothly and then everything stopped for a moment, which reads as the transition being
+     broken rather than the work being late.
+
+     It is built a tenth of a second in instead, while the splash is still opaque over it and
+     html.splashOn is still holding it invisible, so all of that lands during the fade with
+     nothing to interrupt. The overture is held back and started at the end, on the frame the
+     screen actually appears, so the choreography is unchanged: the planet still rises from the
+     moment you see it. */
+  setTimeout(function(){showIntro(true);},120);
   setTimeout(function(){
     el.hidden=true;
     document.documentElement.classList.remove("splashOn");
-    showIntro();                   /* the horn keeps ringing over the title screen */
+    runIntroBoot();                /* the horn keeps ringing over the title screen */
   },980);
 }
 /* The title sequence, in the order the eye should travel: the planet arrives and spins
@@ -16022,7 +16318,7 @@ function runIntroBoot(){
   booted=true;
 }
 var bootT1=0,bootT2=0,bootT3=0;
-function showIntro(){
+function showIntro(deferBoot){
   if(!introOpen&&globe.ctx)gameView=snapView();   /* park the game exactly as it was */
   introOpen=true;
   hideHoverNow();
@@ -16049,7 +16345,9 @@ function showIntro(){
   if(spotLoc){globe.lam=-spotLoc[0]-52;globe.phi=Math.max(-40,Math.min(40,spotLoc[1]*0.6));}
   sizeGlobe();drawGlobe();spinGlobe();pulseOn();   /* paint once now: a throttled rAF must not leave a blank world */
   var wait=(introBootDelay()+1.1)*1000;
-  runIntroBoot();
+  /* deferBoot lets the caller build the screen now and start the overture later: see the
+     splash handler, which does the building behind its own fade. */
+  if(!deferBoot)runIntroBoot();
   /* the day's country used to let itself in. It is a sticker on the globe with a pin
      under it; opening it is the reader's move, not ours. */
 }
@@ -16169,14 +16467,14 @@ answerChoice=function(choice,btn){
   baseAnswerChoice(choice,btn);
   if(right){
     snd.correct(store.streak);buzz(18);
-    addXP((mode==="sprint"?9:14)+Math.min(store.streak,10));
+    addXP(paidAnswer(store.streak));
   } else {snd.wrong();buzz([12,50,12]);}
 };
 answerLocation=function(name){
   if(locked)return;
   var right=name===current.n;
   baseAnswerLocation(name);
-  if(right){snd.correct(store.streak);buzz(18);addXP(22+Math.min(store.streak,10));}
+  if(right){snd.correct(store.streak);buzz(18);addXP(paidAnswer(store.streak));}
   else {snd.wrong();buzz([12,50,12]);}
 };
 answerShape=function(){
@@ -16188,7 +16486,9 @@ answerShape=function(){
   baseAnswerShape();
   if(right){
     snd.correct(store.streak);buzz(18);
-    addXP(mode==="dossier"?(worth*3):(26+Math.min(store.streak,10)));
+    /* The file is the one board that already paid for its own length: the fee left after the
+       clues bought is a good measure of how long it took, so it keeps its own arithmetic. */
+    addXP(mode==="dossier"?Math.round(worth*2.6):paidAnswer(store.streak));
   }
   else {snd.wrong();buzz([12,50,12]);}
 };
@@ -16215,7 +16515,9 @@ sprintStart=function(){
 sprintEnd=function(){
   baseSprintEnd();
   snd.win();
-  addXP(sprint.score*4);
+  /* A sprint is sixty seconds whatever happens, so it pays for a minute, shared out by how much
+     of it was right. */
+  addXP(Math.max(6,Math.round(sprint.score*1.6)));
 };
 paintTimer=function(){
   basePaintTimer();
@@ -16517,24 +16819,42 @@ if(window.visualViewport)window.visualViewport.addEventListener("resize",pinBoar
    So on the way back in, the globe is asked whether it still has anything on it. One pixel is
    enough to tell. If it is empty the canvas is rebuilt and redrawn; only if that fails to take
    is the page reloaded, because a reload costs the run you were in the middle of. */
+/* Is there a globe on screen at all? Most boards do not have one, and a canvas that is hidden
+   or has never been sized is not a dead canvas, it is an absent one. Telling those two apart is
+   the whole job here: getting it wrong the other way is what made the page reload itself in a
+   loop on a desktop browser. */
+function globeOnScreen(){
+  var cv=globe.cv;
+  return !!(cv&&globe.ctx&&cv.width>0&&cv.height>0&&cv.offsetParent!==null);
+}
+/* A visible canvas with nothing painted in the middle of it has had its backing store thrown
+   away by the system. Only asked of a canvas that is actually on screen. */
 function globeAlive(){
-  if(!globe.cv||!globe.ctx)return true;                 /* nothing to judge yet */
-  if(!globe.cv.width||!globe.cv.height)return false;
+  if(!globeOnScreen())return true;
   try{
     var d0=globe.ctx.getImageData(Math.round(globe.cv.width/2),Math.round(globe.cv.height/2),1,1).data;
     return d0[3]!==0;
   }catch(e){return true;}                               /* unreadable: assume well */
 }
+/* COMING BACK IN.
+
+   This used to reload the page when it could not revive the globe, which was a bad idea twice
+   over. On any board without a globe, and there are fourteen of them, the canvas is hidden and
+   zero sized: not dead, absent. That read as dead, the redraw could not fix what was not broken,
+   and it reloaded. pageshow then fired on the fresh load and it did it again, for ever.
+
+   There is nothing a reload can repair that a redraw cannot, and a reload throws away the run
+   you were in the middle of. So it does not reload. Ever. */
 function wakeUp(){
   if(document.hidden)return;
-  fitViewport();
   try{
-    if(!globeAlive()){
-      sizeGlobe();drawGlobe();
-      if(!globeAlive()){location.reload();return;}
-    } else drawGlobe();
-  }catch(e){try{location.reload();}catch(e2){}}
-  relayoutSoon();
+    fitViewport();
+    if(globeOnScreen()){
+      if(!globeAlive())sizeGlobe();
+      drawGlobe();
+    }
+    relayoutSoon();
+  }catch(e){}
 }
 window.addEventListener("pageshow",function(e){
   /* persisted means the back forward cache handed the whole page back; either way, check */
@@ -16555,7 +16875,7 @@ if(/[?&]dbg=1/.test(location.search)){
   window.__VEXDBG={setMode:setMode,startMode:startMode,MODES:(typeof MODES!=="undefined"?MODES:null),
     QUIZ:QUIZ,fit:fitViewport,fitDrawers:fitDrawers,showIntro:showIntro,hideIntro:hideIntro,
     store:store,globe:globe,relayout:relayout,next:(typeof nextQuestion==="function"?nextQuestion:null),
-    run:function(){return run;},day:function(){return dayRun;},setRunN:function(v){run.n=v;run.right=v;},
+    run:function(){return run;},day:function(){return dayRun;},imp:function(){return imp;},setRunN:function(v){run.n=v;run.right=v;},
     draw:drawGlobe,size:sizeGlobe,vis:visibleBox,geo:GEOS,
     prof:function(n){
       var i,t=performance.now();
