@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#B44E2E">
-<script>window.GT_BUILD="v29 · 2026-09-09 15:05";</script>
+<script>window.GT_BUILD="v34 · 2026-09-09 15:18";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -145,18 +145,34 @@ src:url(data:font/woff2;base64,d09GMgABAAAAADNkAA8AAAAAfowAADMJAAEAAAAAAAAAAAAAA
 }
 
 *{box-sizing:border-box}
-html,body{height:100%}
+/* 100vh and never 100%: see the chin gap note just below. This one line is the whole bug. */
+html,body{height:100vh}
 /* The root paints the canvas, so this colour reaches every corner of the screen whatever
    the body ends up measuring: any strip the layout does not cover comes out as desk rather
    than as black. min-height matters as well, because height:100% resolves against a box
    that on a handset asking for the whole display stops short of the home indicator. */
-html{background:var(--desk2,#B0492A);min-height:100dvh}
+/* THE CHIN GAP.
+
+   A standalone iOS web app with viewport-fit=cover and a black-translucent status bar is offset
+   upward by the height of the status bar, about 59 points, and the viewport is not grown to
+   compensate. Anything sized as a percentage of its containing block therefore ends 59 points
+   above the true bottom of the screen, and that strip is filled with the page background: the
+   band of orange at the foot that no amount of padding, margin or safe area arithmetic could
+   ever reach, because the content was not short, it was lifted.
+
+   100vh is the actual viewport rather than a percentage of a containing block that was never
+   told about the offset, and it is the one unit that survives this. dvh does not: it tracks the
+   same wrong box. There is no collapsing toolbar in a standalone app, so vh and dvh are the same
+   number everywhere this matters, and vh is the one that is right where they differ.
+
+   Found by u/fozzedout and u/future_pedi_md, r/PWA "PWA on iOS: fighting the chin gap". */
+html{background:var(--desk2,#B0492A);min-height:100vh}
 /* preview.html sets these; on a real handset the wrapper uses env() and these never exist */
 :root[data-sim] .wrap{padding-top:calc(12px + var(--simT,0px));padding-bottom:var(--simB,0px)}
 :root[data-sim] .masthead{margin-top:var(--simT,0px)}
 :root[data-sim] .introfoot{margin-bottom:var(--simB,0px)}
 :root[data-sim] .drawers{bottom:calc(42px + var(--simB,0px))}
-body{min-height:100dvh}
+body{min-height:100vh}
 body{
   margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;overflow:hidden;
   background:
@@ -168,7 +184,7 @@ body{
 
 /* ---------- shell ---------- */
 .wrap{
-  height:100dvh;max-width:1020px;margin:0 auto;padding:12px 14px 14px;
+  height:100vh;max-width:1020px;margin:0 auto;padding:12px 14px 14px;
   display:flex;flex-direction:column;gap:10px;
 }
 header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none}
@@ -15684,6 +15700,88 @@ function buildDrawers(){
   cd.style.setProperty("--rot","-7deg");
 }
 
+
+/* Draws a hairline at every boundary near the foot of the screen, labelled with the number that
+   put it there, plus what the browser says is painting the bottom rows of pixels. Nothing here
+   runs unless the version stamp is tapped. */
+function toggleRuler(){
+  var old=document.getElementById("gtruler");
+  if(old){
+    if(old.__t)clearInterval(old.__t);
+    old.parentNode.removeChild(old);return;
+  }
+  /* It is tapped on the title screen but the numbers that matter are a board's. Redrawn twice a
+     second while it is up, so walking into a game keeps it true. */
+  drawRuler();
+  var host=document.getElementById("gtruler");
+  if(host)host.__t=setInterval(function(){
+    var cur=document.getElementById("gtruler");
+    if(!cur){clearInterval(host.__t);return;}
+    var t=cur.__t;cur.parentNode.removeChild(cur);drawRuler();
+    var nu=document.getElementById("gtruler");if(nu)nu.__t=t;
+  },500);
+}
+function drawRuler(){
+  var H=window.innerHeight,W2=window.innerWidth,mid=Math.round(W2/2);
+  var cs=getComputedStyle(document.documentElement);
+  function num(k){return Math.round(parseFloat(cs.getPropertyValue(k))||0);}
+  function box(sel){var e=document.querySelector(sel);return e?e.getBoundingClientRect():null;}
+  var wrap=box(".wrap"),stats=box(".stats"),stage=box(".stage");
+  function at(y){
+    var e=document.elementFromPoint(mid,Math.max(0,Math.min(H-1,y)));
+    if(!e)return "none";
+    var c=e.className&&e.className.split?String(e.className).split(" ")[0]:"";
+    return e.tagName.toLowerCase()+(e.id?"#"+e.id:"")+(c?"."+c:"");
+  }
+  var app=(window.navigator.standalone===true)||(window.matchMedia&&
+    (matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: fullscreen)").matches));
+  var rows=[];
+  rows.push((app?"APP":"TAB")+"  win "+W2+"x"+H);
+  var sw=(screen&&screen.width)||0,sh=(screen&&screen.height)||0;
+  var lost=sh-H;
+  rows.push("screen "+sw+"x"+sh+(lost>0&&lost<220?"  LOST "+lost:(lost>=220?"  (framed)":"  FULL")));
+  if(window.visualViewport){
+    var v=window.visualViewport;
+    rows.push("visual "+Math.round(v.width)+"x"+Math.round(v.height)+"  off "+Math.round(v.offsetTop));
+  }
+  rows.push("insT "+num("--insT")+"  insB "+num("--insB")+"  keepB "+num("--keepB"));
+  rows.push("fitH "+num("--fitH")+"  doc "+document.documentElement.scrollHeight);
+  if(wrap)rows.push("wrap bot "+Math.round(wrap.bottom)+"  gap "+Math.round(H-wrap.bottom));
+  if(stage)rows.push("stage bot "+Math.round(stage.bottom));
+  if(stats)rows.push("stats "+Math.round(stats.top)+"-"+Math.round(stats.bottom)+"  gap "+Math.round(H-stats.bottom));
+  rows.push("H-1   "+at(H-1));
+  rows.push("H-14  "+at(H-14));
+  rows.push("H-34  "+at(H-34));
+  rows.push("H-60  "+at(H-60));
+  rows.push("H-90  "+at(H-90));
+  var r=document.createElement("div");
+  r.id="gtruler";
+  r.style.cssText="position:fixed;inset:0;z-index:99999;pointer-events:none";
+  function line(y,col,label){
+    if(y<0||y>H)return;
+    var l=document.createElement("div");
+    l.style.cssText="position:absolute;left:0;right:0;height:1px;top:"+Math.round(y)+"px;background:"+col;
+    r.appendChild(l);
+    var t=document.createElement("div");
+    t.textContent=label+" "+Math.round(y);
+    t.style.cssText="position:absolute;right:2px;padding:0 3px;background:#000;font:10px ui-monospace,monospace;top:"
+      +Math.max(0,Math.round(y)-12)+"px;color:"+col;
+    r.appendChild(t);
+  }
+  if(wrap)line(wrap.bottom,"#33ff66","wrap");
+  if(stats){line(stats.top,"#ffcc00","stats top");line(stats.bottom,"#ffcc00","stats bot");}
+  line(H-num("--insB"),"#00ccff","insB");
+  line(H-num("--keepB"),"#ff66ff","keepB");
+  line(H-1,"#ffffff","screen");
+  var t2=document.createElement("pre");
+  t2.textContent=rows.join("\n");
+  t2.style.cssText="position:absolute;left:4px;top:64px;margin:0;color:#fff;padding:6px 8px;"
+    +"background:rgba(0,0,0,.85);border:1px solid #fff;white-space:pre;"
+    +"font:11px/1.45 ui-monospace,monospace";
+  r.appendChild(t2);
+  document.body.appendChild(r);
+}
+
 function paintIntro(){
   /* Which file is actually being looked at. standalone.js stamps a counted number into the
      head of the home screen build, so that one wins where it exists; VERSION below is the
@@ -15694,7 +15792,17 @@ function paintIntro(){
      foot belongs to Safari and no CSS will move it. The two look nearly identical in a
      screenshot, and the difference decides whether a bar at the bottom is our bug or the
      browser, so the corner says which. */
+  /* THE RULER.
+     Three rounds of guessing at a band of orange at the foot of a screen I cannot see has been
+     three rounds too many. Tapping the version stamp draws every boundary down there with its
+     number on it, and names whatever element owns the last rows of pixels. One screenshot ends
+     the argument. */
   var bs=$("build");
+  if(bs&&!bs.__ruler){
+    bs.__ruler=1;
+    bs.style.pointerEvents="auto";
+    bs.addEventListener("click",function(e){e.stopPropagation();toggleRuler();});
+  }
   if(bs){
     var stamp=(typeof window.GT_BUILD==="string")?window.GT_BUILD:VERSION;
     try{
@@ -16504,6 +16612,10 @@ body::before{content:"";position:fixed;inset:-4px;z-index:-2;background:var(--de
 /* The ledger ends a rounded pixel past the foot of the glass, which leaves the document one
    pixel taller than the window. body already refuses to scroll; the root element has to say so
    too, or that pixel is enough for iOS to rubber band the whole app on a downward flick. */
+/* From the r/PWA thread on this exact symptom: the safe area padding is applied to body by
+   some engines, so an explicit zero is the difference between the page owning the foot of the
+   screen and being pushed off it. Free either way. */
+html,body{padding:0;margin:0}
 html{overflow:hidden}
 html,body{overscroll-behavior:none;-webkit-user-select:none;user-select:none;
   -webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
