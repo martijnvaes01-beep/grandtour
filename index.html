@@ -14,12 +14,39 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#B44E2E">
-<script>window.GT_BUILD="v26 · 2026-09-09 14:53";</script>
+<script>window.GT_BUILD="v29 · 2026-09-09 15:05";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="manifest" href="manifest.webmanifest">
+<style>
+/* HOLD THE PAGE UNTIL THE WHOLE DOCUMENT IS PARSED.
+
+   A stylesheet applies only once it has been parsed in full, and this build ends with a sheet
+   that hides the workbench controls and places the safe area padding. That sheet sits at 99.8%
+   of a five and a half megabyte file, while the markup it acts on is at 8%. So on a cold start
+   the browser painted the debug bar, the foot in the wrong place and an unpainted sticker, then
+   read five more megabytes before it learned to hide any of it. That is the half second of
+   wrongness on launch.
+
+   Holding on an attribute rather than a class so it outranks the release rule the app carries
+   at the top of its own sheet, and released on DOMContentLoaded, which is exactly the moment
+   every inline sheet in the document has been read. The timer is there so a failure anywhere
+   can never leave a permanently invisible app. */
+:root[data-boot] body>*{visibility:hidden!important}
+</style>
+<script>
+(function(){
+  var d=document.documentElement;
+  d.setAttribute("data-boot","1");
+  var done=false;
+  function go(){if(done)return;done=true;d.removeAttribute("data-boot");}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);
+  else go();
+  setTimeout(go,4000);
+}());
+</script>
 <script>
 /* The phone frame is a desk toy: it runs a second copy of the whole game in an iframe so a
    laptop can see what a handset sees. On an actual handset it is a copy of the app inside
@@ -5734,12 +5761,12 @@ body::before{background:#B44E2E}
 :root[data-mode] .stats{
   background:transparent;
   border-top:1px solid rgba(246,238,220,.26);
-  margin-bottom:calc(env(safe-area-inset-bottom) * -1);
-  padding-bottom:calc(env(safe-area-inset-bottom) * 0.32);
-}
-:root[data-sim][data-mode] .stats{
-  margin-bottom:calc(var(--simB,0px) * -1);
-  padding-bottom:calc(var(--simB,0px) * 0.32);
+  /* Off --keepB, which is what the wrapper actually holds back and what the boards were
+     measured against, rather than off env() with a simulated twin beside it: those two can
+     disagree, and when they do the rig shows one layout and the handset another. One figure,
+     one source, both builds. */
+  margin-bottom:calc(var(--keepB,0px) * -1);
+  padding-bottom:calc(var(--keepB,0px) * 0.34);
 }
 :root[data-mode] .stat{padding-top:4px;padding-bottom:4px}
 
@@ -5826,11 +5853,11 @@ body::before{background:#B44E2E}
    with, so the two can never drift apart. */
 :root[data-mode] .wrap{padding-bottom:var(--keepB,0px)}
 
-/* THE LEDGER LIES JUST ABOVE THE INDICATOR.
-   No negative margin any more: the wrapper stops where the ledger should stop, so the row simply
-   sits on that edge. Its fade runs on past it to the last row of pixels. */
-:root[data-mode] .stats{margin-bottom:0}
-:root[data-sim][data-mode] .stats{margin-bottom:0}
+/* THE LEDGER. Deliberately not touched here.
+   gen52 above already pulls the bar down so it ends where the glass ends, with the figures held
+   off the indicator by their own padding. This block used to set margin-bottom:0 on the same
+   selector a hundred and fifty lines later, which quietly undid it: the rule was written, and
+   the bar still sat in the middle of the fade. Nothing to add. */
 
 /* THE FOOT OF THE TITLE SCREEN, off the same two figures rather than off env() and a simulated
    twin that could disagree with it. */
@@ -5855,6 +5882,14 @@ button,.opt,.drawer,.btn,.chip,.minirow,input,select,textarea{touch-action:manip
 /* A flag is a picture and a long press on it should do nothing at all: no preview card, and no
    dragging it out of the app halfway through a question. */
 img,svg{-webkit-user-drag:none;user-drag:none}
+
+
+/* ============ gen53: the last of the orange at the foot ============ */
+
+/* The band under the figures is the opaque end of our own fade, not a bar the system draws. At
+   seventy four pixels the eye reads the bottom quarter of it as flat colour before it reads the
+   rest as a gradient, and the ledger now has a ground of its own anyway. */
+:root[data-mode] .wrap::after{height:46px}
 
 </style>
 <section class="splash" id="splash" hidden>
@@ -15654,8 +15689,25 @@ function paintIntro(){
      head of the home screen build, so that one wins where it exists; VERSION below is the
      artifact's own, and it is bumped by hand at publish time. Without it the corner of the
      artifact was blank and there was no way to tell one published build from the next. */
+  /* ...and how it is being run, and what the system handed it. "app" means launched from the
+     home screen, where the whole screen is ours. "tab" means Safari, where the toolbar at the
+     foot belongs to Safari and no CSS will move it. The two look nearly identical in a
+     screenshot, and the difference decides whether a bar at the bottom is our bug or the
+     browser, so the corner says which. */
   var bs=$("build");
-  if(bs)bs.textContent=(typeof window.GT_BUILD==="string")?window.GT_BUILD:VERSION;
+  if(bs){
+    var stamp=(typeof window.GT_BUILD==="string")?window.GT_BUILD:VERSION;
+    try{
+      var app=(window.navigator.standalone===true)||
+        (window.matchMedia&&(matchMedia("(display-mode: standalone)").matches||
+                             matchMedia("(display-mode: fullscreen)").matches));
+      var cs2=getComputedStyle(document.documentElement);
+      var it=Math.round(parseFloat(cs2.getPropertyValue("--insT"))||0);
+      var ib=Math.round(parseFloat(cs2.getPropertyValue("--insB"))||0);
+      stamp+=" \u00b7 "+(app?"app":"tab")+" \u00b7 "+it+"/"+ib;
+    }catch(e){}
+    bs.textContent=stamp;
+  }
   $("introtag").textContent=t("tagline");
   $("introstats").textContent=t("statsShort");
   $("introlang").textContent=langShort(langNext(lang));
@@ -16449,6 +16501,10 @@ body::before{content:"";position:fixed;inset:-4px;z-index:-2;background:var(--de
 
 /* a home screen app is not a document: no rubber banding, no text selection on a
    board you are meant to tap, and no magnifier on a long press */
+/* The ledger ends a rounded pixel past the foot of the glass, which leaves the document one
+   pixel taller than the window. body already refuses to scroll; the root element has to say so
+   too, or that pixel is enough for iOS to rubber band the whole app on a downward flick. */
+html{overflow:hidden}
 html,body{overscroll-behavior:none;-webkit-user-select:none;user-select:none;
   -webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 #guess,#search{-webkit-user-select:text;user-select:text}
