@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#B44E2E">
-<script>window.GT_BUILD="v21 · 2026-09-08 22:16";</script>
+<script>window.GT_BUILD="v24 · 2026-09-09 14:39";</script>
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -5618,6 +5618,10 @@ body::before{background:#B44E2E}
    band across the screen. The tickets are opaque paper and do not need it. */
 .collage::before{display:none}
 :root[data-fit^="tight"] .dosclue{padding-top:8px;padding-bottom:8px}
+/* The clue tickets set their own height from their content, so padding is not the lever here:
+   the ten pixels the file runs long on a 812 tall screen come off the space between the rows of
+   the board instead, which nobody reads. */
+:root[data-fit^="tight"][data-mode="dossier"] .stage{gap:4px}
 /* the roomier file costs a pixel and a half on a 667 tall screen, and the capital trap a further
    four fifths of one: both come back off the smallest tier alone, so the phones keep the room */
 :root[data-fit="tighter"] .dosclue{padding-top:6px;padding-bottom:6px}
@@ -5630,7 +5634,7 @@ body::before{background:#B44E2E}
    thing this game cannot afford. */
 .dosclue{padding-top:11px;padding-bottom:11px}
 .dosgrid{gap:8px}
-:root[data-fit^="tight"] .dosclue{padding-top:10px;padding-bottom:10px}
+:root[data-fit^="tight"] .dosclue{padding-top:8px;padding-bottom:8px}
 :root[data-fit="tighter"] .dosclue{padding-top:6px;padding-bottom:6px}
 :root[data-fit="tighter"] .dosgrid{gap:6px}
 
@@ -5813,6 +5817,45 @@ body::before{background:#B44E2E}
 :root[data-count] .stage>.typerow,
 :root[data-count] .stage>.verdict,
 :root[data-count] .stage>.acts{visibility:hidden}
+
+/* ============ gen51: the bottom of the screen, and four notes from the thread ============ */
+
+/* THE WRAPPER GIVES THE FOOT BACK.
+   It used to hold everything a full home indicator clear of the bottom. It keeps the eighteen
+   points the indicator physically needs and no more, off the same figure the layout was measured
+   with, so the two can never drift apart. */
+:root[data-mode] .wrap{padding-bottom:var(--keepB,0px)}
+
+/* THE LEDGER LIES JUST ABOVE THE INDICATOR.
+   No negative margin any more: the wrapper stops where the ledger should stop, so the row simply
+   sits on that edge. Its fade runs on past it to the last row of pixels. */
+:root[data-mode] .stats{margin-bottom:0}
+:root[data-sim][data-mode] .stats{margin-bottom:0}
+
+/* THE FOOT OF THE TITLE SCREEN, off the same two figures rather than off env() and a simulated
+   twin that could disagree with it. */
+.introfoot{padding-bottom:calc(5px + var(--keepB,0px) * 0.7)}
+:root[data-sim] .introfoot{padding-bottom:calc(5px + var(--keepB,0px) * 0.7)}
+.globehint{bottom:calc(40px + var(--keepB,0px))}
+:root[data-sim] .globehint{bottom:calc(40px + var(--keepB,0px))}
+.build{bottom:calc(3px + var(--keepB,0px) * 0.5)}
+:root[data-sim] .build{bottom:calc(3px + var(--keepB,0px) * 0.5)}
+
+/* ---- from the thread ---- */
+
+/* A button that is not a link into a document does not need the browser to wait a third of a
+   second to find out whether the tap was the first half of a zoom. On a board where four options
+   are tapped in a row, that wait is the whole feel of the thing. */
+button,.opt,.drawer,.btn,.chip,.minirow,input,select,textarea{touch-action:manipulation}
+
+/* The grey flash WebKit paints over anything tapped. It was set on html and body, which does not
+   reach every element that draws its own background. */
+*{-webkit-tap-highlight-color:transparent}
+
+/* A flag is a picture and a long press on it should do nothing at all: no preview card, and no
+   dragging it out of the app halfway through a question. */
+img,svg{-webkit-user-drag:none;user-drag:none}
+
 </style>
 <section class="splash" id="splash" hidden>
   <span class="splashveil"></span>
@@ -15481,7 +15524,27 @@ function fitViewport(){
   if(q){top=+q[1];bot=+q[2];
     d.style.setProperty("--simT",top+"px");d.style.setProperty("--simB",bot+"px");
     d.setAttribute("data-sim","1");}
-  var usable=Math.max(320,(window.innerHeight||800)-top-bot);
+  /* HOW MUCH OF THE BOTTOM WE ACTUALLY OWE THE SYSTEM.
+
+     The page already covers the whole screen: viewport-fit=cover means the notch and the home
+     indicator are ours to draw on, and always were. What kept the boards off the bottom was
+     this line, subtracting the full inset, and a matching padding on the wrapper. That is us,
+     not iOS.
+
+     Apple asks for thirty four points at the foot so a control never lands in the swipe area.
+     The indicator itself is a pill about five points tall sitting eight points off the bottom,
+     so thirteen points of screen is all it physically occupies. Eighteen keeps a clear line
+     under the ledger and hands the other sixteen back to the board. Nothing tappable goes
+     there: the ledger is a readout.
+
+     The figures are published as custom properties so the stylesheet and the layout can never
+     disagree about them, and so the preview rig and the handset run the same numbers rather
+     than one reading env() and the other a simulated variable. */
+  var keep=bot?Math.min(bot,18):0;
+  d.style.setProperty("--insT",top+"px");
+  d.style.setProperty("--insB",bot+"px");
+  d.style.setProperty("--keepB",keep+"px");
+  var usable=Math.max(320,(window.innerHeight||800)-top-keep);
   d.style.setProperty("--fitH",usable+"px");
   d.setAttribute("data-fit",usable<=660?"tighter":(usable<=785?"tight":"roomy"));
   refitOpenPaper();
@@ -16284,6 +16347,43 @@ function pinBoard(){
 });
 if(window.visualViewport)window.visualViewport.addEventListener("resize",pinBoard);
 
+/* COMING BACK TO A DEAD PAGE.
+
+   iOS and Android reclaim memory by killing backgrounded web views, and a killed view does not
+   reload itself: you come back to the app and the canvas is blank, because its backing store
+   was thrown away while you were in another app. Nothing in the page notices, because from the
+   page's point of view nothing happened.
+
+   So on the way back in, the globe is asked whether it still has anything on it. One pixel is
+   enough to tell. If it is empty the canvas is rebuilt and redrawn; only if that fails to take
+   is the page reloaded, because a reload costs the run you were in the middle of. */
+function globeAlive(){
+  if(!globe.cv||!globe.ctx)return true;                 /* nothing to judge yet */
+  if(!globe.cv.width||!globe.cv.height)return false;
+  try{
+    var d0=globe.ctx.getImageData(Math.round(globe.cv.width/2),Math.round(globe.cv.height/2),1,1).data;
+    return d0[3]!==0;
+  }catch(e){return true;}                               /* unreadable: assume well */
+}
+function wakeUp(){
+  if(document.hidden)return;
+  fitViewport();
+  try{
+    if(!globeAlive()){
+      sizeGlobe();drawGlobe();
+      if(!globeAlive()){location.reload();return;}
+    } else drawGlobe();
+  }catch(e){try{location.reload();}catch(e2){}}
+  relayoutSoon();
+}
+window.addEventListener("pageshow",function(e){
+  /* persisted means the back forward cache handed the whole page back; either way, check */
+  setTimeout(wakeUp,e&&e.persisted?0:60);
+});
+document.addEventListener("visibilitychange",function(){
+  if(!document.hidden)setTimeout(wakeUp,60);
+});
+
 fitViewport();          /* before anything lays itself out against the wrong height */
 applyLang();
 setMode(store.mode&&store.mode!=="sprint"?store.mode:"name");
@@ -16320,7 +16420,7 @@ if(store.phone&&!INFRAME)phoneOn();
   /* No padding of its own at the foot, only the strip iOS reserves for the home
      indicator. The ledger is the last thing in the card, so this puts it as low as it can
      go without sitting under the bar the system draws. */
-  padding-bottom:env(safe-area-inset-bottom);
+  padding-bottom:var(--keepB,0px);
   padding-left:calc(14px + env(safe-area-inset-left));
   padding-right:calc(14px + env(safe-area-inset-right));
 }
