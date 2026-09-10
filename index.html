@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" style="background:#B44E2E">
+<html lang="en" style="background:#D2623C">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
@@ -7,15 +7,19 @@
      megabyte of inlined fonts before its first rule, and nothing in a style element applies
      until all of it is parsed, so a cold start showed the browser's white ground for as long
      as that took. Three declarations in the head settle it on the first frame. -->
-<style>html{background:#B44E2E}body{margin:0;background:#B44E2E}</style>
+<style>html{background:#D2623C}body{margin:0;background:#D2623C}</style>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
-<meta name="theme-color" content="#B44E2E">
-<script>window.GT_BUILD="v47 · 2026-09-09 18:40";</script>
-<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#D2623C">
+<script>window.GT_BUILD="v62 · 2026-09-10 14:11";</script>
+<!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
+     so in dark mode it paints its own near black canvas before a single rule of the app applies:
+     that is the black screen with the faint grid that shows at launch. Every palette in the app
+     resolves back to the orange desk. There is no dark form to declare. -->
+<meta name="color-scheme" content="light">
 <meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
@@ -85,8 +89,12 @@
    and the markup drawn at its default sizes, which is where the frame of a stray ticket
    near the top of the screen came from. This block is four rules long and lands at once.
    It paints the desk and holds everything back until the real sheet is in. */
-html{background:#B44E2E}
-body{margin:0;background:#B44E2E;overflow:hidden}
+/* color-scheme light and not "light dark". Declaring a dark form tells the browser to paint
+   its own near black canvas in dark mode before any rule here applies, which is the black
+   screen with the faint grid on it at launch. Every palette in the sheet below resolves back
+   to the orange desk anyway: there is no dark form to declare. */
+html{background:#D2623C;color-scheme:light}
+body{margin:0;background:#D2623C;overflow:hidden}
 body>*{visibility:hidden}
 </style>
 <style>
@@ -166,7 +174,7 @@ html,body{height:100vh}
    number everywhere this matters, and vh is the one that is right where they differ.
 
    Found by u/fozzedout and u/future_pedi_md, r/PWA "PWA on iOS: fighting the chin gap". */
-html{background:var(--desk2,#B0492A);min-height:100vh}
+html{background:#D2623C;min-height:100vh}
 /* preview.html sets these; on a real handset the wrapper uses env() and these never exist */
 :root[data-sim] .wrap{padding-top:calc(12px + var(--simT,0px));padding-bottom:var(--simB,0px)}
 :root[data-sim] .masthead{margin-top:var(--simT,0px)}
@@ -2133,14 +2141,25 @@ svg[viewBox="0 0 640 480"]{height:auto}
   clip-path:polygon(0 20px,20px 0,100% 0,100% 100%,20px 100%,0 calc(100% - 20px));
 }
 /* 02 find the flag: the cinema stub */
-:root[data-mode="find"] #drill{
-  -webkit-mask-image:radial-gradient(circle 10px at 0 42%,transparent 10px,#000 10.5px),
-    radial-gradient(circle 10px at 100% 42%,transparent 10px,#000 10.5px);
-  -webkit-mask-composite:source-in;
-  mask-image:radial-gradient(circle 10px at 0 42%,transparent 10px,#000 10.5px),
-    radial-gradient(circle 10px at 100% 42%,transparent 10px,#000 10.5px);
-  mask-composite:intersect;
-}
+/* THE CINEMA STUB'S NOTCHES ARE GONE, AND THIS IS THE ONE RULE THE LEDGER CARES ABOUT.
+
+   Two ten pixel bites out of the left and right edges of #drill, to make the board read as a
+   torn ticket stub. They were written while #drill still drew a card. It does not any more:
+   :root[data-mode] #drill takes the background, the border and the shadow away on every game
+   board, so the mask had no surface left to bite and was only cutting invisible notches out
+   of empty desk.
+
+   What it was still doing was making #drill a stacking context. A mask does that, the same as
+   a filter or a transform, and once #drill is a context the z-index on anything inside it is
+   measured against its siblings rather than against the page. The ledger asks for z-index 130
+   so it will sit above the fade at the foot of the screen, which is fixed at z-index 1, and on
+   this one board that 130 could not reach past #drill. So the fade was painted over the
+   figures on Find the flag and under them on the other twenty games: the same four cells
+   drawn two different ways, which is exactly what it looked like.
+
+   THE INVARIANT: nothing may turn #drill into a stacking context while the ledger lives
+   inside it. That means no mask, no filter, no transform, no opacity below 1, no
+   will-change and no isolation on #drill, per board or otherwise. The mode sweep checks it. */
 :root[data-mode="find"] #drill .eyebrow::after{content:"ADMIT ONE";float:right;letter-spacing:.2em;opacity:.85}
 /* 03 locate: par avion */
 :root[data-mode="locate"] #drill{
@@ -3233,24 +3252,22 @@ svg[viewBox="0 0 640 480"]{height:auto}
 
 /* ---- the front door ---- */
 .splash{
-  background:#2A1109;                     /* the dark before the red */
+  /* The desk, from the first frame. This used to be #2A1109 with the red blooming up out of
+     it below, which is a nice piece of theatre and the wrong one: it means a cold start shows
+     three grounds in about two seconds, and the middle one is an orange the app stopped using
+     several generations ago. The door is the same colour as the room behind it now. */
+  background:#D2623C;
   opacity:1;transition:opacity .7s ease;
 }
 .splash.out{opacity:0;transition:opacity .85s ease}
-/* the red ground, blooming up out of the dark */
+/* The grain over it, and nothing else. What was here was the same three layer stack with an
+   old radial underneath it, faded and scaled in over a second and a half: that is the second
+   flash. The texture stays, the colour underneath is the one colour the app uses, and it is
+   there on the first frame rather than arriving. */
 .splash::after{
   content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    var(--fiber),
-    var(--specks),
-    radial-gradient(120% 90% at 50% 12%,#E07A4C 0%,#D2623C 45%,#A8431F 100%);
+  background:var(--fiber),var(--specks),#D2623C;
   background-blend-mode:multiply,multiply,normal;
-  animation:groundBloom 1.5s cubic-bezier(.22,.78,.28,1) both;
-}
-@keyframes groundBloom{
-  0%  {opacity:0;transform:scale(1.14)}
-  60% {opacity:1}
-  100%{opacity:1;transform:scale(1)}
 }
 /* the compass rose, ghosted in behind everything once the ticket has landed */
 .splash::before{
@@ -3608,8 +3625,10 @@ html.splashOn #intro{visibility:hidden}
 }
 :root[data-mode="name"] .stat{border-right:1px solid rgba(251,243,226,.16)}
 :root[data-mode="name"] .stat:last-child{border-right:0}
-:root[data-mode="name"] .stat .v{color:#FBF3E2}
-:root[data-mode="name"] .stat .k{color:rgba(251,243,226,.65)}
+/* The flag board used to give the ledger its own two colours here, brighter than the ones every
+   other board got twenty rules later. That is why the same four figures came out crisp on one
+   game and washed out on the next: not a z-order, not the gradient, just two different
+   recipes for the same object. There is one recipe now and it lives at the end of this sheet. */
 
 
 /* =================================================================================
@@ -3677,7 +3696,10 @@ html.splashOn #intro{visibility:hidden}
 :root[data-mode] .stage{padding:16px 14px 8px;gap:clamp(8px,2vh,18px)}
 @media (max-width:640px){:root[data-mode] .stage{padding:12px 10px 6px}}
 :root[data-mode="name"] .stage,:root[data-mode="find"] .stage,
-:root[data-mode="cap"] .stage,:root[data-mode="bigger"] .stage{overflow:visible}
+:root[data-mode="cap"] .stage,
+:root[data-mode="trap"] .stage,
+:root[data-mode="border"] .stage,
+:root[data-mode="bigger"] .stage{overflow:visible}
 
 /* the question, stamped on a slip */
 :root[data-mode] #drill .eyebrow{
@@ -3923,7 +3945,7 @@ html.splashOn #intro{visibility:hidden}
   background-attachment:scroll;
 }
 :root[data-mode] body{background-attachment:fixed}
-.splash{background:#2A1109}
+.splash{background:#D2623C}
 
 /* the veils sit lighter now: the tooth already carries the surface */
 .grainveil{mix-blend-mode:soft-light;opacity:.34}
@@ -5209,7 +5231,8 @@ html.splashOn #intro{visibility:hidden}
    The wrap holds every edge clear of the home indicator, which is right for anything you
    press and wrong for a row of numbers you only read. The strip is allowed to ride down into
    that band: it is the last thing on the board and nothing about it is a target. */
-:root[data-mode] .stats{margin-bottom:calc(env(safe-area-inset-bottom) * -0.6)}
+/* Where the ledger sits is decided once, in the ledger template further down. It was decided
+   here as well, and in two other places, with different numbers in each. */
 
 /* SPRINT, WHICH MISSED BY EIGHT PIXELS.
    Four names, a flag, a clock and a verdict, and on a 12 mini the whole thing came to eight
@@ -5252,7 +5275,6 @@ html.splashOn #intro{visibility:hidden}
 :root[data-sim] .introfoot{margin-bottom:var(--simB,0px)}
 :root[data-sim] .cotdcard{bottom:calc(84px + var(--simB,0px))}
 :root[data-sim][data-fit="tighter"] .cotdcard{bottom:calc(74px + var(--simB,0px))}
-:root[data-sim][data-mode] .stats{margin-bottom:calc(var(--simB,0px) * -0.6)}
 :root[data-sim] .modal{padding-top:var(--simT,0px);padding-bottom:var(--simB,0px)}
 
 /* ============ gen38: the boards, read at arm's length ============ */
@@ -5288,7 +5310,7 @@ html.splashOn #intro{visibility:hidden}
 :root[data-mode="cap"] .stage>.flagbox,
 :root[data-mode="trap"] .stage>.flagbox,
 :root[data-mode="border"] .stage>.flagbox{
-  margin:clamp(28px,calc(var(--fitH,100vh) * 0.125),110px) 0 0;
+  margin:clamp(28px,calc(var(--fitH,100vh) * 0.125),96px) 0 0;
 }
 :root[data-fit="tighter"][data-mode="cap"] .stage>.flagbox,
 :root[data-fit="tighter"][data-mode="trap"] .stage>.flagbox,
@@ -5348,8 +5370,8 @@ html.splashOn #intro{visibility:hidden}
    :root:not([data-theme="light"]), which outranks a plain :root, so the colour is written
    straight onto the element rather than through a variable the theme has already claimed.
    #intro and the boards paint their own grounds on top of it, so nothing else moves. */
-html{background:#B44E2E}
-body::before{background:#B44E2E}
+html,body{background:#D2623C}
+body::before{background:#D2623C}
 
 /* THE FOOT, RUN DOWN TO THE EDGE.
    The row of controls was lifted clear of the home indicator by a margin, which took the fade
@@ -5540,11 +5562,8 @@ body::before{background:#B44E2E}
    It cleared the whole home indicator strip, which on a board with nothing under it is a
    centimetre of desk below the last thing you can read. It is a readout, not a control, so it is
    allowed into the part of that strip the system does not draw on. */
-:root[data-mode] .stats{
-  margin-bottom:calc(env(safe-area-inset-bottom) * -0.55);
-  position:relative;
-}
-:root[data-sim][data-mode] .stats{margin-bottom:calc(var(--simB,0px) * -0.55)}
+/* Where the ledger sits is decided once, in the ledger template further down. It was decided
+   here as well, and in two other places, with different numbers in each. */
 
 /* AND IT GETS THE SAME EDGE THE TITLE SCREEN HAS.
    The fade at the bottom of the desk was written for the title screen and stopped existing the
@@ -5625,11 +5644,10 @@ body::before{background:#B44E2E}
    different desk colours. Behind a planet that covers nearly all of it, what shows is the seam
    where the stops meet: a band across the middle and a darker edge down each side, which is what
    the gradients in the middle and at the sides are. The desk is one colour. */
-#intro{
-  background:#B44E2E;
-  background-image:var(--fiber);
-  background-blend-mode:soft-light;
-}
+/* Removed. This flattened the title screen to one colour and one fibre layer, and the
+   printed ground above - dot grid, guilloche waves, tooth and stain - went on being drawn
+   on the boards, so the menu and the game were two different papers. The rule above is the
+   ground, everywhere, and there is now nothing here to disagree with it. */
 
 /* THE COMPASS ROSE. It was turned off here on the grounds that the splash sits behind the
    title screen rather than going away, so the rose would be turning under the paperwork for
@@ -5777,12 +5795,7 @@ body::before{background:#B44E2E}
 :root[data-mode] .stats{
   background:transparent;
   border-top:1px solid rgba(246,238,220,.26);
-  /* Off --keepB, which is what the wrapper actually holds back and what the boards were
-     measured against, rather than off env() with a simulated twin beside it: those two can
-     disagree, and when they do the rig shows one layout and the handset another. One figure,
-     one source, both builds. */
-  margin-bottom:calc(var(--keepB,0px) * -1);
-  padding-bottom:calc(var(--keepB,0px) * 0.34);
+  /* Position is set once, in the ledger template below. */
 }
 :root[data-mode] .stat{padding-top:4px;padding-bottom:4px}
 
@@ -5843,6 +5856,19 @@ body::before{background:#B44E2E}
 :root[data-mode="dossier"] .dosclue{min-height:56px;padding:9px 11px 10px}
 :root[data-mode="dossier"] .dosclue b{font-size:16px}
 /* the shortest screen has no room to give: it keeps the flaps it had */
+/* THE MIDDLE RUNG OF THE DOSSIER, WHICH WAS NEVER WRITTEN.
+
+   The clue cards have a full size and a tighter size and nothing in between, so a screen that
+   lands on tight - a 375 by 812 handset, which is most of them - was given the full 56px card.
+   Nine clues in two columns is five rows of that, and in Spanish two of the labels take a
+   second line, which is where the board stopped fitting. It did not cut, because the dossier
+   is the one board whose stage scrolls, so it quietly became draggable instead, which is the
+   same rule broken more politely.
+
+   Written as data-fit="tight" exactly rather than ^="tight", because the prefix form also
+   matches tighter and would land after the tighter rule and undo it. */
+:root[data-fit="tight"][data-mode="dossier"] .dosclue{min-height:46px;padding:4px 10px 5px}
+:root[data-fit="tight"][data-mode="dossier"] .dosclue b{font-size:15px}
 :root[data-fit="tighter"][data-mode="dossier"] .dosclue{min-height:37px;padding:2px 10px 3px}
 :root[data-fit="tighter"][data-mode="dossier"] .dosclue b{font-size:14px}
 
@@ -5930,7 +5956,7 @@ img,svg{-webkit-user-drag:none;user-drag:none}
   #turnme{
     position:fixed;inset:0;z-index:99998;display:flex;
     flex-direction:column;align-items:center;justify-content:center;gap:14px;
-    background:#B44E2E;color:#FBF3E2;text-align:center;padding:24px;
+    background:#D2623C;color:#FBF3E2;text-align:center;padding:24px;
   }
   #turnme .tmark{
     font-family:var(--display,Georgia,serif);font-size:34px;line-height:1;
@@ -6041,6 +6067,137 @@ img,svg{-webkit-user-drag:none;user-drag:none}
   font-style:normal;font-weight:400;
   display:inline-block;width:1.05em;text-align:center;
 }
+
+
+/* ============ gen58: the ledger is a bar, and a name that fits ============ */
+
+/* "THE STATS BAR IS DRAWN BEHIND THE GRADIENT."
+
+   It is not behind anything: it is z-index 130 over a fade at 1, and I spent a session proving
+   that before looking at what it was actually made of. The labels are cream at sixty per cent
+   alpha, nine and a half pixels tall, sitting on the orange the fade ends in. Measured, that is
+   about two and a half to one. Text that faint over a ground that close does not read as text on
+   top of a gradient, it reads as text underneath one, which is exactly how it was described.
+
+   Two changes, and the first is the one gen52 already said it wanted: the bar gets a ground of
+   its own, a shade under the desk it sits on, so it is a bar rather than a haze with numbers in
+   it. On that ground cream reads at better than six to one, and the labels can come back up to
+   nearly full strength without shouting. */
+/* ================= THE LEDGER. ONE TEMPLATE, EVERY BOARD. =================
+
+   Eighteen separate rules used to style these four cells, spread over three hundred thousand
+   characters, and one of them gave the flag board colours of its own. So the same ledger came out
+   bright on one game and washed out on the next, which from the outside looks like it is being
+   drawn behind something on some boards and not on others. It was never behind anything: it was
+   two recipes for one object.
+
+   This is the only place the ledger is described. Every property it needs is stated here rather
+   than inherited or half set somewhere else, so a board cannot opt into its own version of it,
+   and there is exactly one thing to change when it needs changing.
+
+   The fade stays a fade, so the type carries its own legibility: full cream with a soft dark
+   shadow reads over any part of a gradient including the pale end, and the gradient ends a shade
+   deeper than the desk so the pixels the figures sit on are its darkest.
+
+   Labels wrap. They are single words in English and two in Dutch, and Reeks · record and
+   Archiefklerk were both being sliced by a cell built for Answered. */
+/* AND WHERE IT SITS, ONCE.
+
+   The strip used to be pulled about 19px below the bottom of #drill, on the reasoning that a
+   row of numbers is a readout rather than a target and may lie in the band the system keeps
+   for the home indicator. That reasoning is sound and the pull was still wrong, because
+   #drill has overflow:hidden - it has to, it is what crops the canvas the globe games bleed
+   past their box - so everything below its bottom edge was simply cut off. Nine point eight
+   pixels of every label, which is the descender and about a third of the cap height, or the
+   whole second line where a language needs two: Auxiliar de archivo, Commis aux archives,
+   Serie - Bestwert.
+
+   It did not look cut on the flag board, and only on the flag board, because
+   :root[data-mode="name"] #drill still carries an overflow:visible from before the generic
+   :root[data-mode] #drill rule was written. So the same four cells were drawn two different
+   ways depending on which game you opened, which is exactly what it looked like.
+
+   The strip now ends where the board ends. The wrap already holds that edge --keepB clear of
+   the screen, so the figures are above the indicator without any pull, and they are above it
+   by the same amount in all twenty one games. */
+:root[data-mode] .stats{
+  background:transparent;
+  border-top:1px solid rgba(246,238,220,.26);
+  text-shadow:0 1px 2px rgba(58,18,6,.62),0 0 1px rgba(58,18,6,.5);
+  position:relative;
+  margin-bottom:0;
+  padding-bottom:0;
+}
+:root[data-mode] .stat{
+  border-right-color:rgba(251,243,226,.16);
+  min-width:0;padding-left:2px;padding-right:2px;
+  /* The strip is as tall as its tallest cell, which is the rank: a figure, a progress bar and
+     a label that needs two lines. The other three are a figure and one line, and being top
+     aligned they finished about twenty pixels above the floor of a strip they share. Centred,
+     all four sit on the same middle and the row reads as one object at the foot of the board
+     rather than three short cells and a long one. */
+  justify-content:center;
+}
+:root[data-mode] .stat .v{
+  color:#FDF3E2;
+  font-size:14px;line-height:1.1;
+}
+:root[data-mode] .stat .k{
+  color:rgba(251,243,226,.86);
+  font-size:8.5px;line-height:1.08;letter-spacing:.09em;
+  white-space:normal;text-align:center;
+  display:block;max-width:100%;overflow-wrap:anywhere;
+}
+:root[data-fit^="tight"][data-mode] .stat .v{font-size:14px}
+:root[data-fit^="tight"][data-mode] .stat .k{font-size:8.5px}
+:root[data-fit="tighter"][data-mode] .stat .v{font-size:13px}
+:root[data-fit="tighter"][data-mode] .stat .k{font-size:8px}
+:root[data-mode] .wrap::after{
+  background:linear-gradient(to top,#8E3A21 0,rgba(180,78,46,.72) 34%,rgba(210,98,60,0) 100%);
+  height:66px;
+}
+
+/* the rank cell needed this first, and now every cell has it: see the template above */
+
+/* THE NAME ON THE LOCATE CARD RAN OFF ITS OWN CARD.
+   Measured at 13 pixels past the edge on Ireland, and Ireland is a short word: Bosnia and
+   Herzegovina has nowhere to go at all. The card is a flex row of a flag and a name and the name
+   was never allowed to wrap, so it simply ran on. It wraps now, and the card keeps itself inside
+   the column. */
+:root[data-mode="locate"] .flagbox.plain>.target,
+:root[data-mode="cap"] .flagbox.plain>.target,
+:root[data-mode="trap"] .flagbox.plain>.target{
+  max-width:min(92vw,340px);
+}
+:root[data-mode] .target .tname{
+  min-width:0;overflow-wrap:anywhere;hyphens:auto;
+  font-size:clamp(15px,4.2vw,24px);line-height:1.06;
+}
+
+/* ================= THE FIELD RIDES THE KEYBOARD =================
+
+   iOS does not resize the layout viewport when the keyboard opens. It shrinks the visual
+   viewport, and if the focused field would be under the keyboard it scrolls the page to bring
+   it up: on a page with nothing to scroll that reads as the board jumping and settling back.
+   The answer so far has been to pin the scroll, which keeps the board still and leaves the
+   field under the keyboard on every board that puts it low, so you type blind.
+
+   So the field is taken out of the board while the keyboard is up and stood on top of it. It
+   is the one control that has to be readable at the moment it is being used, --kb is how tall
+   the keyboard measured, and the strip it sits on is the same fade the foot of the board wears
+   so it reads as part of the desk rather than a floating box. Everything else stays exactly
+   where it was, which is the part the pin was always right about. */
+:root[data-kb] .stage>.typerow{
+  position:fixed;left:0;right:0;bottom:var(--kb,0px);
+  width:auto;max-width:none;z-index:140;
+  margin:0;padding:9px calc(14px + var(--insL,0px)) 11px calc(14px + var(--insR,0px));
+  background:linear-gradient(to top,#8E3A21 0,rgba(180,78,46,.96) 62%,rgba(180,78,46,.86) 100%);
+  box-shadow:0 -14px 22px -14px rgba(30,10,4,.75);
+  border-top:1px solid rgba(246,238,220,.22);
+}
+/* and the board keeps the room it gave up, so nothing behind the bar shifts as it appears */
+:root[data-kb] .stage>.typerow::after{content:"";display:none}
+:root[data-kb] #guess{font-size:16px}   /* 16 or iOS zooms the page to read it */
 
 </style>
 <section class="splash" id="splash" hidden>
@@ -8765,6 +8922,33 @@ function drawGlobe(){
        screen filled with disconnected blue dashes. Now the backdrop is the same welded
        courses as the answers, so everything on the globe is one continuous river. */
     if(!ridge){
+      /* THE DRAINAGE, UNDER EVERYTHING.
+
+         RIVERNET is 1830 more watercourses, welded into courses the same way the answers are
+         and thinned to about 1100 km of river per hundred thousand square kilometres so no
+         basin is drawn heavier than another. It has been decoded and ready in the file the
+         whole time and nothing has ever drawn it, so the globe carried 49 rivers and no
+         water anywhere else, which is why a river had nothing to be recognised against.
+
+         Each run knows the direction of its middle and how far it reaches, so the half that
+         is round the back is dropped before a single point of it is transformed. */
+      var net=riverNet();
+      ctx.save();
+      ctx.strokeStyle="#7FA6C2";ctx.globalAlpha=globe.drag?.20:.30;
+      ctx.lineWidth=Math.max(0.45,0.62*mk3);ctx.lineJoin="round";ctx.lineCap="round";
+      ctx.beginPath();
+      for(var iN=0;iN<net.length;iN++){
+        var nr=net[iN],nv=nr.v;
+        /* the middle of the run, turned into the view: behind the horizon by more than the
+           run's own reach and there is nothing of it to see */
+        if(globe.drag&&nr.r<0.05)continue;      /* under the thumb: the big ones only */
+        var nq=rot(nv[0],nv[1],nv[2],c);
+        if(nq[2]<Math.cos(Math.min(1.45,nr.r+0.06))-0.02)continue;
+        tracePath(nr.p,false);
+      }
+      ctx.stroke();
+      ctx.restore();
+      /* and the named courses that are not the answer, a shade stronger than the network */
       ctx.save();
       ctx.strokeStyle="#6E9CBE";ctx.globalAlpha=.42;
       ctx.lineWidth=Math.max(0.6,0.95*mk3);ctx.lineJoin="round";ctx.lineCap="round";
@@ -8955,6 +9139,59 @@ function markerAt(px,py){
 /* liftPx raises the target that many pixels above the middle of the canvas, and toZoom
    flies the magnification at the same time. The lift is worked out against the radius the
    globe will have when it arrives, not the one it is leaving. */
+/* WHERE THE ANSWER SHOULD COME TO REST.
+
+   The sphere is drawn with its centre on the right hand edge of the board, because a planet
+   that big has to hang off something, so spinTo(lon,lat) - which puts the target at the
+   centre of the sphere - puts it under the right edge of the glass with half of it gone. The
+   two pixel arguments spinTo already takes are exactly the correction: positive lift raises
+   the target off the centre, positive shift moves it right, and both are asin'd against the
+   landing radius inside. So the only work here is asking the canvas where it is.
+
+   Longitude is divided by the cosine of the latitude because a pixel sideways is worth more
+   degrees the further from the equator you are: without it Norway overshoots and the tropics
+   fall short. On the boards where the sphere is already centred the two numbers come out at
+   nothing and this is spinTo. */
+function frameTo(lon,lat,then,toZoom){
+  var cv=globe.cv;
+  if(!cv||!globe.base){spinTo(lon,lat,then,0,toZoom);return;}
+  var r=cv.getBoundingClientRect();
+  if(!r.width){spinTo(lon,lat,then,0,toZoom);return;}
+  var cs=getComputedStyle(document.documentElement);
+  var top=parseFloat(cs.getPropertyValue("--insT"))||0;
+  var bot=(window.innerHeight||0)-(parseFloat(cs.getPropertyValue("--keepB"))||0);
+  /* the middle of what can be seen of the canvas, not the middle of the canvas */
+  var vx=(window.innerWidth||r.width)/2;
+  var vy=(Math.max(top,r.top)+Math.min(bot,r.bottom))/2;
+  var endR=globe.base*(toZoom?Math.max(1,Math.min(16,toZoom)):globe.zoom);
+  /* where on the unit sphere the target has to sit for it to land there */
+  var x0=(vx-(r.left+globe.cx))/endR;
+  var y0=((r.top+globe.cy)-vy)/endR;
+  var la=lat*RAD,cla=Math.cos(la),sla=Math.sin(la);
+  /* Solve for the view that puts it there. Sideways first: the projected x of a point
+     depends only on its longitude relative to the centre and on its own latitude, so that
+     one inverts on its own. Then the vertical, with that longitude known: A cos p - B sin p
+     is one cosine with a phase, so it inverts too. Either can be out of reach - you cannot
+     put the pole in the corner - and then this is spinTo. */
+  /* The projected x of a point can never exceed the cosine of its own latitude, whatever
+     the globe does: that is the geometry, not a limitation of solving it this way. Above
+     about 58 degrees the target cannot be brought as far in from the right edge as the
+     middle of the screen, so it is brought as far as it can comfortably go instead of being
+     abandoned at the edge. Same for the vertical. */
+  var lim=cla*0.80;
+  if(x0>lim)x0=lim;else if(x0<-lim)x0=-lim;
+  var lo=Math.asin(x0/cla);
+  var A=sla,B=cla*Math.cos(lo),M=Math.sqrt(A*A+B*B);
+  if(!(M>1e-6)){spinTo(lon,lat,then,0,toZoom);return;}
+  if(y0>M*0.92)y0=M*0.92;else if(y0<-M*0.92)y0=-M*0.92;
+  var phi=(Math.acos(y0/M)-Math.atan2(B,A))/RAD;
+  if(phi>80||phi<-80){spinTo(lon,lat,then,0,toZoom);return;}
+  var lam=lo/RAD-lon;
+  /* spinTo owns the flight, so the answer is handed back to it in the units it takes: it
+     reads both as pixels and asin's them against the landing radius. */
+  var shiftDeg=lam+lon,liftDeg=lat-phi;
+  spinTo(lon,lat,then,Math.sin(liftDeg*RAD)*endR,toZoom,Math.sin(shiftDeg*RAD)*endR);
+}
 function spinTo(lon,lat,then,liftPx,toZoom,shiftPx){
   var z0=globe.zoom,z1=toZoom?Math.max(1,Math.min(16,toZoom)):z0;
   var endR=globe.base*z1;
@@ -9262,7 +9499,7 @@ function lineTry(name){
   /* swing the globe round to what was being asked about, the way Locate does: being told
      you were wrong is no use unless you are shown where the thing actually was */
   var seat=lineCentre(lineRun.set,lineRun.target);
-  if(seat)spinTo(seat[0],seat[1]);
+  if(seat)frameTo(seat[0],seat[1]);
   drawGlobe();
   /* Right or wrong, the globe turns to put the answer in the middle, so the thing you
      were looking for is the thing you are looking at when the round moves on. */
@@ -12270,7 +12507,7 @@ function answerLocation(name){
      is the opposite: that is the moment the answer is worth travelling to. */
   if(!right){
     var c=locationOf(current.n);
-    if(c)spinTo(c[0],c[1]);
+    if(c)frameTo(c[0],c[1]);
   }
   scheduleNext(right?1250:2100);
 }
@@ -12315,7 +12552,7 @@ function revealAnswer(){
     paintSolved();
     globe.hi[current.n]=css("--good");
     var c=locationOf(current.n);
-    spinTo(c[0],c[1]);
+    if(c)frameTo(c[0],c[1]);
   }
   verdict("no",t("shown"),{b:cname(current),r:regionName(current.r)});
 }
@@ -13328,10 +13565,16 @@ function dailyKind(key){
 var GATES={shape:1,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8};
 /* Bump this when publishing the artifact. The home screen build counts its own in build.json
    and overwrites this on the way through standalone.js. */
-var VERSION="v21";
+var VERSION="v62";
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc";}
 function gateOf(m){var q=QUIZ[m];return (q&&q.gate)||GATES[m]||0;}
-function unlocked(m){return rankIndex(store.xp||0)>=gateOf(m);}
+/* TESTING: EVERY GAME OPEN.
+   The ladder is real and the gates below are the real ones; this switch stands in front of them
+   so every board can be reached while the app is being tested. It is one line and it is meant to
+   come out: set it back to false and the ranks decide again.
+   Remove before release. */
+var UNLOCK_ALL=true;
+function unlocked(m){return UNLOCK_ALL||rankIndex(store.xp||0)>=gateOf(m);}
 function gateLabel(m){return t("opensAt")+" "+rankName(gateOf(m));}
 function syncTabs(){
   TABS.forEach(function(k){
@@ -15869,13 +16112,17 @@ function fitViewport(){
      The figures are published as custom properties so the stylesheet and the layout can never
      disagree about them, and so the preview rig and the handset run the same numbers rather
      than one reading env() and the other a simulated variable. */
-  var keep=bot?Math.min(bot,18):0;
+  /* Thirteen, not eighteen. The paragraph above works out that the indicator physically
+     occupies thirteen points and eighteen was chosen to leave a clear line under the ledger.
+     The ledger is a readout and the line was a courtesy, so it goes: thirteen puts the bottom
+     of the board exactly on the top edge of the pill and hands the last five points back. */
+  var keep=bot?Math.min(bot,13):0;
   d.style.setProperty("--insT",top+"px");
   d.style.setProperty("--insB",bot+"px");
   d.style.setProperty("--keepB",keep+"px");
   var usable=Math.max(320,(window.innerHeight||800)-top-keep);
   d.style.setProperty("--fitH",usable+"px");
-  d.setAttribute("data-fit",usable<=660?"tighter":(usable<=785?"tight":"roomy"));
+  d.setAttribute("data-fit",usable<=680?"tighter":(usable<=785?"tight":"roomy"));
   refitOpenPaper();
   return usable;
 }
@@ -16655,6 +16902,31 @@ document.addEventListener("fullscreenchange",afterFs);
 window.addEventListener("orientationchange",function(){
   setTimeout(function(){fitViewport();relayout();fitDrawers();},250);
 });
+/* HOW TALL THE KEYBOARD IS, PUBLISHED AS --kb.
+
+   visualViewport is the only thing that knows. Its height is what is left of the window once
+   the keyboard has taken its share, and offsetTop is how far the browser has already shoved
+   the page up trying to be helpful, which has to come off too or the figure double counts the
+   shove the pin below is about to undo. Under eighty pixels is not a keyboard, it is a URL bar
+   or a rotation, and moving the field for one of those would be worse than leaving it. */
+(function(){
+  var vv=window.visualViewport;
+  if(!vv)return;
+  function sync(){
+    var d=document.documentElement;
+    var kb=Math.round((window.innerHeight||0)-vv.height-vv.offsetTop);
+    if(kb>80){d.style.setProperty("--kb",kb+"px");d.setAttribute("data-kb","1");}
+    else{d.removeAttribute("data-kb");d.style.setProperty("--kb","0px");}
+  }
+  vv.addEventListener("resize",sync);
+  vv.addEventListener("scroll",sync);
+  /* focus and blur both settle after the event, so it is asked again once the animation is over */
+  ["focusin","focusout"].forEach(function(ev){
+    window.addEventListener(ev,function(){setTimeout(sync,60);setTimeout(sync,320);},{passive:true});
+  });
+  sync();
+}());
+
 /* NOTHING SCROLLS, INCLUDING WHEN THE KEYBOARD ASKS.
    The app has no scroll of its own, so any scroll offset at all is the browser having moved
    the page to get a focused field out from under the keyboard. Put it back: the boards are
@@ -16877,6 +17149,8 @@ if(/[?&]dbg=1/.test(location.search)){
     store:store,globe:globe,relayout:relayout,next:(typeof nextQuestion==="function"?nextQuestion:null),
     run:function(){return run;},day:function(){return dayRun;},imp:function(){return imp;},setRunN:function(v){run.n=v;run.right=v;},
     draw:drawGlobe,size:sizeGlobe,vis:visibleBox,geo:GEOS,
+    frameTo:frameTo,spinTo:spinTo,lineTry:lineTry,lineRun:function(){return lineRun;},
+    lineCentre:lineCentre,riverNet:riverNet,ridgeSpine:ridgeSpine,lineSet:lineSet,
     prof:function(n){
       var i,t=performance.now();
       for(i=0;i<(n||30);i++){globe.lam+=0.4;drawGlobe();}
@@ -16907,7 +17181,7 @@ if(store.phone&&!INFRAME)phoneOn();
 /* A guaranteed ground behind everything. The root already carries the desk colour, but
    a fixed layer that overhangs the viewport leaves no seam for the home indicator strip to
    show through as black, whatever the browser decides the body measures. */
-body::before{content:"";position:fixed;inset:-4px;z-index:-2;background:var(--desk2,#B44E2E)}
+body::before{content:"";position:fixed;inset:-4px;z-index:-2;background:#D2623C}
 .masthead{margin-top:env(safe-area-inset-top)}
 /* The foot used to be lifted clear of the home indicator by a margin here. This block is the
    last stylesheet on the page, so it quietly beat the app own rule, and on a handset the whole
