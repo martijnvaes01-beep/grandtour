@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v74 · 2026-09-11 13:52";</script>
+<script>window.GT_BUILD="v84 · 2026-09-11 14:50";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -4945,12 +4945,22 @@ html.splashOn #intro{visibility:hidden}
    type is the same size, they simply stop holding each other at arm's length. */
 :root[data-fit^="tight"][data-mode="trade"] .manrows{gap:1px;margin:0 0 4px}
 :root[data-fit^="tight"][data-mode="trade"] .flagbox{padding-top:6px;padding-bottom:6px}
-:root[data-mode="trade"] .manrow{grid-template-columns:1fr 74px 30px;gap:7px}
+:root[data-mode="trade"] .manrow{grid-template-columns:1fr 104px;gap:7px}
 :root[data-mode="trade"] .manrow b{font-size:12.5px;line-height:1.1}
 :root[data-mode="trade"] .manrow.rest b{font-size:10px}
 :root[data-mode="trade"] .manbar{height:7px}
 :root[data-mode="trade"] .manrow u{font-size:10px}
 :root[data-mode="trade"] .manhead{margin-top:2px}
+/* the partner lines: a label and two or three names, wrapping rather than clipping */
+.manpart{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:1px 0 5px;
+  font-family:var(--type);line-height:1.15}
+.manpart i{font-style:normal;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink2);flex:0 0 auto}
+.manpart b{font-weight:400;font-size:11.5px;color:var(--ink)}
+.manpart.out b{color:#2F6B4F}
+.manpart.in b{color:#8A4A2A}
+:root[data-fit^="tight"][data-mode="trade"] .manpart{gap:3px 7px;margin:0 0 3px}
+:root[data-fit^="tight"][data-mode="trade"] .manpart b{font-size:11px}
 :root[data-mode="trade"] .mannote{margin:-2px 0 5px;font-size:8.5px}
 :root[data-mode="trade"] .manifest{padding-top:10px;padding-bottom:10px}
 :root[data-mode="trade"] .stage{gap:6px}
@@ -6958,6 +6968,7 @@ en:{sub:"countries · flags, globe, atlas",
   noLine:"Nothing there. Try nearer the line.",
   tracedRiver:"rivers traced",tracedRange:"ranges found",tracedSea:"waters found",linesLab:"on the globe",
   noSea:"That is not open water. Try again.",
+  manTo:"Sells to",manFrom:"Buys from",
   mSea:"Seas and oceans",dSea:"Put a finger on the water",
   mRange:"Mountains",dRange:"The ranges that raise the skyline",
   mNature:"Land and water",dNature:"Rivers, coasts and high ground",
@@ -7133,6 +7144,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   noLine:"Rien ici. Essayez plus près du tracé.",
   tracedRiver:"fleuves suivis",tracedRange:"chaînes trouvées",tracedSea:"mers trouvées",linesLab:"sur le globe",
   noSea:"Ce n'est pas la pleine mer. Réessayez.",
+  manTo:"Vend à",manFrom:"Achète à",
   mSea:"Mers et océans",dSea:"Posez le doigt sur l'eau",
   mRange:"Montagnes",dRange:"Les chaînes qui dressent l'horizon",
   mNature:"Terre et eau",dNature:"Fleuves, côtes et hauteurs",
@@ -7308,6 +7320,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   noLine:"Dort ist nichts. Näher an der Linie versuchen.",
   tracedRiver:"Flüsse verfolgt",tracedRange:"Gebirge gefunden",tracedSea:"Gewässer gefunden",linesLab:"auf dem Globus",
   noSea:"Das ist kein offenes Wasser. Noch einmal.",
+  manTo:"Verkauft an",manFrom:"Kauft bei",
   mSea:"Meere und Ozeane",dSea:"Leg den Finger aufs Wasser",
   mRange:"Berge",dRange:"Die Ketten, die den Horizont heben",
   mNature:"Land und Wasser",dNature:"Flüsse, Küsten und Höhen",
@@ -7483,6 +7496,7 @@ es:{sub:"países · banderas, globo, atlas",
   noLine:"Ahí no hay nada. Prueba más cerca de la línea.",
   tracedRiver:"ríos seguidos",tracedRange:"cordilleras halladas",tracedSea:"mares hallados",linesLab:"en el globo",
   noSea:"Eso no es mar abierto. Inténtalo otra vez.",
+  manTo:"Vende a",manFrom:"Compra a",
   mSea:"Mares y océanos",dSea:"Pon el dedo en el agua",
   mRange:"Montañas",dRange:"Las cordilleras que levantan el horizonte",
   mNature:"Tierra y agua",dNature:"Ríos, costas y alturas",
@@ -7658,6 +7672,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   noLine:"Daar ligt niets. Probeer dichter bij de lijn.",
   tracedRiver:"rivieren gevolgd",tracedRange:"ketens gevonden",tracedSea:"zeeën gevonden",linesLab:"op de globe",
   noSea:"Dat is geen open water. Probeer opnieuw.",
+  manTo:"Verkoopt aan",manFrom:"Koopt bij",
   mSea:"Zeeën en oceanen",dSea:"Leg je vinger op het water",
   mRange:"Bergen",dRange:"De grote bergketens van de wereld",
   mNature:"Land en water",dNature:"Rivieren, kusten en hoogland",
@@ -8736,18 +8751,91 @@ function drawGlobe(){
   if(globe.lines&&globe.lines.set==="sea"&&typeof SEAAREA!=="undefined"){
     var seaHi=globe.lines.hi||{},seaKeys=Object.keys(seaHi);
     if(seaKeys.length){
+      /* A basin that runs past the horizon comes back as several separate visible runs, and
+         this used to close only the last of them. Fill closes an open subpath itself, with a
+         straight line from where it stopped back to where it started, so each unclosed run
+         was being sealed across the middle of the sea: that is the wedge, and the shape that
+         looks turned inside out. Each run is closed as it ends now, which seals it along the
+         limb where the globe actually cuts it. */
       var seaTrace=function(pts){
-        var began=false,i4,cl4,r4,lx4,ly4;
+        var began=false,any=false,i4,cl4,r4,lx4,ly4;
         for(i4=0;i4<pts.length;i4+=2){
           cl4=Math.cos(pts[i4+1]*RAD);
           r4=rot(cl4*Math.sin(pts[i4]*RAD),Math.sin(pts[i4+1]*RAD),cl4*Math.cos(pts[i4]*RAD),c);
-          if(r4[2]<=0.01){began=false;continue;}
+          if(r4[2]<=0.01){
+            if(began)ctx.closePath();
+            began=false;continue;
+          }
           lx4=cx+R*r4[0];ly4=cy-R*r4[1];
-          if(!began){ctx.moveTo(lx4,ly4);began=true;}else ctx.lineTo(lx4,ly4);
+          if(!began){ctx.moveTo(lx4,ly4);began=true;any=true;}else ctx.lineTo(lx4,ly4);
         }
         if(began)ctx.closePath();
-        return began;
+        return any;
       };
+      /* THE BASINS, FAINTLY.
+
+         Every basin carries an edge, not just the one being asked about. It divides the water
+         into the pieces the question is about without naming any of them, which is the same
+         help a chart gives and none of the answer: knowing a basin ends here does not tell
+         you it is the Baltic. Drawn before the land like everything else on this board, so
+         the parts that run inland are covered and what is left is a line through open sea. */
+      var seaBox=function(rs){
+        var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9,any=false;
+        rs.forEach(function(pts){
+          for(var i5=0;i5<pts.length;i5+=2){
+            var cl5=Math.cos(pts[i5+1]*RAD);
+            var r5=rot(cl5*Math.sin(pts[i5]*RAD),Math.sin(pts[i5+1]*RAD),cl5*Math.cos(pts[i5]*RAD),c);
+            if(r5[2]<=0.01)continue;
+            var X5=cx+R*r5[0],Y5=cy-R*r5[1];any=true;
+            if(X5<x0)x0=X5;
+            if(X5>x1)x1=X5;
+            if(Y5<y0)y0=Y5;
+            if(Y5>y1)y1=Y5;
+          }
+        });
+        return any?[x0,y0,x1,y1]:null;
+      };
+      /* its own scale and its own ruler, for the same reason the walk above is written out
+         here: everything this block needs has to exist before the land is painted, and the
+         drawing below it is declared inside a block that has not opened yet. */
+      var mkS=Math.max(0.8,Math.min(2.2,R/(globe.base||R||1)));
+      var ruleSea=function(box,step){
+        var w5=box[2]-box[0],h5=box[3]-box[1],y5;
+        ctx.beginPath();
+        for(y5=box[1];y5<=box[3];y5+=step){ctx.moveTo(box[0]-2,y5);ctx.lineTo(box[2]+2,y5);}
+        ctx.stroke();
+        return w5&&h5;
+      };
+      /* EVERY BASIN, WASHED IN.
+
+         You cannot point at a thing whose edges you cannot see, and a globe of open blue does
+         not say where one sea stops. Each basin is a shade deeper than the ocean around it, so
+         the water reads as divided without any piece of it being named: knowing a basin ends
+         at Gibraltar does not tell you the one to the east is the Mediterranean.
+
+         One path for all of them and one fill, so the places where two overlap - the Adriatic
+         inside the Mediterranean, the Caribbean inside the Atlantic - are painted once rather
+         than twice as deep. Under the land, like everything else on this board. */
+      ctx.save();
+      ctx.beginPath();
+      Object.keys(SEAAREA).forEach(function(nm){
+        if(seaHi[nm])return;                 /* the answer gets its own, heavier */
+        SEAAREA[nm].forEach(function(ring){seaTrace(ring);});
+      });
+      ctx.globalAlpha=0.16;ctx.fillStyle="#14384E";ctx.fill();
+      var npS=noisePattern(ctx);
+      if(npS){
+        ctx.save();
+        ctx.clip();
+        ctx.globalAlpha=0.14;ctx.fillStyle=npS;
+        ctx.fillRect(cx-R-4,cy-R-4,R*2+8,R*2+8);
+        ctx.restore();
+      }
+      ctx.strokeStyle="#215E7E";ctx.globalAlpha=0.30;
+      ctx.lineWidth=Math.max(0.5,0.7*mkS);ctx.lineJoin="round";
+      ctx.stroke();
+      ctx.restore();
+
       seaKeys.forEach(function(nm){
         var rs=SEAAREA[nm];
         if(!rs)return;
@@ -8755,7 +8843,27 @@ function drawGlobe(){
         ctx.beginPath();
         var anySea=false;
         rs.forEach(function(ring){if(seaTrace(ring))anySea=true;});
-        if(anySea){ctx.globalAlpha=0.62;ctx.fillStyle=seaHi[nm];ctx.fill();}
+        if(anySea){
+          ctx.globalAlpha=0.52;ctx.fillStyle=seaHi[nm];ctx.fill();
+          /* RULED WATER.
+             A chart draws the sea as ruled lines, so the basin that has just been named is
+             ruled: level strokes, close together, clipped to the basin and cropped again by
+             the coast when the land goes on over the top. It reads as water rather than as a
+             colour, which a flat fill of a green or a red over a blue sea does not. */
+          var bb=seaBox(rs);
+          if(bb&&(bb[2]-bb[0])>16&&(bb[3]-bb[1])>10){
+            ctx.clip();
+            ctx.strokeStyle=seaHi[nm];
+            ctx.globalAlpha=0.85;
+            ctx.lineWidth=Math.max(0.6,0.9*mkS);
+            ruleSea(bb,Math.max(4,6*mkS));
+            var npH=noisePattern(ctx);
+            if(npH){
+              ctx.globalAlpha=0.22;ctx.fillStyle=npH;
+              ctx.fillRect(bb[0]-2,bb[1]-2,bb[2]-bb[0]+4,bb[3]-bb[1]+4);
+            }
+          }
+        }
         ctx.restore();
       });
       ctx.globalAlpha=1;
@@ -8854,6 +8962,44 @@ function drawGlobe(){
        here, so it carries the same information in a form that survives being small, and the
        only marks left are the ones that mean something: the pen, and a wash when this is
        the range being asked about or the one under the thumb. */
+    /* the screen box of a set of rings, for anything that has to fill them */
+    function ringBox(rings){
+      var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9,any=false,ri,i2,cl2,r2,X,Y;
+      for(ri=0;ri<rings.length;ri++){
+        var pts=rings[ri];
+        for(i2=0;i2<pts.length;i2+=2){
+          cl2=Math.cos(pts[i2+1]*RAD);
+          r2=rot(cl2*Math.sin(pts[i2]*RAD),Math.sin(pts[i2+1]*RAD),cl2*Math.cos(pts[i2]*RAD),c);
+          if(r2[2]<=0.01)continue;
+          X=cx+R*r2[0];Y=cy-R*r2[1];any=true;
+          if(X<x0)x0=X;
+          if(X>x1)x1=X;
+          if(Y<y0)y0=Y;
+          if(Y>y1)y1=Y;
+        }
+      }
+      return any?[x0,y0,x1,y1]:null;
+    }
+    /* Ruled strokes across a shape, at an angle, spaced. The caller has already clipped to
+       the shape it wants filled, so this is only ever a box full of parallel lines: the
+       clip is what makes it a mountain or a sea. */
+    function hatchBox(box,step,angle,wob2){
+      var w2=box[2]-box[0],h2=box[3]-box[1];
+      var diag=Math.sqrt(w2*w2+h2*h2)+step*2;
+      var mx=(box[0]+box[2])/2,my=(box[1]+box[3])/2;
+      var ca=Math.cos(angle),sa=Math.sin(angle),k,off;
+      ctx.beginPath();
+      for(off=-diag/2;off<=diag/2;off+=step){
+        /* a repeatable wobble so the ruling is not machine straight and the same rock is
+           drawn the same way every frame. wob() used to do this and went out with the relief. */
+        var jx=0;
+        if(wob2){var h6=Math.sin(off*12.9898+1.7)*43758.5453;jx=((h6-Math.floor(h6))-0.5)*step*0.35;}
+        var px1=mx+ca*(off+jx)-sa*diag/2, py1=my+sa*(off+jx)+ca*diag/2;
+        var px2=mx+ca*(off+jx)+sa*diag/2, py2=my+sa*(off+jx)-ca*diag/2;
+        ctx.moveTo(px1,py1);ctx.lineTo(px2,py2);
+      }
+      ctx.stroke();
+    }
     function drawRidge(nm,rings,tone,over,mk){
       var i,drew=false;
       ctx.save();
@@ -8866,6 +9012,37 @@ function drawGlobe(){
         ctx.globalAlpha=tone?0.22:0.10;
         ctx.fillStyle=tone||"#6B5533";
         ctx.fill();
+      }
+      /* THE HATCH.
+
+         A bare outline reads as a lake as readily as a mountain, and the thing that tells a
+         reader which is the fill. The old one was a flat wash under a photograph; this is
+         the mark a hand would make: strokes across the range, clipped to its own edge, in
+         two passes crossing at a shallow angle so the shaded side carries more ink. Skipped
+         below twenty pixels across, where any fill turns into a smudge. */
+      var hb=ringBox(rings);
+      if(hb&&(hb[2]-hb[0])>20&&(hb[3]-hb[1])>8){
+        ctx.save();
+        ctx.beginPath();
+        for(i=0;i<rings.length;i++)tracePath(rings[i],true);
+        ctx.clip();
+        var step=Math.max(3.2,4.6*mk);
+        ctx.strokeStyle=tone||(over?"#4A3A18":"#6B5533");
+        ctx.lineWidth=Math.max(0.55,0.8*mk);
+        ctx.globalAlpha=tone?0.55:(over?0.42:0.30);
+        hatchBox(hb,step,-0.62,true);
+        /* the second pass is finer and the other way, which is what turns ruling into rock */
+        ctx.globalAlpha*=0.5;
+        ctx.lineWidth*=0.7;
+        hatchBox(hb,step*1.9,0.85,true);
+        /* and the paper it is printed on: the same clip, a tile of speckle over the top */
+        var np=noisePattern(ctx);
+        if(np){
+          ctx.globalAlpha=tone?0.30:(over?0.26:0.20);
+          ctx.fillStyle=np;
+          ctx.fillRect(hb[0]-2,hb[1]-2,hb[2]-hb[0]+4,hb[3]-hb[1]+4);
+        }
+        ctx.restore();
       }
       /* the pen, twice over and a hair apart, the way a drawn outline doubles */
       ctx.globalAlpha=tone?0.95:(over?0.88:0.66);
@@ -9071,6 +9248,30 @@ function unproject(px,py){
   var Y=y*c.cp+z*c.sp,Z=-y*c.sp+z*c.cp;
   var X=x*c.cl-Z*c.sl,Z2=x*c.sl+Z*c.cl;
   return [Math.atan2(X,Z2)/RAD,Math.asin(Math.max(-1,Math.min(1,Y)))/RAD];
+}
+/* THE SPECKLE.
+
+   One tile, generated the first time anything asks for it and kept: a sparse scatter of dark
+   pixels with nothing but alpha, so the same pattern works over rock, over water and over any
+   colour either of them is tinted. The generator is a plain linear congruential one with a
+   fixed seed, because a texture that is different every load is a texture you notice. */
+var NOISETILE=null;
+function noisePattern(ctx2){
+  if(!NOISETILE){
+    var n=document.createElement("canvas");
+    n.width=n.height=72;
+    var g2=n.getContext("2d"),im=g2.createImageData(72,72),px=im.data,seed=20260911,i;
+    for(i=0;i<px.length;i+=4){
+      seed=(seed*1664525+1013904223)>>>0;
+      var v=seed>>>24;
+      px[i]=px[i+1]=px[i+2]=0;
+      /* only the top fifth of the range shows, so the tile is mostly nothing */
+      px[i+3]=v>205?Math.min(255,(v-205)*4):0;
+    }
+    g2.putImageData(im,0,0);
+    NOISETILE=n;
+  }
+  try{return ctx2.createPattern(NOISETILE,"repeat");}catch(e){return null;}
 }
 function inRing(ll,lon,lat){
   var inside=false,n=ll.length/2,i,j;
@@ -10372,89 +10573,172 @@ function forgeFlag(f,family,hard){
 /* What comes back the other way. Imports are a much blunter instrument than exports:
    nearly everyone buys oil, cars and telephones, which is exactly why they are supporting
    detail on the manifest and never the whole clue. */
+/* and what comes back the other way */
 var IMPORTS={
-sa:["Cars","Broadcasting equipment","Packaged medicines"],ru:["Cars","Vehicle parts","Packaged medicines"],
-cl:["Refined petroleum","Cars","Crude oil"],au:["Refined petroleum","Cars","Broadcasting equipment"],
-br:["Refined petroleum","Fertilisers","Vehicle parts"],de:["Cars","Vehicle parts","Crude oil"],
-jp:["Crude oil","Natural gas","Coal"],cn:["Integrated circuits","Crude oil","Iron ore"],
-kr:["Crude oil","Integrated circuits","Natural gas"],tw:["Integrated circuits","Crude oil","Machinery"],
-ch:["Gold","Packaged medicines","Cars"],in:["Crude oil","Gold","Coal"],
-ie:["Aircraft","Computers","Packaged medicines"],nl:["Crude oil","Broadcasting equipment","Refined petroleum"],
-be:["Packaged medicines","Cars","Crude oil"],fr:["Cars","Crude oil","Vehicle parts"],
-it:["Crude oil","Cars","Natural gas"],es:["Crude oil","Cars","Vehicle parts"],
-gb:["Gold","Cars","Refined petroleum"],us:["Cars","Crude oil","Computers"],
-ca:["Cars","Vehicle parts","Crude oil"],mx:["Integrated circuits","Refined petroleum","Vehicle parts"],
-no:["Cars","Machinery","Broadcasting equipment"],se:["Crude oil","Cars","Broadcasting equipment"],
-fi:["Crude oil","Cars","Broadcasting equipment"],dk:["Cars","Broadcasting equipment","Refined petroleum"],
-is:["Refined petroleum","Cars","Aluminium oxide"],gr:["Crude oil","Refined petroleum","Packaged medicines"],
-pt:["Cars","Crude oil","Vehicle parts"],pl:["Vehicle parts","Cars","Crude oil"],
-cz:["Vehicle parts","Broadcasting equipment","Computers"],at:["Cars","Vehicle parts","Packaged medicines"],
-hu:["Vehicle parts","Broadcasting equipment","Cars"],ro:["Vehicle parts","Cars","Refined petroleum"],
-bg:["Crude oil","Copper ore","Cars"],hr:["Crude oil","Cars","Refined petroleum"],
-si:["Cars","Refined petroleum","Packaged medicines"],sk:["Vehicle parts","Broadcasting equipment","Crude oil"],
-lt:["Crude oil","Refined petroleum","Cars"],lv:["Refined petroleum","Broadcasting equipment","Cars"],
-ee:["Broadcasting equipment","Refined petroleum","Cars"],ua:["Cars","Refined petroleum","Coal"],
-by:["Crude oil","Cars","Natural gas"],tr:["Gold","Scrap iron","Refined petroleum"],
-il:["Diamonds","Cars","Crude oil"],ae:["Gold","Broadcasting equipment","Jewellery"],
-qa:["Cars","Aircraft","Machinery"],kw:["Cars","Machinery","Broadcasting equipment"],
-om:["Cars","Gold","Machinery"],bh:["Aluminium oxide","Cars","Iron ore"],
-iq:["Refined petroleum","Cars","Broadcasting equipment"],ir:["Rice","Corn","Machinery"],
-jo:["Refined petroleum","Cars","Packaged medicines"],lb:["Refined petroleum","Cars","Packaged medicines"],
-kz:["Broadcasting equipment","Cars","Packaged medicines"],uz:["Refined petroleum","Cars","Machinery"],
-tm:["Machinery","Iron pipes","Cars"],kg:["Refined petroleum","Clothing","Cars"],
-tj:["Refined petroleum","Wheat","Aluminium oxide"],af:["Wheat flour","Refined petroleum","Rice"],
-pk:["Crude oil","Refined petroleum","Palm oil"],bd:["Cotton","Refined petroleum","Wheat"],
-lk:["Refined petroleum","Cotton","Crude oil"],np:["Refined petroleum","Iron","Rice"],
-bt:["Refined petroleum","Cars","Rice"],mv:["Refined petroleum","Boats","Broadcasting equipment"],
-mm:["Refined petroleum","Fabric","Palm oil"],th:["Crude oil","Integrated circuits","Gold"],
-vn:["Integrated circuits","Telephones","Refined petroleum"],kh:["Fabric","Gold","Refined petroleum"],
-la:["Refined petroleum","Cars","Iron structures"],my:["Integrated circuits","Refined petroleum","Crude oil"],
-sg:["Integrated circuits","Refined petroleum","Crude oil"],id:["Refined petroleum","Crude oil","Machinery"],
-ph:["Integrated circuits","Refined petroleum","Cars"],mn:["Refined petroleum","Cars","Machinery"],
-ge:["Cars","Refined petroleum","Copper ore"],am:["Cars","Refined petroleum","Natural gas"],
-az:["Cars","Machinery","Iron pipes"],bn:["Refined petroleum","Cars","Machinery"],
-tl:["Refined petroleum","Cars","Rice"],ng:["Refined petroleum","Wheat","Cars"],
-dz:["Wheat","Cars","Packaged medicines"],ly:["Refined petroleum","Cars","Cigarettes"],
-eg:["Wheat","Refined petroleum","Cars"],ma:["Refined petroleum","Cars","Wheat"],
-tn:["Refined petroleum","Cars","Wheat"],za:["Crude oil","Refined petroleum","Cars"],
-bw:["Diamonds","Refined petroleum","Cars"],na:["Copper ore","Refined petroleum","Cars"],
-ao:["Refined petroleum","Cars","Poultry"],gh:["Cars","Refined petroleum","Rice"],
-ci:["Refined petroleum","Rice","Cars"],et:["Refined petroleum","Wheat","Palm oil"],
-ke:["Refined petroleum","Palm oil","Wheat"],tz:["Refined petroleum","Palm oil","Cars"],
-ug:["Refined petroleum","Palm oil","Packaged medicines"],zm:["Refined petroleum","Fertilisers","Cars"],
-zw:["Refined petroleum","Fertilisers","Cars"],mz:["Aluminium oxide","Refined petroleum","Cars"],
-mg:["Refined petroleum","Rice","Cars"],mu:["Refined petroleum","Fish","Cars"],
-sc:["Fish","Refined petroleum","Boats"],sn:["Refined petroleum","Crude oil","Rice"],
-ml:["Refined petroleum","Cement","Cars"],bf:["Refined petroleum","Cars","Packaged medicines"],
-ne:["Refined petroleum","Rice","Cars"],td:["Refined petroleum","Cars","Cement"],
-cd:["Refined petroleum","Cars","Packaged medicines"],cg:["Ships","Refined petroleum","Poultry"],
-ga:["Ships","Refined petroleum","Poultry"],gq:["Ships","Refined petroleum","Cement"],
-cm:["Refined petroleum","Rice","Fish"],gn:["Refined petroleum","Rice","Cars"],
-lr:["Ships","Refined petroleum","Rice"],sl:["Rice","Refined petroleum","Cars"],
-gm:["Refined petroleum","Rice","Cement"],gw:["Refined petroleum","Rice","Cement"],
-bj:["Rice","Refined petroleum","Cars"],tg:["Crude oil","Rice","Cars"],
-rw:["Refined petroleum","Packaged medicines","Cars"],bi:["Refined petroleum","Packaged medicines","Cement"],
-km:["Rice","Refined petroleum","Cement"],so:["Refined petroleum","Rice","Cement"],
-ss:["Cars","Cement","Refined petroleum"],sd:["Wheat","Refined petroleum","Cars"],
-ls:["Fabric","Refined petroleum","Corn"],sz:["Refined petroleum","Cars","Corn"],
-mw:["Refined petroleum","Fertilisers","Packaged medicines"],cv:["Refined petroleum","Ships","Rice"],
-st:["Refined petroleum","Rice","Poultry"],mr:["Ships","Refined petroleum","Wheat"],
-cf:["Refined petroleum","Packaged medicines","Cars"],ar:["Cars","Vehicle parts","Refined petroleum"],
-pe:["Refined petroleum","Cars","Crude oil"],co:["Refined petroleum","Cars","Broadcasting equipment"],
-ec:["Refined petroleum","Cars","Packaged medicines"],bo:["Refined petroleum","Cars","Insecticides"],
-py:["Refined petroleum","Cars","Broadcasting equipment"],uy:["Refined petroleum","Cars","Crude oil"],
-gy:["Ships","Refined petroleum","Cars"],sr:["Refined petroleum","Ships","Cars"],
-ve:["Refined petroleum","Corn","Packaged medicines"],cr:["Refined petroleum","Cars","Packaged medicines"],
-pa:["Refined petroleum","Ships","Cars"],gt:["Refined petroleum","Cars","Fabric"],
-hn:["Refined petroleum","Fabric","Cars"],ni:["Refined petroleum","Cars","Fabric"],
-sv:["Refined petroleum","Fabric","Cars"],bz:["Refined petroleum","Cars","Cement"],
-jm:["Refined petroleum","Cars","Corn"],ht:["Refined petroleum","Rice","Cars"],
-do:["Refined petroleum","Cars","Cotton"],tt:["Refined petroleum","Cars","Iron"],
-bs:["Ships","Refined petroleum","Cars"],bb:["Ships","Refined petroleum","Cars"],
-cu:["Poultry","Wheat","Corn"],nz:["Cars","Crude oil","Refined petroleum"],
-pg:["Refined petroleum","Cars","Machinery"],fj:["Refined petroleum","Cars","Cement"],
-sb:["Refined petroleum","Cars","Rice"],vu:["Refined petroleum","Cars","Ships"],
-ws:["Refined petroleum","Cars","Poultry"],to:["Refined petroleum","Cars","Poultry"]
+ae:["Gold","Broadcasting equipment","Cars","Refined petroleum","Diamonds"],
+af:["Wheat flours","Tobacco","Palm oil","Broadcasting equipment","Synthetic fabric"],
+am:["Cars","Gold","Diamonds","Broadcasting equipment","Natural gas"],
+ao:["Refined petroleum","Wheat","Ships","Cars","Trucks"],
+ar:["Soybeans","Vehicle parts/accessories","Refined petroleum","Natural gas","Cars"],
+at:["Cars","Garments","Vaccines","Vehicle parts/accessories","Refined petroleum"],
+au:["Refined petroleum","Cars","Trucks","Broadcasting equipment","Garments"],
+az:["Cars","Crude petroleum","Refined petroleum","Broadcasting equipment","Garments"],
+bb:["Refined petroleum","Crude petroleum","Cars","Plastic products","Ships"],
+bd:["Refined petroleum","Cotton fabric","Natural gas","Cotton","Fabric"],
+be:["Cars","Natural gas","Vaccines","Packaged medicine","Crude petroleum"],
+bf:["Refined petroleum","Plastic products","Cement","Electricity","Packaged medicine"],
+bg:["Crude petroleum","Copper ore","Cars","Packaged medicine","Electricity"],
+bh:["Iron ore","Aluminium oxide","Ships","Cars","Gold"],
+bi:["Fertilizers","Cement","Packaged medicine","Plastic products","Cars"],
+bj:["Rice","Refined petroleum","Palm oil","Poultry","Cars"],
+bn:["Crude petroleum","Gold","Refined petroleum","Coal","Cars"],
+bo:["Refined petroleum","Cars","Pesticides","Trucks","Plastics"],
+br:["Refined petroleum","Fertilizers","Crude petroleum","Vehicle parts/accessories","Gas turbines"],
+bs:["Refined petroleum","Ships","Aircraft","Cars","Crude petroleum"],
+bt:["Refined petroleum","Gold","Plastics","Broadcasting equipment","Iron reductions"],
+bw:["Refined petroleum","Diamonds","Cars","Flavored water","Electricity"],
+by:["Cars","Broadcasting equipment","Fabric","Plastic products","Video displays"],
+bz:["Refined petroleum","Orthopedic appliances","Ships","Garments","Tobacco"],
+ca:["Cars","Trucks","Vehicle parts/accessories","Refined petroleum","Crude petroleum"],
+cd:["Ships","Poultry","Garments","Iron pipes","Refined petroleum"],
+cf:["Refined petroleum","Cars","Packaged medicine","Vaccines","Tanks and armored vehicles"],
+cg:["Ships","Poultry","Garments","Iron pipes","Refined petroleum"],
+ch:["Gold","Packaged medicine","Vaccines","Cars","Jewelry"],
+ci:["Crude petroleum","Ships","Refined petroleum","Fish","Rice"],
+cl:["Refined petroleum","Crude petroleum","Cars","Garments","Trucks"],
+cm:["Garments","Refined petroleum","Plastic products","Wheat","Rice"],
+cn:["Crude petroleum","Integrated circuits","Iron ore","Gold","Natural gas"],
+co:["Refined petroleum","Cars","Broadcasting equipment","Aircraft","Packaged medicine"],
+cr:["Refined petroleum","Plastic products","Cars","Medical instruments","Broadcasting equipment"],
+cu:["Beer","Poultry","Rice","Plastic products","Soybean oil"],
+cv:["Refined petroleum","Aircraft","Cars","Fish","Railway cargo containers"],
+cz:["Broadcasting equipment","Vehicle parts/accessories","Cars","Plastic products","Computers"],
+de:["Cars","Vehicle parts/accessories","Garments","Natural gas","Vaccines"],
+dk:["Natural gas","Cars","Garments","Packaged medicine","Refined petroleum"],
+do:["Refined petroleum","Cars","Natural gas","Plastic products","Crude petroleum"],
+dz:["Wheat","Plastics","Cars","Milk","Corn"],
+ec:["Refined petroleum","Coal tar oil","Cars","Packaged medicine","Plastics"],
+ee:["Cars","Refined petroleum","Broadcasting equipment","Natural gas","Packaged medicine"],
+eg:["Refined petroleum","Wheat","Plastics","Natural gas","Packaged medicine"],
+es:["Crude petroleum","Cars","Garments","Vehicle parts/accessories","Natural gas"],
+et:["Refined petroleum","Fertilizers","Plastics","Raw sugar","Cars"],
+fi:["Crude petroleum","Cars","Refined petroleum","Packaged medicine","Broadcasting equipment"],
+fj:["Refined petroleum","Medical instruments","Cars","Broadcasting equipment","Plastics"],
+fr:["Cars","Natural gas","Crude petroleum","Refined petroleum","Garments"],
+ga:["Ships","Refined petroleum","Iron pipes","Cars","Packaged medicine"],
+gb:["Cars","Gold","Crude petroleum","Refined petroleum","Natural gas"],
+ge:["Cars","Refined petroleum","Packaged medicine","Natural gas","Garments"],
+gh:["Refined petroleum","Cars","Plastics","Plastic products","Footwear"],
+gm:["Crude petroleum","Refined petroleum","Cotton fabric","Iron alloys","Rice"],
+gn:["Refined petroleum","Rice","Garments","Construction vehicles","Cars"],
+gq:["Ships","Poultry","Plastic products","Beer","Valves"],
+gr:["Crude petroleum","Refined petroleum","Natural gas","Cars","Packaged medicine"],
+gt:["Refined petroleum","Video displays","Cars","Trucks","Packaged medicine"],
+gw:["Refined petroleum","Iron bars","Rice","Plastics","Flavored water"],
+gy:["Refined petroleum","Ships","Construction vehicles","Excavation machinery","Cars"],
+hn:["Refined petroleum","Cotton yarn","Garments","Trucks","Packaged medicine"],
+hr:["Refined petroleum","Cars","Garments","Natural gas","Crude petroleum"],
+ht:["Refined petroleum","Rice","Garments","Cotton fabric","Plastic products"],
+hu:["Vehicle parts/accessories","Natural gas","Integrated circuits","Broadcasting equipment","Industrial acids/oils/alcohols"],
+id:["Refined petroleum","Crude petroleum","Plastics","Vehicle parts/accessories","Integrated circuits"],
+ie:["Aircraft","Nitrogen compounds","Vaccines","Packaged medicine","Integrated circuits"],
+il:["Cars","Diamonds","Crude petroleum","Broadcasting equipment","Garments"],
+in:["Crude petroleum","Gold","Coal","Natural gas","Integrated circuits"],
+iq:["Refined petroleum","Cars","Broadcasting equipment","Jewelry","Gold"],
+ir:["Broadcasting equipment","Vehicle parts/accessories","Corn","Soybeans","Vehicle bodies"],
+is:["Refined petroleum","Cars","Carbon-based electronics","Aluminium oxide","Computers"],
+it:["Natural gas","Crude petroleum","Cars","Packaged medicine","Garments"],
+jm:["Refined petroleum","Natural gas","Cars","Crude petroleum","Plastic products"],
+jo:["Cars","Refined petroleum","Gold","Crude petroleum","Jewelry"],
+jp:["Crude petroleum","Natural gas","Coal","Integrated circuits","Broadcasting equipment"],
+ke:["Refined petroleum","Palm oil","Wheat","Plastics","Garments"],
+kg:["Cars","Garments","Refined petroleum","Fabric","Footwear"],
+kh:["Refined petroleum","Fabric","Gold","Plastic products","Synthetic fabric"],
+km:["Refined petroleum","Poultry","Rice","Flavored water","Additive manufacturing machines"],
+kr:["Integrated circuits","Natural gas","Crude petroleum","Machinery","Cars"],
+kw:["Cars","Natural gas","Garments","Broadcasting equipment","Packaged medicine"],
+kz:["Garments","Cars","Broadcasting equipment","Vehicle bodies","Packaged medicine"],
+la:["Refined petroleum","Cars","Raw sugar","Plastic products","Trucks"],
+lb:["Refined petroleum","Gold","Cars","Packaged medicine","Garments"],
+lk:["Refined petroleum","Fabric","Crude petroleum","Packaged medicine","Cotton fabric"],
+lr:["Ships","Refined petroleum","Rice","Trucks","Centrifuges"],
+ls:["Refined petroleum","Fabric","Trucks","Garments","Cotton fabric"],
+lt:["Crude petroleum","Cars","Natural gas","Packaged medicine","Plastic products"],
+lv:["Refined petroleum","Cars","Packaged medicine","Broadcasting equipment","Natural gas"],
+ly:["Refined petroleum","Broadcasting equipment","Tobacco","Garments","Cars"],
+ma:["Refined petroleum","Cars","Vehicle parts/accessories","Natural gas","Coal"],
+mg:["Refined petroleum","Rice","Fabric","Cotton fabric","Wheat"],
+ml:["Refined petroleum","Broadcasting equipment","Cement","Cotton fabric","Plastic products"],
+mm:["Refined petroleum","Synthetic fabric","Fertilizers","Crude petroleum","Fabric"],
+mn:["Cars","Trucks","Trailers","Tractors","Construction vehicles"],
+mr:["Refined petroleum","Raw sugar","Palm oil","Wheat","Soybean oil"],
+mu:["Refined petroleum","Cars","Fish","Coal","Packaged medicine"],
+mv:["Refined petroleum","Plastic products","Aircraft","Granite","Ships"],
+mw:["Refined petroleum","Fertilizers","Plastics","Garments","Postage stamps/documents"],
+mx:["Vehicle parts/accessories","Refined petroleum","Integrated circuits","Broadcasting equipment","Cars"],
+my:["Integrated circuits","Refined petroleum","Crude petroleum","Coal","Broadcasting equipment"],
+mz:["Refined petroleum","Chromium ore","Iron alloys","Iron ore","Palm oil"],
+na:["Refined petroleum","Copper ore","Ships","Electricity","Trucks"],
+ne:["Rice","Aircraft parts","Iron structures","Refined petroleum","Centrifuges"],
+ng:["Refined petroleum","Tanks and armored vehicles","Wheat","Plastics","Cars"],
+ni:["Garments","Refined petroleum","Crude petroleum","Plastic products","Fabric"],
+nl:["Crude petroleum","Refined petroleum","Broadcasting equipment","Cars","Natural gas"],
+no:["Cars","Refined petroleum","Ships","Nickel","Garments"],
+np:["Refined petroleum","Natural gas","Garments","Iron reductions","Broadcasting equipment"],
+nz:["Refined petroleum","Cars","Gas turbines","Broadcasting equipment","Trucks"],
+om:["Refined petroleum","Cars","Crude petroleum","Iron ore","Iron pipes"],
+pa:["Crude petroleum","Ships","Refined petroleum","Nitrogen compounds","Cars"],
+pe:["Refined petroleum","Crude petroleum","Cars","Trucks","Broadcasting equipment"],
+pg:["Refined petroleum","Trucks","Rice","Plastic products","Excavation machinery"],
+ph:["Integrated circuits","Refined petroleum","Cars","Crude petroleum","Coal"],
+pk:["Natural gas","Refined petroleum","Crude petroleum","Palm oil","Plastics"],
+pl:["Crude petroleum","Cars","Garments","Vehicle parts/accessories","Plastic products"],
+pt:["Cars","Crude petroleum","Vehicle parts/accessories","Refined petroleum","Garments"],
+py:["Broadcasting equipment","Refined petroleum","Fertilizers","Cars","Pesticides"],
+qa:["Gas turbines","Cars","Aircraft","Iron pipes","Ships"],
+ro:["Vehicle parts/accessories","Packaged medicine","Cars","Crude petroleum","Plastic products"],
+ru:["Cars","Packaged medicine","Broadcasting equipment","Garments","Plastic products"],
+rw:["Broadcasting equipment","Fish","Corn","Packaged medicine","Plastic products"],
+sa:["Cars","Refined petroleum","Gold","Broadcasting equipment","Packaged medicine"],
+sb:["Refined petroleum","Plastic products","Fish","Broadcasting equipment","Iron structures"],
+sc:["Refined petroleum","Fish","Ships","Cars","Plastic products"],
+sd:["Raw sugar","Wheat flours","Refined petroleum","Garments","Packaged medicine"],
+se:["Cars","Crude petroleum","Refined petroleum","Vehicle parts/accessories","Garments"],
+sg:["Integrated circuits","Refined petroleum","Crude petroleum","Gold","Gas turbines"],
+si:["Nitrogen compounds","Packaged medicine","Refined petroleum","Cars","Vaccines"],
+sk:["Vehicle parts/accessories","Broadcasting equipment","Cars","Plastic products","Insulated wire"],
+sl:["Rice","Plastic products","Packaged medicine","Cement","Cars"],
+sn:["Refined petroleum","Crude petroleum","Rice","Garments","Wheat"],
+so:["Raw sugar","Tobacco","Broadcasting equipment","Rice","Milk"],
+sr:["Refined petroleum","Ships","Excavation machinery","Trucks","Tobacco"],
+ss:["Garments","Cement","Other foods","Iron bars","Cereal flours"],
+st:["Ships","Refined petroleum","Rice","Electric generating sets","Cars"],
+sv:["Refined petroleum","Natural gas","Garments","Packaged medicine","Plastics"],
+sz:["Refined petroleum","Electricity","Plastic products","Cotton fabric","Garments"],
+td:["Jewelry","Broadcasting equipment","Packaged medicine","Cars","Refined petroleum"],
+tg:["Refined petroleum","Garments","Rice","Palm oil","Motorcycles and cycles"],
+th:["Crude petroleum","Integrated circuits","Natural gas","Gold","Vehicle parts/accessories"],
+tj:["Garments","Footwear","Cars","Wheat","Vehicle parts/accessories"],
+tl:["Refined petroleum","Rice","Cars","Plastic products","Trucks"],
+tm:["Broadcasting equipment","Cars","Wheat","Computers","Iron pipes"],
+tn:["Refined petroleum","Natural gas","Plastic products","Cars","Plastics"],
+to:["Refined petroleum","Plastic products","Poultry","Cars","Sheep and goat meat"],
+tr:["Gold","Refined petroleum","Cars","Plastics","Natural gas"],
+tt:["Railway cargo containers","Refined petroleum","Cars","Iron ore","Excavation machinery"],
+tw:["Integrated circuits","Crude petroleum","Machinery","Natural gas","Coal"],
+tz:["Refined petroleum","Plastics","Garments","Fertilizers","Wheat"],
+ua:["Refined petroleum","Cars","Natural gas","Packaged medicine","Plastic products"],
+ug:["Refined petroleum","Gold","Plastics","Packaged medicine","Palm oil"],
+us:["Cars","Gold","Crude petroleum","Refined petroleum","Natural gas"],
+uy:["Crude petroleum","Refined petroleum","Cars","Trucks","Fertilizers"],
+uz:["Cars","Vehicle parts/accessories","Packaged medicine","Refined petroleum","Aircraft"],
+ve:["Refined petroleum","Soybean meal","Corn","Plastic products","Vehicle parts/accessories"],
+vn:["Integrated circuits","Broadcasting equipment","Fabric","Plastics","Telephones"],
+vu:["Refined petroleum","Ships","Plastic products","Poultry","Trucks"],
+ws:["Refined petroleum","Poultry","Cars","Plastic products","Milk"],
+za:["Refined petroleum","Crude petroleum","Gold","Cars","Broadcasting equipment"],
+zm:["Refined petroleum","Fertilizers","Trucks","Sulphur","Tractors"],
+zw:["Refined petroleum","Fertilizers","Trucks","Soybean oil","Stone processing machines"]
 };
 /* The river a country is actually about: the one on its money, in its songs, or simply
    the one that made the place. Countries where no single river carries that weight are
@@ -10574,72 +10858,6 @@ function exportShare(f,i){return CONMIX[tradeCon(f)][i]||0;}
 function importShare(f,i){return IMPMIX[i]||0;}
 /* A second shelf of goods, added rather than rewritten, so the original three stay put
    and the sheet simply runs longer for the countries that have more worth naming. */
-var EXPORTS2={
-de:["Pharmaceuticals","Aircraft parts"],jp:["Machinery","Integrated circuits"],
-us:["Aircraft","Integrated circuits"],cn:["Broadcasting equipment","Computers"],
-kr:["Cars","Refined petroleum"],fr:["Aircraft","Wine"],it:["Machinery","Medicines"],
-gb:["Cars","Gold"],nl:["Refined petroleum","Flowers"],be:["Medicines","Diamonds"],
-ch:["Gold","Watches"],at:["Vehicle parts","Machinery"],se:["Cars","Paper"],
-es:["Cars","Olive oil"],pl:["Vehicle parts","Furniture"],cz:["Vehicle parts","Computers"],
-ie:["Medicines","Blood products"],dk:["Medicines","Pork"],fi:["Paper","Refined petroleum"],
-no:["Fish","Aluminium"],pt:["Vehicle parts","Wine"],gr:["Refined petroleum","Aluminium"],
-hu:["Vehicle parts","Machinery"],sk:["Vehicle parts","Broadcasting equipment"],
-si:["Medicines","Vehicle parts"],hr:["Refined petroleum","Medicines"],
-ro:["Vehicle parts","Wheat"],bg:["Refined copper","Wheat"],rs:["Vehicle parts","Maize"],
-lt:["Refined petroleum","Furniture"],lv:["Wood","Wheat"],ee:["Broadcasting equipment","Wood"],
-is:["Aluminium","Fish fillets"],lu:["Iron and steel","Tyres"],mt:["Integrated circuits","Medicines"],
-cy:["Ships","Medicines"],
-ru:["Refined petroleum","Coal"],ua:["Maize","Sunflower oil"],by:["Fertilisers","Refined petroleum"],
-tr:["Cars","Machinery"],kz:["Refined copper","Wheat"],uz:["Gold","Natural gas"],
-ge:["Copper ore","Cars"],am:["Copper ore","Gold"],az:["Natural gas","Refined petroleum"],
-in:["Medicines","Diamonds"],pk:["Rice","Bed linen"],bd:["Knitwear","Leather goods"],
-lk:["Tea","Rubber goods"],np:["Carpets","Coffee"],th:["Machinery","Cars"],
-vn:["Footwear","Furniture"],my:["Refined petroleum","Palm oil"],id:["Palm oil","Coal"],
-ph:["Machinery","Nickel ore"],sg:["Machinery","Medicines"],tw:["Machinery","Computers"],
-kh:["Footwear","Bicycles"],mm:["Natural gas","Rice"],la:["Electricity","Copper"],
-mn:["Coal","Cashmere"],jo:["Fertilisers","Medicines"],lb:["Gold","Jewellery"],
-il:["Diamonds","Medicines"],ae:["Gold","Jewellery"],sa:["Fertilisers","Plastics"],
-qa:["Refined petroleum","Fertilisers"],om:["Refined petroleum","Fertilisers"],
-kw:["Refined petroleum","Fertilisers"],ir:["Plastics","Fruit"],iq:["Refined petroleum","Gold"],
-eg:["Fertilisers","Fruit"],ma:["Fertilisers","Wiring"],dz:["Refined petroleum","Fertilisers"],
-tn:["Wiring","Olive oil"],ly:["Refined petroleum","Gold"],
-za:["Platinum","Coal"],ng:["Cocoa","Fertilisers"],gh:["Cocoa","Crude oil"],
-ci:["Cashew nuts","Rubber"],ke:["Cut flowers","Coffee"],et:["Coffee","Sesame seeds"],
-tz:["Gold","Cashew nuts"],ug:["Coffee","Fish"],sn:["Fish","Fertilisers"],
-cm:["Cocoa","Timber"],mz:["Aluminium","Coal"],zm:["Copper","Tobacco"],
-na:["Diamonds","Uranium"],bw:["Diamonds","Beef"],mg:["Nickel","Cloves"],
-ca:["Cars","Refined petroleum"],mx:["Machinery","Vegetables"],br:["Sugar","Coffee"],
-ar:["Maize","Wheat"],cl:["Wood pulp","Wine"],pe:["Gold","Fishmeal"],
-co:["Coffee","Cut flowers"],ec:["Shrimp","Cocoa"],uy:["Soybeans","Rice"],
-py:["Electricity","Maize"],bo:["Zinc ore","Soybean meal"],ve:["Refined petroleum","Iron ore"],
-cu:["Nickel","Cigars"],do:["Gold","Cigars"],cr:["Bananas","Coffee"],pa:["Bananas","Fish"],
-gt:["Sugar","Cardamom"],hn:["Bananas","Palm oil"],ni:["Beef","Gold"],sv:["Sugar","Textiles"],
-jm:["Bauxite","Rum"],tt:["Ammonia","Methanol"],
-au:["Gold","Beef"],nz:["Meat","Fruit"],pg:["Natural gas","Palm oil"],fj:["Water","Fish"]
-};
-var IMPORTS2={
-de:["Refined petroleum","Medicines"],jp:["Natural gas","Coal"],us:["Cars","Medicines"],
-cn:["Iron ore","Soybeans"],kr:["Natural gas","Coal"],fr:["Cars","Medicines"],
-it:["Natural gas","Cars"],gb:["Cars","Gold"],nl:["Cars","Computers"],be:["Cars","Diamonds"],
-ch:["Gold","Medicines"],at:["Cars","Refined petroleum"],se:["Cars","Refined petroleum"],
-es:["Cars","Natural gas"],pl:["Cars","Refined petroleum"],cz:["Computers","Cars"],
-ie:["Aircraft","Computers"],dk:["Cars","Refined petroleum"],fi:["Cars","Refined petroleum"],
-no:["Cars","Machinery"],pt:["Cars","Refined petroleum"],gr:["Ships","Medicines"],
-hu:["Cars","Computers"],sk:["Cars","Broadcasting equipment"],ro:["Cars","Medicines"],
-bg:["Cars","Natural gas"],rs:["Cars","Natural gas"],lt:["Cars","Natural gas"],
-ru:["Cars","Medicines"],ua:["Cars","Coal"],tr:["Gold","Scrap iron"],
-in:["Gold","Coal"],pk:["Refined petroleum","Palm oil"],bd:["Cotton","Refined petroleum"],
-th:["Crude oil","Gold"],vn:["Integrated circuits","Machinery"],my:["Crude oil","Machinery"],
-id:["Refined petroleum","Machinery"],ph:["Refined petroleum","Cars"],
-sg:["Machinery","Gold"],tw:["Crude oil","Machinery"],il:["Diamonds","Cars"],
-ae:["Jewellery","Cars"],sa:["Cars","Medicines"],eg:["Wheat","Refined petroleum"],
-ma:["Refined petroleum","Wheat"],dz:["Wheat","Medicines"],za:["Refined petroleum","Cars"],
-ng:["Wheat","Cars"],ke:["Refined petroleum","Palm oil"],et:["Refined petroleum","Fertilisers"],
-ca:["Cars","Vehicle parts"],mx:["Refined petroleum","Vehicle parts"],
-br:["Fertilisers","Vehicle parts"],ar:["Vehicle parts","Natural gas"],
-cl:["Cars","Refined petroleum"],pe:["Cars","Maize"],co:["Refined petroleum","Cars"],
-au:["Cars","Refined petroleum"],nz:["Cars","Refined petroleum"]
-};
 /* what the sheet actually lists: the original three, plus the second shelf if it has one.
    The two shelves were written apart, so they sometimes name the same thing twice and
    sometimes name it twice over: corn and maize, cashews and cashew nuts. */
@@ -10658,91 +10876,520 @@ function goodsJoin(a,b){
   }
   return out;
 }
-function goodsOut(f){return goodsJoin(EXPORTS[f.c],EXPORTS2[f.c]);}
-function goodsIn(f){return goodsJoin(IMPORTS[f.c],IMPORTS2[f.c]);}
+/* One table each now, five deep, so there is nothing to join. goodsJoin stays because it
+   also de-duplicates, and a country that sells refined petroleum twice under two names is
+   a country whose sheet has a wasted line. */
+function goodsOut(f){return goodsJoin(EXPORTS[f.c],null);}
+function goodsIn(f){return goodsJoin(IMPORTS[f.c],null);}
+/* ---------- what a country sells, what it buys, and who to ----------
+   CIA World Factbook, 2023, public domain. Five commodities each way for every one of the
+   164 countries the board asks about, and the trading partners with the shares they actually
+   take. The two second shelves that used to top up a table of three are gone: there is
+   nothing left to top up.
+
+   The partners are what makes this board a game rather than a guess. Norway and Nigeria both
+   sell crude petroleum and natural gas, and the sheet said so twice and stopped; one of them
+   sells to Germany and the UK and the other to the USA and Spain. */
 var EXPORTS={
-sa:["Crude oil","Refined petroleum","Ethylene polymers"],ru:["Crude oil","Natural gas","Wheat"],
-cl:["Copper ore","Refined copper","Fresh fruit"],au:["Iron ore","Coal","Natural gas"],
-br:["Soybeans","Iron ore","Crude oil"],de:["Cars","Vehicle parts","Machinery"],
-jp:["Cars","Vehicle parts","Integrated circuits"],cn:["Broadcasting equipment","Computers","Integrated circuits"],
-kr:["Integrated circuits","Cars","Refined petroleum"],tw:["Integrated circuits","Computer parts","Machinery"],
-ch:["Gold","Packaged medicines","Watches"],in:["Refined petroleum","Packaged medicines","Diamonds"],
-ie:["Packaged medicines","Blood products","Integrated circuits"],nl:["Refined petroleum","Machinery","Cut flowers"],
-be:["Packaged medicines","Cars","Diamonds"],fr:["Aircraft","Cars","Packaged medicines"],
-it:["Packaged medicines","Machinery","Cars"],es:["Cars","Refined petroleum","Vehicle parts"],
-gb:["Gold","Cars","Machinery"],us:["Refined petroleum","Crude oil","Aircraft"],
-ca:["Crude oil","Cars","Gold"],mx:["Cars","Computers","Vehicle parts"],
-no:["Natural gas","Crude oil","Fish"],se:["Cars","Machinery","Refined petroleum"],
-fi:["Refined petroleum","Paper","Sawn wood"],dk:["Packaged medicines","Machinery","Pork"],
-is:["Fish","Aluminium","Fish fillets"],gr:["Refined petroleum","Aluminium","Olive oil"],
-pt:["Cars","Vehicle parts","Refined petroleum"],pl:["Cars","Vehicle parts","Machinery"],
-cz:["Cars","Vehicle parts","Computers"],at:["Cars","Machinery","Packaged medicines"],
-hu:["Cars","Vehicle parts","Machinery"],ro:["Cars","Insulated wire","Vehicle parts"],
-bg:["Refined petroleum","Copper","Wheat"],hr:["Refined petroleum","Machinery","Packaged medicines"],
-si:["Cars","Packaged medicines","Vehicle parts"],sk:["Cars","Vehicle parts","Broadcasting equipment"],
-lt:["Refined petroleum","Furniture","Wheat"],lv:["Sawn wood","Wheat","Broadcasting equipment"],
-ee:["Broadcasting equipment","Refined petroleum","Sawn wood"],ua:["Corn","Sunflower oil","Iron ore"],
-by:["Refined petroleum","Fertilisers","Cheese"],tr:["Cars","Machinery","Jewellery"],
-il:["Diamonds","Integrated circuits","Medical instruments"],ae:["Crude oil","Gold","Broadcasting equipment"],
-qa:["Natural gas","Crude oil","Ethylene polymers"],kw:["Crude oil","Refined petroleum","Ethylene polymers"],
-om:["Crude oil","Refined petroleum","Natural gas"],bh:["Refined petroleum","Aluminium","Iron ore"],
-iq:["Crude oil","Refined petroleum","Dates"],ir:["Crude oil","Ethylene polymers","Pistachios"],
-jo:["Fertilisers","Clothing","Potash"],lb:["Gold","Jewellery","Scrap iron"],
-kz:["Crude oil","Copper","Ferroalloys"],uz:["Gold","Natural gas","Cotton"],
-tm:["Natural gas","Cotton","Refined petroleum"],kg:["Gold","Precious metal ore","Clothing"],
-tj:["Gold","Aluminium","Cotton"],af:["Grapes","Coal","Cotton"],
-pk:["House linens","Rice","Clothing"],bd:["Clothing","Knit sweaters","Leather footwear"],
-lk:["Tea","Clothing","Rubber tyres"],np:["Palm oil","Carpets","Clothing"],
-bt:["Ferroalloys","Electricity","Dolomite"],mv:["Fish","Fish fillets","Scrap iron"],
-mm:["Natural gas","Clothing","Rice"],th:["Computers","Cars","Vehicle parts"],
-vn:["Broadcasting equipment","Telephones","Integrated circuits"],kh:["Clothing","Footwear","Leather goods"],
-la:["Electricity","Copper","Rubber"],my:["Integrated circuits","Refined petroleum","Palm oil"],
-sg:["Integrated circuits","Refined petroleum","Gold"],id:["Coal","Palm oil","Ferroalloys"],
-ph:["Integrated circuits","Computer parts","Insulated wire"],mn:["Coal","Copper ore","Gold"],
-ge:["Copper ore","Cars","Ferroalloys"],am:["Copper ore","Gold","Rolled tobacco"],
-az:["Crude oil","Natural gas","Refined petroleum"],bn:["Natural gas","Crude oil","Refined petroleum"],
-tl:["Crude oil","Coffee","Natural gas"],ng:["Crude oil","Natural gas","Cocoa beans"],
-dz:["Natural gas","Crude oil","Refined petroleum"],ly:["Crude oil","Refined petroleum","Gold"],
-eg:["Crude oil","Natural gas","Gold"],ma:["Cars","Fertilisers","Insulated wire"],
-tn:["Insulated wire","Clothing","Olive oil"],za:["Gold","Platinum","Cars"],
-bw:["Diamonds","Insulated wire","Gold"],na:["Diamonds","Uranium","Fish"],
-ao:["Crude oil","Diamonds","Refined petroleum"],gh:["Gold","Crude oil","Cocoa beans"],
-ci:["Cocoa beans","Gold","Cashews"],et:["Coffee","Gold","Cut flowers"],
-ke:["Tea","Cut flowers","Coffee"],tz:["Gold","Cashews","Coffee"],
-ug:["Gold","Coffee","Fish"],zm:["Refined copper","Copper ore","Corn"],
-zw:["Gold","Tobacco","Ferroalloys"],mz:["Aluminium","Coal","Coke"],
-mg:["Vanilla","Nickel","Cloves"],mu:["Clothing","Fish","Sugar"],
-sc:["Fish","Fish fillets","Refined petroleum"],sn:["Gold","Refined petroleum","Fish"],
-ml:["Gold","Cotton","Fertilisers"],bf:["Gold","Cotton","Sesame"],
-ne:["Gold","Uranium","Sesame"],td:["Crude oil","Gold","Sesame"],
-cd:["Refined copper","Cobalt","Copper ore"],cg:["Crude oil","Refined copper","Sawn wood"],
-ga:["Crude oil","Manganese","Sawn wood"],gq:["Crude oil","Natural gas","Sawn wood"],
-cm:["Crude oil","Sawn wood","Cocoa beans"],gn:["Aluminium ore","Gold","Diamonds"],
-lr:["Ships","Iron ore","Gold"],sl:["Titanium ore","Diamonds","Iron ore"],
-gm:["Sawn wood","Cashews","Fish"],gw:["Cashews","Fish","Sawn wood"],
-bj:["Cotton","Cashews","Gold"],tg:["Refined petroleum","Cotton","Fertilisers"],
-rw:["Gold","Coffee","Tin ore"],bi:["Gold","Coffee","Tea"],
-km:["Cloves","Vanilla","Ylang-ylang"],so:["Sheep and goats","Gold","Bananas"],
-ss:["Crude oil","Sawn wood","Gum arabic"],sd:["Gold","Sesame","Livestock"],
-ls:["Clothing","Diamonds","Water"],sz:["Sugar","Perfumes","Cotton"],
-mw:["Tobacco","Tea","Sugar"],cv:["Fish","Fish fillets","Clothing"],
-st:["Cocoa beans","Palm oil","Coffee"],mr:["Iron ore","Fish","Gold"],
-cf:["Gold","Diamonds","Sawn wood"],ar:["Soybean meal","Corn","Soybean oil"],
-pe:["Copper ore","Gold","Refined copper"],co:["Crude oil","Coal","Coffee"],
-ec:["Crude oil","Bananas","Crustaceans"],bo:["Natural gas","Gold","Zinc ore"],
-py:["Soybeans","Beef","Electricity"],uy:["Beef","Soybeans","Wood pulp"],
-gy:["Crude oil","Gold","Rice"],sr:["Gold","Sawn wood","Fish"],
-ve:["Crude oil","Refined petroleum","Gold"],cr:["Medical instruments","Bananas","Orthopaedic appliances"],
-pa:["Copper ore","Bananas","Refined petroleum"],gt:["Bananas","Clothing","Sugar"],
-hn:["Coffee","Knit sweaters","Bananas"],ni:["Gold","Coffee","Beef"],
-sv:["Clothing","Knit socks","Coffee"],bz:["Sugar","Bananas","Fish"],
-jm:["Aluminium ore","Refined petroleum","Rum"],ht:["Knit sweaters","Knit T-shirts","Essential oils"],
-do:["Gold","Medical instruments","Cigars"],tt:["Natural gas","Crude oil","Ammonia"],
-bs:["Ships","Crustaceans","Refined petroleum"],bb:["Rum","Ships","Orthopaedic appliances"],
-cu:["Rolled tobacco","Nickel","Raw sugar"],nz:["Milk powder","Butter","Sheep meat"],
-pg:["Natural gas","Gold","Crude oil"],fj:["Water","Fish","Gold"],
-sb:["Sawn wood","Fish","Palm oil"],vu:["Fish","Copra","Cocoa beans"],
-ws:["Fish","Coconut oil","Beer"],to:["Fish","Squash","Coconut oil"]
+ae:["Crude petroleum","Refined petroleum","Gold","Broadcasting equipment","Natural gas"],
+af:["Coal","Grapes","Tropical fruits","Gum resins","Other nuts"],
+am:["Gold","Diamonds","Copper ore","Broadcasting equipment","Jewelry"],
+ao:["Crude petroleum","Diamonds","Natural gas","Ships","Refined petroleum"],
+ar:["Soybean meal","Corn","Trucks","Soybean oil","Crude petroleum"],
+at:["Cars","Packaged medicine","Vaccines","Vehicle parts/accessories","Nitrogen compounds"],
+au:["Iron ore","Coal","Natural gas","Gold","Minerals"],
+az:["Crude petroleum","Natural gas","Refined petroleum","Plastics","Electricity"],
+bb:["Liquor","Refined petroleum","Packaged medicine","Margarine","Baked goods"],
+bd:["Garments","Footwear","Fabric","Textiles","Trunks and cases"],
+be:["Refined petroleum","Natural gas","Vaccines","Cars","Packaged medicine"],
+bf:["Gold","Cotton","Oil seeds","Coconuts/brazil nuts/cashews","Cement"],
+bg:["Refined petroleum","Garments","Refined copper","Wheat","Natural gas"],
+bh:["Refined petroleum","Aluminium","Iron ore","Aluminium wire","Jewelry"],
+bi:["Gold","Coffee","Tea","Tin ores","Iron bars"],
+bj:["Gold","Cotton","Coconuts/brazil nuts/cashews","Soybeans","Wood"],
+bn:["Refined petroleum","Natural gas","Crude petroleum","Hydrocarbons","Fertilizers"],
+bo:["Gold","Natural gas","Precious metal ore","Zinc ore","Soybean meal"],
+br:["Soybeans","Crude petroleum","Iron ore","Raw sugar","Corn"],
+bs:["Refined petroleum","Ships","Aluminium","Shellfish","Plastics"],
+bt:["Iron alloys","Aircraft","Dolomite","Semi-finished iron","Cement"],
+bw:["Diamonds","Copper ore","Insulated wire","Carbonates","Cattle"],
+by:["Fertilizers","Rapeseed oil","Wood","Poultry","Beef"],
+bz:["Raw sugar","Bananas","Fish","Shellfish","Refined petroleum"],
+ca:["Crude petroleum","Cars","Gold","Natural gas","Refined petroleum"],
+cd:["Crude petroleum","Refined copper","Gold","Wood","Refined petroleum"],
+cf:["Gold","Wood","Diamonds","Vehicle parts/accessories","Cotton"],
+cg:["Crude petroleum","Refined copper","Gold","Wood","Refined petroleum"],
+ch:["Gold","Packaged medicine","Vaccines","Nitrogen compounds","Base metal watches"],
+ci:["Gold","Cocoa beans","Rubber","Refined petroleum","Coconuts/brazil nuts/cashews"],
+cl:["Copper ore","Refined copper","Fish","Carbonates","Pitted fruits"],
+cm:["Crude petroleum","Natural gas","Gold","Cocoa beans","Wood"],
+cn:["Broadcasting equipment","Computers","Integrated circuits","Garments","Machine parts"],
+co:["Crude petroleum","Coal","Gold","Coffee","Refined petroleum"],
+cr:["Medical instruments","Integrated circuits","Orthopedic appliances","Bananas","Tropical fruits"],
+cu:["Tobacco","Nickel","Liquor","Zinc ore","Precious metal ore"],
+cv:["Fish","Refined petroleum","Railway cargo containers","Shellfish","Garments"],
+cz:["Cars","Vehicle parts/accessories","Broadcasting equipment","Computers","Plastic products"],
+de:["Cars","Vehicle parts/accessories","Packaged medicine","Plastic products","Vaccines"],
+dk:["Packaged medicine","Fish","Vaccines","Refined petroleum","Pork"],
+do:["Medical instruments","Tobacco","Gold","Garments","Power equipment"],
+dz:["Natural gas","Crude petroleum","Refined petroleum","Fertilizers","Iron bars"],
+ec:["Crude petroleum","Shellfish","Bananas","Fish","Gold"],
+ee:["Cars","Wood","Broadcasting equipment","Refined petroleum","Prefabricated buildings"],
+eg:["Refined petroleum","Natural gas","Fertilizers","Garments","Crude petroleum"],
+es:["Cars","Packaged medicine","Refined petroleum","Vehicle parts/accessories","Garments"],
+et:["Coffee","Garments","Dried legumes","Cut flowers","Oil seeds"],
+fi:["Paper","Refined petroleum","Steel","Wood pulp","Ships"],
+fj:["Water","Fish","Raw sugar","Refined petroleum","Garments"],
+fr:["Aircraft","Cars","Packaged medicine","Gas turbines","Vehicle parts/accessories"],
+ga:["Crude petroleum","Ships","Manganese ore","Refined petroleum","Wood"],
+gb:["Cars","Gold","Gas turbines","Packaged medicine","Crude petroleum"],
+ge:["Cars","Copper ore","Electricity","Garments","Wine"],
+gh:["Gold","Crude petroleum","Cocoa beans","Manganese ore","Cocoa paste"],
+gm:["Packaged medicine","Cars","Harvesting machinery","Refined petroleum","Trailers"],
+gn:["Gold","Aluminium ore","Cocoa beans","Crude petroleum","Coconuts/brazil nuts/cashews"],
+gq:["Crude petroleum","Natural gas","Alcohols","Wood","Scrap iron"],
+gr:["Refined petroleum","Packaged medicine","Aluminium","Olive oil","Tobacco"],
+gt:["Garments","Bananas","Coffee","Palm oil","Raw sugar"],
+gw:["Coconuts/brazil nuts/cashews","Fish","Fish oil","Processed crustaceans","Malt extract"],
+gy:["Crude petroleum","Railway cargo containers","Gold","Ships","Rice"],
+hn:["Garments","Coffee","Insulated wire","Palm oil","Shellfish"],
+hr:["Ships","Garments","Electricity","Packaged medicine","Wood"],
+ht:["Garments","Essential oils","Scrap iron","Industrial acids/oils/alcohols","Bedding"],
+hu:["Cars","Vehicle parts/accessories","Electric batteries","Packaged medicine","Computers"],
+id:["Coal","Palm oil","Iron alloys","Lignite","Garments"],
+ie:["Vaccines","Packaged medicine","Nitrogen compounds","Integrated circuits","Hormones"],
+il:["Integrated circuits","Diamonds","Broadcasting equipment","Medical instruments","Refined petroleum"],
+in:["Refined petroleum","Packaged medicine","Diamonds","Broadcasting equipment","Garments"],
+iq:["Crude petroleum","Refined petroleum","Petroleum coke","Gold","Natural gas"],
+ir:["Plastics","Iron ore","Alcohols","Natural gas","Refined copper"],
+is:["Aluminium","Fish","Orthopedic appliances","Animal meal","Iron alloys"],
+it:["Packaged medicine","Garments","Cars","Refined petroleum","Vehicle parts/accessories"],
+jm:["Aluminium oxide","Refined petroleum","Natural gas","Liquor","Processed fruits and nuts"],
+jo:["Fertilizers","Garments","Phosphates","Jewelry","Phosphoric acid"],
+jp:["Cars","Integrated circuits","Machinery","Vehicle parts/accessories","Construction vehicles"],
+ke:["Tea","Cut flowers","Garments","Gold","Tropical fruits"],
+kg:["Gold","Coal","Precious metal ore","Refined petroleum","Garments"],
+kh:["Garments","Semiconductors","Trunks and cases","Footwear","Gold"],
+km:["Cloves","Ships","Essential oils","Vanilla","Scrap iron"],
+kr:["Integrated circuits","Cars","Refined petroleum","Plastics","Machine parts"],
+kw:["Crude petroleum","Refined petroleum","Natural gas","Hydrocarbons","Plastics"],
+kz:["Crude petroleum","Gold","Radioactive chemicals","Refined copper","Copper ore"],
+la:["Electricity","Fertilizers","Gold","Garments","Paper"],
+lb:["Jewelry","Cars","Diamonds","Scrap iron","Gold"],
+lk:["Garments","Tea","Precious stones","Used rubber tires","Rubber products"],
+lr:["Gold","Ships","Iron ore","Rubber","Refined petroleum"],
+ls:["Diamonds","Garments","Wool","Power equipment","Bedding"],
+lt:["Refined petroleum","Furniture","Plastic products","Wheat","Cars"],
+lv:["Wood","Wheat","Broadcasting equipment","Packaged medicine","Natural gas"],
+ly:["Crude petroleum","Natural gas","Refined petroleum","Gold","Scrap iron"],
+ma:["Fertilizers","Cars","Garments","Insulated wire","Tomatoes"],
+mg:["Garments","Nickel","Vanilla","Cloves","Gold"],
+ml:["Gold","Cotton","Oil seeds","Fertilizers","Gum resins"],
+mm:["Garments","Natural gas","Dried legumes","Rare-earth metal compounds","Precious stones"],
+mn:["Coal","Copper ore","Gold","Iron ore","Crude petroleum"],
+mr:["Gold","Iron ore","Fish","Processed crustaceans","Copper ore"],
+mu:["Fish","Garments","Raw sugar","Fertilizers","Diamonds"],
+mv:["Fish","Aircraft","Refined petroleum","Scrap iron","Natural gas"],
+mw:["Tobacco","Tea","Dried legumes","Soybean meal","Raw sugar"],
+mx:["Cars","Vehicle parts/accessories","Crude petroleum","Trucks","Computers"],
+my:["Integrated circuits","Refined petroleum","Crude petroleum","Natural gas","Palm oil"],
+mz:["Coal","Natural gas","Aluminium","Gold","Precious stones"],
+na:["Gold","Diamonds","Radioactive chemicals","Fish","Refined petroleum"],
+ne:["Gold","Oil seeds","Uranium and thorium ore","Radioactive chemicals","Refined petroleum"],
+ng:["Crude petroleum","Natural gas","Gold","Fertilizers","Cocoa beans"],
+ni:["Garments","Gold","Insulated wire","Coffee","Beef"],
+nl:["Refined petroleum","Vaccines","Machinery","Crude petroleum","Broadcasting equipment"],
+no:["Natural gas","Crude petroleum","Fish","Refined petroleum","Aluminium"],
+np:["Knotted carpets","Garments","Flat-rolled iron","Synthetic fibers","Palm oil"],
+nz:["Milk","Wood","Beef","Butter","Sheep and goat meat"],
+om:["Crude petroleum","Refined petroleum","Natural gas","Semi-finished iron","Fertilizers"],
+pa:["Copper ore","Ships","Refined petroleum","Bananas","Fish"],
+pe:["Copper ore","Gold","Refined copper","Refined petroleum","Grapes"],
+pg:["Natural gas","Gold","Copper ore","Palm oil","Nickel"],
+ph:["Integrated circuits","Machine parts","Gold","Insulated wire","Semiconductors"],
+pk:["Garments","Fabric","Refined petroleum","Rice","Cotton fabric"],
+pl:["Vehicle parts/accessories","Electric batteries","Plastic products","Cars","Seats"],
+pt:["Cars","Garments","Vehicle parts/accessories","Unpackaged medicine","Refined petroleum"],
+py:["Soybeans","Beef","Electricity","Corn","Soybean meal"],
+qa:["Natural gas","Crude petroleum","Refined petroleum","Plastics","Fertilizers"],
+ro:["Cars","Vehicle parts/accessories","Insulated wire","Garments","Wheat"],
+ru:["Crude petroleum","Refined petroleum","Natural gas","Coal","Fertilizers"],
+rw:["Gold","Rare earth ores","Coffee","Tea","Tin ores"],
+sa:["Crude petroleum","Refined petroleum","Plastics","Alcohols","Ships"],
+sb:["Wood","Fish","Gold","Precious metal ore","Palm oil"],
+sc:["Fish","Scrap iron","Animal meal","Broadcasting equipment","Ships"],
+sd:["Crude petroleum","Gold","Oil seeds","Sheep and goats","Ground nuts"],
+se:["Cars","Refined petroleum","Packaged medicine","Paper","Vehicle parts/accessories"],
+sg:["Integrated circuits","Refined petroleum","Machinery","Vaccines","Gold"],
+si:["Packaged medicine","Cars","Refined petroleum","Vehicle parts/accessories","Plastic products"],
+sk:["Cars","Vehicle parts/accessories","Video displays","Broadcasting equipment","Refined petroleum"],
+sl:["Iron ore","Titanium ore","Diamonds","Aluminium ore","Cocoa beans"],
+sn:["Gold","Refined petroleum","Phosphoric acid","Fish","Cement"],
+so:["Sheep and goats","Gold","Postage stamps/documents","Other animals","Cattle"],
+sr:["Gold","Fish","Refined petroleum","Wood","Tobacco"],
+ss:["Crude petroleum","Refined petroleum","Forage crops","Gold","Scrap iron"],
+st:["Crude petroleum","Cocoa beans","Vehicle parts/accessories","Palm oil","Aircraft parts"],
+sv:["Garments","Plastic products","Electrical capacitors","Raw sugar","Toilet paper"],
+sz:["Scented mixtures","Raw sugar","Industrial acids/oils/alcohols","Garments","Wood"],
+td:["Crude petroleum","Gold","Oil seeds","Gum resins","Cotton"],
+tg:["Gold","Refined petroleum","Soybeans","Phosphates","Coconuts/brazil nuts/cashews"],
+th:["Machine parts","Integrated circuits","Trucks","Cars","Broadcasting equipment"],
+tj:["Gold","Precious metal ore","Aluminium","Lead ore","Antimony"],
+tl:["Crude petroleum","Natural gas","Coffee","Scrap iron","Telephones"],
+tm:["Natural gas","Refined petroleum","Fertilizers","Crude petroleum","Electricity"],
+tn:["Garments","Insulated wire","Olive oil","Refined petroleum","Crude petroleum"],
+to:["Refined petroleum","Gold","Processed fruits and nuts","Cassava","Fish"],
+tr:["Garments","Cars","Gold","Refined petroleum","Vehicle parts/accessories"],
+tt:["Natural gas","Alcohols","Ammonia","Crude petroleum","Iron reductions"],
+tw:["Integrated circuits","Machine parts","Broadcasting equipment","Computers","Plastics"],
+tz:["Gold","Refined petroleum","Dried legumes","Refined copper","Coal"],
+ua:["Corn","Seed oils","Wheat","Iron ore","Soybeans"],
+ug:["Gold","Coffee","Fish","Refined petroleum","Tobacco"],
+us:["Cars","Gold","Gas turbines","Packaged medicine","Crude petroleum"],
+uy:["Wood pulp","Beef","Milk","Rice","Wood"],
+uz:["Gold","Cotton yarn","Garments","Fertilizers","Fabric"],
+ve:["Crude petroleum","Petroleum coke","Scrap iron","Alcohols","Fertilizers"],
+vn:["Broadcasting equipment","Garments","Integrated circuits","Machine parts","Footwear"],
+vu:["Fish","Ships","Perfume plants","Wood","Copra"],
+ws:["Refined petroleum","Integrated circuits","Coconut oil","Fish","Insulated wire"],
+za:["Gold","Platinum","Coal","Cars","Iron ore"],
+zm:["Raw copper","Refined copper","Gold","Precious stones","Electricity"],
+zw:["Gold","Tobacco","Nickel","Minerals","Diamonds"]
+};
+/* Where it goes, and how much of it. The share is the percentage of that country's whole
+   export trade, which is why the four rarely add up to anything tidy. */
+var PARTOUT={
+ae:[["China",11],["India",11],["Japan",10],["Iraq",6]],
+af:[["Pakistan",42],["India",40],["China",4],["UAE",2]],
+am:[["Russia",37],["UAE",25],["Hong Kong",7],["China",5]],
+ao:[["China",40],["India",9],["UAE",6],["Spain",6]],
+ar:[["Brazil",18],["USA",9],["Chile",8],["China",8]],
+at:[["Germany",25],["USA",9],["Italy",7],["Switzerland",5]],
+au:[["China",37],["Japan",16],["S. Korea",6],["India",5]],
+az:[["Italy",37],["Turkey",19],["Israel",5],["Greece",4]],
+bb:[["USA",22],["Jamaica",17],["Tobago",8],["Canada",6]],
+bd:[["USA",16],["Germany",15],["UK",8],["Spain",7]],
+be:[["France",20],["Netherlands",15],["Germany",14],["Italy",6]],
+bf:[["Switzerland",72],["UAE",10],["India",3],["Mali",3]],
+bg:[["Germany",14],["Romania",11],["Italy",8],["Greece",6]],
+bh:[["UAE",16],["Saudi Arabia",15],["South Africa",8],["USA",6]],
+bi:[["UAE",59],["Uganda",8],["China",5],["Germany",5]],
+bj:[["UAE",42],["Bangladesh",20],["India",11],["China",5]],
+bn:[["Australia",21],["Japan",17],["China",17],["Singapore",16]],
+bo:[["Brazil",15],["India",13],["China",11],["Argentina",11]],
+br:[["China",30],["USA",10],["Argentina",5],["Netherlands",3]],
+bs:[["USA",36],["Zimbabwe",16],["Cote d'Ivoire",14],["Germany",8]],
+bt:[["India",92],["Italy",4],["Indonesia",1],["China",1]],
+bw:[["UAE",27],["India",17],["Belgium",16],["South Africa",8]],
+by:[["China",34],["Kazakhstan",10],["Uzbekistan",7],["Poland",6]],
+bz:[["USA",22],["UK",14],["Spain",9],["Guatemala",7]],
+ca:[["USA",71],["China",5],["UK",3],["Japan",2]],
+cd:[["China",46],["UAE",23],["India",6],["Saudi Arabia",5]],
+cf:[["UAE",54],["China",14],["France",6],["Turkey",5]],
+cg:[["China",46],["UAE",23],["India",6],["Saudi Arabia",5]],
+ch:[["Germany",14],["China",12],["USA",11],["Italy",5]],
+ci:[["Switzerland",17],["Netherlands",9],["Mali",7],["USA",5]],
+cl:[["China",39],["USA",16],["Japan",7],["S. Korea",6]],
+cm:[["Netherlands",21],["France",14],["UAE",13],["India",9]],
+cn:[["USA",13],["Hong Kong",8],["Japan",5],["Germany",5]],
+co:[["USA",27],["Panama",9],["India",5],["China",5]],
+cr:[["USA",40],["Netherlands",6],["China",5],["Guatemala",4]],
+cu:[["China",34],["Spain",12],["Germany",6],["Switzerland",5]],
+cv:[["Spain",46],["Portugal",9],["Togo",7],["Italy",7]],
+cz:[["Germany",29],["Slovakia",7],["Poland",6],["France",5]],
+de:[["USA",10],["France",8],["Netherlands",7],["China",7]],
+dk:[["Germany",13],["USA",10],["Sweden",9],["Netherlands",7]],
+do:[["USA",52],["Switzerland",7],["Haiti",6],["China",5]],
+dz:[["Italy",29],["France",14],["Spain",13],["USA",6]],
+ec:[["USA",22],["China",21],["Panama",12],["Japan",3]],
+ee:[["Finland",14],["Latvia",10],["Lithuania",9],["Sweden",7]],
+eg:[["Saudi Arabia",10],["Turkey",9],["Italy",6],["USA",5]],
+es:[["France",15],["Germany",10],["Portugal",9],["Italy",9]],
+et:[["USA",12],["China",10],["UAE",8],["Saudi Arabia",8]],
+fi:[["USA",11],["Germany",11],["Sweden",10],["Netherlands",7]],
+fj:[["USA",32],["Australia",12],["Tonga",6],["NZ",6]],
+fr:[["Germany",11],["Italy",9],["USA",8],["Belgium",8]],
+ga:[["China",26],["Indonesia",8],["Spain",7],["Israel",6]],
+gb:[["USA",14],["China",8],["Germany",8],["Netherlands",7]],
+ge:[["Azerbaijan",13],["Turkey",11],["Armenia",11],["Russia",10]],
+gh:[["Switzerland",24],["UAE",18],["India",8],["South Africa",7]],
+gm:[["Kazakhstan",92],["Guinea-Bissau",2],["China",1],["India",1]],
+gn:[["UAE",50],["China",36],["India",8],["Switzerland",1]],
+gq:[["China",27],["Netherlands",12],["Spain",10],["Italy",7]],
+gr:[["Italy",12],["Germany",6],["Cyprus",6],["Bulgaria",4]],
+gt:[["USA",33],["El Salvador",11],["Honduras",9],["Nicaragua",6]],
+gw:[["India",66],["Chile",9],["Cote d'Ivoire",5],["Ghana",4]],
+gy:[["USA",20],["Tobago",11],["Netherlands",10],["Singapore",10]],
+hn:[["USA",49],["Nicaragua",8],["El Salvador",7],["Guatemala",5]],
+hr:[["Italy",14],["Germany",11],["Slovenia",11],["Herzegovina",6]],
+ht:[["USA",82],["Canada",4],["Mexico",2],["France",2]],
+hu:[["Germany",25],["Italy",6],["Romania",6],["USA",5]],
+id:[["China",24],["USA",9],["India",8],["Japan",8]],
+ie:[["USA",28],["Germany",11],["UK",8],["Belgium",8]],
+il:[["USA",29],["China",10],["Ireland",6],["Germany",4]],
+in:[["USA",19],["UAE",7],["China",4],["Germany",3]],
+iq:[["China",33],["India",28],["USA",8],["Greece",5]],
+ir:[["China",35],["Turkey",16],["India",8],["Pakistan",7]],
+is:[["Netherlands",27],["Germany",11],["USA",10],["UK",8]],
+it:[["Germany",11],["USA",11],["France",10],["Spain",5]],
+jm:[["USA",37],["Russia",7],["Latvia",7],["Iceland",7]],
+jo:[["USA",21],["India",13],["Saudi Arabia",11],["China",7]],
+jp:[["USA",19],["China",18],["Taiwan",6],["S. Korea",6]],
+ke:[["Uganda",10],["USA",10],["UAE",8],["Netherlands",8]],
+kg:[["Switzerland",30],["Russia",19],["Kazakhstan",14],["UAE",10]],
+kh:[["USA",36],["Germany",6],["China",6],["Japan",6]],
+km:[["Indonesia",25],["India",23],["Turkey",16],["UAE",11]],
+kr:[["China",25],["USA",18],["Hong Kong",4],["Japan",4]],
+kw:[["China",25],["India",13],["Japan",13],["Taiwan",7]],
+kz:[["China",16],["UK",15],["Russia",10],["Turkey",6]],
+la:[["China",39],["Thailand",34],["Australia",4],["USA",4]],
+lb:[["UAE",26],["Egypt",7],["Turkey",5],["Iraq",5]],
+lk:[["USA",22],["India",7],["Germany",7],["UK",7]],
+lr:[["Switzerland",30],["UK",13],["France",8],["Germany",7]],
+ls:[["South Africa",31],["Belgium",26],["USA",20],["UAE",8]],
+lt:[["Latvia",11],["Poland",8],["Germany",7],["Netherlands",6]],
+lv:[["Lithuania",19],["Estonia",6],["Russia",6],["Germany",6]],
+ly:[["Italy",23],["Germany",15],["Spain",9],["France",7]],
+ma:[["Spain",20],["France",17],["Germany",6],["UK",5]],
+mg:[["USA",16],["France",15],["Japan",8],["China",6]],
+ml:[["UAE",73],["Switzerland",15],["Australia",5],["China",1]],
+mm:[["China",32],["Thailand",16],["Japan",7],["Germany",6]],
+mn:[["China",92],["Switzerland",6],["Italy",1],["Thailand",0]],
+mr:[["China",25],["Switzerland",14],["Canada",12],["UAE",9]],
+mu:[["USA",11],["France",11],["Zimbabwe",10],["South Africa",7]],
+mv:[["Thailand",32],["India",21],["Singapore",9],["UK",7]],
+mw:[["Germany",11],["India",7],["Zimbabwe",6],["South Africa",5]],
+mx:[["USA",76],["Canada",5],["China",2],["Germany",2]],
+my:[["China",21],["Singapore",12],["USA",12],["Japan",5]],
+mz:[["India",18],["China",13],["South Africa",9],["UAE",6]],
+na:[["South Africa",27],["China",12],["Botswana",8],["Belgium",7]],
+ne:[["UAE",31],["France",23],["China",18],["India",6]],
+ng:[["USA",10],["Spain",9],["France",8],["Netherlands",7]],
+ni:[["USA",51],["Mexico",12],["El Salvador",6],["Canada",6]],
+nl:[["Germany",16],["Belgium",15],["France",11],["Italy",6]],
+no:[["Germany",18],["UK",17],["Sweden",9],["Denmark",7]],
+np:[["India",67],["USA",12],["Germany",3],["China",2]],
+nz:[["China",28],["USA",12],["Australia",12],["Japan",6]],
+om:[["China",43],["India",6],["Saudi Arabia",5],["UAE",5]],
+pa:[["China",25],["Japan",10],["USA",6],["Thailand",5]],
+pe:[["China",34],["USA",14],["Canada",5],["India",4]],
+pg:[["China",28],["Japan",25],["Australia",17],["Taiwan",8]],
+ph:[["China",19],["USA",13],["Hong Kong",12],["Japan",11]],
+pk:[["USA",14],["UAE",10],["China",9],["Germany",7]],
+pl:[["Germany",25],["UK",6],["Czechia",6],["France",6]],
+pt:[["Spain",21],["France",11],["Germany",10],["USA",8]],
+py:[["Argentina",33],["Brazil",25],["Chile",10],["USA",2]],
+qa:[["China",18],["India",11],["S. Korea",10],["Japan",7]],
+ro:[["Germany",19],["Italy",10],["France",6],["UK",5]],
+ru:[["China",33],["India",17],["Turkey",8],["Kazakhstan",4]],
+rw:[["UAE",66],["China",10],["USA",3],["Kenya",3]],
+sa:[["China",21],["India",12],["Japan",12],["USA",6]],
+sb:[["China",56],["Australia",11],["Italy",10],["Spain",5]],
+sc:[["France",20],["Mauritius",12],["UK",9],["Japan",8]],
+sd:[["UAE",21],["China",17],["Saudi Arabia",16],["Malaysia",9]],
+se:[["Germany",10],["USA",10],["Denmark",8],["Norway",6]],
+sg:[["Hong Kong",13],["China",11],["USA",10],["Malaysia",9]],
+si:[["Switzerland",22],["Germany",12],["Italy",10],["Croatia",8]],
+sk:[["Germany",20],["Czechia",10],["Hungary",7],["USA",6]],
+sl:[["China",67],["India",6],["Belgium",5],["Netherlands",4]],
+sn:[["Mali",21],["India",12],["Switzerland",11],["China",5]],
+so:[["UAE",35],["Saudi Arabia",27],["Oman",18],["Djibouti",8]],
+sr:[["Switzerland",49],["UAE",28],["Guyana",5],["USA",4]],
+ss:[["China",51],["Singapore",29],["UAE",10],["Germany",4]],
+st:[["Pakistan",54],["Germany",11],["Netherlands",7],["France",5]],
+sv:[["USA",36],["Guatemala",17],["Honduras",15],["Nicaragua",8]],
+sz:[["South Africa",61],["Ireland",4],["Mozambique",4],["Kenya",4]],
+td:[["UAE",26],["China",19],["Germany",17],["Netherlands",13]],
+tg:[["UAE",40],["India",13],["Angola",13],["Burkina Faso",4]],
+th:[["USA",18],["China",13],["Japan",7],["Australia",4]],
+tj:[["Switzerland",31],["Kazakhstan",18],["China",17],["Uzbekistan",10]],
+tl:[["China",46],["Singapore",25],["Japan",15],["Indonesia",5]],
+tm:[["China",63],["Turkey",11],["Greece",7],["Uzbekistan",6]],
+tn:[["France",22],["Italy",17],["Germany",13],["USA",4]],
+to:[["Guyana",17],["USA",17],["NZ",15],["Australia",15]],
+tr:[["Germany",9],["USA",6],["UK",6],["UAE",5]],
+tt:[["USA",28],["China",7],["Guyana",5],["Chile",5]],
+tw:[["China",20],["USA",17],["Hong Kong",13],["Singapore",9]],
+tz:[["India",15],["UAE",14],["Uganda",12],["South Africa",10]],
+ua:[["Poland",12],["Romania",9],["Turkey",7],["China",6]],
+ug:[["India",21],["UAE",16],["Hong Kong",10],["South Sudan",8]],
+us:[["USA",14],["China",8],["Germany",8],["Netherlands",7]],
+uy:[["China",21],["Brazil",17],["USA",8],["Argentina",5]],
+uz:[["Switzerland",34],["Russia",12],["UK",11],["China",7]],
+ve:[["USA",50],["China",10],["Spain",9],["Brazil",6]],
+vn:[["USA",28],["China",20],["Japan",6],["Hong Kong",4]],
+vu:[["Thailand",49],["Japan",19],["Cote d'Ivoire",10],["China",7]],
+ws:[["India",26],["NZ",14],["USA",12],["American Samoa",10]],
+za:[["China",19],["USA",8],["Germany",7],["India",7]],
+zm:[["Switzerland",27],["China",15],["India",13],["UAE",12]],
+zw:[["UAE",45],["China",18],["South Africa",15],["Mozambique",4]]
+};
+/* and where it comes from */
+var PARTIN={
+ae:[["China",19],["India",7],["USA",6],["Turkey",4]],
+af:[["UAE",28],["Pakistan",15],["China",15],["Uzbekistan",12]],
+am:[["Russia",29],["China",12],["Vietnam",6],["Georgia",5]],
+ao:[["China",19],["Portugal",10],["UAE",7],["India",6]],
+ar:[["Brazil",23],["China",20],["USA",12],["Paraguay",5]],
+at:[["Germany",34],["China",7],["Italy",7],["Switzerland",5]],
+au:[["China",26],["USA",11],["S. Korea",6],["Japan",6]],
+az:[["Russia",17],["China",16],["Turkey",14],["Georgia",4]],
+bb:[["USA",32],["Tobago",19],["Netherlands",6],["UK",6]],
+bd:[["China",34],["India",17],["Indonesia",5],["Singapore",5]],
+be:[["Netherlands",20],["Germany",13],["France",11],["USA",7]],
+bf:[["Cote d'Ivoire",14],["China",13],["Ghana",9],["Russia",9]],
+bg:[["Germany",12],["Turkey",8],["Romania",8],["Russia",7]],
+bh:[["China",13],["Saudi Arabia",12],["UAE",11],["Brazil",8]],
+bi:[["Tanzania",26],["China",15],["Uganda",10],["Kenya",10]],
+bj:[["China",21],["India",15],["USA",6],["France",6]],
+bn:[["Malaysia",23],["UAE",10],["China",10],["UK",10]],
+bo:[["China",22],["Brazil",18],["Chile",13],["USA",7]],
+br:[["China",23],["USA",16],["Germany",5],["Argentina",5]],
+bs:[["USA",60],["Germany",13],["China",5],["Japan",3]],
+bt:[["India",82],["Singapore",8],["China",5],["Thailand",2]],
+bw:[["South Africa",65],["Namibia",8],["Canada",5],["China",3]],
+by:[["China",33],["Poland",16],["Germany",11],["Lithuania",10]],
+bz:[["USA",37],["China",17],["Guatemala",10],["Mexico",8]],
+ca:[["USA",51],["China",11],["Mexico",6],["Germany",3]],
+cd:[["China",24],["Angola",20],["Gabon",9],["France",6]],
+cf:[["China",16],["Cameroon",14],["France",8],["Belgium",6]],
+cg:[["China",24],["Angola",20],["Gabon",9],["France",6]],
+ch:[["Germany",17],["USA",9],["Italy",8],["France",6]],
+ci:[["China",16],["Nigeria",12],["France",6],["India",5]],
+cl:[["China",23],["USA",20],["Brazil",10],["Argentina",7]],
+cm:[["China",43],["France",6],["India",6],["Belgium",4]],
+cn:[["S. Korea",7],["USA",7],["Japan",6],["Australia",6]],
+co:[["USA",26],["China",22],["Brazil",6],["Mexico",5]],
+cr:[["USA",38],["China",15],["Mexico",6],["Brazil",3]],
+cu:[["Spain",24],["China",13],["Netherlands",10],["USA",9]],
+cv:[["Portugal",29],["Saudi Arabia",11],["Netherlands",9],["Spain",8]],
+cz:[["Germany",22],["China",17],["Poland",8],["Slovakia",5]],
+de:[["China",12],["Netherlands",7],["USA",7],["Poland",6]],
+dk:[["Germany",18],["Sweden",11],["Norway",10],["Netherlands",9]],
+do:[["USA",40],["China",18],["Brazil",4],["Spain",4]],
+dz:[["China",24],["France",12],["Italy",8],["Turkey",7]],
+ec:[["USA",27],["China",20],["Colombia",7],["Brazil",4]],
+ee:[["Finland",11],["Germany",11],["China",10],["Lithuania",6]],
+eg:[["China",16],["Saudi Arabia",6],["Russia",6],["USA",6]],
+es:[["Germany",11],["China",10],["France",10],["Italy",7]],
+et:[["China",26],["Djibouti",16],["India",7],["Kuwait",7]],
+fi:[["Germany",14],["Sweden",12],["China",9],["Norway",8]],
+fj:[["Singapore",25],["China",16],["Australia",15],["NZ",14]],
+fr:[["Germany",15],["Belgium",11],["Netherlands",9],["Spain",8]],
+ga:[["France",14],["China",13],["S. Korea",13],["USA",7]],
+gb:[["China",13],["USA",11],["Germany",10],["France",5]],
+ge:[["Turkey",16],["USA",13],["Russia",11],["China",8]],
+gh:[["China",30],["Netherlands",8],["India",5],["USA",5]],
+gm:[["Kazakhstan",26],["China",18],["Senegal",8],["India",7]],
+gn:[["China",39],["India",9],["Netherlands",7],["Belgium",6]],
+gq:[["China",20],["Spain",17],["USA",10],["Gabon",5]],
+gr:[["Germany",10],["China",10],["Italy",8],["Iraq",7]],
+gt:[["USA",30],["China",19],["Mexico",11],["El Salvador",4]],
+gw:[["Senegal",28],["Portugal",24],["China",11],["The",10]],
+gy:[["USA",28],["China",13],["Tobago",11],["Brazil",5]],
+hn:[["USA",36],["China",14],["Guatemala",8],["Mexico",6]],
+hr:[["Italy",14],["Germany",14],["Slovenia",11],["Hungary",6]],
+ht:[["USA",31],["Dominican Republic",23],["China",14],["Indonesia",4]],
+hu:[["Germany",23],["China",7],["Austria",6],["Poland",6]],
+id:[["China",29],["Singapore",8],["Japan",7],["USA",5]],
+ie:[["UK",20],["USA",17],["France",10],["China",7]],
+il:[["China",17],["USA",12],["Germany",7],["Turkey",6]],
+in:[["China",19],["Russia",10],["USA",6],["UAE",6]],
+iq:[["UAE",32],["China",20],["Turkey",18],["India",5]],
+ir:[["China",34],["UAE",20],["Turkey",11],["Brazil",8]],
+is:[["Norway",11],["China",9],["Germany",9],["Netherlands",8]],
+it:[["Germany",15],["France",9],["China",8],["Netherlands",6]],
+jm:[["USA",39],["China",11],["Brazil",4],["Colombia",4]],
+jo:[["China",17],["Saudi Arabia",14],["UAE",8],["India",6]],
+jp:[["China",22],["USA",11],["Australia",8],["UAE",5]],
+ke:[["China",22],["UAE",14],["India",10],["Saudi Arabia",5]],
+kg:[["China",44],["Russia",12],["Kazakhstan",6],["Turkey",6]],
+kh:[["China",39],["Thailand",20],["Vietnam",12],["Singapore",6]],
+km:[["China",24],["UAE",21],["Tanzania",12],["France",7]],
+kr:[["China",31],["USA",13],["Japan",9],["Germany",5]],
+kw:[["China",18],["UAE",10],["USA",9],["Saudi Arabia",6]],
+kz:[["China",28],["Russia",24],["The",4],["Turkey",4]],
+la:[["Thailand",58],["China",36],["Japan",1],["Singapore",1]],
+lb:[["Switzerland",12],["China",11],["Greece",9],["Turkey",8]],
+lk:[["India",21],["China",19],["UAE",10],["Singapore",5]],
+lr:[["China",48],["Japan",21],["Germany",8],["Brazil",3]],
+ls:[["South Africa",78],["China",10],["Taiwan",3],["Japan",1]],
+lt:[["Germany",13],["Poland",13],["Latvia",8],["USA",7]],
+lv:[["Lithuania",18],["Germany",11],["Poland",10],["Estonia",8]],
+ly:[["China",17],["Turkey",15],["Italy",8],["UAE",8]],
+ma:[["Spain",16],["China",11],["France",10],["USA",9]],
+mg:[["China",19],["Oman",13],["France",10],["India",8]],
+ml:[["Cote d'Ivoire",25],["Senegal",19],["China",12],["France",5]],
+mm:[["China",40],["Thailand",18],["Singapore",15],["Indonesia",4]],
+mn:[["China",57],["Japan",13],["Germany",3],["Singapore",3]],
+mr:[["China",19],["UAE",14],["Morocco",6],["Spain",6]],
+mu:[["China",15],["UAE",11],["India",10],["South Africa",9]],
+mv:[["India",15],["UAE",15],["Oman",14],["China",12]],
+mw:[["China",17],["South Africa",16],["UAE",12],["India",7]],
+mx:[["USA",46],["China",20],["Germany",4],["Japan",3]],
+my:[["China",24],["Singapore",11],["USA",7],["Japan",5]],
+mz:[["South Africa",34],["China",14],["India",13],["UAE",6]],
+na:[["South Africa",36],["China",9],["India",7],["UAE",4]],
+ne:[["China",26],["France",15],["India",12],["Nigeria",7]],
+ng:[["China",26],["Singapore",14],["Belgium",8],["India",6]],
+ni:[["USA",24],["China",13],["Mexico",9],["Honduras",9]],
+nl:[["Germany",16],["Belgium",10],["China",10],["USA",10]],
+no:[["Sweden",11],["Germany",11],["China",11],["USA",7]],
+np:[["India",71],["China",17],["UAE",3],["Singapore",2]],
+nz:[["China",20],["Australia",11],["USA",9],["S. Korea",7]],
+om:[["UAE",25],["Saudi Arabia",12],["India",8],["China",7]],
+pa:[["USA",15],["Colombia",13],["China",13],["Ecuador",13]],
+pe:[["China",26],["USA",21],["Brazil",7],["Argentina",5]],
+pg:[["Australia",27],["China",24],["Singapore",15],["Malaysia",9]],
+ph:[["China",25],["Indonesia",8],["Japan",8],["S. Korea",6]],
+pk:[["China",25],["Qatar",11],["UAE",9],["Saudi Arabia",8]],
+pl:[["Germany",22],["China",12],["Italy",5],["Netherlands",4]],
+pt:[["Spain",33],["Germany",11],["France",7],["Netherlands",5]],
+py:[["China",33],["Brazil",24],["USA",8],["Argentina",7]],
+qa:[["USA",12],["China",12],["UAE",9],["UK",7]],
+ro:[["Germany",19],["Italy",8],["Hungary",6],["Poland",6]],
+ru:[["China",53],["Turkey",5],["Germany",5],["Kazakhstan",5]],
+rw:[["China",19],["Kenya",14],["Uganda",13],["Tanzania",9]],
+sa:[["China",21],["UAE",8],["USA",7],["India",6]],
+sb:[["China",42],["Singapore",13],["Australia",13],["Taiwan",5]],
+sc:[["UAE",32],["Spain",10],["France",6],["South Africa",6]],
+sd:[["China",21],["India",19],["Egypt",16],["UAE",14]],
+se:[["Germany",17],["Netherlands",10],["Norway",9],["Denmark",6]],
+sg:[["China",15],["Malaysia",11],["Taiwan",11],["USA",10]],
+si:[["Switzerland",17],["China",15],["Germany",11],["Italy",9]],
+sk:[["Germany",16],["Czechia",14],["Poland",8],["China",7]],
+sl:[["China",32],["India",15],["UAE",5],["USA",5]],
+sn:[["China",19],["France",9],["Nigeria",7],["India",7]],
+so:[["UAE",29],["China",19],["India",15],["Turkey",8]],
+sr:[["USA",22],["China",12],["Netherlands",11],["Tobago",9]],
+ss:[["Uganda",33],["UAE",26],["Kenya",14],["China",10]],
+st:[["Portugal",35],["Angola",13],["Gabon",11],["Japan",8]],
+sv:[["USA",28],["China",15],["Guatemala",11],["Mexico",8]],
+sz:[["South Africa",71],["China",8],["India",4],["USA",2]],
+td:[["China",28],["UAE",23],["Turkey",10],["France",9]],
+tg:[["China",26],["India",26],["Belgium",6],["Netherlands",6]],
+th:[["China",26],["Japan",11],["USA",7],["UAE",6]],
+tj:[["China",57],["Kazakhstan",13],["Uzbekistan",8],["Turkey",6]],
+tl:[["Indonesia",34],["China",26],["Singapore",9],["Taiwan",5]],
+tm:[["Turkey",21],["UAE",21],["China",20],["Kazakhstan",8]],
+tn:[["Italy",13],["France",12],["China",10],["Russia",8]],
+to:[["Fiji",27],["NZ",24],["China",21],["Australia",8]],
+tr:[["China",13],["Russia",9],["Germany",9],["Switzerland",6]],
+tt:[["USA",29],["Guyana",27],["China",8],["Brazil",4]],
+tw:[["China",21],["Japan",13],["USA",11],["S. Korea",9]],
+tz:[["China",32],["India",13],["UAE",9],["Saudi Arabia",5]],
+ua:[["China",16],["Poland",14],["Germany",8],["Turkey",6]],
+ug:[["China",19],["UAE",12],["Tanzania",11],["India",10]],
+us:[["China",13],["USA",11],["Germany",10],["France",5]],
+uy:[["Brazil",22],["China",18],["Argentina",11],["USA",9]],
+uz:[["China",32],["Russia",17],["Kazakhstan",8],["S. Korea",6]],
+ve:[["China",35],["USA",24],["Brazil",12],["Colombia",7]],
+vn:[["China",49],["Singapore",6],["Japan",6],["Hong Kong",5]],
+vu:[["China",26],["Australia",15],["Angola",11],["Fiji",9]],
+ws:[["NZ",20],["Singapore",19],["China",17],["Australia",10]],
+za:[["China",21],["India",7],["USA",7],["Germany",6]],
+zm:[["South Africa",25],["China",15],["UAE",10],["India",5]],
+zw:[["South Africa",37],["China",15],["The",5],["Singapore",5]]
 };
 /* Output per head, in dollars, rounded hard. Exact figures move every year and disagree
    between sources; the game only ever asks which of two is larger, so the order is what
@@ -11371,8 +12018,7 @@ var QUIZ={
           var fill=document.createElement("i");
           fill.style.width=Math.max(4,Math.round(shares[i]/top*100))+"%";
           bar.appendChild(fill);
-          var pc=document.createElement("u");pc.textContent=shares[i]+"%";
-          row.appendChild(nm);row.appendChild(bar);row.appendChild(pc);
+          row.appendChild(nm);row.appendChild(bar);
           rows.appendChild(row);
         });
         /* Everything else, which on a handset is a row that costs nineteen pixels to say
@@ -11384,14 +12030,36 @@ var QUIZ={
           var f2=document.createElement("i");
           f2.style.width=Math.max(4,Math.round(rest/top*100))+"%";
           bar2.appendChild(f2);
-          var pc2=document.createElement("u");pc2.textContent=Math.round(rest)+"%";
-          row2.appendChild(nm2);row2.appendChild(bar2);row2.appendChild(pc2);
+          row2.appendChild(nm2);row2.appendChild(bar2);
           rows.appendChild(row2);
         }
         box.appendChild(rows);
       }
       block("manSells",goodsOut(f),"out",true);
       block("manBuys",goodsIn(f),"in",false);
+      /* WHO IS AT THE OTHER END.
+
+         What a country sells is half the story and the half two countries most often share.
+         Who buys it is the other half, and it is never the same: the shares are real, out of
+         that country's whole export trade, so they rarely add to anything tidy and should
+         not be made to. Two names a side on a handset and three where there is room, because
+         the first two carry nearly all of the signal and the rest is noise you pay a line
+         for. */
+      function partners(key,list,cls){
+        if(!list||!list.length)return;
+        var line=document.createElement("span");line.className="manpart "+cls;
+        var head=document.createElement("i");head.textContent=t(key);
+        line.appendChild(head);
+        var lim=Math.min(list.length,tightFit()?2:3);
+        for(var p=0;p<lim;p++){
+          var who=document.createElement("b");
+          who.textContent=list[p][0]+" "+list[p][1]+"%";
+          line.appendChild(who);
+        }
+        box.appendChild(line);
+      }
+      partners("manTo",PARTOUT[f.c],"out");
+      partners("manFrom",PARTIN[f.c],"in");
       if(!tightFit()){
         var note=document.createElement("span");note.className="mannote";
         note.textContent=t("manApprox");
@@ -11414,18 +12082,55 @@ var QUIZ={
         }
         box.appendChild(foot);
       }
+      /* Nothing else. Land, borders and the water off the coast were tried here and came out
+         again: this board is about reading an economy, and a line of geography under it is a
+         line that answers the question by a different route. What the sheet says is what a
+         country sells, what it buys, and what the whole thing is worth. */
       return box;
     },
+    /* THE OTHER THREE NAMES.
+
+       They used to be three more countries from the same region, which on some rounds is
+       four sheets that are the same sheet: the same two goods out, the same two in, four
+       neighbours who all sell oil. Nothing on the card can separate them, so the answer is
+       a guess, and a guess dressed up as a puzzle is worse than an easy question.
+
+       What makes this game a game is that the wrong names are plausible. What makes it
+       solvable is that they are plausible in a way you can argue with. So a name has to do
+       both: share at least one good with the answer, so the goods do not hand it to you, and
+       differ somewhere the card actually prints - another part of the world, an economy four
+       times the size, or three times the income a head. Fall back through weaker conditions
+       rather than fail, because a board with three options is worse than a board with one
+       soft distractor. */
     from:function(f){
-      var near=shuffle(FLAGS.filter(function(o){
-        return o.n!==f.n&&o.r===f.r&&EXPORTS[o.c];
-      }));
-      if(near.length<3){
-        near=near.concat(shuffle(FLAGS.filter(function(o){
-          return o.n!==f.n&&o.r!==f.r&&EXPORTS[o.c];
-        })));
+      var mine={},i,g=goodsOut(f).concat(goodsIn(f));
+      for(i=0;i<g.length;i++)mine[goodKey(g[i])]=1;
+      var eco=economyOf(f)||0,pcMine=GDPPC[f.c]||0;
+      function shares(o){
+        var h=goodsOut(o).concat(goodsIn(o)),j;
+        for(j=0;j<h.length;j++)if(mine[goodKey(h[j])])return true;
+        return false;
       }
-      return [f].concat(near.slice(0,3));
+      function apart(o){
+        if(o.r!==f.r)return true;
+        var e=economyOf(o)||0;
+        if(eco&&e&&(e>eco*4||e*4<eco))return true;
+        var pc=GDPPC[o.c]||0;
+        if(pcMine&&pc&&(pc>pcMine*3||pc*3<pcMine))return true;
+        return false;
+      }
+      var pool=shuffle(FLAGS.filter(function(o){return o.n!==f.n&&EXPORTS[o.c];}));
+      var picked=[],seen={};
+      function take(list){
+        for(var k=0;k<list.length&&picked.length<3;k++){
+          if(seen[list[k].n])continue;
+          seen[list[k].n]=1;picked.push(list[k]);
+        }
+      }
+      take(pool.filter(function(o){return shares(o)&&apart(o);}));
+      take(pool.filter(function(o){return apart(o);}));
+      take(pool);
+      return [f].concat(picked.slice(0,3));
     },
     option:function(o){var sp=document.createElement("span");sp.textContent=cname(o);return sp;},
     score:function(){return masteredIn(store.trade)+"/"+Object.keys(EXPORTS).length;}
@@ -12161,6 +12866,12 @@ function revealAnswer(){
     if(c)frameTo(c[0],c[1]);
   }
   verdict("no",t("shown"),{b:cname(current),r:regionName(current.r)});
+  /* And then the round moves on, which it did not. Every other way out of a question ends
+     with this line; asking to be shown ended with none, so nothing was coming: no timer, and
+     no Next button either, because Next is only offered where there is something to advance
+     to. The board sat there looking like the game had hung, because it had. Longer than a
+     wrong answer gets, since the point of asking is to read what you were shown. */
+  scheduleNext(2600);
 }
 
 /* ---------- stats, progress, atlas ---------- */
@@ -12459,6 +13170,35 @@ function paintChips(){
 var TABS=["name","find","look","imposter","blind","dossier","cap","trap",
   "locate","shape","bigger","trade","riverloc","sea","rangeloc",
   "globle","worldle","sprint","daily","atlas"];
+/* THE COLOUR OF A TAB.
+
+   They were painted by position out of a list seven long - first tab this green, second tab
+   that red - so the first few matched the tickets on the title screen by coincidence and the
+   other thirteen had nothing. A tab is not a position, it is a game, and a game belongs to
+   one of the folders the title screen deals. So it takes its folder's paper, which is where
+   the colours below come from: they are the papers themselves, read off the tickets.
+
+   Daily and the atlas are their own tickets and are in the table as themselves. */
+var FOLDERTONE={
+  daily    :["#E9E2C4","#4A3520"],   /* the ticket roll */
+  flags    :["#1D4C6B","#FBF3E0"],   /* bunting */
+  atlaswork:["#EDE4CB","#4A3520"],   /* the customs form */
+  cities   :["#1F5E5B","#FBF3E0"],   /* the hotel label */
+  nature   :["#E7EEE2","#3A4A38"],   /* the steamer ticket */
+  figures  :["#D9C79A","#4A3520"],   /* the folder */
+  atlas    :["#FBF3E0","#2F6B4F"]    /* the rubber stamp */
+};
+var MODEFOLDER=null;
+function folderOf(m){
+  if(!MODEFOLDER){
+    MODEFOLDER={daily:"daily",atlas:"atlas"};
+    Object.keys(FOLDERS).forEach(function(k){
+      FOLDERS[k].forEach(function(mode){MODEFOLDER[mode]=k;});
+    });
+  }
+  return MODEFOLDER[m]||"atlaswork";
+}
+function tabTone(m){return FOLDERTONE[folderOf(m)]||FOLDERTONE.atlaswork;}
 function buildTabs(){
   var host=$("modes");
   if(!host)return;
@@ -12466,6 +13206,11 @@ function buildTabs(){
   TABS.forEach(function(k){
     var b=document.createElement("button");
     b.id="m-"+k;b.type="button";
+    /* painted here rather than in the stylesheet, because a stylesheet can only count
+       positions and this has to follow the game wherever the strip puts it */
+    var tone=tabTone(k);
+    b.style.background=tone[0];
+    b.style.color=tone[1];
     b.setAttribute("aria-pressed",k===mode?"true":"false");
     b.onclick=function(){setMode(k);};   /* looked up when pressed, so the wrapper applies */
     host.appendChild(b);
@@ -13165,7 +13910,7 @@ function dailyKind(key){
 var GATES={shape:1,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8};
 /* Bump this when publishing the artifact. The home screen build counts its own in build.json
    and overwrites this on the way through standalone.js. */
-var VERSION="v74";
+var VERSION="v84";
 /* Seas joined the two line games: same queue, same card, same globe, and the answer is a
    place on it rather than a name off a list. */
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc"||m==="sea";}
