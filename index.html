@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v84 · 2026-09-11 14:50";</script>
+<script>window.GT_BUILD="v92 · 2026-09-11 15:12";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -8818,9 +8818,10 @@ function drawGlobe(){
          than twice as deep. Under the land, like everything else on this board. */
       ctx.save();
       ctx.beginPath();
-      Object.keys(SEAAREA).forEach(function(nm){
+      var fine=seaFine();
+      Object.keys(fine).forEach(function(nm){
         if(seaHi[nm])return;                 /* the answer gets its own, heavier */
-        SEAAREA[nm].forEach(function(ring){seaTrace(ring);});
+        fine[nm].forEach(function(ring){seaTrace(ring);});
       });
       ctx.globalAlpha=0.16;ctx.fillStyle="#14384E";ctx.fill();
       var npS=noisePattern(ctx);
@@ -8837,7 +8838,7 @@ function drawGlobe(){
       ctx.restore();
 
       seaKeys.forEach(function(nm){
-        var rs=SEAAREA[nm];
+        var rs=seaFine()[nm];
         if(!rs)return;
         ctx.save();
         ctx.beginPath();
@@ -11724,6 +11725,45 @@ var SEAAREA={
 };
 /* smallest first, so the Adriatic answers before the Mediterranean it sits inside, and the
    Caribbean before the Atlantic. Worked out once: the seas do not move. */
+/* THE SAME THING THE COASTLINES DO.
+
+   A country is drawn from hundreds of points a pixel or two apart, so joining them with
+   straight screen lines is invisible: at that spacing a chord and an arc are the same thing.
+   These basins are eight to twenty points and the gaps are twenty and thirty degrees, and a
+   straight screen line across that much of a sphere is a chord through the planet. Hence the
+   wedges, and hence a ring falling apart the moment it touches the horizon, because the walk
+   has nothing between one visible point and the next to break on.
+
+   So they are subdivided, once, the first time anything asks: every segment longer than a
+   degree and a half is cut into equal steps along it. That is roughly the spacing Natural
+   Earth's coastlines have, which is the point. The result is held, because the seas do not
+   move, and it costs about eleven thousand numbers for the lot. */
+var SEAFINE=null;
+function seaFine(){
+  if(SEAFINE)return SEAFINE;
+  var STEP=1.5;
+  SEAFINE={};
+  Object.keys(SEAAREA).forEach(function(nm){
+    SEAFINE[nm]=SEAAREA[nm].map(function(ring){
+      var n=ring.length/2,out=[],i,j,k;
+      for(i=0;i<n;i++){
+        j=(i+1)%n;
+        var x0=ring[i*2],y0=ring[i*2+1],x1=ring[j*2],y1=ring[j*2+1];
+        /* longitude is squeezed by the latitude, or a step near the pole is a mile and a
+           step at the equator is a hundred */
+        var kx=Math.max(0.25,Math.cos((y0+y1)/2*RAD));
+        var d=Math.sqrt((x1-x0)*(x1-x0)*kx*kx+(y1-y0)*(y1-y0));
+        var steps=Math.max(1,Math.ceil(d/STEP));
+        for(k=0;k<steps;k++){
+          var tt=k/steps;
+          out.push(x0+(x1-x0)*tt,y0+(y1-y0)*tt);
+        }
+      }
+      return out;
+    });
+  });
+  return SEAFINE;
+}
 var SEAORDER=null;
 function seaOrder(){
   if(SEAORDER)return SEAORDER;
@@ -12074,12 +12114,9 @@ var QUIZ={
         var fl=document.createElement("i");fl.textContent=t("manWorth");
         var fv=document.createElement("b");fv.textContent=fmtMoney(gdp);
         foot.appendChild(fl);foot.appendChild(fv);
-        var rk=economyRank(f);
-        if(rk){
-          var rr=document.createElement("s");rr.className="manrank";
-          rr.textContent="#"+rk+" "+t("manOfWorld");
-          foot.appendChild(rr);
-        }
+        /* The rank went with the sentence around it. What a country's whole economy is worth
+           is the fact; where that puts it in a league table of two hundred is a second way of
+           saying the same thing, and one that can be looked up backwards. */
         box.appendChild(foot);
       }
       /* Nothing else. Land, borders and the water off the coast were tried here and came out
@@ -12869,9 +12906,11 @@ function revealAnswer(){
   /* And then the round moves on, which it did not. Every other way out of a question ends
      with this line; asking to be shown ended with none, so nothing was coming: no timer, and
      no Next button either, because Next is only offered where there is something to advance
-     to. The board sat there looking like the game had hung, because it had. Longer than a
-     wrong answer gets, since the point of asking is to read what you were shown. */
-  scheduleNext(2600);
+     to. The board sat there looking like the game had hung, because it had.
+
+     At a wrong answer's pace, because that is what it is: the miss is already scored above,
+     and a longer pause would make giving up feel like a different kind of turn. */
+  scheduleNext(2200);
 }
 
 /* ---------- stats, progress, atlas ---------- */
@@ -13910,7 +13949,7 @@ function dailyKind(key){
 var GATES={shape:1,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8};
 /* Bump this when publishing the artifact. The home screen build counts its own in build.json
    and overwrites this on the way through standalone.js. */
-var VERSION="v84";
+var VERSION="v92";
 /* Seas joined the two line games: same queue, same card, same globe, and the answer is a
    place on it rather than a name off a list. */
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc"||m==="sea";}
@@ -14831,11 +14870,8 @@ function openStats(){
         [t("solvedLab"),String(g.solved||0)],
         [t("stampsLab"),String(Object.keys(store.stamps||{}).length)]]);
 
-  dossierHead(host,t("mast"));
-  dossierBar(host,t("skillFlags"),masteredIn(store.box),FLAGS.length);
-  dossierBar(host,t("skillMap"),masteredIn(store.geo),FLAGS.length);
-  dossierBar(host,t("skillShape"),masteredIn(store.shape),FLAGS.length);
-  dossierBar(host,t("mCap"),masteredIn(store.cap),FLAGS.length);
+  /* Mastered came off. Four bars counting the same thing four ways, directly above a block
+     that counts it a fifth way by region, and none of them is a figure anybody was reading. */
 
   dossierHead(host,t("byRegion"));
   var two=document.createElement("div");two.className="dtwo";host.appendChild(two);
