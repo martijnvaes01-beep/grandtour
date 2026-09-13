@@ -14,13 +14,25 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v94 · 2026-09-11 15:32";</script>
+<script>window.GT_BUILD="v102 · 2026-09-13 13:45";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
      resolves back to the orange desk. There is no dark form to declare. -->
 <meta name="color-scheme" content="light">
-<meta name="description" content="A geography quiz desk: flags, outlines, capitals, rivers and mountain ranges, dealt as paperwork across a spinning globe.">
+<title>Grand Tour: Geography Quiz with Flags, Maps &amp; Capitals</title>
+<meta name="description" content="A geography quiz on a spinning globe: flags, country outlines, capitals, rivers and mountain ranges. Free, in five languages.">
+<link rel="canonical" href="https://martijnvaes01-beep.github.io/grandtour/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Grand Tour">
+<meta property="og:title" content="Grand Tour: Geography Quiz with Flags, Maps &amp; Capitals">
+<meta property="og:description" content="A geography quiz on a spinning globe: flags, country outlines, capitals, rivers and mountain ranges. Free, in five languages.">
+<meta property="og:url" content="https://martijnvaes01-beep.github.io/grandtour/">
+<meta property="og:image" content="https://martijnvaes01-beep.github.io/grandtour/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Grand Tour","url":"https://martijnvaes01-beep.github.io/grandtour/","description":"A geography quiz on a spinning globe: flags, country outlines, capitals, rivers and mountain ranges. Free, in five languages.","applicationCategory":"GameApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","inLanguage":["en","nl","fr","de","es"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"image":"https://martijnvaes01-beep.github.io/grandtour/icon-512.png"}</script>
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -66,21 +78,17 @@
     if(!o)return;
     var dirty=false;
     if(o.phone){o.phone=false;dirty=true;}
-    /* A one shot experience reset, asked for so the ladder can be walked from the bottom again.
-       The number is the thing: bump XPRESET and it fires once on the next build and never
-       again, whatever else happens to the save. Everything else in the file stays: the boxes,
-       the streaks, the stamps, the day. Only the rank goes back to the first rung. */
-    var XPRESET=1;
-    if((o.xpReset||0)<XPRESET){
-      o.xp=0;o.xpReset=XPRESET;dirty=true;
-    }
+    /* There was a one-shot experience reset here, and it is gone for good. It was meant to fire
+       once, but a brand new save never carried its marker, so it fired on every new player's
+       second visit and zeroed what they earned in their first. No build may reset or rewrite a
+       player's save: see THE SAVE in the app. */
     if(dirty)localStorage.setItem(k,JSON.stringify(o));
   }catch(e){}
 }());
 </script>
 </head>
 <body>
-<title>Grand Tour</title>
+<noscript><h1>Grand Tour</h1><p>A geography quiz on a spinning globe: flags, country outlines, capitals, rivers and mountain ranges. Free, in five languages.</p><p>The game runs in your browser and needs JavaScript switched on.</p></noscript>
 <style>
 /* THE FIRST FRAME.
    The stylesheet below this one opens with a megabyte of inlined fonts, and a browser
@@ -746,6 +754,7 @@ footer.note .btn{padding:5px 10px;font-size:10px;min-height:0;margin-left:6px;ve
 }
 #debugbar .dbg:hover,#debugbar .dbg:focus-visible{opacity:1}
 #debugbar .dbg.armed{opacity:1;color:var(--bad);border-bottom-color:var(--bad)}
+#reset.armed{color:var(--bad);border-color:var(--bad)}
 /* the button that carries a reveal you have not read yet */
 .btn.waiting{animation:waitPulse 1.5s ease-in-out infinite}
 @keyframes waitPulse{
@@ -5613,6 +5622,10 @@ body::before{background:#D2623C}
   position:absolute;left:0;right:auto;top:calc(-1 * var(--gUp,0px));
   transform:none;border-radius:0;box-shadow:none;
 }
+/* The pin's canvas has to hang exactly where the globe's does, and the rule above never reached
+   it: #pulse{top:0} is an id, and an id outranks two classes and a tag. So it is named here with
+   its id as well. */
+.globestack.bleed>canvas#pulse{left:0;top:calc(-1 * var(--gUp,0px))}
 
 /* THE FADE AT THE FOOT OF A BOARD.
    The title screen ends in a fade that touches the bottom row of pixels. A board ended in a fade
@@ -6284,6 +6297,7 @@ img,svg{-webkit-user-drag:none;user-drag:none}
   <button class="btn ghost dbg" id="introrankdn">&#9660;</button>
   <button class="btn ghost dbg" id="introrank">&#9650;</button>
   <button class="btn ghost dbg" id="introreset">&#9003;</button>
+  <button class="btn ghost dbg" id="introsfx" aria-label="Sound board">&#9834;</button>
 </div>
 <div class="modal" id="cotd" hidden>
   <div class="sheet passport" role="dialog" aria-modal="true" aria-labelledby="cotdname">
@@ -6892,7 +6906,7 @@ en:{sub:"countries · flags, globe, atlas",
   all:"All",AF:"Africa",AS:"Asia",EU:"Europe",NA:"North America",SA:"South America",OC:"Oceania",
   askName:"Which country flies this flag?",askFind:"Find the flag of",askLocate:"Where in the world is",
   askShape:"Which country has this outline?",
-  next:"Next",skip:"Skip",reveal:"Show me",check:"Check",reset:"Reset progress",
+  next:"Next",skip:"Skip",reveal:"Show me",check:"Check",reset:"Reset progress",resetSure:"Sure? Tap again",
   acc:"Accuracy",streak:"Streak",seen:"Answered",mast:"Mastered",
   correct:"Correct.",wrongFlag:"Not quite. That was",picked:"You picked",
   highlighted:"is highlighted",shown:"Shown.",ocean:"Ocean. Try again.",openSea:"Open ocean.",
@@ -7068,7 +7082,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   all:"Tous",AF:"Afrique",AS:"Asie",EU:"Europe",NA:"Amérique du Nord",SA:"Amérique du Sud",OC:"Océanie",
   askName:"Quel pays arbore ce drapeau ?",askFind:"Trouvez le drapeau de",askLocate:"Où dans le monde se trouve",
   askShape:"Quel pays a cette silhouette ?",
-  next:"Suivant",skip:"Passer",reveal:"Montrez-moi",check:"Vérifier",reset:"Effacer les progrès",
+  next:"Suivant",skip:"Passer",reveal:"Montrez-moi",check:"Vérifier",reset:"Effacer les progrès",resetSure:"Sûr ? Touchez encore",
   acc:"Précision",streak:"Série",seen:"Répondu",mast:"Maîtrisés",
   correct:"Exact.",wrongFlag:"Presque. C'était",picked:"Vous avez choisi",
   highlighted:"est mis en évidence",shown:"Révélé.",ocean:"L'océan. Réessayez.",openSea:"Haute mer.",
@@ -7244,7 +7258,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   all:"Alle",AF:"Afrika",AS:"Asien",EU:"Europa",NA:"Nordamerika",SA:"Südamerika",OC:"Ozeanien",
   askName:"Welches Land führt diese Flagge?",askFind:"Finde die Flagge von",askLocate:"Wo auf der Welt liegt",
   askShape:"Welches Land hat diesen Umriss?",
-  next:"Weiter",skip:"Überspringen",reveal:"Zeig es mir",check:"Prüfen",reset:"Fortschritt löschen",
+  next:"Weiter",skip:"Überspringen",reveal:"Zeig es mir",check:"Prüfen",reset:"Fortschritt löschen",resetSure:"Sicher? Nochmal tippen",
   acc:"Treffer",streak:"Serie",seen:"Beantwortet",mast:"Beherrscht",
   correct:"Richtig.",wrongFlag:"Fast. Das war",picked:"Du hast gewählt",
   highlighted:"ist hervorgehoben",shown:"Aufgedeckt.",ocean:"Ozean. Noch einmal.",openSea:"Offenes Meer.",
@@ -7420,7 +7434,7 @@ es:{sub:"países · banderas, globo, atlas",
   all:"Todos",AF:"África",AS:"Asia",EU:"Europa",NA:"América del Norte",SA:"América del Sur",OC:"Oceanía",
   askName:"¿Qué país lleva esta bandera?",askFind:"Encuentra la bandera de",askLocate:"¿Dónde en el mundo está",
   askShape:"¿Qué país tiene esta silueta?",
-  next:"Siguiente",skip:"Saltar",reveal:"Muéstramelo",check:"Comprobar",reset:"Borrar el progreso",
+  next:"Siguiente",skip:"Saltar",reveal:"Muéstramelo",check:"Comprobar",reset:"Borrar el progreso",resetSure:"¿Seguro? Toca otra vez",
   acc:"Aciertos",streak:"Racha",seen:"Respondidas",mast:"Dominados",
   correct:"Correcto.",wrongFlag:"Casi. Era",picked:"Elegiste",
   highlighted:"está resaltado",shown:"Revelado.",ocean:"Océano. Inténtalo otra vez.",openSea:"Mar abierto.",
@@ -7596,7 +7610,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   all:"Alles",AF:"Afrika",AS:"Azië",EU:"Europa",NA:"Noord-Amerika",SA:"Zuid-Amerika",OC:"Oceanië",
   askName:"Bij welk land hoort deze vlag?",askFind:"Zoek de vlag van",askLocate:"Waar ligt",
   askShape:"Welk land heeft deze omtrek?",
-  next:"Volgende",skip:"Overslaan",reveal:"Laat zien",check:"Controleer",reset:"Voortgang wissen",
+  next:"Volgende",skip:"Overslaan",reveal:"Laat zien",check:"Controleer",reset:"Voortgang wissen",resetSure:"Zeker? Tik nog eens",
   acc:"Score",streak:"Reeks",seen:"Beantwoord",mast:"Beheerst",
   correct:"Goed.",wrongFlag:"Net niet. Dit was",picked:"Je koos",
   highlighted:"is gemarkeerd",shown:"Getoond.",ocean:"Oceaan. Probeer opnieuw.",openSea:"Open zee.",
@@ -7873,28 +7887,91 @@ var TOPO50=JSON.parse('{"type":"Topology","objects":{"countries":{"type":"Geomet
 /* ================= Grand Tour ================= */
 var $=function(id){return document.getElementById(id);};
 var REGION_ORDER=["ALL","EU","AS","AF","NA","SA","OC"];
-var KEY="vexil.v2",MASTER=4;
+/* THE SAVE, AND THE ONE RULE ABOUT IT: AN UPDATE NEVER COSTS ANYBODY THEIR PROGRESS.
 
-var store={box:{},geo:{},shape:{},seen:0,correct:0,streak:0,best:0,lang:null};
-try{var raw=localStorage.getItem(KEY);if(raw)store=JSON.parse(raw);}catch(e){}
-["box","geo","shape","cap","fake","blind","trade","terra","dossier","miss","found","stamps"].forEach(function(k){if(!store[k])store[k]={};});
-/* the dossier: what you have done, not where you left off */
-if(!store.stats)store.stats={};
-(function(st){
-  if(!st.modes)st.modes={};
-  if(!st.days)st.days={};
-  if(!st.globle)st.globle={played:0,solved:0,guesses:0,best:0};
-  if(!st.daily)st.daily={played:0,solved:0,streak:0,best:0,last:""};
-  if(!st.bigger)st.bigger={played:0,best:0};
-  if(!st.imposter)st.imposter={played:0,best:0};
-  if(!st.dossier)st.dossier={played:0,best:0,bestPts:0};
-  if(!st.crowd)st.crowd={played:0,best:0};
-  if(!st.dense)st.dense={played:0,best:0};
-  if(!st.economy)st.economy={played:0,best:0};
-  if(!st.north)st.north={played:0,best:0};
-  if(!st.neigh)st.neigh={played:0,best:0};
-  if(!st.worldle)st.worldle={played:0,solved:0,guesses:0,best:0};
-})(store.stats);
+   Everything a player has earned lives under one localStorage key, and every new build of
+   index.html reads the key the last build wrote. Uploading a new file does not touch it. What
+   can lose it is the code in this file, so this file keeps four promises:
+
+   - The key never changes. SAVE_KEY is a plain literal on its own line, and standalone.js refuses
+     to build if it is anything other than "vexil.v2": a new key is a new, empty save for every
+     player there is.
+   - A save is never reset for being old. Fields a newer build expects are filled in by
+     normaliseStore, fields it no longer knows are carried along untouched, and nothing is zeroed
+     to bring a save up to date. The one time something was, a one-shot experience reset in the
+     head of the page, it did not fire once. A brand new save never carried its marker, so it
+     fired on every new player's second visit and took the experience of their first session.
+     Measured on v97: six points earned, the app reopened, zero.
+   - The first time a build opens a save it has not seen before, the save is copied as it was to
+     KEY+".before-update", before this build has written a byte of it. If an update ever does
+     damage a save, that copy is the undo.
+   - A save that cannot be read is not written over. Its bytes go to KEY+".unreadable" first, and
+     the game starts from nothing rather than refusing to start.
+
+   The test build keeps its own save, seeded once from the real one, so the workbench (wipe, rank
+   up, rank down) can never reach the progress the public build reads. Both files are served from
+   the same origin, which is why a different file is not enough and it has to be a different key. */
+var SAVE_KEY="vexil.v2";
+var KEY=CHEATS?SAVE_KEY+".test":SAVE_KEY,MASTER=4;
+var store=null;
+(function(){
+  var raw=null,parsed=null;
+  var here=(typeof window.GT_BUILD==="string")?window.GT_BUILD.split(" ")[0]:"";
+  try{
+    raw=localStorage.getItem(KEY);
+    if(raw===null&&CHEATS){
+      raw=localStorage.getItem(SAVE_KEY);
+      if(raw!==null)localStorage.setItem(KEY,raw);
+    }
+  }catch(e){}
+  if(raw){
+    try{parsed=JSON.parse(raw);}catch(e){parsed=null;}
+    if(!parsed||typeof parsed!=="object"||Array.isArray(parsed)){
+      try{localStorage.setItem(KEY+".unreadable",raw);}catch(e){}
+      parsed=null;
+    } else if(here&&parsed.build!==here){
+      try{localStorage.setItem(KEY+".before-update",raw);}catch(e){}
+      parsed.build=here;
+    }
+  }
+  store=parsed||{seen:0,correct:0,streak:0,best:0,lang:null,build:here};
+})();
+/* Everything a board reads without checking first, filled in where it is missing and never
+   overwritten where it is not. Run on every load and after a reset, so an old save, a new one and
+   a wiped one all come out the same shape. */
+function normaliseStore(){
+  ["box","geo","shape","cap","fake","blind","trade","terra","dossier","miss","found","stamps"].forEach(function(k){
+    if(!store[k]||typeof store[k]!=="object")store[k]={};
+  });
+  /* the dossier: what you have done, not where you left off */
+  if(!store.stats)store.stats={};
+  (function(st){
+    if(!st.modes)st.modes={};
+    if(!st.days)st.days={};
+    if(!st.globle)st.globle={played:0,solved:0,guesses:0,best:0};
+    if(!st.daily)st.daily={played:0,solved:0,streak:0,best:0,last:""};
+    if(!st.bigger)st.bigger={played:0,best:0};
+    if(!st.imposter)st.imposter={played:0,best:0};
+    if(!st.dossier)st.dossier={played:0,best:0,bestPts:0};
+    if(!st.crowd)st.crowd={played:0,best:0};
+    if(!st.dense)st.dense={played:0,best:0};
+    if(!st.economy)st.economy={played:0,best:0};
+    if(!st.north)st.north={played:0,best:0};
+    if(!st.neigh)st.neigh={played:0,best:0};
+    if(!st.worldle)st.worldle={played:0,solved:0,guesses:0,best:0};
+  })(store.stats);
+  if(typeof store.xp!=="number"||!isFinite(store.xp)||store.xp<0)store.xp=0;
+}
+normaliseStore();
+/* Asking the browser to keep the save through a clear-out when space runs short. Only when the
+   game runs installed, where the answer is given quietly; in a browser tab some browsers put the
+   question to the player as a permission prompt, which a geography quiz has no business doing. */
+(function(){
+  try{
+    var installed=(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+    if(installed&&navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(function(){});
+  }catch(e){}
+})();
 /* Two copies of this app can be on screen at once: the page, and the phone frame the page
    hosts. They share one key in localStorage, so whichever writes last wins, and the outer
    copy was quietly overwriting everything earned inside the phone. While the phone is up
@@ -8220,11 +8297,206 @@ function geoActive(){
   if(globe.drag||globe.anim||globe.glideId||globe.zoom<1.5)return geoLo();
   return GEOS.hi||geoLo();
 }
+/* ---------- the mainland ----------
+
+   WHERE A COUNTRY IS, AND WHICH PART OF IT IS THE COUNTRY.
+
+   A country's position used to be the average of every point on every one of its coastlines. That
+   puts France between Paris and French Guiana, which is the middle of the Atlantic, and showing
+   France on the globe duly swung it round to South America with one green speck on the coast. The
+   average also leans toward wherever a coast is drawn in the most detail, so fjords dragged Norway
+   about. In eighteen of the 168 countries on the globe it was not on the country at all: the United
+   States 1915 km off, France 1600, Norway 1249, New Zealand 610, Chile 598, Vietnam 539, Malaysia
+   494, the United Kingdom 229, Japan 218.
+
+   The pin is now the pole of inaccessibility of the country's largest part: the point inside it
+   furthest from any edge, found by the polylabel search. That is on the country's own land for all
+   168, it respects holes (South Africa's pin cannot land in Lesotho), and on a long thin country it
+   lands where the country is widest instead of out at sea beside it.
+
+   The outline keeps the largest part and whatever belongs with it. When one part holds seventy
+   percent of the land or more it is a mainland, and only the islands within reach of it stay:
+   Corsica and not French Guiana, the Balearics and not the Canaries, the lower forty eight and not
+   Alaska, Norway and not Svalbard. Reach is 250 km or a tenth of the mainland's width, whichever is
+   more. Under seventy percent the country is an archipelago and the chain is followed island to
+   island, up to 2000 km a step, which keeps Indonesia, Japan, the Philippines and all three groups
+   of Kiribati whole and still leaves Tokelau, 3000 km from New Zealand, off New Zealand.
+
+   Worked out the first time a country is asked for and kept on the feature. The whole world takes
+   about 40 ms on a desk, and nothing ever asks for the whole world at once. */
+var EARTH_KM=6371;
+function shapeRefLL(sh){
+  var c=sh.cap;
+  return [Math.atan2(c[0],c[2])/RAD,Math.asin(Math.max(-1,Math.min(1,c[1])))/RAD];
+}
+/* a ring in kilometres, on a flat sheet laid on the part's own middle: near enough to measure one country by */
+function projKm(ll,lon0,lat0){
+  var k=Math.cos(lat0*RAD)*111.32,out=new Float64Array(ll.length),i,dl;
+  for(i=0;i<ll.length;i+=2){
+    dl=ll[i]-lon0;if(dl>180)dl-=360;else if(dl<-180)dl+=360;
+    out[i]=dl*k;out[i+1]=(ll[i+1]-lat0)*110.57;
+  }
+  return out;
+}
+function shapeKm2(sh){
+  if(sh.km2!==undefined)return sh.km2;
+  var r0=shapeRefLL(sh),a=0,k,p,m,i,j,ar;
+  for(k=0;k<sh.ll.length;k++){
+    p=projKm(sh.ll[k],r0[0],r0[1]);m=p.length;ar=0;
+    for(i=0,j=m-2;i<m;j=i,i+=2)ar+=(p[j]-p[i])*(p[j+1]+p[i+1]);
+    ar=Math.abs(ar/2);a+=k?-ar:ar;          /* the rings after the first are holes */
+  }
+  return (sh.km2=Math.max(0,a));
+}
+/* how far apart two parts' bounding caps are: nothing, if they overlap. A cheap no before the exact yes. */
+function capGapKm(a,b){
+  var d=a.cap[0]*b.cap[0]+a.cap[1]*b.cap[1]+a.cap[2]*b.cap[2];
+  return Math.max(0,Math.acos(Math.max(-1,Math.min(1,d)))-a.cap[3]-b.cap[3])*EARTH_KM;
+}
+function sampleRing(xyz,most){
+  var m=xyz.length/3,step=Math.max(1,Math.floor(m/most)),out=[],i;
+  for(i=0;i<m;i+=step)out.push(xyz[i*3],xyz[i*3+1],xyz[i*3+2]);
+  return out;
+}
+/* the closest two coasts come, to within a few kilometres: every point of a long coast against
+   every point of another is a great deal of arithmetic for a yes or a no */
+function shapeGapKm(a,b){
+  var A=a.near||(a.near=sampleRing(a.rings[0],96)),B=b.near||(b.near=sampleRing(b.rings[0],96));
+  var best=-1,i,j,d;
+  for(i=0;i<A.length;i+=3)for(j=0;j<B.length;j+=3){
+    d=A[i]*B[j]+A[i+1]*B[j+1]+A[i+2]*B[j+2];
+    if(d>best)best=d;
+  }
+  return Math.acos(Math.max(-1,Math.min(1,best)))*EARTH_KM;
+}
+/* the indices of the parts that make up the country as it would be drawn on its own */
+function homeOf(feat){
+  if(feat.home)return feat.home;
+  var S=feat.shapes,m=S.length,tot=0,big=0,i,j;
+  for(i=0;i<m;i++){tot+=shapeKm2(S[i]);if(shapeKm2(S[i])>shapeKm2(S[big]))big=i;}
+  var mainland=!tot||shapeKm2(S[big])/tot>=0.7;
+  var reach=mainland?Math.max(250,0.2*S[big].cap[3]*EARTH_KM):2000;
+  var kept=[big],inside={},grew=true;
+  inside[big]=true;
+  while(grew){
+    grew=false;
+    for(i=0;i<m;i++){
+      if(inside[i])continue;
+      for(j=0;j<kept.length;j++){
+        if(capGapKm(S[i],S[kept[j]])>reach)continue;
+        if(mainland&&shapeGapKm(S[i],S[kept[j]])>reach)continue;
+        inside[i]=true;kept.push(i);grew=true;break;
+      }
+    }
+  }
+  feat.homeBig=big;
+  return (feat.home=kept);
+}
+function segDistSq(px,py,ax,ay,bx,by){
+  var dx=bx-ax,dy=by-ay,t=0,x,y;
+  if(dx||dy){t=((px-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy);t=t<0?0:t>1?1:t;}
+  x=ax+t*dx-px;y=ay+t*dy-py;
+  return x*x+y*y;
+}
+/* Polylabel: cover the part with square cells, and keep splitting the cells that could still hold
+   a point further from the edge than the best found so far, until none can beat it by more than a
+   hundredth of the part's size. Holes count as edges. */
+function poleOf(sh){
+  var r0=shapeRefLL(sh),rings=[],k,i;
+  for(k=0;k<sh.ll.length;k++)rings.push(projKm(sh.ll[k],r0[0],r0[1]));
+  var o=rings[0],x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity;
+  for(i=0;i<o.length;i+=2){
+    if(o[i]<x0)x0=o[i];if(o[i]>x1)x1=o[i];
+    if(o[i+1]<y0)y0=o[i+1];if(o[i+1]>y1)y1=o[i+1];
+  }
+  var w=x1-x0,h=y1-y0,size=Math.min(w,h);
+  if(!(size>0))return r0;
+  function edge(x,y){
+    var inside=false,best=Infinity,q,a,b,m,r;
+    for(q=0;q<rings.length;q++){
+      r=rings[q];m=r.length;
+      for(a=0,b=m-2;a<m;b=a,a+=2){
+        if((r[a+1]>y)!==(r[b+1]>y)&&x<(r[b]-r[a])*(y-r[a+1])/(r[b+1]-r[a+1])+r[a])inside=!inside;
+        var d=segDistSq(x,y,r[a],r[a+1],r[b],r[b+1]);
+        if(d<best)best=d;
+      }
+    }
+    return (inside?1:-1)*Math.sqrt(best);
+  }
+  function cell(x,y,half){var d=edge(x,y);return {x:x,y:y,h:half,d:d,max:d+half*Math.SQRT2};}
+  var heap=[];
+  function push(c){
+    heap.push(c);
+    var at=heap.length-1,up,t;
+    while(at){up=(at-1)>>1;if(heap[up].max>=heap[at].max)break;t=heap[up];heap[up]=heap[at];heap[at]=t;at=up;}
+  }
+  function pop(){
+    var top=heap[0],last=heap.pop(),at=0,l,r,m,t;
+    if(heap.length){
+      heap[0]=last;
+      for(;;){
+        l=2*at+1;r=l+1;m=at;
+        if(l<heap.length&&heap[l].max>heap[m].max)m=l;
+        if(r<heap.length&&heap[r].max>heap[m].max)m=r;
+        if(m===at)break;
+        t=heap[m];heap[m]=heap[at];heap[at]=t;at=m;
+      }
+    }
+    return top;
+  }
+  var half=size/2,x,y;
+  for(x=x0;x<x1;x+=size)for(y=y0;y<y1;y+=size)push(cell(x+half,y+half,half));
+  var best=cell(x0+w/2,y0+h/2,0),precision=Math.max(1,Math.max(w,h)/100),guard=0;
+  while(heap.length&&guard++<20000){
+    var c=pop();
+    if(c.d>best.d)best=c;
+    if(c.max-best.d<=precision)continue;
+    half=c.h/2;
+    push(cell(c.x-half,c.y-half,half));push(cell(c.x+half,c.y-half,half));
+    push(cell(c.x-half,c.y+half,half));push(cell(c.x+half,c.y+half,half));
+  }
+  var lat=r0[1]+best.y/110.57,lon=r0[0]+best.x/(Math.cos(r0[1]*RAD)*111.32);
+  if(lon>180)lon-=360;else if(lon<-180)lon+=360;
+  return [lon,lat];
+}
+function pinOf(feat){
+  if(feat.pin)return feat.pin;
+  homeOf(feat);
+  return (feat.pin=poleOf(feat.shapes[feat.homeBig]));
+}
 function locationOf(name){
   var f=geoLo().byName[name];
-  if(f)return f.centre;
+  if(f)return pinOf(f);
   var m=MARKERBY[name];
   return m?m.centre:null;
+}
+/* THE OUTLINE, ONCE. The board and the passport both draw a country on its own, and they had one
+   copy each of the same projection and the same fault. This turns the country's home parts to face
+   the reader and hands back flat rings, the middle of their box, and two sizes: half the longer
+   side, for fitting it straight, and its furthest point from the middle, for fitting it turned. */
+function homeOutline(feat){
+  var S=feat.shapes,home=homeOf(feat),sx=0,sy=0,sz=0,i,k,r;
+  for(k=0;k<home.length;k++){r=S[home[k]].rings[0];for(i=0;i<r.length;i+=3){sx+=r[i];sy+=r[i+1];sz+=r[i+2];}}
+  var L=Math.sqrt(sx*sx+sy*sy+sz*sz)||1;
+  var l=-Math.atan2(sx/L,sz/L),p=Math.asin(Math.max(-1,Math.min(1,sy/L)));
+  var c={cl:Math.cos(l),sl:Math.sin(l),cp:Math.cos(p),sp:Math.sin(p)};
+  var polys=[],x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity;
+  for(k=0;k<home.length;k++){
+    r=S[home[k]].rings[0];
+    var arr=[];
+    for(i=0;i<r.length/3;i++){
+      var q=rot(r[i*3],r[i*3+1],r[i*3+2],c);
+      if(q[2]<=0)continue;
+      arr.push([q[0],q[1]]);
+      if(q[0]<x0)x0=q[0];if(q[0]>x1)x1=q[0];if(q[1]<y0)y0=q[1];if(q[1]>y1)y1=q[1];
+    }
+    if(arr.length>2)polys.push(arr);
+  }
+  if(!polys.length)return null;
+  var cx=(x0+x1)/2,cy=(y0+y1)/2,half=Math.max(x1-x0,y1-y0)/2,far=0;
+  polys.forEach(function(arr){arr.forEach(function(q){var d=Math.hypot(q[0]-cx,q[1]-cy);if(d>far)far=d;});});
+  if(!(half>0))return null;
+  return {polys:polys,cx:cx,cy:cy,half:half,far:far};
 }
 function shapeOf(name){
   var hi=GEOS.hi&&GEOS.hi.byName[name];
@@ -8329,6 +8601,7 @@ function sizeGlobe(){
     var vw=Math.max(320,window.innerWidth||375),vh=Math.max(320,window.innerHeight||800);
     var dpr0=globeDpr(Math.max(vw,vh),1.6,1);
     cv.style.width=vw+"px";cv.style.height=vh+"px";
+    globe.cssW=vw;globe.cssH=vh;
     cv.width=Math.round(vw*dpr0);cv.height=Math.round(vh*dpr0);
     globe.ctx.setTransform(dpr0,0,0,dpr0,0,0);
     globe.cx=vw/2;globe.cy=vh/2;
@@ -8401,6 +8674,7 @@ function sizeGlobe(){
     var ch=Math.round(boxH+upTop+downBot);
     var dprB=globeDpr(Math.max(cw,ch),1.8,0.85);
     cv.style.width=cw+"px";cv.style.height=ch+"px";
+    globe.cssW=cw;globe.cssH=ch;
     cv.width=Math.round(cw*dprB);cv.height=Math.round(ch*dprB);
     globe.ctx.setTransform(dprB,0,0,dprB,0,0);
     stack.style.setProperty("--gUp",upTop+"px");
@@ -8441,6 +8715,7 @@ function sizeGlobe(){
   var side=Math.round(Math.max(240,Math.min(wide,Math.max(tall,floor),980)));
   var dpr=globeDpr(side,globe.blur?1:2);
   cv.style.width=side+"px";cv.style.height=side+"px";
+  globe.cssW=side;globe.cssH=side;
   cv.width=Math.round(side*dpr);cv.height=Math.round(side*dpr);
   globe.ctx.setTransform(dpr,0,0,dpr,0,0);
   globe.cx=side/2;globe.cy=side/2;globe.base=side/2-8;globe.R=globe.base*globe.zoom;
@@ -8645,7 +8920,7 @@ function visibleBox(){
   if(!cv){visHas=false;return null;}
   var r=cv.getBoundingClientRect();
   if(!r.width||!r.height){visHas=false;return null;}
-  var w=globe.cx*2,h=globe.cy*2;
+  var w=globe.cssW||globe.cx*2,h=globe.cssH||globe.cy*2;   /* the canvas, not twice its centre */
   var sx=w/r.width,sy=h/r.height,pad=24;
   var x0=Math.max(0,(0-r.left)*sx-pad),y0=Math.max(0,(0-r.top)*sy-pad);
   var x1=Math.min(w,(window.innerWidth-r.left)*sx+pad);
@@ -8661,7 +8936,12 @@ function drawGlobe(){
   /* the canvas is the authority on its own size, not what was measured last */
   if(!reSizing&&globe.cv){
     var wantCss=parseFloat(globe.cv.style.width)||0;
-    if(wantCss>1&&Math.abs(wantCss-globe.cx*2)>1.5){
+    /* Compared with the size sizeGlobe last set, not with twice the centre. On the map boards the
+       centre of the sphere is the right edge of the board on purpose, so twice the centre is never
+       the width, and this check re-sized the canvas on every draw: sixty size writes in thirty
+       frames, each one reallocating the backing store and blanking it, at seven times the cost of
+       a frame on the title screen. */
+    if(wantCss>1&&Math.abs(wantCss-(globe.cssW||globe.cx*2))>1.5){
       reSizing=true;
       try{sizeGlobe();}catch(e){}
       reSizing=false;
@@ -8677,7 +8957,7 @@ function drawGlobe(){
   /* clearing is a fill like any other: only the part that gets redrawn needs it */
   var vbC=visibleBox();
   if(vbC)ctx.clearRect(vbC[0],vbC[1],vbC[2],vbC[3]);
-  else ctx.clearRect(0,0,side,globe.cy*2);
+  else ctx.clearRect(0,0,globe.cssW||side,globe.cssH||globe.cy*2);
   /* The desk showing through as a wedge in each corner of the title screen is not solved here.
      A full canvas fill of ocean before the sphere is drawn ought to remove it and does not: the
      flag is set, the fill runs, and the corner pixel stays empty. Growing the sphere does not
@@ -9597,7 +9877,7 @@ function globeClick(e){
     if(!g)return;
     var setKey=mode==="riverloc"?"river":(mode==="sea"?"sea":"range");
     var hit=lineAt(g[0],g[1],setKey);
-    if(!hit){flash(t(setKey==="sea"?"noSea":"noLine"));snd.tap();return;}
+    if(!hit){flash(t(setKey==="sea"?"noSea":"noLine"));snd.nope();return;}
     lineTry(hit);
     return;
   }
@@ -9611,7 +9891,7 @@ function globeClick(e){
     else if(f)off=f.other;
   }
   /* tapping a dependency used to answer "ocean", which read as a broken border */
-  if(off){flash(off+" · "+t("notPlayed"));snd.tap();return;}
+  if(off){flash(off+" · "+t("notPlayed"));snd.nope();return;}
   var kind=playKind();
   /* Hot and cold and the border walk are answered off the keyboard, never off the globe.
      Tapping the answer in reduced both of them to pointing at countries until one went
@@ -9628,10 +9908,10 @@ function globeClick(e){
      accepted, which meant a wrong answer could be a country the round had already asked about,
      or one it never would. Say what happened instead of scoring it. */
   if(runSolved[name]||runMissed[name]){
-    flash(cname(FLAGBYNAME[name])+" \u00b7 "+t("already2"));snd.tap();return;
+    flash(cname(FLAGBYNAME[name])+" \u00b7 "+t("already2"));snd.nope();return;
   }
   if(!inRound(name)){
-    flash(cname(FLAGBYNAME[name])+" \u00b7 "+t("notInRegion"));snd.tap();return;
+    flash(cname(FLAGBYNAME[name])+" \u00b7 "+t("notInRegion"));snd.nope();return;
   }
   answerLocation(name);
 }
@@ -9836,6 +10116,7 @@ function globleTry(name){
   var gl=locationOf(name),tl=locationOf(globle.target);
   if(!gl||!tl){flash(t("noSuchCountry"));return;}
   var km=name===globle.target?0:Math.round(greatCircle(gl,tl));
+  var better=globle.guesses.every(function(g){return km<g.km;});   /* nearer than every guess so far */
   globle.guesses.push({n:name,km:km,arrow:km?bearingArrow(gl,tl):"★"});
   if(km===0){
     globle.done=true;
@@ -9853,7 +10134,7 @@ function globleTry(name){
     save();
   } else {
     flash(nameOf(name)+" · "+heatWord(km)+" · "+fmtNum(km)+" km "+globle.guesses[globle.guesses.length-1].arrow);
-    snd.tap();
+    snd.heat(km,better);
     if(mode==="worldle"&&globle.guesses.length>=WORLDLE_TRIES){
       globle.done=true;
       verdict("no",t("outOfTries"),{b:fill(t("itWas"),{c:nameOf(globle.target)}),r:""});
@@ -9907,7 +10188,9 @@ function globleRender(){
   globleHighlights();
   if(mode!=="worldle"){
     if(globe.ctx){sizeGlobe();drawGlobe();}
-    if(globle.done)spinTo(locationOf(globle.target)[0],locationOf(globle.target)[1]);
+    /* frameTo, not spinTo: on this board the centre of the sphere is the right edge of the screen,
+       and spinTo puts the answer on the centre, which is to say half off the glass */
+    if(globle.done){var gt=locationOf(globle.target);if(gt)frameTo(gt[0],gt[1]);}
   }
   paintStats();
   relayoutSoon();
@@ -9951,31 +10234,21 @@ function drawShape(f,rotDeg){
   ctx.clearRect(0,0,W,H);
   var feat=shapeOf(f.n);
   if(!feat)return;
-  var c0=feat.centre,l=-c0[0]*RAD,p=c0[1]*RAD;
-  var c={cl:Math.cos(l),sl:Math.sin(l),cp:Math.cos(p),sp:Math.sin(p)};
-  var pts=[],maxr=0;
-  feat.shapes.forEach(function(s){
-    var r=s.rings[0],arr=[],i;
-    for(i=0;i<r.length/3;i++){
-      var q=rot(r[i*3],r[i*3+1],r[i*3+2],c);
-      if(q[2]<=0)continue;
-      arr.push([q[0],q[1]]);
-      var d=Math.max(Math.abs(q[0]),Math.abs(q[1]));
-      if(d>maxr)maxr=d;
-    }
-    if(arr.length>2)pts.push(arr);
-  });
-  if(!pts.length||!maxr)return;
-  var scale=(framed?0.50:0.42)*Math.min(W,H)/maxr;
+  var o=homeOutline(feat);
+  if(!o)return;
   /* the daily hands the shape over at an angle: a silhouette you cannot orient is a much
      better puzzle than one already lined up with the atlas you learned it from */
   var ang=(rotDeg||0)*RAD,ca=Math.cos(ang),sa=Math.sin(ang);
+  /* turned, the corners of the box swing out past its half width, so a turned outline is sized
+     off its furthest point instead, and never runs off the card */
+  var scale=(framed?0.50:0.42)*Math.min(W,H)/(ang?o.far:o.half);
   ctx.fillStyle=css("--land");ctx.strokeStyle=css("--landline");
   ctx.lineWidth=1.2;ctx.lineJoin="round";
-  pts.forEach(function(arr){
+  o.polys.forEach(function(arr){
     ctx.beginPath();
     arr.forEach(function(q,i){
-      var qx=q[0]*ca-q[1]*sa,qy=q[0]*sa+q[1]*ca;
+      var px=q[0]-o.cx,py=q[1]-o.cy;
+      var qx=px*ca-py*sa,qy=px*sa+py*ca;
       var x=W/2+qx*scale,y=H/2-qy*scale;
       if(i)ctx.lineTo(x,y);else ctx.moveTo(x,y);
     });
@@ -12394,7 +12667,7 @@ function buyClue(id){
   DOSSIER_CLUES.forEach(function(x){if(x.id===id)c=x;});
   if(!c)return;
   dossier.open[id]=true;dossier.spent+=c.cost;
-  snd.card();
+  snd.flip();
   /* the one flap turns over where it lies; re-typing the whole file would throw the
      other nine back up in the air for a line you did not ask about */
   var cell=document.querySelector('.dosclue[data-clue="'+id+'"]');
@@ -13085,8 +13358,13 @@ function locateCountry(f){
   paintStats();
   pinOn(f.n);
   if(c){
+    /* Shown on the globe from the atlas. This was spinTo, which puts the country on the centre of
+       the sphere, and on this board the centre of the sphere is the right edge of the screen: the
+       country and its pin were parked off the glass and what was left in view was whatever lay a
+       quarter of the way round, which for France was South America. frameTo puts it in the middle
+       of what can actually be seen, the way the Locate answers already did. */
     var gz=frameZoom(f.n);
-    spinTo(c[0],c[1],null,pinLift(gz),gz);
+    frameTo(c[0],c[1],null,gz);
   }
   setTimeout(relayout,60);
 }
@@ -14116,7 +14394,7 @@ function clueCost(){
 function useClue(id){
   if(daily.done||daily.clues[id])return;
   daily.clues[id]=true;
-  snd.card();
+  snd.flip();
   if(id==="north")drawShape(current,0);
   paintClues();
 }
@@ -14270,7 +14548,7 @@ function dailyShareText(){
 }
 function dailyCopy(){
   var text=dailyShareText();
-  function done(){flash(t("copied")+" "+text);}
+  function done(){flash(t("copied")+" "+text);snd.copy();}
   try{
     if(navigator.clipboard&&navigator.clipboard.writeText){
       navigator.clipboard.writeText(text).then(done,fallback);
@@ -14456,8 +14734,28 @@ sa:"Riyad",sy:"Damascus",eg:"Caïro",ma:"Rabat",mx:"Mexico-Stad",br:"Brasilia",
 ar:"Buenos Aires",kp:"Pyongyang",kr:"Seoel",th:"Bangkok",tr:"Ankara"
 };
 
-/* ================= sound: paper, pops and soft bops ================= */
-var AC=null,MASTER=null,LP=null;
+/* ================= sound: the bureau desk kit ================= */
+/* THE AUDIO STATE HAS ITS OWN NAMESPACE, AND THIS IS WHY.
+
+   It used to be three bare names, AC, MASTER and LP, in a script that is one function eleven
+   thousand lines long. MASTER was already taken: it is the box a country has to get past to count
+   as mastered, declared as 4 a few thousand lines further up. var is scoped to the function, not
+   to the part of the file it is written in, so the two were one variable. The sound block runs
+   second and set it to null, and the first time anything made a sound it became a GainNode.
+
+   Everything that reads the threshold then went wrong in its own way. With sound off it was null,
+   and box > null is box > 0, so one right answer counted as mastered. With sound on, which is the
+   default and every phone, it was an object: box > GainNode is always false, so nothing ever
+   counted. And the write: a right answer stores Math.min(MASTER + 1, box + 1), which is
+   Math.min("[object GainNode]1", box + 1), which is NaN. The box was saved as null and read back
+   as zero. Every right answer sent that country back to the start, so the spaced repetition that
+   decides what you are shown more often has been flat for everybody who plays with sound.
+
+   Measured before the fix: three countries at boxes 5, 3 and 1 counted 3 mastered with sound
+   off and 0 with it on, where 1 is right; a right answer on a country at box 2 stored NaN.
+
+   One object, under a name nothing else in the file will want. */
+var SFX={ctx:null,render:null,last:{},tickAlt:0,k:1};
 if(store.sound===undefined||store.sound===null)store.sound=true;
 /* MOTION. There is no reduced motion path here, and that is a decision rather than an
    oversight. The phone's switch used to turn the title sequence and the sprint count off
@@ -14465,99 +14763,540 @@ if(store.sound===undefined||store.sound===null)store.sound=true;
    What is left to reduce is a few tickets landing and a globe easing to a stop, over in
    under two seconds, with nothing that races across the screen or zooms at the reader.
    So it animates the same for everybody. */
+
+/* WHAT THE KIT IS MADE OF.
+
+   The brief, in the words it came in: paper, pops and bops, smooth; and then, ultra satisfying,
+   on everything.
+
+   What makes a press satisfying is mostly its first five milliseconds: a short bright edge, the
+   way a key or a card has one, with a small tonal body under it. The old chain sent every sound
+   through a lowpass at 2600 Hz, which is exactly where that edge lives, so everything arrived
+   with its corners sanded off. That filter is gone. Each voice shapes its own top end, and the
+   chain ends in a compressor instead, so that a win landing on a streak landing on a stamp is
+   held together rather than clipped.
+
+   A phone speaker gives up somewhere under 250 Hz. The old wrong answer was a sine sliding from
+   150 Hz down to 62, which on an iPhone is silence: what you heard for a mistake was the rustle
+   laid over it and nothing else. Every body here sits above 180 Hz and carries its weight in
+   harmonics, which is how a small speaker is made to sound bigger than it is.
+
+   And every note comes off one pentatonic ladder in C. No two notes of a pentatonic scale
+   clash, so a streak climbing it, a card landing under it and a win arriving on top of both
+   always sound like one piece of music instead of three sounds at once. */
+var PENTA=[0,2,4,7,9];
+function note(step){
+  var oct=Math.floor(step/5),deg=step-oct*5;
+  return 261.63*Math.pow(2,(PENTA[deg]+12*oct)/12);
+}
+/* Two seconds of noise, made once, and every paper, click and slap reads a slice of it from a
+   random place. The old rustle built a fresh buffer and filled it sample by sample on every call,
+   which is nine thousand random numbers and a new allocation per tap. Seeded, so an offline render
+   on the workbench comes out the same twice. */
+function kitNoise(ctx){
+  var len=Math.floor(ctx.sampleRate*2),buf=ctx.createBuffer(1,len,ctx.sampleRate);
+  var d=buf.getChannelData(0),s=0x2F6B4F,i;
+  for(i=0;i<len;i++){s=(s*1664525+1013904223)>>>0;d[i]=s/2147483648-1;}
+  return buf;
+}
+function kitOut(ctx){
+  var comp=ctx.createDynamicsCompressor();
+  comp.threshold.value=-18;comp.knee.value=12;comp.ratio.value=4;
+  comp.attack.value=0.002;comp.release.value=0.16;
+  var bus=ctx.createGain();bus.gain.value=0.31;
+  bus.connect(comp);comp.connect(ctx.destination);
+  return bus;
+}
 function audioOn(){
   if(!store.sound)return null;
   try{
-    if(!AC){
+    if(!SFX.ctx){
       var Ctor=window.AudioContext||window.webkitAudioContext;
       if(!Ctor)return null;
-      AC=new Ctor();
-      MASTER=AC.createGain();MASTER.gain.value=0.3;
-      LP=AC.createBiquadFilter();LP.type="lowpass";LP.frequency.value=2600;LP.Q.value=0.4;
-      MASTER.connect(LP);LP.connect(AC.destination);
+      try{SFX.ctx=new Ctor({latencyHint:"interactive"});}catch(e){SFX.ctx=new Ctor();}
+      SFX.ctx.sfxOut=kitOut(SFX.ctx);
+      SFX.ctx.sfxNoise=kitNoise(SFX.ctx);
     }
-    if(AC.state==="suspended")AC.resume();
-    return AC;
+    /* iOS parks a context as "interrupted" after a phone call or a trip to the home screen, not
+       only as "suspended", so anything short of running is woken */
+    if(SFX.ctx.state!=="running")SFX.ctx.resume();
+    return SFX.ctx;
   }catch(e){return null;}
 }
-/* a bop: soft sine with the pitch sagging, so it lands like a fingertip on card stock */
-function pop(freq,dur,vol,delay,sag){
-  var ac=audioOn();
-  if(!ac)return;
-  try{
-    var t0=ac.currentTime+(delay||0),d=dur||0.12;
-    var osc=ac.createOscillator(),g=ac.createGain(),lp=ac.createBiquadFilter();
-    osc.type="sine";
-    osc.frequency.setValueAtTime(freq,t0);
-    osc.frequency.exponentialRampToValueAtTime(Math.max(40,freq*(sag||0.72)),t0+d);
-    lp.type="lowpass";lp.frequency.setValueAtTime(Math.min(6000,freq*4.5),t0);
-    g.gain.setValueAtTime(0.0001,t0);
-    g.gain.exponentialRampToValueAtTime(vol||0.22,t0+0.016);   /* soft attack, never a click */
-    g.gain.exponentialRampToValueAtTime(0.0001,t0+d);
-    osc.connect(lp);lp.connect(g);g.connect(MASTER);
-    osc.start(t0);osc.stop(t0+d+0.05);
-  }catch(e){}
+/* the context a cue should play into: the live one, or the workbench's offline render */
+function kit(){return SFX.render||audioOn();}
+/* The same sound twice inside a few milliseconds is not twice the feedback, it is a flam. Two
+   handlers answering one touch is the usual way it happens. */
+function gate(name,ms){
+  if(SFX.render)return true;
+  var now=performance.now();
+  if(now-(SFX.last[name]||-1e9)<ms)return false;
+  SFX.last[name]=now;
+  return true;
 }
-/* paper: filtered noise with a slow swell, like a card sliding out of the drawer */
+function jit(x,amt){return x*(1+(Math.random()*2-1)*amt);}
+/* where on the glass the finger was, as a little left and right: heard on headphones, harmless on a speaker */
+function panOf(e){
+  var w=window.innerWidth||375;
+  return e&&typeof e.clientX==="number"?Math.max(-0.3,Math.min(0.3,(e.clientX/w-0.5)*0.6)):0;
+}
+function toOut(ctx,node,pan){
+  if(pan&&ctx.createStereoPanner){
+    var p=ctx.createStereoPanner();p.pan.value=pan;
+    node.connect(p);p.connect(ctx.sfxOut);
+  } else node.connect(ctx.sfxOut);
+}
+function env(g,t,peak,attack,decay){
+  peak*=SFX.k;                       /* the cue's trim, from TRIM below */
+  g.gain.setValueAtTime(0.0001,t);
+  g.gain.exponentialRampToValueAtTime(Math.max(0.0002,peak),t+attack);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+attack+decay);
+}
+
+/* ---- the voices ---- */
+
+/* The edge. A few milliseconds of noise through a narrow band: the part of a press you feel. */
+function vClick(ctx,t,centre,dur,vol,pan){
+  var src=ctx.createBufferSource();src.buffer=ctx.sfxNoise;
+  var bp=ctx.createBiquadFilter();bp.type="bandpass";bp.frequency.value=centre;bp.Q.value=1.1;
+  var g=ctx.createGain();env(g,t,vol,0.0008,dur);
+  src.connect(bp);bp.connect(g);toOut(ctx,g,pan);
+  src.start(t,Math.random()*1.8,dur+0.02);
+}
+/* The body. A wooden knock whose pitch falls into the note in twelve milliseconds, so it lands
+   instead of humming, with one inharmonic partial above it: that partial is the difference
+   between a woodblock and a beep. */
+function vTock(ctx,t,f,dur,vol,pan){
+  var o=ctx.createOscillator(),o2=ctx.createOscillator(),g=ctx.createGain(),g2=ctx.createGain();
+  var mix=ctx.createGain();
+  o.type="sine";
+  o.frequency.setValueAtTime(f*1.9,t);o.frequency.exponentialRampToValueAtTime(f,t+0.012);
+  o2.type="sine";o2.frequency.setValueAtTime(f*2.76,t);
+  env(g,t,vol,0.0015,dur);env(g2,t,vol*0.35,0.001,dur*0.45);
+  o.connect(g);o2.connect(g2);g.connect(mix);g2.connect(mix);toOut(ctx,mix,pan);
+  o.start(t);o2.start(t);o.stop(t+dur+0.05);o2.stop(t+dur+0.05);
+}
+/* The bop. Round, a little breath at the front, and the pitch sags as it goes, so it sounds
+   pressed into paper rather than struck on glass. A quiet triangle under the sine gives a phone
+   enough harmonics to find the note. */
+function vBop(ctx,t,f,dur,vol,pan,sag){
+  var o=ctx.createOscillator(),tri=ctx.createOscillator(),g=ctx.createGain(),gt=ctx.createGain();
+  var lp=ctx.createBiquadFilter(),end=Math.max(60,f*(sag||0.94));
+  o.type="sine";tri.type="triangle";
+  o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(end,t+dur);
+  tri.frequency.setValueAtTime(f,t);tri.frequency.exponentialRampToValueAtTime(end,t+dur);
+  lp.type="lowpass";lp.frequency.value=Math.min(9000,f*6);lp.Q.value=0.2;
+  gt.gain.value=0.22;
+  env(g,t,vol,0.006,dur);
+  o.connect(g);tri.connect(gt);gt.connect(g);g.connect(lp);toOut(ctx,lp,pan);
+  o.start(t);tri.start(t);o.stop(t+dur+0.05);tri.stop(t+dur+0.05);
+}
+/* The desk bell. A handful of partials, each dying away faster than the one below it, highest
+   first: that order is what makes a bell a bell and not an organ. */
+var BELL=[[1,1,1],[2,0.42,0.62],[2.76,0.34,0.4],[4.07,0.16,0.28],[5.4,0.09,0.2]];
+function vBell(ctx,t,f,dur,vol,pan){
+  var mix=ctx.createGain(),k;
+  for(k=0;k<BELL.length;k++){
+    var p=BELL[k],fr=f*p[0];
+    if(fr>ctx.sampleRate*0.45)continue;
+    var o=ctx.createOscillator(),g=ctx.createGain();
+    o.type="sine";o.frequency.value=fr;
+    env(g,t,vol*p[1],0.002,dur*p[2]);
+    o.connect(g);g.connect(mix);
+    o.start(t);o.stop(t+0.002+dur*p[2]+0.05);
+  }
+  toOut(ctx,mix,pan);
+}
+/* Paper. Noise through a band that moves: rising is a sheet drawn up and out, falling is one laid
+   back down. A few specks of crackle ride on it, because paper is never a smooth hiss. */
+function vPaper(ctx,t,dur,vol,from,to,pan){
+  var src=ctx.createBufferSource();src.buffer=ctx.sfxNoise;
+  var hp=ctx.createBiquadFilter();hp.type="highpass";hp.frequency.value=260;
+  var bp=ctx.createBiquadFilter();bp.type="bandpass";bp.Q.value=0.75;
+  bp.frequency.setValueAtTime(from,t);bp.frequency.exponentialRampToValueAtTime(to,t+dur);
+  var g=ctx.createGain();
+  g.gain.setValueAtTime(0.0001,t);
+  g.gain.exponentialRampToValueAtTime(vol*SFX.k,t+dur*0.32);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  src.connect(hp);hp.connect(bp);bp.connect(g);toOut(ctx,g,pan);
+  src.start(t,Math.random()*1.5,dur+0.05);
+  var specks=Math.round(dur*22),i;
+  for(i=0;i<specks;i++)vClick(ctx,t+Math.random()*dur*0.85,2200+Math.random()*2600,0.004,vol*0.45,pan);
+}
+/* The thud. A rubber stamp meeting a desk, with its weight at 170 Hz and in the two harmonics over
+   it, where a phone can still play it, and a short dull slap of noise for the rubber. */
+function vThud(ctx,t,f,vol){
+  var o=ctx.createOscillator(),o2=ctx.createOscillator(),g=ctx.createGain(),g2=ctx.createGain();
+  o.type="triangle";
+  o.frequency.setValueAtTime(f*1.3,t);o.frequency.exponentialRampToValueAtTime(f*0.78,t+0.1);
+  o2.type="sine";
+  o2.frequency.setValueAtTime(f*2.6,t);o2.frequency.exponentialRampToValueAtTime(f*1.9,t+0.07);
+  env(g,t,vol,0.003,0.17);env(g2,t,vol*0.5,0.002,0.09);
+  o.connect(g);o2.connect(g2);g.connect(ctx.sfxOut);g2.connect(ctx.sfxOut);
+  o.start(t);o2.start(t);o.stop(t+0.25);o2.stop(t+0.2);
+  var src=ctx.createBufferSource();src.buffer=ctx.sfxNoise;
+  var lp=ctx.createBiquadFilter();lp.type="lowpass";lp.frequency.value=900;lp.Q.value=0.5;
+  var gn=ctx.createGain();env(gn,t,vol*0.9,0.001,0.07);
+  src.connect(lp);lp.connect(gn);gn.connect(ctx.sfxOut);
+  src.start(t,Math.random()*1.8,0.1);
+}
+/* the old paper call, kept for the front door and read off the same noise as everything else */
 function rustle(dur,vol,cut,delay){
-  var ac=audioOn();
-  if(!ac)return;
-  try{
-    var t0=ac.currentTime+(delay||0),d=dur||0.16;
-    var len=Math.max(1,Math.floor(ac.sampleRate*d));
-    var buf=ac.createBuffer(1,len,ac.sampleRate),data=buf.getChannelData(0),i;
-    for(i=0;i<len;i++){
-      var k=i/len;
-      data[i]=(Math.random()*2-1)*Math.sin(Math.PI*k)*(0.6+0.4*Math.sin(k*40));
-    }
-    var src=ac.createBufferSource();src.buffer=buf;
-    var lp=ac.createBiquadFilter();lp.type="lowpass";lp.frequency.value=cut||1250;lp.Q.value=0.3;
-    var hp=ac.createBiquadFilter();hp.type="highpass";hp.frequency.value=220;
-    var g=ac.createGain();
-    g.gain.setValueAtTime(0.0001,t0);
-    g.gain.exponentialRampToValueAtTime(vol||0.14,t0+d*0.35);
-    g.gain.exponentialRampToValueAtTime(0.0001,t0+d);
-    src.connect(hp);hp.connect(lp);lp.connect(g);g.connect(MASTER);
-    src.start(t0);
-  }catch(e){}
+  var ac=kit();if(!ac)return;
+  try{vPaper(ac,ac.currentTime+(delay||0),dur||0.16,vol||0.14,(cut||1250)*0.55,cut||1250,0);}catch(e){}
 }
-function thump(vol){
-  var ac=audioOn();
-  if(!ac)return;
-  try{
-    var t0=ac.currentTime;
-    var osc=ac.createOscillator(),g=ac.createGain();
-    osc.type="sine";
-    osc.frequency.setValueAtTime(150,t0);
-    osc.frequency.exponentialRampToValueAtTime(62,t0+0.26);
-    g.gain.setValueAtTime(0.0001,t0);
-    g.gain.exponentialRampToValueAtTime(vol||0.3,t0+0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001,t0+0.3);
-    osc.connect(g);g.connect(MASTER);
-    osc.start(t0);osc.stop(t0+0.34);
-  }catch(e){}
-}
+/* marks the rewards that already ring, so the small change counted out after them keeps quiet */
+function hushXP(){if(!SFX.render)SFX.last.xp=performance.now();}
+
+/* ---- the cues ---- */
 var snd={
-  tap:function(){pop(430,0.085,0.16,0,0.68);},
-  card:function(){rustle(0.19,0.16,1150);pop(300,0.07,0.07,0.02,0.7);},
+  /* A finger on anything you can press, sent here by the one listener at the bottom of the file.
+     The control decides the voice: a ticket is card stock, a chip is a switch, an answer is the
+     lightest touch of all because its verdict is about to land on top of it, and a sealed game
+     shakes its head. */
+  press:function(el,e){
+    var ac=kit();if(!ac)return;
+    try{
+      var c=el&&el.classList,pan=panOf(e),t=ac.currentTime+0.003;
+      if(el&&(el.disabled||el.getAttribute("aria-disabled")==="true"||(el.querySelector&&el.querySelector(".seal")))){snd.nope();return;}
+      if(!gate("press",28))return;
+      if(c&&(c.contains("drawer")||c.contains("tile")||c.contains("cotdcard")||c.contains("dosclue"))){
+        vTock(ac,t,jit(520,0.04),0.06,0.12,pan);
+        vClick(ac,t,jit(2600,0.1),0.006,0.07,pan);
+      } else if(c&&(c.contains("chip")||c.contains("cluebtn")||(el.parentNode&&el.parentNode.classList&&el.parentNode.classList.contains("seg")))){
+        vClick(ac,t,jit(4300,0.08),0.004,0.08,pan);
+        vTock(ac,t,jit(1180,0.04),0.03,0.08,pan);
+      } else if(c&&c.contains("opt")){
+        vClick(ac,t,jit(3400,0.1),0.004,0.05,pan);
+        vTock(ac,t,jit(860,0.04),0.035,0.07,pan);
+      } else {
+        vClick(ac,t,jit(3600,0.1),0.005,0.07,pan);
+        vTock(ac,t,jit(740,0.04),0.05,0.12,pan);
+      }
+    }catch(err){}
+  },
+  tap:function(){snd.press(null,null);},
+  /* no: two low knocks, a shake of the head */
+  nope:function(){
+    if(!gate("nope",120))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vTock(ac,t,jit(340,0.02),0.05,0.11,0);
+      vTock(ac,t+0.075,jit(300,0.02),0.06,0.1,0);
+    }catch(e){}
+  },
+  /* a card dealt onto the desk: flicked off the pile, then down */
+  card:function(){
+    if(!gate("card",60))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003,pan=(Math.random()-0.5)*0.3;
+      vPaper(ac,t,jit(0.11,0.1),0.11,900,2800,pan);
+      vTock(ac,t+0.07,jit(520,0.05),0.045,0.07,pan);
+    }catch(e){}
+  },
+  /* a sheet drawn up out of the drawer, and settling */
+  open:function(){
+    if(!gate("open",120))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vPaper(ac,t,0.24,0.13,480,2400,0);
+      vTock(ac,t+0.19,jit(620,0.03),0.05,0.08,0);
+      vClick(ac,t+0.19,3000,0.004,0.05,0);
+    }catch(e){}
+  },
+  /* and laid back down */
+  close:function(){
+    if(!gate("close",120))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vPaper(ac,t,0.18,0.11,2400,560,0);
+      vTock(ac,t+0.14,jit(430,0.03),0.06,0.1,0);
+    }catch(e){}
+  },
+  /* a passport page: the corner lifted, the leaf coming over, and flat */
+  page:function(dir){
+    if(!gate("page",90))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003,pan=(dir<0?-1:1)*0.22;
+      vPaper(ac,t,0.07,0.08,1400,3200,-pan);
+      vPaper(ac,t+0.06,0.15,0.11,3000,900,pan);
+      vClick(ac,t+0.2,jit(2300,0.08),0.006,0.06,pan);
+    }catch(e){}
+  },
+  /* a flap in the file turned over, and the line under it catching the light */
+  flip:function(){
+    if(!gate("flip",80))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vPaper(ac,t,0.08,0.1,1100,3000,0);
+      vTock(ac,t+0.065,jit(880,0.03),0.04,0.09,0);
+      vBell(ac,t+0.07,note(12),0.35,0.028,0.1);
+    }catch(e){}
+  },
+  /* Right. Two notes up the ladder, and where on the ladder is the streak: each answer in a row
+     starts one step higher than the last, so a run of them climbs, and the bell riding over the
+     top grows with it. Every fifth in a row gets a flourish. streak is the count including this
+     answer, so the first right answer is 1. */
   correct:function(streak){
-    var n=Math.min(streak||0,9),base=392*Math.pow(1.04,n);
-    pop(base,0.13,0.2,0,0.95);
-    pop(base*1.5,0.2,0.17,0.085,0.98);
-    rustle(0.13,0.06,900,0.02);
+    var ac=kit();if(!ac)return;
+    try{
+      var k=streak||1,s=Math.max(0,Math.min(k-1,9)),t=ac.currentTime+0.003;
+      var a=note(2+s),b=note(4+s);
+      vBop(ac,t,a,0.1,0.2,0,0.985);
+      vBop(ac,t+0.075,b,0.18,0.19,0,0.995);
+      vBell(ac,t+0.075,b*2,0.4,0.03+0.005*s,0.12);
+      if(k>=5&&k%5===0){
+        [12,13,15].forEach(function(st,i){vBell(ac,t+0.2+i*0.06,note(st),0.45,0.05,(i-1)*0.25);});
+        vPaper(ac,t+0.18,0.3,0.06,900,3200,0);
+      }
+    }catch(e){}
   },
-  wrong:function(){thump(0.26);rustle(0.22,0.09,700,0.01);},
-  tick:function(){pop(720,0.045,0.07,0,0.9);},
-  count:function(n){pop(n?430:620,0.16,0.19,0,0.92);rustle(0.1,0.07,1000);},
+  /* Wrong. A soft fall of two notes and a sheet crumpled, not a buzzer: getting a country wrong
+     is how the map gets learned, and the board already says so in red. */
+  wrong:function(){
+    if(!gate("wrong",150))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vBop(ac,t,440,0.1,0.17,0,0.97);
+      vBop(ac,t+0.1,329.63,0.24,0.17,0,0.9);    /* down a fourth, A to E */
+      vThud(ac,t+0.1,260,0.07);
+      vPaper(ac,t+0.02,0.16,0.06,1100,420,0);
+    }catch(e){}
+  },
+  /* asked to be shown: the same fall, gentler, and a page unfolded to read the answer off */
+  reveal:function(){
+    if(!gate("wrong",150))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vBop(ac,t,392,0.16,0.12,0,0.9);
+      vPaper(ac,t+0.05,0.22,0.08,600,1800,0);
+    }catch(e){}
+  },
+  /* Hot or cold, as pitch. How near the guess landed sets the note, far low and near high, so a
+     run of guesses closing in is a run of notes climbing. Nearer than any guess before it, the
+     second note steps up and glints; further, it steps down and goes dull. The board can be
+     played by ear. The curve spends most of its range on the last few thousand kilometres,
+     because that is where the decisions are. */
+  heat:function(km,better){
+    var ac=kit();if(!ac)return;
+    try{
+      var near=1-Math.min(km||0,15000)/15000,step=Math.round(Math.pow(near,1.6)*10),t=ac.currentTime+0.003;
+      vBop(ac,t,note(2+step),0.11,0.17,0,0.97);
+      if(better){
+        vBop(ac,t+0.08,note(4+step),0.16,0.16,0,0.995);
+        vBell(ac,t+0.08,note(4+step)*2,0.3,0.035,0.1);
+      } else {
+        vBop(ac,t+0.08,note(1+step)*0.985,0.2,0.12,0,0.9);
+      }
+    }catch(e){}
+  },
+  /* THE STAMP. The one sound in the game that is a reward you gave yourself, and it used to borrow
+     the wrong answer's thud, so the best moment in the passport sounded like a mistake. The rubber
+     meets the page, comes away with a little tack, and the desk bell says it is done. */
+  stamp:function(){
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      hushXP();
+      vThud(ac,t,172,0.36);
+      vClick(ac,t,1900,0.012,0.13,0);
+      vPaper(ac,t+0.12,0.06,0.05,3200,2200,0);
+      vBell(ac,t+0.26,note(10),0.7,0.1,0);
+      vBell(ac,t+0.26,note(13),0.55,0.05,0.18);
+    }catch(e){}
+  },
+  /* the clock in the last five seconds: tick and tock taking turns, like an escapement */
+  tick:function(){
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003,hi=(SFX.tickAlt=1-SFX.tickAlt);
+      vClick(ac,t,hi?5200:4300,0.003,0.09,0);
+      vTock(ac,t,hi?1560:1240,0.028,0.09,0);
+    }catch(e){}
+  },
+  /* three, two, one, each a step higher; go is a chord of bells */
+  count:function(notLast,n){
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      if(notLast){
+        vBop(ac,t,note(8-Math.max(1,Math.min(n||1,3))),0.14,0.16,0,0.98);
+        vClick(ac,t,3000,0.004,0.05,0);
+      } else {
+        [10,12,13].forEach(function(st,i){vBell(ac,t,note(st),0.5,0.07,(i-1)*0.2);});
+        vBop(ac,t,note(10),0.12,0.12,0,0.99);
+      }
+    }catch(e){}
+  },
+  /* A round done: a run up the ladder and a chord of bells to land on, with a sheet swept off the
+     desk under it. */
   win:function(){
-    [392,523.25,659.25,784].forEach(function(f,i){pop(f,0.26,0.17,i*0.085,0.99);});
-    rustle(0.3,0.09,1400,0.04);
+    if(!gate("win",400))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003,e;
+      hushXP();
+      vPaper(ac,t,0.34,0.07,700,2600,0);
+      [5,7,8,9,10].forEach(function(st,i){
+        vBop(ac,t+i*0.07,note(st),0.16,0.15,(i-2)*0.12,0.995);
+        vBell(ac,t+i*0.07,note(st)*2,0.25,0.028,(i-2)*0.12);
+      });
+      e=t+0.4;
+      vBell(ac,e,note(10),1.1,0.1,0);
+      vBell(ac,e,note(12),0.95,0.06,-0.2);
+      vBell(ac,e,note(13),0.9,0.05,0.2);
+      vBop(ac,e,note(5),0.32,0.13,0,0.995);
+    }catch(err){}
   },
+  /* PROMOTION. The stamp comes down on the new rank, then the whole ladder at once, then the bells. */
   level:function(){
-    [261.6,392,523.25].forEach(function(f,i){pop(f,0.5,0.15,i*0.02,0.995);});
-    rustle(0.4,0.08,1600,0.05);
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003,e,i;
+      hushXP();
+      vThud(ac,t,172,0.3);vClick(ac,t,1900,0.012,0.11,0);
+      [5,6,7,8,9,10,11,12].forEach(function(st,j){
+        vBop(ac,t+0.22+j*0.055,note(st),0.14,0.13,(j/7-0.5)*0.4,0.995);
+      });
+      e=t+0.72;
+      [10,12,13,15].forEach(function(st,j){vBell(ac,e,note(st),1.5-j*0.2,0.085-j*0.012,(j-1.5)*0.2);});
+      for(i=0;i<7;i++)vBell(ac,e+0.12+Math.random()*0.8,note(13+Math.floor(Math.random()*5)),0.3,0.022,(Math.random()-0.5)*0.8);
+      vPaper(ac,e,0.4,0.06,800,3000,0);
+    }catch(err){}
+  },
+  /* A payout worth mentioning, counted onto the desk as small change. Only from twenty up, so
+     the few points an ordinary answer earns stay silent, and never straight after a win, a stamp
+     or a promotion, which have already rung for it. */
+  xp:function(points){
+    if(!(points>=20)||!gate("xp",700))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var n=Math.min(6,2+Math.floor(points/40)),t=ac.currentTime+0.25,i;
+      for(i=0;i<n;i++)vBell(ac,t+i*0.05,note(12+i),0.14,0.03,(i/(n-1)-0.5)*0.3);
+    }catch(e){}
+  },
+  /* one country further along the chain of borders, a step up the ladder for each */
+  step:function(n){
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003,st=2+Math.max(1,Math.min(n||1,9));
+      vBop(ac,t,note(st),0.13,0.16,0,0.985);
+      vClick(ac,t,3100,0.004,0.05,0);
+      vBell(ac,t+0.05,note(st+2)*2,0.22,0.025,0.1);
+    }catch(e){}
+  },
+  /* The typewriter: a key per character, never quite the same key twice. Deleting is lighter. */
+  key:function(del){
+    if(!gate("key",16))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.002,pan=(Math.random()-0.5)*0.35;
+      vClick(ac,t,jit(del?2600:3400,0.12),0.005,del?0.045:0.06,pan);
+      vTock(ac,t,jit(del?1150:1500,0.08),0.022,del?0.04:0.055,pan);
+    }catch(e){}
+  },
+  /* a country picked out on the title globe */
+  pip:function(){
+    if(!gate("pip",60))return;
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vBop(ac,t,note(10),0.07,0.08,0,0.93);
+      vClick(ac,t,4200,0.002,0.03,0);
+    }catch(e){}
+  },
+  /* the sticker slapped on the title ticket */
+  stick:function(){
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vPaper(ac,t,0.05,0.08,3000,1500,0.15);
+      vTock(ac,t+0.03,jit(980,0.03),0.03,0.07,0.15);
+    }catch(e){}
+  },
+  /* one ticket landing on the title desk; each a note higher than the last, so the deal is a run */
+  land:function(i){
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003,k=i||0,pan=k%2?0.18:-0.18;
+      vPaper(ac,t,jit(0.09,0.15),0.09,1700,700,pan);
+      vTock(ac,t+0.055,note(5+k%5)*0.5*(1+Math.floor(k/5)),0.04,0.07,pan);
+    }catch(e){}
+  },
+  /* the sound switch: up two knocks when it comes on */
+  toggle:function(on){
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003,a=note(7),b=note(10);
+      vTock(ac,t,on?a:b,0.04,0.1,0);
+      vTock(ac,t+0.06,on?b:a,0.05,0.1,0);
+    }catch(e){}
+  },
+  /* copied: ding ding */
+  copy:function(){
+    var ac=kit();if(!ac)return;
+    try{
+      var t=ac.currentTime+0.003;
+      vBell(ac,t,note(12),0.5,0.08,-0.1);
+      vBell(ac,t+0.07,note(14),0.45,0.06,0.1);
+    }catch(e){}
   }
 };
+/* THE MIX, IN DECIBELS.
+
+   Every cue was rendered offline and measured against the kit it replaced, rebuilt from the v94
+   source into the same kind of offline context, and set so that the sounds you hear most sit
+   where the old ones did and the rewards come out on top. What the measuring found:
+
+   - The first draft came out about 12 dB hotter than the old kit, which ran through a gain of 0.3
+     and a lowpass: a right answer peaked at -12.7 dB against the old -24.5. The bus is halved and
+     the trims do the rest.
+   - A wrong answer was louder than a right one, -9.6 dB against -12.7. Now -25.5 against -18.7:
+     a mistake should never outshout a reward.
+   - The press matches the old tap, -26.2 against -26.4, because it is the sound heard most and it
+     was not the thing anyone asked to change. The sprint clock went from -33.1 to -27.3 and the
+     typewriter from -40 to -30.7, so both can be heard over a phone speaker, and the typewriter
+     over the phone's own keyboard click.
+   - Rewards on top: a right answer -18.7, a streak of five -17.2, the stamp -15.2, a round won
+     -14.5, a promotion -13.4.
+   - The old wrong answer put 99.7 percent of its energy under 250 Hz, loudest at 128 Hz. On a
+     phone that is silence. The first draft of this one still put 73 percent there; lifted a
+     fourth, it is 0.9 percent.
+
+   A trim is the cue's own level, not added to the level of whatever cue called it, so a sealed
+   game's no, played from inside press, is as loud as any other no. */
+var TRIM={
+  press:10, nope:0, card:2, open:0, close:0, page:3, flip:0,
+  correct:0, wrong:-9, reveal:3, heat:-1, stamp:3, tick:12, count:5,
+  win:0, level:3, xp:2, step:5, key:15, pip:4, stick:3, land:2, toggle:0, copy:1
+};
+Object.keys(snd).forEach(function(name){
+  var play=snd[name];
+  snd[name]=function(){
+    var before=SFX.k;
+    SFX.k=Math.pow(10,(TRIM[name]||0)/20);
+    try{return play.apply(snd,arguments);}finally{SFX.k=before;}
+  };
+});
+/* The workbench renders any cue offline and hands the samples back, so the kit can be measured
+   (how loud, how long, how much of it a phone speaker can actually play) without anyone listening. */
+function renderCue(name,args,secs){
+  var OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
+  if(!OC||typeof snd[name]!=="function")return Promise.resolve(null);
+  var ctx=new OC(2,Math.ceil(44100*(secs||2.4)),44100);
+  ctx.sfxOut=kitOut(ctx);ctx.sfxNoise=kitNoise(ctx);
+  SFX.render=ctx;
+  try{snd[name].apply(snd,args||[]);}finally{SFX.render=null;}
+  return ctx.startRendering();
+}
 
 /* A brass call for the front door. It gets its own line to the speakers: the desk sounds
    run through a soft lowpass and a horn put through that arrives as a kazoo.
@@ -14565,7 +15304,7 @@ var snd={
    harmonic at full strength and a bandpass cannot undo that; a real horn is a handful of
    partials that fade in order, and the ear hears the difference straight away. */
 function brass(freq,t0,dur,vol,pan){
-  var ac=AC;
+  var ac=SFX.ctx;
   if(!ac||freq*8>ac.sampleRate/2)return;
   try{
     var out=ac.createGain(),body=ac.createGain(),lp=ac.createBiquadFilter();
@@ -14733,6 +15472,7 @@ function addXP(points){
   store.xp+=points;
   save();
   floater("+"+points,true);
+  snd.xp(points);
   paintRank();
   var after=rankIndex(store.xp);
   if(after>before){
@@ -14779,7 +15519,7 @@ function openRankUp(before,after){
   setTimeout(function(){fanfareDone=false;fanfare();},120);
   buzz([18,60,18,60,26]);
 }
-function closeRankUp(){$("rankup").hidden=true;snd.tap();}
+function closeRankUp(){$("rankup").hidden=true;snd.close();}
 var appReady=false;
 function countPlay(m){
   if(!appReady)return;
@@ -14898,9 +15638,9 @@ function openStats(){
   pairs(miss.slice(0,6).map(function(n){return [nameOf(n),store.miss[n]+"\u00d7"];}));
 
   $("statsmodal").hidden=false;
-  snd.card();
+  snd.open();
 }
-function closeStats(){$("statsmodal").hidden=true;snd.tap();}
+function closeStats(){$("statsmodal").hidden=true;snd.close();}
 function paintRank(){
   var p=rankProgress();
   var chip=$("rankchip");
@@ -15405,7 +16145,13 @@ function pulseInit(){
 function sizePulse(){
   pulseInit();
   if(!pulse.ctx||!globe.cv)return;
-  var w=globe.cx*2,h=globe.cy*2,dpr=globeDpr(Math.max(w,h),1.5,0.75);
+  /* The pin is drawn in the globe canvas's own coordinates, so this canvas has to be that canvas:
+     the same size and, see the bleed rule for #pulse, the same place. Sized off twice the centre it
+     came out 724 by 569 on a map board whose globe canvas is 370 by 624, and it sat 127px lower,
+     because the globe canvas is hung above its panel and this one was not. Every pin on the three
+     map boards landed 127px south of its country: France's in the Mediterranean. */
+  var w=globe.cssW||globe.cx*2,h=globe.cssH||globe.cy*2,dpr=globeDpr(Math.max(w,h),1.5,0.75);
+  pulse.w=w;pulse.h=h;
   pulse.cv.style.width=w+"px";pulse.cv.style.height=h+"px";
   pulse.cv.width=Math.round(w*dpr);pulse.cv.height=Math.round(h*dpr);
   pulse.ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -15469,7 +16215,7 @@ function drawRose(ctx,x,y,r,ink,paper){
 function drawPulse(){
   pulseInit();
   if(!pulse.ctx)return;
-  var ctx=pulse.ctx,side=globe.cx*2,tall=globe.cy*2;
+  var ctx=pulse.ctx,side=pulse.w||globe.cx*2,tall=pulse.h||globe.cy*2;
   /* this canvas is as big as the globe but paints a pin. Clearing all of it every frame
      re-uploaded a full-screen texture; only the patch the pin last occupied is wiped. */
   var pad=90,lastBox=pulse.box;
@@ -15513,7 +16259,7 @@ function pulseOn(){
 function pulseOff(){
   if(pulse.id){cancelAnimationFrame(pulse.id);pulse.id=0;}
   pulse.box=null;
-  if(pulse.ctx)pulse.ctx.clearRect(0,0,globe.cx*2,globe.cy*2);
+  if(pulse.ctx)pulse.ctx.clearRect(0,0,pulse.w||globe.cx*2,pulse.h||globe.cy*2);
   pulse.target=null;
 }
 /* drop the pin on one country and keep it there until the next question */
@@ -15567,28 +16313,15 @@ function drawMiniOutline(cv,f,ink,paper){
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.clearRect(0,0,W,H);
   if(!feat)return false;
-  var c0=feat.centre,l=-c0[0]*RAD,ph=c0[1]*RAD;
-  var c={cl:Math.cos(l),sl:Math.sin(l),cp:Math.cos(ph),sp:Math.sin(ph)};
-  var pts=[],maxr=0,i;
-  feat.shapes.forEach(function(sh){
-    var r=sh.rings[0],arr=[];
-    for(i=0;i<r.length/3;i++){
-      var q=rot(r[i*3],r[i*3+1],r[i*3+2],c);
-      if(q[2]<=0)continue;
-      arr.push([q[0],q[1]]);
-      var d=Math.max(Math.abs(q[0]),Math.abs(q[1]));
-      if(d>maxr)maxr=d;
-    }
-    if(arr.length>2)pts.push(arr);
-  });
-  if(!pts.length||!maxr)return false;
-  var scale=0.46*Math.min(W,H)/maxr;
+  var o=homeOutline(feat);
+  if(!o)return false;
+  var scale=0.46*Math.min(W,H)/o.half;
   ctx.fillStyle=paper;ctx.strokeStyle=ink;
   ctx.lineWidth=1.4;ctx.lineJoin="round";
-  pts.forEach(function(arr){
+  o.polys.forEach(function(arr){
     ctx.beginPath();
     arr.forEach(function(q,j){
-      var x=W/2+q[0]*scale,y=H/2-q[1]*scale;
+      var x=W/2+(q[0]-o.cx)*scale,y=H/2-(q[1]-o.cy)*scale;
       if(j)ctx.lineTo(x,y);else ctx.moveTo(x,y);
     });
     ctx.closePath();ctx.fill();ctx.stroke();
@@ -15618,7 +16351,7 @@ function ppTurn(step){
   var pages=ppPages();
   if(pages.length<2)return;
   ppPage=(ppPage+step+pages.length)%pages.length;
-  snd.card();
+  snd.page(step);
   paintCotd();
   fitPassport();
 }
@@ -15664,8 +16397,7 @@ function openCotd(){
   /* twice: once when the box has a height, once after the web fonts have had their say */
   requestAnimationFrame(fitPassport);
   setTimeout(fitPassport,220);
-  snd.card();
-  setTimeout(function(){snd.tap();},150);
+  snd.open();
   store.cotdSeen=todayKey();save();
   paintCotdCard();
 }
@@ -16271,17 +17003,19 @@ function openFolder(key){
       sl.appendChild(wt);sl.appendChild(wax);
       b.appendChild(sl);
     }
-    b.onclick=function(){if(!unlocked(k))return;snd.card();closeMinis();startMode(k);};
+    b.onclick=function(){if(!unlocked(k))return;closeMinis(true);startMode(k);};   /* the deal is the sound */
     host.appendChild(b);
   });
   $("minimodal").hidden=false;
-  snd.card();
+  snd.open();
 }
 function openMinis(){openFolder("minis");}
-function closeMinis(){$("minimodal").hidden=true;openFolderKey="";snd.tap();}
+/* Quiet is for leaving by starting a game, where the board being dealt is the sound. It has to be
+   exactly true, because this is also a click handler, and a click hands it an event. */
+function closeMinis(quiet){$("minimodal").hidden=true;openFolderKey="";if(quiet!==true)snd.close();}
 function closeCotd(){
   $("cotd").hidden=true;
-  snd.tap();
+  snd.close();
 }
 function paintCotdCard(){
   var btn=$("cotdopen");
@@ -16362,8 +17096,7 @@ function stampIt(){
   if(store.stamps[f.c])return;
   store.stamps[f.c]=todayKey();
   save();
-  snd.wrong();                       /* the thud of a rubber stamp */
-  setTimeout(function(){snd.card();},90);
+  snd.stamp();
   buzz([14,40,18]);
   buildVisaStamp(f);
   var host=$("visastamp");
@@ -16694,14 +17427,13 @@ function buildDrawers(){
       b.appendChild(badge);
     }
     b.addEventListener("pointerdown",function(){
-      b.classList.add("pressed");
-      snd.tap();
+      b.classList.add("pressed");      /* the sound comes from the page-wide press listener */
     });
     ["pointerup","pointerleave","pointercancel"].forEach(function(ev){
       b.addEventListener(ev,function(){b.classList.remove("pressed");});
     });
     b.onclick=function(){
-      snd.card();
+      /* nothing of its own to say: the folder opening, or the board being dealt, makes the sound */
       if(FOLDERS[mode]&&FOLDERS[mode].length>1)openFolder(mode);
       else if(FOLDERS[mode])startMode(FOLDERS[mode][0]);
       else startMode(mode);
@@ -17029,12 +17761,12 @@ function runIntroBoot(){
   /* one paper sound per ticket, on the beat it lands */
   var cards=TICKET_KEYS.length,i;
   for(i=0;i<cards;i++)(function(i){
-    later(function(){if(introOpen)snd.card();},(B.cards+B.stagger*i+0.42)*1000);
+    later(function(){if(introOpen)snd.land(i);},(B.cards+B.stagger*i+0.42)*1000);
   })(i);
   /* the horn goes with the first ticket landing, not with the wordmark at the end */
   later(function(){if(introOpen)bootFanfare();},(B.cards+0.30)*1000);
-  later(function(){if(introOpen)snd.card();},B.mark*1000+320);
-  later(function(){if(introOpen)snd.tap();},B.sticker*1000+340);
+  later(function(){if(introOpen)snd.land(cards);},B.mark*1000+320);   /* the wordmark tops the run */
+  later(function(){if(introOpen)snd.stick();},B.sticker*1000+340);
   later(function(){
     if(!introOpen)return;
     $("intro").classList.add("settled");
@@ -17164,7 +17896,9 @@ function countdown(from,done){
     num.style.animation="";
     if(sweep)sweep.style.animation="";
     box.classList.toggle("last",last);
-    snd.count(!last);
+    /* The step after GO only takes the box away, and it was sounding GO a second time as it
+       did, 620ms after the first. It has no figure to announce, so it says nothing. */
+    if(n>=0)snd.count(!last,n);
     n--;
     /* A second, because it says three, two, one. The ring sweeps over the same second, so
        the two of them agree with each other and with the clock. GO does not need one. */
@@ -17236,7 +17970,7 @@ answerShape=function(){
 };
 revealAnswer=function(){
   if(locked)return;
-  snd.wrong();
+  snd.reveal();
   baseReveal();
 };
 sprintStart=function(){
@@ -17273,7 +18007,7 @@ dailyTry=function(name){
       snd.win();buzz([20,60,20]);
       var steps=daily.chain.length-1;
       addXP(60+Math.max(0,(daily.par-steps)+2)*10);
-    } else {snd.tap();buzz(12);}
+    } else {snd.step(daily.chain.length-1);buzz(12);}
   } else snd.wrong();
 };
 globeClick=function(e){
@@ -17294,7 +18028,7 @@ globeClick=function(e){
       if(c){globe.vel=0;spinTo(c[0],c[1]);}
       globe.hover=nm;
       showHoverName(nm,px,py);
-      snd.tap();
+      snd.pip();
       fadeHint();
     }
     return;
@@ -17315,9 +18049,9 @@ $("menu").onclick=function(){showIntro();};
 var wordmark=document.querySelector(".brand h1");
 wordmark.setAttribute("role","button");
 wordmark.setAttribute("tabindex","0");
-wordmark.onclick=function(){snd.card();showIntro();};
+wordmark.onclick=function(){snd.close();showIntro();};
 wordmark.onkeydown=function(e){
-  if(e.key==="Enter"||e.key===" "){e.preventDefault();snd.card();showIntro();}
+  if(e.key==="Enter"||e.key===" "){e.preventDefault();snd.close();showIntro();}
 };
 $("cotdopen").onclick=openCotd;
 $("cotdclose").onclick=closeCotd;
@@ -17331,7 +18065,7 @@ $("cotdnext").onclick=function(){ppTurn(1);};
 $("cotd").addEventListener("click",function(e){if(e.target===$("cotd"))closeCotd();});
 function toggleSound(){
   store.sound=!store.sound;save();
-  if(store.sound)snd.tap();
+  if(store.sound)snd.toggle(true);
 $("sound").innerHTML=store.sound?"&#9834;":"&#9834;&#822;";
   $("sound").setAttribute("aria-label",t(store.sound?"soundOn":"soundOff"));
   if($("introsound"))$("introsound").textContent=t(store.sound?"soundOn":"soundOff");
@@ -17380,6 +18114,76 @@ window.addEventListener("resize",sizeDevice);
 if(INFRAME){$("phone").hidden=true;$("introphone").hidden=true;$("debugbar").hidden=true;}
 /* Removed from the document rather than hidden, because a hidden button is still a button and
    two of these four hand out ranks. On the test build it stays exactly where it was. */
+/* THE SOUND BOARD, TEST BUILD ONLY.
+
+   Every cue in the kit on one sheet, so a sound can be judged on the handset it is meant for
+   without answering ten in a row to hear a streak of ten, or earning a rank to hear a promotion.
+   Built the first time it is opened, out of the classes the other sheets already use. The public
+   build takes the button away with the rest of the workbench and never builds the sheet. Its
+   buttons are data-quiet, so the press listener does not knock before every sound it plays. */
+if(CHEATS&&$("introsfx")){
+  $("introsfx").onclick=function(){
+    var host=$("sfxboard");
+    if(!host){
+      host=document.createElement("div");host.className="modal";host.id="sfxboard";
+      var sheet=document.createElement("div");sheet.className="sheet";
+      sheet.style.cssText="max-width:420px;padding:18px 16px 16px";
+      var x=document.createElement("button");x.type="button";x.className="sheetclose";
+      x.innerHTML="&times;";x.setAttribute("aria-label","Close");
+      x.onclick=function(){host.hidden=true;snd.close();};
+      sheet.appendChild(x);
+      var grid=document.createElement("div");
+      grid.style.cssText="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:22px";
+      var fake=function(cls){var b=document.createElement("button");b.className=cls;return b;};
+      [["press",function(){snd.press(fake("btn"));}],
+       ["answer",function(){snd.press(fake("opt"));}],
+       ["ticket",function(){snd.press(fake("drawer"));}],
+       ["chip",function(){snd.press(fake("chip"));}],
+       ["sealed",function(){snd.nope();}],
+       ["deal",function(){snd.card();}],
+       ["open",function(){snd.open();}],
+       ["close",function(){snd.close();}],
+       ["page",function(){snd.page(1);}],
+       ["flap",function(){snd.flip();}],
+       ["right 1",function(){snd.correct(1);}],
+       ["right 4",function(){snd.correct(4);}],
+       ["right 5",function(){snd.correct(5);}],
+       ["right 10",function(){snd.correct(10);}],
+       ["wrong",function(){snd.wrong();}],
+       ["show me",function(){snd.reveal();}],
+       ["far",function(){snd.heat(9000,true);}],
+       ["warmer",function(){snd.heat(1500,true);}],
+       ["colder",function(){snd.heat(2500,false);}],
+       ["stamp",function(){snd.stamp();}],
+       ["tick",function(){snd.tick();}],
+       ["3 2 1 go",function(){
+         snd.count(true,3);
+         setTimeout(function(){snd.count(true,2);},1000);
+         setTimeout(function(){snd.count(true,1);},2000);
+         setTimeout(function(){snd.count(false,0);},3000);
+       }],
+       ["win",function(){snd.win();}],
+       ["rank up",function(){snd.level();}],
+       ["xp 80",function(){SFX.last.xp=0;snd.xp(80);}],
+       ["border 3",function(){snd.step(3);}],
+       ["type",function(){snd.key(false);}],
+       ["delete",function(){snd.key(true);}],
+       ["copied",function(){snd.copy();}]
+      ].forEach(function(c){
+        var b=document.createElement("button");b.type="button";b.className="btn ghost";
+        b.setAttribute("data-quiet","1");
+        b.style.cssText="font-size:11px;padding:9px 4px";
+        b.textContent=c[0];
+        b.onclick=function(){c[1]();};
+        grid.appendChild(b);
+      });
+      sheet.appendChild(grid);host.appendChild(sheet);document.body.appendChild(host);
+      host.addEventListener("click",function(e){if(e.target===host){host.hidden=true;snd.close();}});
+    }
+    host.hidden=false;
+    snd.open();
+  };
+}
 if(!CHEATS){
   var dbgbar=$("debugbar");
   if(dbgbar&&dbgbar.parentNode)dbgbar.parentNode.removeChild(dbgbar);
@@ -17391,13 +18195,20 @@ $("introlang").onclick=function(){
   if(!$("cotd").hidden)paintCotd();   /* an open passport is reprinted in the new language */
   if(!introOpen){if(mode==="atlas")paintAtlas();else render();}
 };
-/* one tap anywhere unlocks the audio context, then every control clicks */
+/* ONE TAP ANYWHERE UNLOCKS THE AUDIO CONTEXT, AND THEN EVERY CONTROL CLICKS.
+
+   Every control, from this one listener. It used to name five classes, and the answers, the
+   tickets on the title desk, the passport, the dossier's flaps, the folder rows and all three
+   close buttons were none of them, so each one either made a sound of its own from its own
+   handler or made none. Anything that is a button, or says it is one, is covered now, which
+   includes whatever is added later, and snd.press picks the voice from what kind of control
+   it is. data-quiet is the way out for a control that makes its own sound on purpose. */
 document.addEventListener("pointerdown",function(e){
   TAPPED=true;
   audioOn();
   if(introOpen&&!booted)fanfare(); /* a cold load: the horn is still locked until this tap */
-  var el=e.target&&e.target.closest?e.target.closest(".btn,.iconbtn,.chip,.zbtn,.seg button,.tile"):null;
-  if(el)snd.tap();
+  var el=e.target&&e.target.closest?e.target.closest('button,[role="button"],.tile,.zbtn'):null;
+  if(el&&!el.hasAttribute("data-quiet"))snd.press(el,e);
 },true);
 document.addEventListener("fullscreenchange",afterFs);
 window.addEventListener("orientationchange",function(){
@@ -17549,15 +18360,40 @@ $("guess").addEventListener("keydown",function(e){
   else if(locked)nextQuestion();
   else answerShape();
 });
+/* the typewriter, a key per character; deleting is the lighter key */
+$("guess").addEventListener("input",function(e){
+  snd.key(!!(e&&e.inputType&&e.inputType.indexOf("delete")===0));
+});
 $("search").oninput=paintAtlas;
 $("lang").onchange=function(){
   lang=this.value;store.lang=lang;save();
   applyLang();
   if(mode==="atlas")paintAtlas();else render();
 };
+/* RESET PROGRESS ASKS TWICE.
+
+   It used to take everything on one tap: a button at the foot of the atlas, a stray thumb away
+   from a player's whole record. The first tap now only asks, and it takes a second inside four
+   seconds to do it. The record as it stood is kept at KEY+".before-reset". And the fresh save
+   goes through normaliseStore like any other, because the object built here was missing the
+   stats, the stamps and half the boxes, and the boards that read those were one question away
+   from a TypeError. */
+var wipeArm=0;
 $("reset").onclick=function(){
+  var b=$("reset");
+  if(!wipeArm){
+    b.classList.add("armed");b.textContent=t("resetSure");
+    wipeArm=setTimeout(function(){wipeArm=0;b.classList.remove("armed");b.textContent=t("reset");},4000);
+    return;
+  }
+  clearTimeout(wipeArm);wipeArm=0;
+  b.classList.remove("armed");b.textContent=t("reset");
+  try{localStorage.setItem(KEY+".before-reset",JSON.stringify(store));}catch(e){}
   store={box:{},geo:{},shape:{},miss:{},found:{},seen:0,correct:0,streak:0,best:0,bestSprint:0,
-    daily:null,xp:0,lang:lang,region:region,mode:mode,sound:store.sound};save();
+    daily:null,xp:0,lang:lang,region:region,mode:mode,sound:store.sound,build:store.build};
+  normaliseStore();
+  save();
+  paintRank();
   if(mode==="atlas")paintAtlas();else{paintStats();nextQuestion();}
 };
 document.addEventListener("keydown",function(e){
@@ -17569,7 +18405,7 @@ document.addEventListener("keydown",function(e){
     if(!$("rankup").hidden){closeRankUp();return;}
     if(!$("minimodal").hidden){closeMinis();return;}
     if(!$("cotd").hidden){closeCotd();return;}
-    if(!introOpen){snd.card();showIntro();}
+    if(!introOpen){snd.close();showIntro();}
     return;
   }
   if(splashUp()){e.preventDefault();startFromSplash();return;}
@@ -17689,7 +18525,7 @@ if(CHEATS&&/[?&]dbg=1/.test(location.search)){
     draw:drawGlobe,size:sizeGlobe,vis:visibleBox,geo:GEOS,
     frameTo:frameTo,spinTo:spinTo,lineTry:lineTry,lineRun:function(){return lineRun;},
     lineCentre:lineCentre,riverNet:riverNet,ridgeSpine:ridgeSpine,lineSet:lineSet,
-    lineAt:lineAt,featureAt:featureAt,
+    lineAt:lineAt,featureAt:featureAt,locationOf:locationOf,homeOf:homeOf,shapeOf:shapeOf,drawShape:drawShape,drawMiniOutline:drawMiniOutline,sfx:snd,renderCue:renderCue,note:note,
     prof:function(n){
       var i,t=performance.now();
       for(i=0;i<(n||30);i++){globe.lam+=0.4;drawGlobe();}
