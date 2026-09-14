@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v175";</script>
+<script>window.GT_BUILD="v176";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -3701,31 +3701,54 @@ function drawGlobe(){
      without it the labels are simply set tight, which is what they were before. */
   ctx.textAlign="center";ctx.textBaseline="middle";
   ctx.lineJoin="round";
-  var canSpace=("letterSpacing" in ctx);
-  function mapLabel(txt,x,y,size,alpha,ink2){
-    if(canSpace)ctx.letterSpacing=(size*0.11).toFixed(2)+"px";
-    ctx.font='500 '+size.toFixed(1)+'px Oswald,"Arial Narrow",sans-serif';
-    ctx.lineWidth=Math.max(2.4,size*0.28);
-    ctx.strokeStyle=paper;ctx.globalAlpha=0.92*alpha;
-    ctx.strokeText(txt,x,y);
-    ctx.globalAlpha=alpha;ctx.fillStyle=ink2;
-    ctx.fillText(txt,x,y);
-    ctx.globalAlpha=1;
-    if(canSpace)ctx.letterSpacing="0px";
+  /* A LABEL IS A TOOLTIP, NOT AN ENGRAVING.
+
+     Drawing a name into the map means competing with the map: the coastline, the graticule, the
+     land tint and whatever ticket is lying over that part of the world. A chip sits on top of all
+     of it and reads in one go, the way a title attribute does in a desktop browser, which is the
+     comparison that was asked for.
+
+     roundRect is recent enough to be worth asking about; without it the corners are square, which
+     is the right thing to lose. */
+  function chipPath(x,y,w,h,r){
+    if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x,y,w,h,r);return;}
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+    ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);
+    ctx.closePath();
   }
-  function labelOf(nm){return (FLAGBYNAME[nm]?cname(FLAGBYNAME[nm]):nm).toUpperCase();}
+  function mapLabel(txt,x,y,size,alpha,strong){
+    ctx.font='500 '+size.toFixed(1)+'px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';
+    var padX=Math.round(size*0.58),padY=Math.round(size*0.36);
+    var bw=Math.round(ctx.measureText(txt).width)+padX*2,bh=Math.round(size)+padY*2;
+    var bx=Math.round(x-bw/2),by=Math.round(y-bh/2);
+    chipPath(bx,by,bw,bh,Math.min(5,bh*0.3));
+    ctx.globalAlpha=alpha*(strong?0.94:0.78);
+    ctx.fillStyle="#241812";ctx.fill();
+    ctx.globalAlpha=alpha*(strong?0.5:0.3);
+    ctx.strokeStyle="#FBF3E2";ctx.lineWidth=1;ctx.stroke();
+    ctx.globalAlpha=alpha;
+    ctx.fillStyle="#FBF3E2";
+    ctx.fillText(txt,bx+bw/2,by+bh/2+0.5);
+    ctx.globalAlpha=1;
+  }
+  /* sentence case, because a tooltip is not a monument */
+  function labelOf(nm){return FLAGBYNAME[nm]?cname(FLAGBYNAME[nm]):nm;}
   if(labels.length){
     labels.sort(function(a,b){return b[3]-a[3];});
     var fade=Math.max(0,Math.min(1,(globe.zoom-1.8)/0.6));
-    if(fade>0)labels.slice(0,18).forEach(function(L){
-      mapLabel(labelOf(L[0]),L[1],L[2],Math.max(9.5,Math.min(17,L[3]*0.30)),fade,edge);
+    /* ten, not eighteen. A chip is a solid object and the map underneath it is the point. */
+    if(fade>0)labels.slice(0,10).forEach(function(L){
+      mapLabel(labelOf(L[0]),L[1],L[2],Math.max(9,Math.min(13,L[3]*0.22)),fade*0.92,false);
     });
   }
   /* and the one under the thumb, which is louder than the rest on purpose: it is an answer to
      something the reader just did, not part of the scenery */
   if(pickPos){
     mapLabel(labelOf(globe.pick),pickPos[0],pickPos[1],
-      Math.max(12,Math.min(20,pickPos[2]*0.34)),1,css("--ink")||edge);
+      Math.max(12,Math.min(15,pickPos[2]*0.26)),1,true);
   }
   ctx.restore();
 
@@ -10960,7 +10983,10 @@ function fitPassport(){
 /* Opens at today's page unless asked for another one, which is what a tap on an inked in country
    asks for. Today's page is page zero, so opening it that way still counts as having seen it. */
 function openCotd(page){
-  ppPage=page||0;
+  /* A page is a number or it is today. Anything else - an event handed in by a listener, most
+     likely - would index the page list with nonsense, fail to paint, and look like a dead
+     button. It cost exactly that once. */
+  ppPage=(typeof page==="number"&&page>=0)?page:0;
   /* Answers whether it opened. A page it cannot paint - a country with no file behind it - must
      not swallow the tap that asked for it: see introPick, which falls back to picking the country
      rather than doing nothing at all. */
@@ -12734,7 +12760,8 @@ $("menu").onclick=function(){showIntro();};
    Enter, Space and focus with it, so the key handler that faked them is gone too. */
 var wordmark=document.querySelector(".brand h1 .brandbtn");
 wordmark.onclick=function(){snd.close();showIntro();};
-$("cotdopen").onclick=openCotd;
+/* wrapped, not passed: a click handler is called with the event, and openCotd takes a page */
+$("cotdopen").onclick=function(){openCotd();};
 $("cotdclose").onclick=closeCotd;
 $("cotdstamp").onclick=stampIt;
 $("miniclose").onclick=closeMinis;
