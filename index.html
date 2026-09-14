@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v163";</script>
+<script>window.GT_BUILD="v175";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -3349,7 +3349,7 @@ function drawGlobe(){
   }
 
   /* land */
-  var labels=[];
+  var labels=[],pickPos=null;
   geoActive().list.forEach(function(f){
     var tone=globe.hi[f.name]||(f.name===globe.hover?css("--hi"):null);
     /* whether a country is one of the 197 is a fact about the country, not about each of
@@ -3406,7 +3406,11 @@ function drawGlobe(){
       if(f.quiz&&q[2]>0.3&&cap[3]>biggest){biggest=cap[3];bigPos=[cx+R*q[0],cy-R*q[1],cap[3]*R];}
     });
     /* names only where they are not the answer: the title globe browses, the game hides */
-    if(globe.plain&&bigPos&&globe.zoom>=1.8&&bigPos[2]>26)labels.push([f.name,bigPos[0],bigPos[1],bigPos[2]]);
+    if(globe.plain&&bigPos&&globe.zoom>=1.8&&bigPos[2]>26&&f.name!==globe.pick)
+      labels.push([f.name,bigPos[0],bigPos[1],bigPos[2]]);
+    /* The one the reader asked about gets its name whatever the zoom, and gets it bigger. That
+       is the whole of the answer to a tap, so it cannot be conditional on how close they are. */
+    if(globe.plain&&bigPos&&f.name===globe.pick)pickPos=bigPos;
   });
 
   /* the hand drawn lines: rivers as water, ranges as ridges. Only the front of the
@@ -3682,20 +3686,46 @@ function drawGlobe(){
     ctx.restore();
   }
 
-  /* names, once you are close enough for them to mean something */
+  /* NAMES, ONCE YOU ARE CLOSE ENOUGH FOR THEM TO MEAN SOMETHING.
+
+     A label on a chart is letter spaced, it is set in the same face as the rest of the printing,
+     and it is as big as the thing it names. All three of those were missing: this was Courier
+     New at one size for every country, haloed in the colour of the land it sat on, and switched
+     on all at once the moment the zoom crossed 1.8.
+
+     The size now comes from the country's own radius on screen, so Russia is named larger than
+     Luxembourg the way an atlas does it, and the whole set fades up over the two thirds of a
+     zoom step after it appears rather than arriving in one frame.
+
+     letterSpacing on a canvas is recent enough to be worth asking about rather than assuming;
+     without it the labels are simply set tight, which is what they were before. */
+  ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.lineJoin="round";
+  var canSpace=("letterSpacing" in ctx);
+  function mapLabel(txt,x,y,size,alpha,ink2){
+    if(canSpace)ctx.letterSpacing=(size*0.11).toFixed(2)+"px";
+    ctx.font='500 '+size.toFixed(1)+'px Oswald,"Arial Narrow",sans-serif';
+    ctx.lineWidth=Math.max(2.4,size*0.28);
+    ctx.strokeStyle=paper;ctx.globalAlpha=0.92*alpha;
+    ctx.strokeText(txt,x,y);
+    ctx.globalAlpha=alpha;ctx.fillStyle=ink2;
+    ctx.fillText(txt,x,y);
+    ctx.globalAlpha=1;
+    if(canSpace)ctx.letterSpacing="0px";
+  }
+  function labelOf(nm){return (FLAGBYNAME[nm]?cname(FLAGBYNAME[nm]):nm).toUpperCase();}
   if(labels.length){
     labels.sort(function(a,b){return b[3]-a[3];});
-    ctx.textAlign="center";ctx.textBaseline="middle";
-    ctx.lineJoin="round";
-    var fs=Math.max(9,Math.min(13,R*0.032));
-    ctx.font='600 '+fs.toFixed(1)+'px "Courier New",Courier,monospace';
-    labels.slice(0,26).forEach(function(L){
-      var txt=(FLAGBYNAME[L[0]]?cname(FLAGBYNAME[L[0]]):L[0]).toUpperCase();
-      ctx.lineWidth=3.2;ctx.strokeStyle=paper;ctx.globalAlpha=.75;
-      ctx.strokeText(txt,L[1],L[2]);
-      ctx.globalAlpha=1;ctx.fillStyle=edge;
-      ctx.fillText(txt,L[1],L[2]);
+    var fade=Math.max(0,Math.min(1,(globe.zoom-1.8)/0.6));
+    if(fade>0)labels.slice(0,18).forEach(function(L){
+      mapLabel(labelOf(L[0]),L[1],L[2],Math.max(9.5,Math.min(17,L[3]*0.30)),fade,edge);
     });
+  }
+  /* and the one under the thumb, which is louder than the rest on purpose: it is an answer to
+     something the reader just did, not part of the scenery */
+  if(pickPos){
+    mapLabel(labelOf(globe.pick),pickPos[0],pickPos[1],
+      Math.max(12,Math.min(20,pickPos[2]*0.34)),1,css("--ink")||edge);
   }
   ctx.restore();
 
@@ -4103,6 +4133,8 @@ function lineAt(lon,lat,setKey){
 function globeClick(e){
   var rect=globe.cv.getBoundingClientRect();
   var px=e.clientX-rect.left,py=e.clientY-rect.top;
+  /* The title screen never reaches here: globeClick is reassigned further down, and that
+     wrapper answers introOpen itself before this is ever called. See introPick. */
   if(isTrace()){
     var g=unproject(px,py);
     if(!g)return;
@@ -9795,7 +9827,12 @@ function rankIndex(xp){
   for(k=0;k<RANKS.length;k++)if(xp>=RANKS[k].xp)i=k;
   return i;
 }
-function rankName(i){return RANKS[i][lang]||RANKS[i].en;}
+/* What the rank is called on screen: the rung, counted from one. Everything that prints a rank
+   goes through here, so the ladder reads the same in the ledger, on the gates and on the sheet. */
+function rankName(i){return "Lv "+(i+1);}
+/* And what it used to be called. Kept for the one line on the stats sheet that has room for it:
+   the titles are a reward for getting there, not a way of working out where there is. */
+function rankTitle(i){return RANKS[i][lang]||RANKS[i].en;}
 function rankProgress(){
   var i=rankIndex(store.xp),from=RANKS[i].xp,to=i+1<RANKS.length?RANKS[i+1].xp:from+4000;
   return {i:i,from:from,to:to,pct:Math.max(0,Math.min(1,(store.xp-from)/(to-from)))};
@@ -9985,8 +10022,12 @@ function openStats(){
 
   /* the rank, printed large */
   var top=document.createElement("div");top.className="drank";
-  var rn=document.createElement("b");rn.textContent=rankName(rankIndex(store.xp||0));
-  var rx=document.createElement("span");rx.textContent=(store.xp||0)+" "+t("totalXp");
+  var ri=rankIndex(store.xp||0);
+  var rn=document.createElement("b");rn.textContent=rankName(ri);
+  /* the only place the old titles still show: a sheet has room for a flourish that a forty
+     pixel ledger cell does not */
+  var rx=document.createElement("span");
+  rx.textContent=fmtNum(store.xp||0)+" "+t("totalXp")+"  \u00b7  "+rankTitle(ri);
   top.appendChild(rn);top.appendChild(rx);
   host.appendChild(top);
 
@@ -10916,16 +10957,22 @@ function fitPassport(){
   pp.style.zoom=k.toFixed(4);
   pp.style.maxHeight=Math.round(room/k)+"px";
 }
-function openCotd(){
-  ppPage=0;
-  if(!paintCotd())return;
+/* Opens at today's page unless asked for another one, which is what a tap on an inked in country
+   asks for. Today's page is page zero, so opening it that way still counts as having seen it. */
+function openCotd(page){
+  ppPage=page||0;
+  /* Answers whether it opened. A page it cannot paint - a country with no file behind it - must
+     not swallow the tap that asked for it: see introPick, which falls back to picking the country
+     rather than doing nothing at all. */
+  if(!paintCotd())return false;
   $("cotd").hidden=false;
   /* twice: once when the box has a height, once after the web fonts have had their say */
   requestAnimationFrame(fitPassport);
   setTimeout(fitPassport,220);
   snd.open();
-  store.cotdSeen=todayKey();save();
+  if(!ppPage){store.cotdSeen=todayKey();save();}
   paintCotdCard();
+  return true;
 }
 function paintCotd(){
   var pages=ppPages();
@@ -11625,6 +11672,9 @@ function stampIt(){
   if(store.stamps[f.c])return;
   store.stamps[f.c]=todayKey();
   save();
+  /* the globe behind the passport gains a country the moment the stamp lands, so closing the
+     book shows what the book just did */
+  introRepaint();
   snd.stamp();
   buzz([14,40,18]);
   buildVisaStamp(f);
@@ -11687,6 +11737,64 @@ function hideHoverNow(){
   clearTimeout(hoverHold);clearTimeout(hoverIdle);
   if(el)el.classList.remove("on");
   if(globe.hover){globe.hover=null;requestDraw();}
+}
+/* WHAT THE TITLE GLOBE IS COLOURED WITH.
+
+   Every country in the passport, inked in, plus whichever one was last tapped. It is built rather
+   than looked up per country because drawGlobe asks about every feature on every frame and this
+   changes about once a day: a map of names is one walk of the flag table whenever a stamp lands
+   or a tap happens, against two hundred lookups sixty times a second if it were not.
+
+   Keyed by feature name because that is what the globe knows a country by; the stamps are keyed
+   by country code, which is what the passport knows it by. FLAGBYNAME is the one place both
+   spellings meet. */
+function introTones(){
+  var out={},good=css("--good")||"#3F6B4A",st=store.stamps||{};
+  Object.keys(FLAGBYNAME).forEach(function(nm){
+    var fl=FLAGBYNAME[nm];
+    if(fl&&st[fl.c])out[nm]=good;
+  });
+  if(globe.pick)out[globe.pick]=css("--hi")||"#C0392B";
+  return out;
+}
+function introRepaint(){
+  if(!introOpen||!globe.plain)return;
+  globe.hi=introTones();
+  requestDraw();
+}
+/* A tap on the title globe. A country already in the book has a page of its own, so the tap turns
+   to that page; anything else lights up and says its name, and saying it again, or tapping the
+   sea, puts it out. */
+function introPick(name){
+  var fl=name?FLAGBYNAME[name]:null;
+  snd.pip();
+  /* a country already in the book has a page of its own, and turning to it is a better answer to
+     a tap than naming something the book already names */
+  if(fl&&store.stamps&&store.stamps[fl.c]&&openCotd(visaPage(fl.c))){
+    globe.pick=null;introRepaint();
+    return;
+  }
+  globe.pick=(name&&globe.pick!==name)?name:null;
+  /* IT STAYS WHERE IT WAS TAPPED.
+
+     The old branch spun the country to the middle of the sphere, which is the middle of the
+     screen, which is where the desk drawers are. That was harmless while the only thing it had to
+     show was a tooltip under the thumb; now the name is printed on the country itself, and
+     sliding it to the centre slid it behind the cards.
+
+     Somewhere a thumb can reach is somewhere a thumb could see, so leaving it alone is both the
+     simpler code and the one that cannot hide what it was asked to show. The globe still stops
+     turning, because a name sliding off the side is no better. */
+  /* pointerdown already held the spin; this re-arms the four second timer from the tap rather
+     than from the press, and that timer now checks the pick before it starts turning again. */
+  holdSpin();
+  introRepaint();
+}
+/* which page of the passport a country sits on, or 0 for today's */
+function visaPage(code){
+  var pages=ppPages(),i;
+  for(i=0;i<pages.length;i++)if(pages[i].c===code)return i;
+  return 0;
 }
 function showHoverName(name,px,py,off){
   var el=$("hovername");
@@ -12156,7 +12264,9 @@ var spinIdle=0;
 function holdSpin(){
   stopSpin();
   clearTimeout(spinIdle);
-  spinIdle=setTimeout(function(){if(introOpen&&!globe.drag)spinGlobe();},4000);
+  /* and not while a country is being looked at: a name that drifts off the side of the screen
+     four seconds after it was asked for is not an answer */
+  spinIdle=setTimeout(function(){if(introOpen&&!globe.drag&&!globe.pick)spinGlobe();},4000);
 }
 /* ---------- the front door: one ticket, one horn, one tap ---------- */
 var splashDone=false;
@@ -12341,8 +12451,10 @@ function showIntro(deferBoot){
   g.hidden=false;
   $("introglobe").appendChild(g);
   if(!globe.ctx)initGlobe();
-  /* the title globe: no answers on it, no zoom carried over, no leftover ink */
-  introView.hi={};introView.hover=null;introView.plain=true;introView.zoom=1;introView.vel=0;
+  /* The title globe: no answers on it, no zoom carried over, and the only ink is the passport.
+     Nothing tapped yet, because a pick belongs to a sitting rather than to the save. */
+  globe.pick=null;
+  introView.hi=introTones();introView.hover=null;introView.plain=true;introView.zoom=1;introView.vel=0;
   applyView(introView);
   globe.phi=14;
   /* start the spin just short of today's country, so it drifts into view */
@@ -12368,7 +12480,7 @@ function hideIntro(){
   stopSpin();clearTimeout(spinIdle);
   introView=snapView();                                  /* keep the title globe where it stood */
   applyView(gameView||{lam:-10,phi:20,zoom:1,vel:0,hi:{},hover:null,plain:false});
-  globe.plain=false;
+  globe.plain=false;globe.pick=null;
   if(globeHome)globeHome.parent.insertBefore($("globewrap"),globeHome.next);
   $("intro").hidden=true;
   $("app").style.visibility="";
@@ -12595,14 +12707,12 @@ globeClick=function(e){
     var ll=unproject(px,py);
     var f=ll&&featureAt(ll[0],ll[1]);
     var nm=(markerAt(px,py)||{}).name||(f&&f.quiz?f.name:null);
-    if(nm){
-      var c=locationOf(nm);
-      if(c){globe.vel=0;spinTo(c[0],c[1]);}
-      globe.hover=nm;
-      showHoverName(nm,px,py);
-      snd.pip();
-      fadeHint();
-    }
+    /* The hover tone and the floating name came off here. Hover is a mouse's idea and the label
+       it drove took itself off the screen after a second and a half, from under the thumb that
+       had just covered it: on a phone a tap left a highlight nobody could account for and no
+       name at all. The pick outlives the tap and carries its own name on the map. */
+    if(nm)fadeHint();
+    introPick(nm||null);
     return;
   }
   baseGlobeClick(e);
@@ -13118,6 +13228,7 @@ if(CHEATS&&/[?&]dbg=1/.test(location.search)){
     frameTo:frameTo,spinTo:spinTo,lineTry:lineTry,lineRun:function(){return lineRun;},
     lineCentre:lineCentre,riverNet:riverNet,ridgeSpine:ridgeSpine,lineSet:lineSet,
     showUpdate:function(){updateSeen=true;paintUpdate();},sprintState:function(){return sprint;},sprintEnd:sprintEnd,
+    introOpen:function(){return introOpen;},introPick:introPick,introTones:introTones,
     biggerState:function(){return bigger;},biggerTry:biggerTry,keepPlace:keepPlace,standing:standing,placeOf:placeOf,
     lineAt:lineAt,featureAt:featureAt,locationOf:locationOf,homeOf:homeOf,shapeOf:shapeOf,drawShape:drawShape,drawMiniOutline:drawMiniOutline,sfx:snd,renderCue:renderCue,note:note,
     prof:function(n){
