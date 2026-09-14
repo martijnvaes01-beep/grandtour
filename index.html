@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v157 · 2026-09-14 17:56";</script>
+<script>window.GT_BUILD="v159";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -738,11 +738,12 @@ en:{sub:"countries · flags, globe, atlas",
   noFlags:"Could not fetch the flags. Check your connection.",
   noFile:"{f} is missing from the server.",
   privTitle:"Privacy",backLab:"Back",
-  betterLab:"Better than",betterOf:"of players today",
+  betterLab:"Better than",betterOf:"of players",
   vsOthers:"Better than",
   newVersion:"New version \u00b7 tap to load",
   avgOf:"average {a} of {b}",
   rankOfN:"rank {r} of {n}",
+  vsSoFar:"Players",vsWait:"so far",
   setTitle:"Settings",shareLab:"Share my scores",shareOn:"On",shareOff:"Off",
   priv1:"Grand Tour keeps everything you have played on this device. Your progress, your records and your settings never leave it.",
   priv2:"When you finish a round, the score is sent to the server together with a random id, so the game can tell you how that round compares with other players. The id is a string of random characters made in your browser. It is not your name, your address or anything about your phone, and there is no way to get from it back to you.",
@@ -928,11 +929,12 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   noFlags:"Impossible de r\u00e9cup\u00e9rer les drapeaux. V\u00e9rifiez votre connexion.",
   noFile:"{f} est introuvable sur le serveur.",
   privTitle:"Confidentialité",backLab:"Retour",
-  betterLab:"Mieux que",betterOf:"des joueurs aujourd'hui",
+  betterLab:"Mieux que",betterOf:"des joueurs",
   vsOthers:"Mieux que",
   newVersion:"Nouvelle version \u00b7 touchez pour charger",
   avgOf:"moyenne {a} sur {b}",
   rankOfN:"rang {r} sur {n}",
+  vsSoFar:"Joueurs",vsWait:"jusqu'ici",
   setTitle:"Réglages",shareLab:"Partager mes scores",shareOn:"Oui",shareOff:"Non",
   priv1:"Grand Tour garde tout ce que vous avez joué sur cet appareil. Votre progression, vos records et vos réglages ne le quittent jamais.",
   priv2:"Quand vous terminez une manche, le score part vers le serveur avec un identifiant aléatoire, pour que le jeu puisse vous dire ce que vaut cette manche par rapport aux autres joueurs. Cet identifiant est une suite de caractères tirés au hasard dans votre navigateur. Ce n'est ni votre nom, ni votre adresse, ni rien qui concerne votre téléphone, et il n'existe aucun chemin de retour vers vous.",
@@ -1118,11 +1120,12 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   noFlags:"Flaggen konnten nicht geladen werden. Pr\u00fcfe deine Verbindung.",
   noFile:"{f} fehlt auf dem Server.",
   privTitle:"Datenschutz",backLab:"Zurück",
-  betterLab:"Besser als",betterOf:"der Spieler heute",
+  betterLab:"Besser als",betterOf:"der Spieler",
   vsOthers:"Besser als",
   newVersion:"Neue Version \u00b7 tippen zum Laden",
   avgOf:"im Schnitt {a} von {b}",
   rankOfN:"Platz {r} von {n}",
+  vsSoFar:"Spieler",vsWait:"bisher",
   setTitle:"Einstellungen",shareLab:"Meine Ergebnisse teilen",shareOn:"An",shareOff:"Aus",
   priv1:"Grand Tour behält alles Gespielte auf diesem Gerät. Dein Fortschritt, deine Rekorde und deine Einstellungen verlassen es nie.",
   priv2:"Wenn du eine Runde beendest, geht das Ergebnis mit einer zufälligen Kennung an den Server, damit das Spiel dir sagen kann, wie diese Runde im Vergleich zu anderen Spielern steht. Die Kennung ist eine Folge zufälliger Zeichen, erzeugt in deinem Browser. Sie ist nicht dein Name, nicht deine Adresse und nichts über dein Telefon, und es gibt keinen Weg von ihr zurück zu dir.",
@@ -1308,11 +1311,12 @@ es:{sub:"países · banderas, globo, atlas",
   noFlags:"No se han podido cargar las banderas. Revisa tu conexi\u00f3n.",
   noFile:"Falta {f} en el servidor.",
   privTitle:"Privacidad",backLab:"Atrás",
-  betterLab:"Mejor que",betterOf:"de los jugadores hoy",
+  betterLab:"Mejor que",betterOf:"de los jugadores",
   vsOthers:"Mejor que",
   newVersion:"Nueva versi\u00f3n \u00b7 pulsa para cargar",
   avgOf:"media {a} de {b}",
   rankOfN:"puesto {r} de {n}",
+  vsSoFar:"Jugadores",vsWait:"hasta ahora",
   setTitle:"Ajustes",shareLab:"Compartir mis puntuaciones",shareOn:"Sí",shareOff:"No",
   priv1:"Grand Tour guarda todo lo que has jugado en este dispositivo. Tu progreso, tus récords y tus ajustes nunca salen de él.",
   priv2:"Cuando terminas una ronda, la puntuación se envía al servidor junto con un identificador aleatorio, para que el juego pueda decirte cómo se compara esa ronda con la de otros jugadores. Ese identificador es una cadena de caracteres al azar creada en tu navegador. No es tu nombre, ni tu dirección, ni nada sobre tu teléfono, y no hay forma de volver desde él hasta ti.",
@@ -1498,11 +1502,12 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   noFlags:"De vlaggen kwamen niet binnen. Check je verbinding.",
   noFile:"{f} staat niet op de server.",
   privTitle:"Privacy",backLab:"Terug",
-  betterLab:"Beter dan",betterOf:"van de spelers vandaag",
+  betterLab:"Beter dan",betterOf:"van de spelers",
   vsOthers:"Beter dan",
   newVersion:"Nieuwe versie \u00b7 tik om te laden",
   avgOf:"gemiddeld {a} van {b}",
   rankOfN:"plaats {r} van {n}",
+  vsSoFar:"Spelers",vsWait:"tot nu toe",
   setTitle:"Instellingen",shareLab:"Deel mijn scores",shareOn:"Aan",shareOff:"Uit",
   priv1:"Grand Tour bewaart alles wat je gespeeld hebt op dit toestel. Je voortgang, je records en je instellingen gaan er nooit vanaf.",
   priv2:"Als je een ronde afmaakt, gaat de score naar de server met een willekeurig nummer erbij, zodat het spel je kan zeggen hoe die ronde zich verhoudt tot andere spelers. Dat nummer is een reeks willekeurige tekens die in je browser gemaakt is. Het is niet je naam, niet je adres en niets over je telefoon, en er is geen weg terug van dat nummer naar jou.",
@@ -1895,69 +1900,74 @@ var SCORE_URL="https://grandtour-scores.martijnvaes01.workers.dev";
 var SCORED={daily:1,sprint:1,name:1,find:1,blind:1,cap:1,trap:1,locate:1,spot:1,globle:1,
   worldle:1,shape:1,bigger:1,trade:1,dossier:1,riverloc:1,sea:1,rangeloc:1};
 
-/* the last table that arrived, per board, kept in the save so it outlives the tab */
+/* The last table that arrived, kept in the save so it outlives the tab. One entry for every
+   board at once, because the sheet lists every board at once and eighteen separate hourly
+   fetches to fill it meant most of them were never asked for.
+
+   The shape is versioned. A save written before the window existed holds the old per board, per
+   day tables under this same name, and those held raw scores where these hold percentages: read
+   by mistake they would place a 16 against a table of shares and print nonsense. It is dropped
+   rather than migrated, because the next ask replaces it within the hour anyway. */
 function distCache(){
-  if(!store.dist||typeof store.dist!=="object")store.dist={};
+  if(!store.dist||store.dist.v!==2)store.dist={v:2,at:0,n:{},hist:{}};
   return store.dist;
 }
-/* Ask for today's table at most once an hour, and only if there is somewhere to ask. A failure
-   is not retried and not reported: the cached table is the answer until the next hour. */
-function distAsk(board){
-  if(!SCORE_URL||!SCORED[board])return;
-  var c=distCache(),have=c[board];
-  if(have&&have.at&&Date.now()-have.at<3600000)return;
-  var day=todayKey();
-  fetch(SCORE_URL+"/api/dist?day="+day+"&board="+board)
+/* Ask at most once an hour, and only if there is somewhere to ask. The stamp goes on before the
+   request rather than after it, so a server that is down costs one attempt an hour instead of
+   one per board opened. A failure is not retried and not reported: the cached table is the
+   answer until the next hour, and no table is a figure the game knows how to leave out. */
+function distAsk(){
+  if(!SCORE_URL)return;
+  var c=distCache();
+  if(c.at&&Date.now()-c.at<3600000)return;
+  c.at=Date.now();
+  fetch(SCORE_URL+"/api/dist?day="+todayKey())
     .then(function(r){return r.ok?r.json():null;})
     .then(function(d){
-      /* An answer with no table in it is still an answer, and it has to be remembered or the
-         hourly guard never applies: a board with fewer than twenty players today returns
-         nothing, which is the ordinary state of a new game, and without this every time that
-         board opened it asked again. The old table is kept if there is one - yesterday's
-         figure beats no figure. */
-      if(!d)return;
-      var had=c[board];
-      var got=(d.scores&&d.scores.length)||(d.dist&&d.dist.length);
-      if(got)c[board]={day:d.day,n:d.n,scores:d.scores||null,dist:d.dist||null,at:Date.now()};
-      else c[board]=had?{day:had.day,n:had.n,scores:had.scores,dist:had.dist,at:Date.now()}
-                       :{dist:null,scores:null,at:Date.now()};
+      if(!d||typeof d!=="object")return;
+      store.dist={v:2,at:Date.now(),n:d.n||{},hist:d.hist||{}};
       save();
+      /* The sheet is the one view that shows every board's standing, so it is also the view
+         most likely to be open when the first table of the hour lands. Repainting it is how
+         the figures appear on the screen somebody is already looking at rather than the next
+         time they open it. openStats asks again on its way in, and the stamp above means that
+         ask returns immediately, so this cannot loop. */
+      var sm=$("statsmodal");
+      if(sm&&!sm.hidden)openStats();
     })["catch"](function(){});
 }
-/* How many players scored strictly less than this. That is the reading of "better than", and it
-   is the one number both sentences are built from. Counted from the scores when they are here,
-   read off the rungs when they are not. */
-function belowMe(board,score){
-  var c=distCache()[board];
-  if(!c)return null;
-  if(c.scores&&c.scores.length){
-    var k=0,j;
-    for(j=0;j<c.scores.length;j++)if(c.scores[j]<score)k++;
-    return {below:k,n:c.n||c.scores.length};
-  }
-  if(c.dist&&c.dist.length){
-    var out=0,i;
-    for(i=0;i<c.dist.length;i++){
-      if(score>=c.dist[i][0])out=c.dist[i][1];else break;
-    }
-    return {below:Math.round(out*(c.n||0)/100),n:c.n||0,pct:out};
-  }
-  return null;
+/* How many players are in the table for a board, whether or not there are enough of them to
+   place anybody against. The count is worth printing on its own. */
+function playerCount(board){
+  var c=distCache();
+  return (c.n&&c.n[board])||0;
+}
+/* How many players scored strictly below this, where the figure is a share of the round from 0
+   to 100 rather than a raw count. That is the reading of "better than", and it is the one number
+   both sentences are built from. The table is a histogram, so this is exact at any size: no
+   interpolation between rungs and nothing worked back out of a rounded percentage. */
+function belowMe(board,pct){
+  var c=distCache(),h=c.hist&&c.hist[board],n=playerCount(board);
+  if(!h||!h.length||!n)return null;
+  var k=0,i;
+  for(i=0;i<h.length;i++){if(h[i][0]<pct)k+=h[i][1];else break;}
+  return {below:k,n:n};
 }
 /* The sentence, chosen by how many people there are to compare with. Under a dozen a percentage
-   is theatre, so it says where you came instead. */
+   is theatre - with five players the only possible answers are 0, 20, 40, 60, 80 and 100, and
+   one more player moves everybody - so it says where you came instead. A rank is exact at any
+   size and claims nothing it cannot support. */
 var CROWD=12;
-function standing(board,score){
-  var r=belowMe(board,score);
+function standing(board,pct){
+  var r=belowMe(board,pct);
   if(!r||!r.n)return null;
   if(r.n<CROWD)return {text:fill(t("rankOfN"),{r:(r.n-r.below),n:r.n}),note:null};
-  var pct=(r.pct===undefined)?Math.round(r.below/r.n*100):r.pct;
-  return {text:pct+"%",note:t("betterOf")};
+  return {text:Math.round(r.below/r.n*100)+"%",note:t("betterOf")};
 }
-function betterThan(board,score){
-  var r=belowMe(board,score);
+function betterThan(board,pct){
+  var r=belowMe(board,pct);
   if(!r||!r.n)return null;
-  return (r.pct===undefined)?Math.round(r.below/r.n*100):r.pct;
+  return Math.round(r.below/r.n*100);
 }
 /* One POST, at the end of a round, if the player has not turned it off. No await, no then, no
    handler: a score that does not arrive costs nothing and a player who is offline never learns
@@ -7185,7 +7195,7 @@ function runEnd(){
   var outOf=(mode==="dossier")?(LEN*DOS_BASE):LEN;
   var reg=region||"ALL";
   sendScore(mode,sent,outOf,reg);
-  distAsk(mode);
+  distAsk();
 
   /* Only a round over the whole world is comparable with the table, which is built from rounds
      over the whole world. A round of South America is twelve questions; placing it against a
@@ -7200,7 +7210,9 @@ function runEnd(){
     store.sent[mode]={last:sent,best:Math.max(sent,was.best||0),
       n:(was.n||0)+1,sum:(was.sum||0)+sent,len:outOf};
     save();
-    var st2=standing(mode,sent);
+    /* as a share of the round, which is what the table holds: the boards are not all twenty
+       questions and the dossier is not scored out of its length at all */
+    var st2=outOf?standing(mode,sent/outOf*100):null;
     if(st2)slip("pct",t("betterLab"),st2.text,st2.note||"");
   }
 
@@ -7745,7 +7757,7 @@ function setMode(m,keepRegion){
   /* Ask for this board's distribution as it opens, not when the round ends: an hour of cache
      means the answer is almost always already in hand by the time it is wanted, and asking at
      the end would show the figure a beat after the results have settled. */
-  try{distAsk(m);}catch(e){}
+  try{distAsk();}catch(e){}
   countdownStop();   /* a count belongs to the mode that started it */
   if(m!=="sprint"){store.mode=m;save();}
   TABS.forEach(function(k){
@@ -9766,24 +9778,36 @@ function openStats(){
         [t("daysPlayed"),String(Object.keys(st.days||{}).length)],
         [t("stampsLab"),String(Object.keys(store.stamps||{}).length)]]);
 
-  /* Against other people, for the boards where there is both a score of your own and a table
-     to put it against. No table means no line: a board nobody else has played today has nothing
-     to say, and inventing a figure for it would be worse than silence. */
-  var vs=[];
+  /* Against other people. Asked for here as well as when a board opens: the sheet is the one
+     view that lists every board's standing at once, so it is the view most likely to want a
+     table nothing else has fetched yet. The ask is guarded to once an hour and the answer
+     repaints this sheet if it is still open when it lands. */
+  distAsk();
+  var vs=[],crowd=0;
   Object.keys(store.sent||{}).forEach(function(m){
     var mine=store.sent[m];
-    if(!mine||!mine.n||typeof mine.sum!=="number")return;
-    var avg=mine.sum/mine.n;
-    var st3=standing(m,avg);
+    if(!mine||!mine.n||typeof mine.sum!=="number"||!mine.len)return;
+    if(playerCount(m)>crowd)crowd=playerCount(m);
+    /* Your average, not your best. A best is one lucky afternoon; an average is how good
+       somebody actually is, and it is the figure the sheet is being opened to ask about. As a
+       share of the round, because that is what the table holds. */
+    var avg=mine.sum/mine.n,share=avg/mine.len*100;
+    var st3=standing(m,share);
     if(!st3)return;
     vs.push([t(MODE_LABEL[m]||"mName"),st3.text,
-      fill(t("avgOf"),{a:(Math.round(avg*10)/10),b:(mine.len||"")}),
-      betterThan(m,avg)||0]);
+      fill(t("avgOf"),{a:(Math.round(avg*10)/10),b:mine.len}),
+      betterThan(m,share)||0]);
   });
   if(vs.length){
     vs.sort(function(a,b){return b[3]-a[3];});
     dossierHead(host,t("vsOthers"));
     vs.forEach(function(r){dossierRow(host,r[0],r[1],r[2]);});
+  } else if(crowd){
+    /* Having nobody to compare with is a fact, and printing it is the difference between a
+       feature that is waiting and a feature that looks broken. A section that simply fails to
+       appear tells a player who was promised a comparison that the promise was not kept. */
+    dossierHead(host,t("vsOthers"));
+    dossierRow(host,t("vsSoFar"),String(crowd),t("vsWait"));
   }
 
   dossierHead(host,t("recordsLab"));
