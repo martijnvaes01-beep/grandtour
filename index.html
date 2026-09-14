@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v145 · 2026-09-14 17:04";</script>
+<script>window.GT_BUILD="v147 · 2026-09-14 17:30";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -738,6 +738,7 @@ en:{sub:"countries · flags, globe, atlas",
   noFile:"{f} is missing from the server.",
   privTitle:"Privacy",backLab:"Back",
   betterLab:"Better than",betterOf:"of players today",
+  vsOthers:"Better than",
   setTitle:"Settings",shareLab:"Share my scores",shareOn:"On",shareOff:"Off",
   priv1:"Grand Tour keeps everything you have played on this device. Your progress, your records and your settings never leave it.",
   priv2:"When you finish a round, the score is sent to the server together with a random id, so the game can tell you how that round compares with other players. The id is a string of random characters made in your browser. It is not your name, your address or anything about your phone, and there is no way to get from it back to you.",
@@ -924,6 +925,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   noFile:"{f} est introuvable sur le serveur.",
   privTitle:"Confidentialité",backLab:"Retour",
   betterLab:"Mieux que",betterOf:"des joueurs aujourd'hui",
+  vsOthers:"Mieux que",
   setTitle:"Réglages",shareLab:"Partager mes scores",shareOn:"Oui",shareOff:"Non",
   priv1:"Grand Tour garde tout ce que vous avez joué sur cet appareil. Votre progression, vos records et vos réglages ne le quittent jamais.",
   priv2:"Quand vous terminez une manche, le score part vers le serveur avec un identifiant aléatoire, pour que le jeu puisse vous dire ce que vaut cette manche par rapport aux autres joueurs. Cet identifiant est une suite de caractères tirés au hasard dans votre navigateur. Ce n'est ni votre nom, ni votre adresse, ni rien qui concerne votre téléphone, et il n'existe aucun chemin de retour vers vous.",
@@ -1110,6 +1112,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   noFile:"{f} fehlt auf dem Server.",
   privTitle:"Datenschutz",backLab:"Zurück",
   betterLab:"Besser als",betterOf:"der Spieler heute",
+  vsOthers:"Besser als",
   setTitle:"Einstellungen",shareLab:"Meine Ergebnisse teilen",shareOn:"An",shareOff:"Aus",
   priv1:"Grand Tour behält alles Gespielte auf diesem Gerät. Dein Fortschritt, deine Rekorde und deine Einstellungen verlassen es nie.",
   priv2:"Wenn du eine Runde beendest, geht das Ergebnis mit einer zufälligen Kennung an den Server, damit das Spiel dir sagen kann, wie diese Runde im Vergleich zu anderen Spielern steht. Die Kennung ist eine Folge zufälliger Zeichen, erzeugt in deinem Browser. Sie ist nicht dein Name, nicht deine Adresse und nichts über dein Telefon, und es gibt keinen Weg von ihr zurück zu dir.",
@@ -1296,6 +1299,7 @@ es:{sub:"países · banderas, globo, atlas",
   noFile:"Falta {f} en el servidor.",
   privTitle:"Privacidad",backLab:"Atrás",
   betterLab:"Mejor que",betterOf:"de los jugadores hoy",
+  vsOthers:"Mejor que",
   setTitle:"Ajustes",shareLab:"Compartir mis puntuaciones",shareOn:"Sí",shareOff:"No",
   priv1:"Grand Tour guarda todo lo que has jugado en este dispositivo. Tu progreso, tus récords y tus ajustes nunca salen de él.",
   priv2:"Cuando terminas una ronda, la puntuación se envía al servidor junto con un identificador aleatorio, para que el juego pueda decirte cómo se compara esa ronda con la de otros jugadores. Ese identificador es una cadena de caracteres al azar creada en tu navegador. No es tu nombre, ni tu dirección, ni nada sobre tu teléfono, y no hay forma de volver desde él hasta ti.",
@@ -1482,6 +1486,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   noFile:"{f} staat niet op de server.",
   privTitle:"Privacy",backLab:"Terug",
   betterLab:"Beter dan",betterOf:"van de spelers vandaag",
+  vsOthers:"Beter dan",
   setTitle:"Instellingen",shareLab:"Deel mijn scores",shareOn:"Aan",shareOff:"Uit",
   priv1:"Grand Tour bewaart alles wat je gespeeld hebt op dit toestel. Je voortgang, je records en je instellingen gaan er nooit vanaf.",
   priv2:"Als je een ronde afmaakt, gaat de score naar de server met een willekeurig nummer erbij, zodat het spel je kan zeggen hoe die ronde zich verhoudt tot andere spelers. Dat nummer is een reeks willekeurige tekens die in je browser gemaakt is. Het is niet je naam, niet je adres en niets over je telefoon, en er is geen weg terug van dat nummer naar jou.",
@@ -7102,6 +7107,12 @@ function runEnd(){
   /* The round is over and scored. What the server gets is one number and which board it came
      from; what comes back, an hour later at the earliest, is a table. Neither is waited on. */
   var sent=(mode==="dossier")?(run.pts||0):score;
+  /* kept whether or not it was sent: sharing can be off, and the figure on the sheet is still
+     worth having once a table arrives from somebody else's rounds */
+  if(!store.sent||typeof store.sent!=="object")store.sent={};
+  var was=store.sent[mode]||{};
+  store.sent[mode]={last:sent,best:Math.max(sent,was.best||0)};
+  save();
   sendScore(mode,sent);
   distAsk(mode);
   var bt=betterThan(mode,sent);
@@ -8272,7 +8283,7 @@ function dailyKind(key){
 var GATES={shape:1,spot:2,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8};
 /* Bump this when publishing the artifact. The home screen build counts its own in build.json
    and overwrites this on the way through standalone.js. */
-var VERSION="v145";
+var VERSION="v147";
 /* Seas joined the two line games: same queue, same card, same globe, and the answer is a
    place on it rather than a name off a list. */
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc"||m==="sea";}
@@ -9665,6 +9676,23 @@ function openStats(){
         [t("accuracyLab"),acc],
         [t("daysPlayed"),String(Object.keys(st.days||{}).length)],
         [t("stampsLab"),String(Object.keys(store.stamps||{}).length)]]);
+
+  /* Against other people, for the boards where there is both a score of your own and a table
+     to put it against. No table means no line: a board nobody else has played today has nothing
+     to say, and inventing a figure for it would be worse than silence. */
+  var vs=[];
+  Object.keys(store.sent||{}).forEach(function(m){
+    var mine=store.sent[m];
+    if(!mine||typeof mine.best!=="number")return;
+    var pct=betterThan(m,mine.best);
+    if(pct===null)return;
+    vs.push([t(MODE_LABEL[m]||"mName"),pct+"%"]);
+  });
+  if(vs.length){
+    vs.sort(function(a,b){return parseInt(b[1],10)-parseInt(a[1],10);});
+    dossierHead(host,t("vsOthers"));
+    pairs(vs);
+  }
 
   var w=worldShare();
   dossierHead(host,t("worldLab"));
