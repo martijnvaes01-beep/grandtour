@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v129 · 2026-09-14 15:22";</script>
+<script>window.GT_BUILD="v133 · 2026-09-14 15:33";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -712,6 +712,7 @@ en:{sub:"countries · flags, globe, atlas",
   roundDone:"Round complete",perfectRound:"A perfect round",newRound:"Another round",
   oneMoment:"Fetching the flags\u2026",
   noFlags:"Could not fetch the flags. Check your connection.",
+  noFile:"{f} is missing from the server.",
   splashLead:"Start the",splashGo:"Tap to begin",splashSub:"World service · est. 1926",
   mCap:"Capitals",dCap:"Which city runs the country",askCapital:"What is the capital of",
   mlCoast:"Coastline",mlBorder:"Land border",
@@ -890,6 +891,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   roundDone:"Manche terminée",perfectRound:"Une manche parfaite",newRound:"Encore un tour",
   oneMoment:"On va chercher les drapeaux\u2026",
   noFlags:"Impossible de r\u00e9cup\u00e9rer les drapeaux. V\u00e9rifiez votre connexion.",
+  noFile:"{f} est introuvable sur le serveur.",
   splashLead:"Commencez le",splashGo:"Touchez pour commencer",splashSub:"Service mondial · fondé en 1926",
   mCap:"Capitales",dCap:"Quelle ville gouverne le pays",askCapital:"Quelle est la capitale de",
   mlCoast:"Littoral",mlBorder:"Frontière terrestre",
@@ -1068,6 +1070,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   roundDone:"Runde beendet",perfectRound:"Eine makellose Runde",newRound:"Noch eine Runde",
   oneMoment:"Die Flaggen kommen gleich\u2026",
   noFlags:"Flaggen konnten nicht geladen werden. Pr\u00fcfe deine Verbindung.",
+  noFile:"{f} fehlt auf dem Server.",
   splashLead:"Beginne die",splashGo:"Tippen zum Starten",splashSub:"Weltdienst · gegr. 1926",
   mCap:"Hauptstädte",dCap:"Welche Stadt regiert das Land",askCapital:"Was ist die Hauptstadt von",
   mlCoast:"Küstenlinie",mlBorder:"Landgrenze",
@@ -1246,6 +1249,7 @@ es:{sub:"países · banderas, globo, atlas",
   roundDone:"Ronda completa",perfectRound:"Una ronda perfecta",newRound:"Otra ronda",
   oneMoment:"Vamos a por las banderas\u2026",
   noFlags:"No se han podido cargar las banderas. Revisa tu conexi\u00f3n.",
+  noFile:"Falta {f} en el servidor.",
   splashLead:"Empieza el",splashGo:"Pulsa para empezar",splashSub:"Servicio mundial · desde 1926",
   mCap:"Capitales",dCap:"Qué ciudad gobierna el país",askCapital:"¿Cuál es la capital de",
   mlCoast:"Costa",mlBorder:"Frontera terrestre",
@@ -1424,6 +1428,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   roundDone:"Ronde compleet",perfectRound:"Een perfecte ronde",newRound:"Nog een ronde",
   oneMoment:"We halen de vlaggen even op\u2026",
   noFlags:"De vlaggen kwamen niet binnen. Check je verbinding.",
+  noFile:"{f} staat niet op de server.",
   splashLead:"Start de",splashGo:"Tik om te beginnen",splashSub:"Wereldreisdienst · sinds 1926",
   mCap:"Hoofdsteden",dCap:"Welke stad bestuurt het land",askCapital:"Wat is de hoofdstad van",
   mlCoast:"Kustlijn",mlBorder:"Landgrens",
@@ -1631,20 +1636,31 @@ var ASSETS={
     has:function(){return !!(TOPO50_TEXT||TOPO50);},
     take:function(v){TOPO50_TEXT=v;}}
 };
-var assetJob={};
+var assetJob={},assetMissing="";
 function assetHave(k){var a=ASSETS[k];return !!(a&&a.has());}
 function assetAsk(k,then){
   var a=ASSETS[k];
   if(!a)return false;
   if(a.has()){if(then)then();return true;}
   var w=assetJob[k]||(assetJob[k]={list:[],busy:false,tries:0});
+  /* Already asked, already given up. Answer now rather than join a queue nothing will ever
+     drain: a waiter that is never called is a screen that says it is fetching for ever, which
+     is exactly what a missing folder produced. */
+  if(w.tries>3){if(then)then();return false;}
   if(then)w.list.push(then);
-  if(w.busy||w.tries>3)return false;
+  if(w.busy)return false;
   w.busy=true;
   /* ?slow=KB is the rig's throttle and it only slows a request that carries it, so an asset
      inherits it from the page. On the host it is simply a query nobody reads. */
   var slow=/[?&]slow=(\d+)/.exec(location.search);
   fetch(a.url+(slow?"?slow="+slow[1]:"")).then(function(r){
+    /* A 404 is not a hiccup and it will not fix itself: the file was never put on the host.
+       Retrying it three times with a widening gap turns a folder somebody forgot to upload into
+       five and a half seconds of waiting for the same answer, which is the worst of both. It
+       gives up at once and remembers which file was missing. The retries stay for what they
+       were written for: a request that failed on the way, rather than one that arrived and
+       said no. */
+    if(r.status===404){var gone=new Error("404");gone.gone=true;throw gone;}
     if(!r.ok)throw new Error(r.status);
     return a.json?r.json():r.text();
   }).then(function(v){
@@ -1652,10 +1668,14 @@ function assetAsk(k,then){
     w.busy=false;w.tries=0;
     var l=w.list;w.list=[];
     l.forEach(function(fn){try{fn();}catch(e){}});
-  })["catch"](function(){
-    w.busy=false;w.tries++;
+  })["catch"](function(err){
+    w.busy=false;
+    w.tries=(err&&err.gone)?99:w.tries+1;
     if(w.tries<=3)setTimeout(function(){assetAsk(k);},w.tries*900);
-    else{var l=w.list;w.list=[];l.forEach(function(fn){try{fn();}catch(e){}});}
+    else{
+      assetMissing=a.url;
+      var l=w.list;w.list=[];l.forEach(function(fn){try{fn();}catch(e){}});
+    }
   });
   return false;
 }
@@ -8092,7 +8112,7 @@ function dailyKind(key){
 var GATES={shape:1,spot:2,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8};
 /* Bump this when publishing the artifact. The home screen build counts its own in build.json
    and overwrites this on the way through standalone.js. */
-var VERSION="v128";
+var VERSION="v132";
 /* Seas joined the two line games: same queue, same card, same globe, and the answer is a
    place on it rather than a name off a list. */
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc"||m==="sea";}
@@ -11811,7 +11831,7 @@ var flagRepaint=null;
 function assetWaiting(key){
   var el=$("assetwait");
   if(!el)return;
-  el.textContent=key?t(key):"";
+  el.textContent=key?(key==="noFlags"&&assetMissing?fill(t("noFile"),{f:assetMissing}):t(key)):"";
   el.className="assetwait"+(key==="noFlags"?" failed":"");
   el.hidden=!key;
 }
