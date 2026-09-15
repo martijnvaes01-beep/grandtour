@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v199";</script>
+<script>window.GT_BUILD="v201";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -1999,8 +1999,11 @@ var SCORE_URL="https://grandtour-scores.martijnvaes01.workers.dev";
    something when everyone was answering the same kind of question; Atlas is a drawer you browse
    and has no score at all. Kept in step with the same list in worker/worker.js, which refuses
    anything not on it. */
-var SCORED={daily:1,sprint:1,name:1,find:1,blind:1,cap:1,trap:1,locate:1,spot:1,globle:1,
-  worldle:1,shape:1,bigger:1,trade:1,dossier:1,riverloc:1,sea:1,rangeloc:1};
+/* look and imposter were on the strip and not on this list, so two boards were played and
+   never counted: sendScore checks it and drops anything missing. Kept in step with BOARDS in
+   worker/worker.js, which drops the other way and just as quietly. */
+var SCORED={daily:1,sprint:1,name:1,find:1,look:1,imposter:1,blind:1,cap:1,trap:1,locate:1,
+  spot:1,globle:1,worldle:1,shape:1,bigger:1,trade:1,dossier:1,riverloc:1,sea:1,rangeloc:1};
 
 /* Two boards keep a count with no ceiling instead of a score out of a round. The sprint counts
    the flags named in sixty seconds and More or less counts how long a streak held. A share of the
@@ -2032,7 +2035,7 @@ var VERSUS=["sprint","bigger","daily","streak"];
    it would place a figure against the wrong thing. "ok" says a table really arrived, which "at"
    cannot say, because "at" is stamped before the request goes out. */
 function distCache(){
-  if(!store.dist||store.dist.v!==3)store.dist={v:3,at:0,ok:0,made:0,since:"",n:{},all:{},top:{}};
+  if(!store.dist||store.dist.v!==4)store.dist={v:4,at:0,ok:0,made:0,since:"",n:{},all:{},top:{}};
   return store.dist;
 }
 /* Ask at most once an hour, and only if there is somewhere to ask. The stamp goes on before the
@@ -2040,9 +2043,10 @@ function distCache(){
    one per board opened. A failure is not retried and not reported: the cached table is the
    answer until the next hour, and no table is a figure the game knows how to leave out.
 
-   The worker does not read v=3. It gives this shape its own entry in the edge cache, which keeps
+   The worker does not read v=4. It gives this shape its own entry in the edge cache, which keeps
    an answer for an hour and is not emptied by a deploy, so this build is never handed an answer
-   written before "all" existed. An answer without "all" is not stored either way. */
+   written before "all" existed, nor one in which all.daily was still an average of thirty days
+   rather than that day's table. An answer without "all" is not stored either way. */
 /* distBusy: a request for the table is on its way from this session. standing() reads it to tell
    "the table is coming" from "no table is coming", which look the same from the cache alone. */
 var distBusy=false;
@@ -2052,12 +2056,12 @@ function distAsk(){
   if(c.at&&Date.now()-c.at<3600000)return;
   c.at=Date.now();
   distBusy=true;
-  fetch(SCORE_URL+"/api/dist?day="+todayKey()+"&v=3")
+  fetch(SCORE_URL+"/api/dist?day="+todayKey()+"&v=4")
     .then(function(r){return r.ok?r.json():null;})
     .then(function(d){
       distBusy=false;
       if(!d||typeof d!=="object"||!d.all||typeof d.all!=="object"){distRepaint();return;}
-      store.dist={v:3,at:Date.now(),ok:1,made:+d.made||0,
+      store.dist={v:4,at:Date.now(),ok:1,made:+d.made||0,
         since:(typeof d.since==="string")?d.since:"",n:d.n||{},all:d.all,top:d.top||{}};
       save();
       /* The sheet is the one view that shows every board's standing, so it is also the view
@@ -2130,6 +2134,16 @@ function myFigure(board){
     var alive=dst.last>=dayKeyOf(new Date(Date.now()-864e5));
     return {v:alive?(dst.streak||0):0,exact:0,len:0};
   }
+  /* THE DAY IS TODAY'S, NOT THE WINDOW'S. Everybody answers the same five games over the same
+     ground on one date, which is what makes a score on it comparable at all; the mean of a
+     player's last thirty of them is a different quantity, and it is not the one the card at the
+     end of the day is asking about. The worker builds the table it is placed against the same
+     way, out of that date's rows alone. */
+  if(board==="daily"){
+    var de=store.sent&&store.sent.daily,dv=de&&de.days?de.days[todayKey()]:null;
+    return (typeof dv==="number"&&isFinite(dv))
+      ?{v:Math.round(dv),exact:dv,len:de.len||0}:null;
+  }
   var e=store.sent&&store.sent[board];
   if(!e||typeof e!=="object")return null;
   var cut=windowStart(),sum=0,k=0,best=-1;
@@ -2172,6 +2186,10 @@ function placeOf(board){
   var e=store.sent&&store.sent[board],c=distCache(),me=myFigure(board),cut=windowStart();
   var p=(e&&e.place&&typeof e.place.mine==="number")?e.place:null;
   if(p&&new Date(p.made).toISOString().slice(0,10)<cut)p=null;     /* its row has left the window */
+  /* And a placing on the day belongs to the day it was made on. At midnight the puzzle changes and
+     so does everybody it was measured against, so yesterday's rank is not an old version of
+     today's: there is no today's until the day is played. */
+  if(p&&board==="daily"&&dayKeyOf(new Date(p.made))!==todayKey())p=null;
   if(p&&!(c.ok&&c.made>p.made))
     return {mine:p.mine,above:p.above,below:p.below,total:p.total,top:Math.max(p.top,p.mine),me:me};
   if(!c.ok)return me?{wait:true,me:me}:null;
