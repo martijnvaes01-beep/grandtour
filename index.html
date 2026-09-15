@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v209";</script>
+<script>window.GT_BUILD="v211";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -3867,7 +3867,17 @@ function drawGlobe(){
     ctx.font='500 '+size.toFixed(1)+'px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';
     var padX=Math.round(size*0.58),padY=Math.round(size*0.36);
     var bw=Math.round(ctx.measureText(txt).width)+padX*2,bh=Math.round(size)+padY*2;
-    var bx=Math.round(x-bw/2),by=Math.round(y-bh/2);
+    /* A NAME HALF OFF THE GLASS IS NOT A NAME. The chip was centred on the country and drawn
+       wherever that fell, so anything near an edge - which on a zoomed globe is most of what is
+       on screen - had its label sliced by the side of the canvas. It slides back inside instead,
+       the way a tooltip near the edge of a window does. */
+    var LW=globe.cssW||globe.cx*2,LH=globe.cssH||globe.cy*2;
+    /* and a country that is not on the glass gets no name. Sliding a chip back inside is right
+       for a country at the edge; doing it for one whose own position is past the edge drags a
+       label in from nowhere and lands it on top of the one that belongs there. */
+    if(x<-2||x>LW+2||y<-2||y>LH+2)return;
+    var bx=Math.round(Math.max(3,Math.min(LW-bw-3,x-bw/2)));
+    var by=Math.round(Math.max(3,Math.min(LH-bh-3,y-bh/2)));
     chipPath(bx,by,bw,bh,Math.min(5,bh*0.3));
     ctx.globalAlpha=alpha*(strong?0.94:0.78);
     ctx.fillStyle="#241812";ctx.fill();
@@ -10788,7 +10798,12 @@ function paintRank(){
        above it counted from nought, so at 4200 of a rank running 3689 to 5000 it read
        "4200 / 5000" over a bar two fifths full. Both say the same thing now: how far into this
        rank you are, out of how much it takes. The total is on the stats sheet. */
-    $("rankxp").textContent=(store.xp-p.from)+" / "+(p.to-p.from)+" XP";
+    /* At the top rank there is no next one to be on the way to: rankProgress invents a band of
+       four thousand so the bar has something to fill, and counting into it printed "988017 / 4000".
+       There is nothing to be part of the way through, so it says what has been earned. */
+    $("rankxp").textContent=(p.i+1<RANKS.length)
+      ?((store.xp-p.from)+" / "+(p.to-p.from)+" XP")
+      :(store.xp+" XP");
     $("xpfill").style.width=(p.pct*100).toFixed(1)+"%";
   }
 }
