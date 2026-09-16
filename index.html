@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v258";</script>
+<script>window.GT_BUILD="v260";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -838,6 +838,8 @@ en:{sub:"countries · flags, globe, atlas",
   equator:"The equator runs straight through it",farNorth:"North enough for midnight sun",
   farSouth:"Deep in the southern hemisphere",manyBorders:"Touches {n} other countries",
   million:"million",thousand:"thousand",ofN:"of 197",
+  millionOne:"million",moneyM:"${n} million",moneyB:"${n} billion",moneyT:"${n} trillion",moneyU:"${n}",
+  latN:"N",latS:"S",
   dName:"See the flag, name the country",dFind:"See the country, pick its flag",
   dLocate:"Find it on the spinning globe",dSpot:"A country lights up on the globe",dShape:"Guess the country from its outline",
   dSprint:"Sixty seconds, as many as you can",dDaily:"Today's route across the borders",
@@ -1037,6 +1039,8 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   equator:"L'équateur le traverse en plein",farNorth:"Assez au nord pour le soleil de minuit",
   farSouth:"Bien dans l'hémisphère sud",manyBorders:"Touche {n} autres pays",
   million:"millions",thousand:"mille",ofN:"sur 197",
+  millionOne:"million",moneyM:"{n} millions $",moneyB:"{n} milliards $",moneyT:"{k} milliards $",moneyU:"{n} $",
+  latN:"N",latS:"S",
   dName:"Voyez le drapeau, nommez le pays",dFind:"Voyez le pays, choisissez son drapeau",
   dLocate:"Trouvez-le sur le globe qui tourne",dSpot:"Un pays s'allume sur le globe",dShape:"Devinez le pays d'après sa silhouette",
   dSprint:"Soixante secondes, autant que possible",dDaily:"L'itinéraire du jour à travers les frontières",
@@ -1107,7 +1111,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   inkRed:"rot",inkWhite:"weiß",inkBlack:"schwarz",inkGreen:"grün",inkBlue:"blau",
   inkYellow:"gelb",inkOrange:"orange",inkSky:"hellblau",
   mTrade:"Das Manifest",dTrade:"Benenne das Land nach dem, was es verkauft",
-  askTrade:"Welches Land verkauft das?",manifest:"Zollmanifest",
+  askTrade:"Wer verkauft das?",manifest:"Zollmanifest",
   manSells:"Verkauft",manBuys:"Kauft",manWorth:"Wirtschaft",
   manRest:"Alles \u00fcbrige",manApprox:"Anteile am Wert, ungef\u00e4hr",
   manOfWorld:"weltweit",
@@ -1236,6 +1240,8 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   equator:"Der Äquator läuft mitten hindurch",farNorth:"Weit genug nördlich für die Mitternachtssonne",
   farSouth:"Tief auf der Südhalbkugel",manyBorders:"Berührt {n} andere Länder",
   million:"Millionen",thousand:"Tausend",ofN:"von 197",
+  millionOne:"Million",moneyM:"{n} Mio. $",moneyB:"{n} Mrd. $",moneyT:"{n} Bio. $",moneyU:"{n} $",
+  latN:"N",latS:"S",
   dName:"Sieh die Flagge, nenne das Land",dFind:"Sieh das Land, wähle seine Flagge",
   dLocate:"Finde es auf dem drehenden Globus",dSpot:"Ein Land leuchtet auf dem Globus auf",dShape:"Errate das Land an seinem Umriss",
   dSprint:"Sechzig Sekunden, so viele wie möglich",dDaily:"Die heutige Route über die Grenzen",
@@ -1435,6 +1441,8 @@ es:{sub:"países · banderas, globo, atlas",
   equator:"El ecuador lo atraviesa de lleno",farNorth:"Bastante al norte para el sol de medianoche",
   farSouth:"Bien metido en el hemisferio sur",manyBorders:"Toca {n} países más",
   million:"millones",thousand:"mil",ofN:"de 197",
+  millionOne:"millón",moneyM:"{n} millones $",moneyB:"{n} mil millones $",moneyT:"{n} billones $",moneyU:"{n} $",
+  latN:"N",latS:"S",
   dName:"Ve la bandera, nombra el país",dFind:"Ve el país, elige su bandera",
   dLocate:"Encuéntralo en el globo que gira",dSpot:"Un país se ilumina en el globo",dShape:"Adivina el país por su silueta",
   dSprint:"Sesenta segundos, tantos como puedas",dDaily:"La ruta de hoy por las fronteras",
@@ -1634,6 +1642,8 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   equator:"De evenaar loopt er dwars doorheen",farNorth:"Noordelijk genoeg voor de middernachtzon",
   farSouth:"Diep op het zuidelijk halfrond",manyBorders:"Grenst aan {n} andere landen",
   million:"miljoen",thousand:"duizend",ofN:"van 197",
+  millionOne:"miljoen",moneyM:"${n} miljoen",moneyB:"${n} miljard",moneyT:"${n} biljoen",moneyU:"${n}",
+  latN:"NB",latS:"ZB",
   dName:"Zie de vlag, noem het land",dFind:"Zie het land, kies de vlag",
   dLocate:"Vind het op de draaiende globe",dSpot:"Een land licht op de globe op",dShape:"Raad het land aan zijn omtrek",
   dSprint:"Zestig seconden, zoveel mogelijk",dDaily:"De route van vandaag langs de grenzen",
@@ -5588,7 +5598,7 @@ bw:["Refined petroleum","Diamonds","Cars","Flavored water","Electricity"],
 by:["Cars","Broadcasting equipment","Fabric","Plastic products","Video displays"],
 bz:["Refined petroleum","Orthopedic appliances","Ships","Garments","Tobacco"],
 ca:["Cars","Trucks","Vehicle parts/accessories","Refined petroleum","Crude petroleum"],
-cd:["Ships","Poultry","Garments","Iron pipes","Refined petroleum"],
+cd:["Trucks","Refined petroleum","Stone processing machines","Plastic products","Sulphur"],
 cf:["Refined petroleum","Cars","Packaged medicine","Vaccines","Tanks and armored vehicles"],
 cg:["Ships","Poultry","Garments","Iron pipes","Refined petroleum"],
 ch:["Gold","Packaged medicine","Vaccines","Cars","Jewelry"],
@@ -5717,7 +5727,7 @@ tw:["Integrated circuits","Crude petroleum","Machinery","Natural gas","Coal"],
 tz:["Refined petroleum","Plastics","Garments","Fertilizers","Wheat"],
 ua:["Refined petroleum","Cars","Natural gas","Packaged medicine","Plastic products"],
 ug:["Refined petroleum","Gold","Plastics","Packaged medicine","Palm oil"],
-us:["Cars","Gold","Crude petroleum","Refined petroleum","Natural gas"],
+us:["Cars","Crude petroleum","Broadcasting equipment","Computers","Garments"],
 uy:["Crude petroleum","Refined petroleum","Cars","Trucks","Fertilizers"],
 uz:["Cars","Vehicle parts/accessories","Packaged medicine","Refined petroleum","Aircraft"],
 ve:["Refined petroleum","Soybean meal","Corn","Plastic products","Vehicle parts/accessories"],
@@ -5830,7 +5840,7 @@ sa:1,ru:1,ng:1,dz:1,ve:1,qa:1,om:1,kz:1,cl:1,mn:1,pg:1,sr:1,gy:1,bi:1,ml:1,gm:1,
 cd:1,zw:1,cu:1,bo:1,ec:1,py:1,tt:1,bh:1,ae:1,ir:1,ye:1,sd:1,cf:1,km:1,st:1,gw:1,mw:1,tj:1,
 kg:1,la:1,mm:1,fj:1,sb:1,ki:1,tv:1,nr:1,mh:1,fm:1,pw:1,to:1,ws:1,
 au:2,br:2,no:2,nz:2,za:2,ar:2,pe:2,co:2,uy:2,id:2,my:2,ma:2,tn:2,eg:2,ke:2,gh:2,ci:2,sn:2,
-et:2,tz:2,ug:2,mz:2,na:2,mg:2,rw:2,bf:2,bj:2,tg:2,cm:2,ga:2,ne:2,dj:2,so:2,ls:2,sz:2,cv:2,
+et:2,tz:2,ug:2,mz:2,na:2,mg:2,rw:2,bf:2,bj:2,tg:2,cm:2,ga:2,dj:2,so:2,ls:2,sz:2,cv:2,
 is:2,ie:2,fi:2,dk:2,gr:2,pt:2,hr:2,ee:2,lv:2,lt:2,bg:2,ro:2,rs:2,ba:2,mk:2,al:2,md:2,ge:2,
 am:2,by:2,ua:2,uz:2,pk:2,bd:2,lk:2,np:2,kh:2,vn:2,ph:2,jo:2,lb:2,sy:2,af:2,mv:2,bt:2,
 de:3,jp:3,us:3,cn:3,kr:3,fr:3,it:3,gb:3,nl:3,be:3,ch:3,at:3,se:3,es:3,pl:3,cz:3,sk:3,si:3,
@@ -5872,7 +5882,15 @@ function goodsIn(f){return goodsJoin(IMPORTS[f.c],null);}
 /* ---------- what a country sells, what it buys, and who to ----------
    CIA World Factbook, 2023, public domain. Five commodities each way for every one of the
    164 countries the board asks about, and the trading partners with the shares they actually
-   take. The two second shelves that used to top up a table of three are gone: there is
+   take. The Factbook itself was discontinued in February 2026; every row here was read back
+   against its last published state (the factbook.json mirror) in September 2026, at v259.
+   That pass found DR Congo carrying the Republic of the Congo's four rows, the United States
+   carrying rows in which it sold to itself, and five partner names cut in half where the
+   source wrote "Trinidad & Tobago" or "Gambia, The". Two partners the Factbook does list are
+   left out on purpose: The Gambia as Kazakhstan's third supplier at 4% and The Bahamas as
+   Zimbabwe's at 5%. The Gambia's whole export trade is a few hundred million dollars, which
+   cannot be 4% of Kazakhstan's imports; both look like a code mix-up at the source, and a clue
+   that sends a player to the wrong side of the world is worse than one line fewer. The two second shelves that used to top up a table of three are gone: there is
    nothing left to top up.
 
    The partners are what makes this board a game rather than a guess. Norway and Nigeria both
@@ -5904,7 +5922,7 @@ bw:["Diamonds","Copper ore","Insulated wire","Carbonates","Cattle"],
 by:["Fertilizers","Rapeseed oil","Wood","Poultry","Beef"],
 bz:["Raw sugar","Bananas","Fish","Shellfish","Refined petroleum"],
 ca:["Crude petroleum","Cars","Gold","Natural gas","Refined petroleum"],
-cd:["Crude petroleum","Refined copper","Gold","Wood","Refined petroleum"],
+cd:["Refined copper","Cobalt","Copper ore","Raw copper","Crude petroleum"],
 cf:["Gold","Wood","Diamonds","Vehicle parts/accessories","Cotton"],
 cg:["Crude petroleum","Refined copper","Gold","Wood","Refined petroleum"],
 ch:["Gold","Packaged medicine","Vaccines","Nitrogen compounds","Base metal watches"],
@@ -6033,7 +6051,7 @@ tw:["Integrated circuits","Machine parts","Broadcasting equipment","Computers","
 tz:["Gold","Refined petroleum","Dried legumes","Refined copper","Coal"],
 ua:["Corn","Seed oils","Wheat","Iron ore","Soybeans"],
 ug:["Gold","Coffee","Fish","Refined petroleum","Tobacco"],
-us:["Cars","Gold","Gas turbines","Packaged medicine","Crude petroleum"],
+us:["Crude petroleum","Refined petroleum","Natural gas","Gas turbines","Cars"],
 uy:["Wood pulp","Beef","Milk","Rice","Wood"],
 uz:["Gold","Cotton yarn","Garments","Fertilizers","Fabric"],
 ve:["Crude petroleum","Petroleum coke","Scrap iron","Alcohols","Fertilizers"],
@@ -6055,7 +6073,7 @@ ar:[["Brazil",18],["USA",9],["Chile",8],["China",8]],
 at:[["Germany",25],["USA",9],["Italy",7],["Switzerland",5]],
 au:[["China",37],["Japan",16],["S. Korea",6],["India",5]],
 az:[["Italy",37],["Turkey",19],["Israel",5],["Greece",4]],
-bb:[["USA",22],["Jamaica",17],["Tobago",8],["Canada",6]],
+bb:[["USA",22],["Jamaica",17],["Trinidad and Tobago",8],["Canada",6]],
 bd:[["USA",16],["Germany",15],["UK",8],["Spain",7]],
 be:[["France",20],["Netherlands",15],["Germany",14],["Italy",6]],
 bf:[["Switzerland",72],["UAE",10],["India",3],["Mali",3]],
@@ -6066,13 +6084,13 @@ bj:[["UAE",42],["Bangladesh",20],["India",11],["China",5]],
 bn:[["Australia",21],["Japan",17],["China",17],["Singapore",16]],
 bo:[["Brazil",15],["India",13],["China",11],["Argentina",11]],
 br:[["China",30],["USA",10],["Argentina",5],["Netherlands",3]],
-bs:[["USA",36],["Zimbabwe",16],["Cote d'Ivoire",14],["Germany",8]],
+bs:[["USA",36],["Zimbabwe",16],["Côte d'Ivoire",14],["Germany",8]],
 bt:[["India",92],["Italy",4],["Indonesia",1],["China",1]],
 bw:[["UAE",27],["India",17],["Belgium",16],["South Africa",8]],
 by:[["China",34],["Kazakhstan",10],["Uzbekistan",7],["Poland",6]],
 bz:[["USA",22],["UK",14],["Spain",9],["Guatemala",7]],
 ca:[["USA",71],["China",5],["UK",3],["Japan",2]],
-cd:[["China",46],["UAE",23],["India",6],["Saudi Arabia",5]],
+cd:[["China",69],["UAE",7],["India",3],["Spain",3]],
 cf:[["UAE",54],["China",14],["France",6],["Turkey",5]],
 cg:[["China",46],["UAE",23],["India",6],["Saudi Arabia",5]],
 ch:[["Germany",14],["China",12],["USA",11],["Italy",5]],
@@ -6106,10 +6124,10 @@ gn:[["UAE",50],["China",36],["India",8],["Switzerland",1]],
 gq:[["China",27],["Netherlands",12],["Spain",10],["Italy",7]],
 gr:[["Italy",12],["Germany",6],["Cyprus",6],["Bulgaria",4]],
 gt:[["USA",33],["El Salvador",11],["Honduras",9],["Nicaragua",6]],
-gw:[["India",66],["Chile",9],["Cote d'Ivoire",5],["Ghana",4]],
-gy:[["USA",20],["Tobago",11],["Netherlands",10],["Singapore",10]],
+gw:[["India",66],["Chile",9],["Côte d'Ivoire",5],["Ghana",4]],
+gy:[["USA",20],["Trinidad and Tobago",11],["Netherlands",10],["Singapore",10]],
 hn:[["USA",49],["Nicaragua",8],["El Salvador",7],["Guatemala",5]],
-hr:[["Italy",14],["Germany",11],["Slovenia",11],["Herzegovina",6]],
+hr:[["Italy",14],["Germany",11],["Slovenia",11],["Bosnia and Herzegovina",6]],
 ht:[["USA",82],["Canada",4],["Mexico",2],["France",2]],
 hu:[["Germany",25],["Italy",6],["Romania",6],["USA",5]],
 id:[["China",24],["USA",9],["India",8],["Japan",8]],
@@ -6201,12 +6219,12 @@ tw:[["China",20],["USA",17],["Hong Kong",13],["Singapore",9]],
 tz:[["India",15],["UAE",14],["Uganda",12],["South Africa",10]],
 ua:[["Poland",12],["Romania",9],["Turkey",7],["China",6]],
 ug:[["India",21],["UAE",16],["Hong Kong",10],["South Sudan",8]],
-us:[["USA",14],["China",8],["Germany",8],["Netherlands",7]],
+us:[["Canada",14],["Mexico",13],["China",8],["Germany",5]],
 uy:[["China",21],["Brazil",17],["USA",8],["Argentina",5]],
 uz:[["Switzerland",34],["Russia",12],["UK",11],["China",7]],
 ve:[["USA",50],["China",10],["Spain",9],["Brazil",6]],
 vn:[["USA",28],["China",20],["Japan",6],["Hong Kong",4]],
-vu:[["Thailand",49],["Japan",19],["Cote d'Ivoire",10],["China",7]],
+vu:[["Thailand",49],["Japan",19],["Côte d'Ivoire",10],["China",7]],
 ws:[["India",26],["NZ",14],["USA",12],["American Samoa",10]],
 za:[["China",19],["USA",8],["Germany",7],["India",7]],
 zm:[["Switzerland",27],["China",15],["India",13],["UAE",12]],
@@ -6222,10 +6240,10 @@ ar:[["Brazil",23],["China",20],["USA",12],["Paraguay",5]],
 at:[["Germany",34],["China",7],["Italy",7],["Switzerland",5]],
 au:[["China",26],["USA",11],["S. Korea",6],["Japan",6]],
 az:[["Russia",17],["China",16],["Turkey",14],["Georgia",4]],
-bb:[["USA",32],["Tobago",19],["Netherlands",6],["UK",6]],
+bb:[["USA",32],["Trinidad and Tobago",19],["Netherlands",6],["UK",6]],
 bd:[["China",34],["India",17],["Indonesia",5],["Singapore",5]],
 be:[["Netherlands",20],["Germany",13],["France",11],["USA",7]],
-bf:[["Cote d'Ivoire",14],["China",13],["Ghana",9],["Russia",9]],
+bf:[["Côte d'Ivoire",14],["China",13],["Ghana",9],["Russia",9]],
 bg:[["Germany",12],["Turkey",8],["Romania",8],["Russia",7]],
 bh:[["China",13],["Saudi Arabia",12],["UAE",11],["Brazil",8]],
 bi:[["Tanzania",26],["China",15],["Uganda",10],["Kenya",10]],
@@ -6239,7 +6257,7 @@ bw:[["South Africa",65],["Namibia",8],["Canada",5],["China",3]],
 by:[["China",33],["Poland",16],["Germany",11],["Lithuania",10]],
 bz:[["USA",37],["China",17],["Guatemala",10],["Mexico",8]],
 ca:[["USA",51],["China",11],["Mexico",6],["Germany",3]],
-cd:[["China",24],["Angola",20],["Gabon",9],["France",6]],
+cd:[["China",35],["Zambia",12],["South Africa",12],["India",5]],
 cf:[["China",16],["Cameroon",14],["France",8],["Belgium",6]],
 cg:[["China",24],["Angola",20],["Gabon",9],["France",6]],
 ch:[["Germany",17],["USA",9],["Italy",8],["France",6]],
@@ -6273,8 +6291,8 @@ gn:[["China",39],["India",9],["Netherlands",7],["Belgium",6]],
 gq:[["China",20],["Spain",17],["USA",10],["Gabon",5]],
 gr:[["Germany",10],["China",10],["Italy",8],["Iraq",7]],
 gt:[["USA",30],["China",19],["Mexico",11],["El Salvador",4]],
-gw:[["Senegal",28],["Portugal",24],["China",11],["The",10]],
-gy:[["USA",28],["China",13],["Tobago",11],["Brazil",5]],
+gw:[["Senegal",28],["Portugal",24],["China",11],["Gambia",10]],
+gy:[["USA",28],["China",13],["Trinidad and Tobago",11],["Brazil",5]],
 hn:[["USA",36],["China",14],["Guatemala",8],["Mexico",6]],
 hr:[["Italy",14],["Germany",14],["Slovenia",11],["Hungary",6]],
 ht:[["USA",31],["Dominican Republic",23],["China",14],["Indonesia",4]],
@@ -6296,7 +6314,7 @@ kh:[["China",39],["Thailand",20],["Vietnam",12],["Singapore",6]],
 km:[["China",24],["UAE",21],["Tanzania",12],["France",7]],
 kr:[["China",31],["USA",13],["Japan",9],["Germany",5]],
 kw:[["China",18],["UAE",10],["USA",9],["Saudi Arabia",6]],
-kz:[["China",28],["Russia",24],["The",4],["Turkey",4]],
+kz:[["China",28],["Russia",24],["Turkey",4],["USA",4]],
 la:[["Thailand",58],["China",36],["Japan",1],["Singapore",1]],
 lb:[["Switzerland",12],["China",11],["Greece",9],["Turkey",8]],
 lk:[["India",21],["China",19],["UAE",10],["Singapore",5]],
@@ -6307,7 +6325,7 @@ lv:[["Lithuania",18],["Germany",11],["Poland",10],["Estonia",8]],
 ly:[["China",17],["Turkey",15],["Italy",8],["UAE",8]],
 ma:[["Spain",16],["China",11],["France",10],["USA",9]],
 mg:[["China",19],["Oman",13],["France",10],["India",8]],
-ml:[["Cote d'Ivoire",25],["Senegal",19],["China",12],["France",5]],
+ml:[["Côte d'Ivoire",25],["Senegal",19],["China",12],["France",5]],
 mm:[["China",40],["Thailand",18],["Singapore",15],["Indonesia",4]],
 mn:[["China",57],["Japan",13],["Germany",3],["Singapore",3]],
 mr:[["China",19],["UAE",14],["Morocco",6],["Spain",6]],
@@ -6349,7 +6367,7 @@ sk:[["Germany",16],["Czechia",14],["Poland",8],["China",7]],
 sl:[["China",32],["India",15],["UAE",5],["USA",5]],
 sn:[["China",19],["France",9],["Nigeria",7],["India",7]],
 so:[["UAE",29],["China",19],["India",15],["Turkey",8]],
-sr:[["USA",22],["China",12],["Netherlands",11],["Tobago",9]],
+sr:[["USA",22],["China",12],["Netherlands",11],["Trinidad and Tobago",9]],
 ss:[["Uganda",33],["UAE",26],["Kenya",14],["China",10]],
 st:[["Portugal",35],["Angola",13],["Gabon",11],["Japan",8]],
 sv:[["USA",28],["China",15],["Guatemala",11],["Mexico",8]],
@@ -6368,7 +6386,7 @@ tw:[["China",21],["Japan",13],["USA",11],["S. Korea",9]],
 tz:[["China",32],["India",13],["UAE",9],["Saudi Arabia",5]],
 ua:[["China",16],["Poland",14],["Germany",8],["Turkey",6]],
 ug:[["China",19],["UAE",12],["Tanzania",11],["India",10]],
-us:[["China",13],["USA",11],["Germany",10],["France",5]],
+us:[["Mexico",15],["China",15],["Canada",14],["Germany",5]],
 uy:[["Brazil",22],["China",18],["Argentina",11],["USA",9]],
 uz:[["China",32],["Russia",17],["Kazakhstan",8],["S. Korea",6]],
 ve:[["China",35],["USA",24],["Brazil",12],["Colombia",7]],
@@ -6377,8 +6395,229 @@ vu:[["China",26],["Australia",15],["Angola",11],["Fiji",9]],
 ws:[["NZ",20],["Singapore",19],["China",17],["Australia",10]],
 za:[["China",21],["India",7],["USA",7],["Germany",6]],
 zm:[["South Africa",25],["China",15],["UAE",10],["India",5]],
-zw:[["South Africa",37],["China",15],["The",5],["Singapore",5]]
+zw:[["South Africa",37],["China",15],["Singapore",5],["UAE",4]]
 };
+/* THE SHEET IN THE PLAYER'S LANGUAGE.
+
+   Until v259 the trade board printed its goods and its partners in English whatever the language,
+   so a Dutch player read "Broadcasting equipment" under "VERKOOPT". The tables stay keyed by the
+   English name, because goodKey de-duplicates on it and the source is written that way; these
+   are only what is printed. Slots are Dutch, French, German, Spanish. Long Dutch and German
+   compounds carry a soft hyphen so a narrow row can break them rather than run past its bar. */
+var TRADEIDX={nl:0,fr:1,de:2,es:3};
+var GOODWORDS={
+"Additive manufacturing machines":["3D-printers","Imprimantes 3D","3D-Drucker","Impresoras 3D"],
+"Aircraft":["Vliegtuigen","Avions","Flugzeuge","Aviones"],
+"Aircraft parts":["Vliegtuig\u00adonderdelen","Pièces d'avion","Flugzeugteile","Piezas de avión"],
+"Alcohols":["Alcoholen","Alcools","Alkohole","Alcoholes"],
+"Aluminium":["Aluminium","Aluminium","Aluminium","Aluminio"],
+"Aluminium ore":["Bauxiet","Bauxite","Bauxit","Bauxita"],
+"Aluminium oxide":["Aluminium\u00adoxide","Alumine","Aluminium\u00adoxid","Alúmina"],
+"Aluminium wire":["Aluminium\u00addraad","Fil d'aluminium","Aluminium\u00addraht","Alambre de aluminio"],
+"Ammonia":["Ammoniak","Ammoniac","Ammoniak","Amoníaco"],
+"Animal meal":["Diermeel","Farines animales","Tiermehl","Harina animal"],
+"Antimony":["Antimoon","Antimoine","Antimon","Antimonio"],
+"Baked goods":["Bakkerij\u00adproducten","Produits de boulangerie","Backwaren","Productos de panadería"],
+"Bananas":["Bananen","Bananes","Bananen","Plátanos"],
+"Base metal watches":["Horloges","Montres","Uhren","Relojes"],
+"Bedding":["Beddengoed","Literie","Bettwaren","Ropa de cama"],
+"Beef":["Rundvlees","Bœuf","Rindfleisch","Carne de vacuno"],
+"Beer":["Bier","Bière","Bier","Cerveza"],
+"Broadcasting equipment":["Zend\u00adapparatuur","Matériel d'émission","Sende\u00adtechnik","Equipos de emisión"],
+"Butter":["Boter","Beurre","Butter","Mantequilla"],
+"Carbon-based electronics":["Koolstof\u00adelektroden","Électrodes en carbone","Kohle\u00adelektroden","Electrodos de carbono"],
+"Carbonates":["Carbonaten","Carbonates","Karbonate","Carbonatos"],
+"Cars":["Auto's","Voitures","Autos","Coches"],
+"Cassava":["Cassave","Manioc","Maniok","Yuca"],
+"Cattle":["Runderen","Bovins","Rinder","Ganado vacuno"],
+"Cement":["Cement","Ciment","Zement","Cemento"],
+"Centrifuges":["Centrifuges","Centrifugeuses","Zentrifugen","Centrifugadoras"],
+"Cereal flours":["Graanmeel","Farines de céréales","Getreidemehl","Harinas de cereales"],
+"Chromium ore":["Chroomerts","Minerai de chrome","Chromerz","Mineral de cromo"],
+"Cloves":["Kruidnagel","Clous de girofle","Gewürznelken","Clavo"],
+"Coal":["Steenkool","Charbon","Kohle","Carbón"],
+"Coal tar oil":["Koolteerolie","Huile de goudron","Teeröl","Aceite de alquitrán"],
+"Cobalt":["Kobalt","Cobalt","Kobalt","Cobalto"],
+"Cocoa beans":["Cacaobonen","Fèves de cacao","Kakaobohnen","Granos de cacao"],
+"Cocoa paste":["Cacaomassa","Pâte de cacao","Kakaomasse","Pasta de cacao"],
+"Coconut oil":["Kokosolie","Huile de coco","Kokosöl","Aceite de coco"],
+"Coconuts/brazil nuts/cashews":["Kokos-, para- en cashewnoten","Noix de coco, du Brésil, de cajou","Kokos-, Para- und Cashewnüsse","Coco, nuez de Brasil, anacardo"],
+"Coffee":["Koffie","Café","Kaffee","Café"],
+"Computers":["Computers","Ordinateurs","Computer","Ordenadores"],
+"Construction vehicles":["Bouwmachines","Engins de chantier","Baufahrzeuge","Vehículos de obra"],
+"Copper ore":["Kopererts","Minerai de cuivre","Kupfererz","Mineral de cobre"],
+"Copra":["Kopra","Coprah","Kopra","Copra"],
+"Corn":["Maïs","Maïs","Mais","Maíz"],
+"Cotton":["Katoen","Coton","Baumwolle","Algodón"],
+"Cotton fabric":["Katoenen stof","Tissu de coton","Baumwoll\u00adstoff","Tejido de algodón"],
+"Cotton yarn":["Katoengaren","Fil de coton","Baumwoll\u00adgarn","Hilo de algodón"],
+"Crude petroleum":["Ruwe olie","Pétrole brut","Rohöl","Petróleo crudo"],
+"Cut flowers":["Snijbloemen","Fleurs coupées","Schnittblumen","Flores cortadas"],
+"Diamonds":["Diamanten","Diamants","Diamanten","Diamantes"],
+"Dolomite":["Dolomiet","Dolomie","Dolomit","Dolomita"],
+"Dried legumes":["Peulvruchten","Légumes secs","Hülsenfrüchte","Legumbres secas"],
+"Electric batteries":["Batterijen","Piles et batteries","Batterien","Baterías"],
+"Electric generating sets":["Stroom\u00adaggregaten","Groupes électrogènes","Strom\u00adaggregate","Grupos electrógenos"],
+"Electrical capacitors":["Condensatoren","Condensateurs","Kondensatoren","Condensadores"],
+"Electricity":["Elektriciteit","Électricité","Strom","Electricidad"],
+"Essential oils":["Etherische oliën","Huiles essentielles","Ätherische Öle","Aceites esenciales"],
+"Excavation machinery":["Graafmachines","Engins d'excavation","Bagger","Excavadoras"],
+"Fabric":["Stoffen","Tissus","Stoffe","Tejidos"],
+"Fertilizers":["Kunstmest","Engrais","Dünger","Fertilizantes"],
+"Fish":["Vis","Poisson","Fisch","Pescado"],
+"Fish oil":["Visolie","Huile de poisson","Fischöl","Aceite de pescado"],
+"Flat-rolled iron":["Gewalst ijzer","Fer laminé","Walzeisen","Hierro laminado"],
+"Flavored water":["Frisdrank","Sodas","Limonaden","Refrescos"],
+"Footwear":["Schoenen","Chaussures","Schuhe","Calzado"],
+"Forage crops":["Veevoeder\u00adgewassen","Fourrage","Futterpflanzen","Forraje"],
+"Furniture":["Meubels","Meubles","Möbel","Muebles"],
+"Garments":["Kleding","Vêtements","Kleidung","Ropa"],
+"Gas turbines":["Gasturbines","Turbines à gaz","Gasturbinen","Turbinas de gas"],
+"Gold":["Goud","Or","Gold","Oro"],
+"Granite":["Graniet","Granit","Granit","Granito"],
+"Grapes":["Druiven","Raisins","Trauben","Uvas"],
+"Ground nuts":["Pinda's","Arachides","Erdnüsse","Cacahuetes"],
+"Gum resins":["Gomharsen","Gommes-résines","Gummiharze","Gomorresinas"],
+"Harvesting machinery":["Oogstmachines","Machines de récolte","Erntemaschinen","Cosechadoras"],
+"Hormones":["Hormonen","Hormones","Hormone","Hormonas"],
+"Hydrocarbons":["Koolwater\u00adstoffen","Hydrocarbures","Kohlen\u00adwasserstoffe","Hidrocarburos"],
+"Industrial acids/oils/alcohols":["Industriële zuren en oliën","Acides et huiles industriels","Industriesäuren und -öle","Ácidos y aceites industriales"],
+"Insulated wire":["Geïsoleerde kabel","Câbles isolés","Isolierte Kabel","Cable aislado"],
+"Integrated circuits":["Microchips","Circuits intégrés","Mikrochips","Circuitos integrados"],
+"Iron alloys":["IJzer\u00adlegeringen","Ferroalliages","Ferro\u00adlegierungen","Ferroaleaciones"],
+"Iron bars":["IJzeren staven","Barres de fer","Eisenstangen","Barras de hierro"],
+"Iron ore":["IJzererts","Minerai de fer","Eisenerz","Mineral de hierro"],
+"Iron pipes":["IJzeren buizen","Tubes en fer","Eisenrohre","Tubos de hierro"],
+"Iron reductions":["Sponsijzer","Fer préréduit","Eisenschwamm","Hierro esponja"],
+"Iron structures":["IJzer\u00adconstructies","Charpentes métalliques","Stahl\u00adkonstruktionen","Estructuras de hierro"],
+"Jewelry":["Sieraden","Bijoux","Schmuck","Joyas"],
+"Knotted carpets":["Geknoopte tapijten","Tapis noués","Knüpfteppiche","Alfombras anudadas"],
+"Lead ore":["Looderts","Minerai de plomb","Bleierz","Mineral de plomo"],
+"Lignite":["Bruinkool","Lignite","Braunkohle","Lignito"],
+"Liquor":["Sterkedrank","Spiritueux","Spirituosen","Licores"],
+"Machine parts":["Machine\u00adonderdelen","Pièces de machines","Maschinenteile","Piezas de maquinaria"],
+"Machinery":["Machines","Machines","Maschinen","Maquinaria"],
+"Malt extract":["Moutextract","Extrait de malt","Malzextrakt","Extracto de malta"],
+"Manganese ore":["Mangaanerts","Minerai de manganèse","Manganerz","Mineral de manganeso"],
+"Margarine":["Margarine","Margarine","Margarine","Margarina"],
+"Medical instruments":["Medische instrumenten","Instruments médicaux","Medizinische Geräte","Instrumental médico"],
+"Milk":["Melk","Lait","Milch","Leche"],
+"Minerals":["Mineralen","Minéraux","Mineralien","Minerales"],
+"Motorcycles and cycles":["Motoren en fietsen","Motos et vélos","Motor- und Fahrräder","Motos y bicicletas"],
+"Natural gas":["Aardgas","Gaz naturel","Erdgas","Gas natural"],
+"Nickel":["Nikkel","Nickel","Nickel","Níquel"],
+"Nitrogen compounds":["Stikstof\u00adverbindingen","Composés azotés","Stickstoff\u00adverbindungen","Compuestos nitrogenados"],
+"Oil seeds":["Oliezaden","Graines oléagineuses","Ölsaaten","Semillas oleaginosas"],
+"Olive oil":["Olijfolie","Huile d'olive","Olivenöl","Aceite de oliva"],
+"Orthopedic appliances":["Orthopedische hulpmiddelen","Appareils orthopédiques","Orthopädische Hilfsmittel","Aparatos ortopédicos"],
+"Other animals":["Overige dieren","Autres animaux","Andere Tiere","Otros animales"],
+"Other foods":["Overige voeding","Autres aliments","Andere Lebensmittel","Otros alimentos"],
+"Other nuts":["Overige noten","Autres noix","Andere Nüsse","Otros frutos secos"],
+"Packaged medicine":["Genees\u00admiddelen","Médicaments","Arzneimittel","Medicamentos"],
+"Palm oil":["Palmolie","Huile de palme","Palmöl","Aceite de palma"],
+"Paper":["Papier","Papier","Papier","Papel"],
+"Perfume plants":["Parfumplanten","Plantes à parfum","Duftpflanzen","Plantas aromáticas"],
+"Pesticides":["Bestrijdings\u00admiddelen","Pesticides","Pestizide","Pesticidas"],
+"Petroleum coke":["Petroleumcokes","Coke de pétrole","Petrolkoks","Coque de petróleo"],
+"Phosphates":["Fosfaat","Phosphates","Phosphate","Fosfatos"],
+"Phosphoric acid":["Fosforzuur","Acide phosphorique","Phosphorsäure","Ácido fosfórico"],
+"Pitted fruits":["Steenvruchten","Fruits à noyau","Steinobst","Frutas de hueso"],
+"Plastic products":["Kunststof\u00adproducten","Articles en plastique","Kunststoff\u00adwaren","Productos de plástico"],
+"Plastics":["Kunststoffen","Plastiques","Kunststoffe","Plásticos"],
+"Platinum":["Platina","Platine","Platin","Platino"],
+"Pork":["Varkensvlees","Porc","Schweine\u00adfleisch","Carne de cerdo"],
+"Postage stamps/documents":["Postzegels","Timbres","Briefmarken","Sellos"],
+"Poultry":["Gevogelte","Volaille","Geflügel","Aves de corral"],
+"Power equipment":["Elektrische apparatuur","Matériel électrique","Elektrotechnik","Equipos eléctricos"],
+"Precious metal ore":["Edelmetaalerts","Minerai de métaux précieux","Edelmetallerz","Mineral de metales preciosos"],
+"Precious stones":["Edelstenen","Pierres précieuses","Edelsteine","Piedras preciosas"],
+"Prefabricated buildings":["Prefab-gebouwen","Bâtiments préfabriqués","Fertighäuser","Edificios prefabricados"],
+"Processed crustaceans":["Verwerkte schaaldieren","Crustacés préparés","Verarbeitete Krebstiere","Crustáceos elaborados"],
+"Processed fruits and nuts":["Verwerkt fruit en noten","Fruits et noix transformés","Verarbeitetes Obst","Frutas y nueces procesadas"],
+"Radioactive chemicals":["Radioactieve stoffen","Produits radioactifs","Radioaktive Stoffe","Productos radiactivos"],
+"Railway cargo containers":["Containers","Conteneurs","Container","Contenedores"],
+"Rapeseed oil":["Koolzaadolie","Huile de colza","Rapsöl","Aceite de colza"],
+"Rare earth ores":["Zeldzame-aarde-ertsen","Minerais de terres rares","Selten\u00aderderze","Minerales de tierras raras"],
+"Rare-earth metal compounds":["Zeldzame-aarde-verbindingen","Composés de terres rares","Seltenerd\u00adverbindungen","Compuestos de tierras raras"],
+"Raw copper":["Ruw koper","Cuivre brut","Rohkupfer","Cobre en bruto"],
+"Raw sugar":["Ruwe suiker","Sucre brut","Rohzucker","Azúcar en bruto"],
+"Refined copper":["Geraffineerd koper","Cuivre raffiné","Raffiniertes Kupfer","Cobre refinado"],
+"Refined petroleum":["Geraffineerde olie","Pétrole raffiné","Ölprodukte","Petróleo refinado"],
+"Rice":["Rijst","Riz","Reis","Arroz"],
+"Rubber":["Rubber","Caoutchouc","Kautschuk","Caucho"],
+"Rubber products":["Rubberproducten","Articles en caoutchouc","Gummiwaren","Productos de caucho"],
+"Scented mixtures":["Geurmengsels","Mélanges odorants","Duftstoff\u00admischungen","Mezclas aromáticas"],
+"Scrap iron":["Schroot","Ferraille","Schrott","Chatarra"],
+"Seats":["Stoelen","Sièges","Sitze","Asientos"],
+"Seed oils":["Zaadoliën","Huiles de graines","Saatöle","Aceites de semillas"],
+"Semi-finished iron":["IJzeren halffabricaten","Demi-produits en fer","Eisen\u00adhalbzeug","Semielaborados de hierro"],
+"Semiconductors":["Halfgeleiders","Semi-conducteurs","Halbleiter","Semiconductores"],
+"Sheep and goat meat":["Schapen- en geitenvlees","Viande ovine et caprine","Schaf- und Ziegenfleisch","Carne de ovino y caprino"],
+"Sheep and goats":["Schapen en geiten","Moutons et chèvres","Schafe und Ziegen","Ovejas y cabras"],
+"Shellfish":["Schaaldieren","Fruits de mer","Meeresfrüchte","Marisco"],
+"Ships":["Schepen","Navires","Schiffe","Barcos"],
+"Soybean meal":["Sojameel","Tourteau de soja","Sojaschrot","Harina de soja"],
+"Soybean oil":["Sojaolie","Huile de soja","Sojaöl","Aceite de soja"],
+"Soybeans":["Sojabonen","Soja","Sojabohnen","Soja"],
+"Steel":["Staal","Acier","Stahl","Acero"],
+"Stone processing machines":["Steenbewerkings\u00admachines","Machines pour la pierre","Stein\u00adbearbeitungs\u00admaschinen","Máquinas para piedra"],
+"Sulphur":["Zwavel","Soufre","Schwefel","Azufre"],
+"Synthetic fabric":["Synthetische stof","Tissu synthétique","Kunstfaser\u00adstoff","Tejido sintético"],
+"Synthetic fibers":["Synthetische vezels","Fibres synthétiques","Kunstfasern","Fibras sintéticas"],
+"Tanks and armored vehicles":["Tanks en pantser\u00advoertuigen","Chars et blindés","Panzer","Tanques y blindados"],
+"Tea":["Thee","Thé","Tee","Té"],
+"Telephones":["Telefoons","Téléphones","Telefone","Teléfonos"],
+"Textiles":["Textiel","Textiles","Textilien","Textiles"],
+"Tin ores":["Tinerts","Minerai d'étain","Zinnerz","Mineral de estaño"],
+"Titanium ore":["Titaanerts","Minerai de titane","Titanerz","Mineral de titanio"],
+"Tobacco":["Tabak","Tabac","Tabak","Tabaco"],
+"Toilet paper":["Toiletpapier","Papier toilette","Toiletten\u00adpapier","Papel higiénico"],
+"Tomatoes":["Tomaten","Tomates","Tomaten","Tomates"],
+"Tractors":["Tractoren","Tracteurs","Traktoren","Tractores"],
+"Trailers":["Aanhangwagens","Remorques","Anhänger","Remolques"],
+"Tropical fruits":["Tropisch fruit","Fruits tropicaux","Tropenfrüchte","Frutas tropicales"],
+"Trucks":["Vrachtwagens","Camions","Lastwagen","Camiones"],
+"Trunks and cases":["Koffers en tassen","Malles et étuis","Koffer und Taschen","Baúles y estuches"],
+"Unpackaged medicine":["Onverpakte genees\u00admiddelen","Médicaments en vrac","Lose Arzneimittel","Medicamentos a granel"],
+"Uranium and thorium ore":["Uranium- en thoriumerts","Minerai d'uranium et de thorium","Uran- und Thoriumerz","Mineral de uranio y torio"],
+"Used rubber tires":["Gebruikte banden","Pneus usagés","Altreifen","Neumáticos usados"],
+"Vaccines":["Vaccins","Vaccins","Impfstoffe","Vacunas"],
+"Valves":["Kranen en kleppen","Robinets et vannes","Ventile","Válvulas"],
+"Vanilla":["Vanille","Vanille","Vanille","Vainilla"],
+"Vehicle bodies":["Carrosserieën","Carrosseries","Karosserien","Carrocerías"],
+"Vehicle parts/accessories":["Auto-onderdelen","Pièces automobiles","Autoteile","Piezas de automóvil"],
+"Video displays":["Beeldschermen","Écrans","Bildschirme","Pantallas"],
+"Water":["Water","Eau","Wasser","Agua"],
+"Wheat":["Tarwe","Blé","Weizen","Trigo"],
+"Wheat flours":["Tarwebloem","Farine de blé","Weizenmehl","Harina de trigo"],
+"Wine":["Wijn","Vin","Wein","Vino"],
+"Wood":["Hout","Bois","Holz","Madera"],
+"Wood pulp":["Houtpulp","Pâte à papier","Zellstoff","Pasta de papel"],
+"Wool":["Wol","Laine","Wolle","Lana"],
+"Zinc ore":["Zinkerts","Minerai de zinc","Zinkerz","Mineral de zinc"]
+};
+function goodWord(g){
+  var row=GOODWORDS[g],i=TRADEIDX[lang];
+  return (row&&i!==undefined&&row[i])||g;
+}
+/* Partner names are written short where the line is narrow (USA, UAE, UK), and a partner that is
+   a country on the board is printed the way the board prints it. The short forms, and the two
+   partners that are not countries here, have their own row. */
+var PARTNERSHORT={
+"USA":["VS","États-Unis","USA","EE. UU."],
+"UAE":["VAE","EAU","VAE","EAU"],
+"UK":["VK","Royaume-Uni","Großbritannien","Reino Unido"],
+"S. Korea":["Zuid-Korea","Corée du Sud","Südkorea","Corea del Sur"],
+"NZ":["Nieuw-Zeeland","Nouvelle-Zélande","Neuseeland","Nueva Zelanda"],
+"Hong Kong":["Hongkong","Hong Kong","Hongkong","Hong Kong"],
+"American Samoa":["Amerikaans-Samoa","Samoa américaines","Amerikanisch-Samoa","Samoa Americana"]
+};
+function partnerName(n){
+  var row=PARTNERSHORT[n];
+  if(row){var i=TRADEIDX[lang];return (i!==undefined&&row[i])||n;}
+  var f=FLAGBYNAME[n];
+  return f?cname(f):n;
+}
 /* Output per head, in dollars, rounded hard. Exact figures move every year and disagree
    between sources; the game only ever asks which of two is larger, so the order is what
    has to be right, not the last digit. */
@@ -6390,20 +6629,20 @@ mk:8100,no:87900,pl:22100,pt:27300,ro:18400,ru:14300,sm:52000,rs:12400,sk:24500,
 es:34000,se:56300,ch:99900,ua:5500,gb:51000,
 af:420,am:8500,az:7600,bh:30000,bd:2600,bt:3700,bn:34400,kh:2600,cn:12600,ge:8100,
 in:2700,id:5000,ir:4500,iq:5900,il:55500,jp:33900,jo:4700,kz:13100,kw:33000,kg:2000,
-la:2000,lb:4400,my:13300,mv:12500,mn:5400,mm:1200,om:21300,pk:1600,ps:3500,ph:3900,
+la:2000,lb:3500,my:13300,mv:12500,mn:5400,mm:1200,np:1400,om:21300,pk:1600,ps:3500,ph:3900,
 qa:81400,sa:32600,sg:88400,kr:33100,lk:3800,tw:33000,tj:1200,th:7300,tl:1400,tr:13400,
 tm:8500,ae:49000,uz:2500,vn:4300,ye:600,
 dz:5000,ao:2500,bj:1500,bw:7300,bf:900,bi:240,cv:4300,cm:1700,cf:470,td:720,
 km:1500,cd:650,cg:2500,ci:2700,dj:3600,eg:3500,gq:8200,sz:4000,et:1300,ga:8600,
 gm:850,gh:2300,gn:1600,gw:900,ke:2200,ls:1000,lr:800,ly:7300,mg:530,mw:480,
 ml:900,mr:2400,mu:11400,ma:3800,mz:610,na:4700,ne:620,ng:1600,rw:1000,st:2700,
-sn:1700,sc:17000,sl:500,so:660,za:6200,ss:400,sd:1100,tz:1200,tg:1000,tn:4200,
+sn:1700,sc:17000,sl:750,so:660,za:6200,ss:400,sd:800,tz:1200,tg:1000,tn:4200,
 ug:1000,zm:1400,zw:2200,
 ag:21600,bs:34700,bb:22000,bz:7300,ca:53400,cr:17100,dm:9500,do:10700,sv:5400,gd:10600,
 gt:5500,ht:1700,hn:3200,jm:6900,mx:13900,ni:2600,pa:18700,kn:22000,lc:14200,vc:9800,
 tt:18300,us:82800,ar:13300,bo:3800,br:10300,cl:17100,co:6900,ec:6400,gy:24000,py:6300,
 pe:7900,sr:6300,uy:22800,
-au:64000,fj:6100,ki:2100,mh:4700,fm:3900,nr:12000,nz:48000,pw:15300,pg:2900,ws:4300,
+au:64000,fj:6100,ki:2100,mh:6800,fm:3900,nr:12000,nz:48000,pw:15300,pg:2900,ws:4300,
 sb:2300,to:5100,tv:5400,vu:3600
 };
 /* The city everyone names when you say the country, which is almost never the one that
@@ -7043,7 +7282,7 @@ var QUIZ={
         var top=Math.max.apply(null,shares.concat([rest>2?rest:1,1]));
         goods.slice(0,show).forEach(function(g,i){
           var row=document.createElement("span");row.className="manrow "+cls;
-          var nm=document.createElement("b");nm.textContent=g;
+          var nm=document.createElement("b");nm.textContent=goodWord(g);
           var bar=document.createElement("span");bar.className="manbar";
           var fill=document.createElement("i");
           fill.style.width=Math.max(4,Math.round(shares[i]/top*100))+"%";
@@ -7083,7 +7322,7 @@ var QUIZ={
         var lim=Math.min(list.length,tightFit()?2:3);
         for(var p=0;p<lim;p++){
           var who=document.createElement("b");
-          who.textContent=list[p][0]+" "+list[p][1]+"%";
+          who.textContent=partnerName(list[p][0])+" "+list[p][1]+"%";
           line.appendChild(who);
         }
         box.appendChild(line);
@@ -7344,7 +7583,7 @@ var DOSSIER_CLUES=[
   {id:"people",cost:1,has:function(f){return !!(FACTS[f.c]&&FACTS[f.c][1]);},
    val:function(f){return METRIC.crowd.fmt(FACTS[f.c][1]);}},
   {id:"land",cost:1,has:function(f){return !!(FACTS[f.c]&&FACTS[f.c][2]);},
-   val:function(f){return fmtNum(FACTS[f.c][2])+" km\u00b2";}},
+   val:function(f){return fmtArea(FACTS[f.c][2]);}},
   {id:"ink",cost:1,has:function(f){return flagInk(f).length>0;},
    val:function(f){return flagInk(f).map(function(k){return t("ink"+capFirst(k));}).join(", ");}},
   {id:"walk",cost:2,has:function(f){return true;},
@@ -7997,7 +8236,7 @@ function runEnd(){
       sd.kind==="pct"?sd.pct+"%":(sd.kind==="rank"?"#"+(sd.p.above+1):"—"),sd.text);
   } else {
     slip("run",t("streakBest"),String(run.best||0),fill2(t("ofN2"),{n:LEN}));
-    slip("pace",t("paceLab"),secs+"s",fill2(t("perQ"),{n:(secs/LEN).toFixed(1)}));
+    slip("pace",t("paceLab"),secs+"s",fill2(t("perQ"),{n:fmtDec(secs/LEN,1)}));
     slip("pool",t("poolLab"),region==="ALL"?t("all"):(region==="TRICKY"?t("tricky"):t(region)),
       t(MODE_LABEL[mode]||"mName"));
   }
@@ -8848,26 +9087,26 @@ function biggerPick(pool,notA,notB){
 var METRIC={
   bigger:{
     get:function(f){return FACTS[f.c]?FACTS[f.c][2]:0;},unit:" km²",
-    fmt:function(v){return fmtNum(v);}
+    fmt:function(v){return fmtAreaNum(v);}
   },
   crowd:{
     get:function(f){return FACTS[f.c]?FACTS[f.c][1]:0;},unit:"",
     fmt:function(v){
       if(v>=10)return fmtNum(Math.round(v))+" M";
-      if(v>=1)return (Math.round(v*10)/10).toFixed(1)+" M";
+      if(v>=1)return fmtDec(Math.round(v*10)/10,1)+" M";
       return fmtNum(Math.round(v*1000))+"k";
     }
   },
   rich:{
     get:function(f){return GDPPC[f.c]||0;},unit:"",
-    fmt:function(v){return "$"+fmtNum(v);}
+    fmt:function(v){return fill(t("moneyU"),{n:fmtNum(v)});}
   },
   /* People per square kilometre. Two numbers the atlas already carries, and an
      intuition that has nothing to do with either of them on its own: Canada and India
      are both enormous, and only one of them is empty. */
   dense:{
     get:function(f){var a=FACTS[f.c];return (a&&a[2])?(a[1]*1e6)/a[2]:0;},unit:" /km\u00b2",
-    fmt:function(v){return v>=100?fmtNum(Math.round(v)):(Math.round(v*10)/10).toFixed(1);}
+    fmt:function(v){return v>=100?fmtNum(Math.round(v)):fmtDec(Math.round(v*10)/10,1);}
   },
   /* What the whole country is worth, not what one person in it earns. Switzerland is
      rich; Indonesia is big. Those are different questions. */
@@ -8881,7 +9120,7 @@ var METRIC={
     get:function(f){var c=locationOf(f.n);return c?c[1]+100:0;},unit:"",
     fmt:function(v){
       var lat=v-100;
-      return (Math.round(Math.abs(lat)*10)/10)+"\u00b0 "+(lat>=0?"N":"S");
+      return fmtTrim(Math.round(Math.abs(lat)*10)/10,1)+"\u00b0 "+t(lat>=0?"latN":"latS");
     }
   },
   /* How many countries it can walk to. The half keeps the islands in the pool, where a
@@ -8975,10 +9214,15 @@ function economyRank(f){
   }
   return ECORANK[f.c]||0;
 }
+/* Money in each language's own words. "Billion" is the trap: in French, German and Spanish the
+   word that sounds like it (billion, Billion, billón) is a million million, so until v259 every
+   economy on the trade board read a thousand times too large there. A trillion is a German Bio.
+   and a Spanish billón; French says it in thousands of milliards, which is how its press writes
+   it, so moneyT carries {k} there instead of {n}. */
 function fmtMoney(v){
-  if(v>=1e12)return "$"+(Math.round(v/1e11)/10)+" trillion";
-  if(v>=1e9)return "$"+fmtNum(Math.round(v/1e9))+" billion";
-  return "$"+fmtNum(Math.round(v/1e6))+" million";
+  if(v>=1e12)return fill(t("moneyT"),{n:fmtTrim(Math.round(v/1e11)/10,1),k:fmtNum(Math.round(v/1e11)*100)});
+  if(v>=1e9)return fill(t("moneyB"),{n:fmtNum(Math.round(v/1e9))});
+  return fill(t("moneyM"),{n:fmtNum(Math.round(v/1e6))});
 }
 function bigWords(){
   if(mode==="daily")return MIXWORDS.bigger;
@@ -9965,75 +10209,81 @@ tv:["Atolls","Stamps","Low ground"],vu:["Volcanoes","Land diving","Reefs"]
 };
 
 /* ---------- country of the day: capital, people, land ----------
-   Population in millions, area in km². Figures are rounded. */
+   Population in millions, area in km². Figures are rounded.
+   Population is the World Bank's figure for 2023 (SP.POP.TOTL, built on the UN's estimates),
+   read in September 2026 at v259, and rounded as before: whole millions from a hundred million
+   up, one decimal from one million, then two, then three. Taiwan and the Holy See are not on
+   the World Bank's list and keep their own figures. Areas are the countries' own totals rather
+   than the World Bank's, which counts inland and some coastal water for a handful (Canada,
+   Norway, Croatia) and so disagrees by a third there. */
 var FACTS={
-al:["Tirana",2.8,28748],ad:["Andorra la Vella",0.08,468],at:["Vienna",9.1,83879],
-by:["Minsk",9.2,207600],be:["Brussels",11.7,30528],ba:["Sarajevo",3.2,51197],
+al:["Tirana",2.4,28748],ad:["Andorra la Vella",0.081,468],at:["Vienna",9.1,83879],
+by:["Minsk",9.2,207600],be:["Brussels",11.8,30528],ba:["Sarajevo",3.2,51197],
 bg:["Sofia",6.4,110879],hr:["Zagreb",3.9,56594],cy:["Nicosia",1.3,9251],
 cz:["Prague",10.9,78867],dk:["Copenhagen",5.9,43094],ee:["Tallinn",1.4,45228],
-fi:["Helsinki",5.6,338455],fr:["Paris",68.2,551695],de:["Berlin",84.5,357588],
+fi:["Helsinki",5.6,338455],fr:["Paris",68.4,551695],de:["Berlin",83.3,357588],
 gr:["Athens",10.4,131957],hu:["Budapest",9.6,93030],is:["Reykjavík",0.39,103000],
-ie:["Dublin",5.3,70273],it:["Rome",58.9,301340],xk:["Pristina",1.8,10887],
+ie:["Dublin",5.3,70273],it:["Rome",59,301340],xk:["Pristina",1.7,10887],
 lv:["Riga",1.9,64589],li:["Vaduz",0.04,160],lt:["Vilnius",2.9,65300],
-lu:["Luxembourg",0.66,2586],mt:["Valletta",0.54,316],md:["Chișinău",2.5,33846],
-mc:["Monaco",0.04,2],me:["Podgorica",0.62,13812],nl:["Amsterdam",17.9,41543],
+lu:["Luxembourg",0.67,2586],mt:["Valletta",0.55,316],md:["Chișinău",2.5,33846],
+mc:["Monaco",0.039,2],me:["Podgorica",0.62,13812],nl:["Amsterdam",17.9,41543],
 mk:["Skopje",1.8,25713],no:["Oslo",5.5,385207],pl:["Warsaw",36.7,312696],
-pt:["Lisbon",10.5,92212],ro:["Bucharest",19,238398],ru:["Moscow",144,17098246],
+pt:["Lisbon",10.6,92212],ro:["Bucharest",19.1,238398],ru:["Moscow",144,17098246],
 sm:["San Marino",0.034,61],rs:["Belgrade",6.6,88361],sk:["Bratislava",5.4,49035],
-si:["Ljubljana",2.1,20273],es:["Madrid",48.4,505990],se:["Stockholm",10.6,450295],
-ch:["Bern",8.8,41285],ua:["Kyiv",37.9,603500],gb:["London",68.3,242495],
-va:["Vatican City",0.001,0.5],
-af:["Kabul",42.2,652864],am:["Yerevan",2.8,29743],az:["Baku",10.2,86600],
-bh:["Manama",1.5,778],bd:["Dhaka",173,148460],bt:["Thimphu",0.79,38394],
-bn:["Bandar Seri Begawan",0.45,5765],kh:["Phnom Penh",17.4,181035],cn:["Beijing",1425,9596961],
-ge:["Tbilisi",3.7,69700],in:["New Delhi",1429,3287263],id:["Jakarta",277,1904569],
-ir:["Tehran",89.2,1648195],iq:["Baghdad",45.5,438317],il:["Jerusalem",9.8,22072],
-jp:["Tokyo",123.3,377975],jo:["Amman",11.3,89342],kz:["Astana",20,2724900],
-kw:["Kuwait City",4.3,17818],kg:["Bishkek",7,199951],la:["Vientiane",7.6,236800],
-lb:["Beirut",5.4,10452],my:["Kuala Lumpur",34.3,330803],mv:["Malé",0.52,300],
-mn:["Ulaanbaatar",3.4,1564110],mm:["Naypyidaw",54.6,676578],np:["Kathmandu",30.9,147181],
-kp:["Pyongyang",26.2,120540],om:["Muscat",4.6,309500],pk:["Islamabad",240.5,881913],
-ps:["Ramallah",5.4,6020],ph:["Manila",117.3,300000],qa:["Doha",2.7,11586],
-sa:["Riyadh",36.9,2149690],sg:["Singapore",5.9,728],kr:["Seoul",51.7,100210],
-lk:["Sri Jayawardenepura Kotte",21.9,65610],sy:["Damascus",23.2,185180],tw:["Taipei",23.4,36193],
-tj:["Dushanbe",10.1,143100],th:["Bangkok",71.8,513120],tl:["Dili",1.4,14874],
-tr:["Ankara",85.8,783562],tm:["Ashgabat",6.5,488100],ae:["Abu Dhabi",9.5,83600],
-uz:["Tashkent",35.6,448978],vn:["Hanoi",98.9,331212],ye:["Sanaa",34.4,527968],
-dz:["Algiers",45.6,2381741],ao:["Luanda",36.7,1246700],bj:["Porto-Novo",13.7,112622],
-bw:["Gaborone",2.7,581730],bf:["Ouagadougou",23.3,274222],bi:["Gitega",13.2,27834],
-cv:["Praia",0.6,4033],cm:["Yaoundé",28.6,475442],cf:["Bangui",5.7,622984],
-td:["N'Djamena",18.3,1284000],km:["Moroni",0.85,1862],cd:["Kinshasa",102.3,2344858],
-cg:["Brazzaville",6.1,342000],ci:["Yamoussoukro",28.9,322463],dj:["Djibouti",1.1,23200],
-eg:["Cairo",112.7,1002450],gq:["Malabo",1.7,28051],er:["Asmara",3.7,117600],
-sz:["Mbabane",1.2,17364],et:["Addis Ababa",126.5,1104300],ga:["Libreville",2.4,267668],
-gm:["Banjul",2.8,11295],gh:["Accra",34.1,238533],gn:["Conakry",14.2,245857],
-gw:["Bissau",2.2,36125],ke:["Nairobi",55.1,580367],ls:["Maseru",2.3,30355],
-lr:["Monrovia",5.4,111369],ly:["Tripoli",6.9,1759540],mg:["Antananarivo",30.3,587041],
-mw:["Lilongwe",20.9,118484],ml:["Bamako",23.3,1240192],mr:["Nouakchott",4.9,1030700],
-mu:["Port Louis",1.3,2040],ma:["Rabat",37.8,446550],mz:["Maputo",33.9,801590],
-na:["Windhoek",2.6,825615],ne:["Niamey",27.2,1267000],ng:["Abuja",223.8,923768],
-rw:["Kigali",14.1,26338],st:["São Tomé",0.23,964],sn:["Dakar",17.8,196722],
-sc:["Victoria",0.11,455],sl:["Freetown",8.6,71740],so:["Mogadishu",18.1,637657],
-za:["Pretoria",60.4,1221037],ss:["Juba",11.1,644329],sd:["Khartoum",48.1,1861484],
-tz:["Dodoma",67.4,947303],tg:["Lomé",9.1,56785],tn:["Tunis",12.5,163610],
-ug:["Kampala",48.6,241550],zm:["Lusaka",20.6,752612],zw:["Harare",16.7,390757],
-ag:["Saint John's",0.09,442],bs:["Nassau",0.41,13943],bb:["Bridgetown",0.28,430],
-bz:["Belmopan",0.41,22966],ca:["Ottawa",40.1,9984670],cr:["San José",5.2,51100],
-cu:["Havana",11.2,109884],dm:["Roseau",0.073,751],do:["Santo Domingo",11.3,48671],
-sv:["San Salvador",6.4,21041],gd:["St. George's",0.13,344],gt:["Guatemala City",18.1,108889],
-ht:["Port-au-Prince",11.7,27750],hn:["Tegucigalpa",10.6,112492],jm:["Kingston",2.8,10991],
-mx:["Mexico City",128.5,1964375],ni:["Managua",7,130373],pa:["Panama City",4.5,75417],
+si:["Ljubljana",2.1,20273],es:["Madrid",48.4,505990],se:["Stockholm",10.5,450295],
+ch:["Bern",8.9,41285],ua:["Kyiv",37.7,603500],gb:["London",68.5,242495],
+va:["Vatican City",0.001,0.49],
+af:["Kabul",41.5,652864],am:["Yerevan",3,29743],az:["Baku",10.2,86600],
+bh:["Manama",1.6,778],bd:["Dhaka",171,148460],bt:["Thimphu",0.79,38394],
+bn:["Bandar Seri Begawan",0.46,5765],kh:["Phnom Penh",17.4,181035],cn:["Beijing",1411,9596961],
+ge:["Tbilisi",3.7,69700],in:["New Delhi",1438,3287263],id:["Jakarta",281,1904569],
+ir:["Tehran",90.6,1648195],iq:["Baghdad",45.1,438317],il:["Jerusalem",9.8,22072],
+jp:["Tokyo",125,377975],jo:["Amman",11.4,89342],kz:["Astana",20.3,2724900],
+kw:["Kuwait City",4.9,17818],kg:["Bishkek",7.1,199951],la:["Vientiane",7.7,236800],
+lb:["Beirut",5.8,10452],my:["Kuala Lumpur",35.1,330803],mv:["Malé",0.53,300],
+mn:["Ulaanbaatar",3.5,1564110],mm:["Naypyidaw",54.1,676578],np:["Kathmandu",29.7,147181],
+kp:["Pyongyang",26.4,120540],om:["Muscat",5,309500],pk:["Islamabad",248,881913],
+ps:["Ramallah",5.2,6020],ph:["Manila",115,300000],qa:["Doha",2.7,11586],
+sa:["Riyadh",33.7,2149690],sg:["Singapore",5.9,728],kr:["Seoul",51.7,100210],
+lk:["Sri Jayawardenepura Kotte",22,65610],sy:["Damascus",23.6,185180],tw:["Taipei",23.4,36193],
+tj:["Dushanbe",10.4,143100],th:["Bangkok",71.7,513120],tl:["Dili",1.4,14874],
+tr:["Ankara",85.3,783562],tm:["Ashgabat",7.4,488100],ae:["Abu Dhabi",10.5,83600],
+uz:["Tashkent",35.7,448978],vn:["Hanoi",100,331212],ye:["Sanaa",39.4,527968],
+dz:["Algiers",46.2,2381741],ao:["Luanda",36.7,1246700],bj:["Porto-Novo",14.1,112622],
+bw:["Gaborone",2.5,581730],bf:["Ouagadougou",23,274222],bi:["Gitega",13.7,27834],
+cv:["Praia",0.52,4033],cm:["Yaoundé",28.4,475442],cf:["Bangui",5.2,622984],
+td:["N'Djamena",19.3,1284000],km:["Moroni",0.85,1862],cd:["Kinshasa",106,2344858],
+cg:["Brazzaville",6.2,342000],ci:["Yamoussoukro",31.2,322463],dj:["Djibouti",1.2,23200],
+eg:["Cairo",115,1002450],gq:["Malabo",1.8,28051],er:["Asmara",3.5,117600],
+sz:["Mbabane",1.2,17364],et:["Addis Ababa",129,1104300],ga:["Libreville",2.5,267668],
+gm:["Banjul",2.7,11295],gh:["Accra",33.8,238533],gn:["Conakry",14.4,245857],
+gw:["Bissau",2.2,36125],ke:["Nairobi",55.3,580367],ls:["Maseru",2.3,30355],
+lr:["Monrovia",5.5,111369],ly:["Tripoli",7.3,1759540],mg:["Antananarivo",31.2,587041],
+mw:["Lilongwe",21.1,118484],ml:["Bamako",23.8,1240192],mr:["Nouakchott",5,1030700],
+mu:["Port Louis",1.2,2040],ma:["Rabat",37.7,446550],mz:["Maputo",33.6,801590],
+na:["Windhoek",3,825615],ne:["Niamey",26.2,1267000],ng:["Abuja",228,923768],
+rw:["Kigali",14,26338],st:["São Tomé",0.23,964],sn:["Dakar",18.1,196722],
+sc:["Victoria",0.12,455],sl:["Freetown",8.5,71740],so:["Mogadishu",18.4,637657],
+za:["Pretoria",63.2,1221037],ss:["Juba",11.5,644329],sd:["Khartoum",50,1861484],
+tz:["Dodoma",66.6,947303],tg:["Lomé",8.2,56785],tn:["Tunis",12.2,163610],
+ug:["Kampala",48.7,241550],zm:["Lusaka",20.7,752612],zw:["Harare",16.3,390757],
+ag:["Saint John's",0.093,442],bs:["Nassau",0.4,13943],bb:["Bridgetown",0.28,430],
+bz:["Belmopan",0.41,22966],ca:["Ottawa",40,9984670],cr:["San José",5.1,51100],
+cu:["Havana",11,109884],dm:["Roseau",0.067,751],do:["Santo Domingo",11.3,48671],
+sv:["San Salvador",6.3,21041],gd:["St. George's",0.12,344],gt:["Guatemala City",18.1,108889],
+ht:["Port-au-Prince",11.6,27750],hn:["Tegucigalpa",10.6,112492],jm:["Kingston",2.8,10991],
+mx:["Mexico City",130,1964375],ni:["Managua",6.8,130373],pa:["Panama City",4.5,75417],
 kn:["Basseterre",0.047,261],lc:["Castries",0.18,616],vc:["Kingstown",0.1,389],
-tt:["Port of Spain",1.5,5130],us:["Washington, D.C.",335,9833517],
-ar:["Buenos Aires",45.8,2780400],bo:["Sucre",12.4,1098581],br:["Brasília",216.4,8515767],
-cl:["Santiago",19.6,756102],co:["Bogotá",52.1,1141748],ec:["Quito",18.2,276841],
-gy:["Georgetown",0.81,214969],py:["Asunción",6.9,406752],pe:["Lima",34.4,1285216],
-sr:["Paramaribo",0.62,163820],uy:["Montevideo",3.4,176215],ve:["Caracas",28.8,916445],
-au:["Canberra",26.4,7692024],fj:["Suva",0.94,18272],ki:["South Tarawa",0.13,811],
-mh:["Majuro",0.042,181],fm:["Palikir",0.115,702],nr:["Yaren",0.013,21],
-nz:["Wellington",5.2,270467],pw:["Ngerulmud",0.018,459],pg:["Port Moresby",10.3,462840],
-ws:["Apia",0.22,2842],sb:["Honiara",0.74,28896],to:["Nuku'alofa",0.107,747],
-tv:["Funafuti",0.011,26],vu:["Port Vila",0.33,12189]
+tt:["Port of Spain",1.4,5130],us:["Washington, D.C.",337,9833517],
+ar:["Buenos Aires",45.5,2780400],bo:["Sucre",12.2,1098581],br:["Brasília",211,8515767],
+cl:["Santiago",19.7,756102],co:["Bogotá",52.3,1141748],ec:["Quito",18,276841],
+gy:["Georgetown",0.83,214969],py:["Asunción",6.8,406752],pe:["Lima",33.8,1285216],
+sr:["Paramaribo",0.63,163820],uy:["Montevideo",3.4,176215],ve:["Caracas",28.3,916445],
+au:["Canberra",26.7,7692024],fj:["Suva",0.92,18272],ki:["South Tarawa",0.13,811],
+mh:["Majuro",0.039,181],fm:["Palikir",0.11,702],nr:["Yaren",0.012,21],
+nz:["Wellington",5.2,270467],pw:["Ngerulmud",0.018,459],pg:["Port Moresby",10.4,462840],
+ws:["Apia",0.22,2842],sb:["Honiara",0.8,28896],to:["Nuku'alofa",0.1,747],
+tv:["Funafuti",0.01,26],vu:["Port Vila",0.32,12189]
 };
 /* capitals the Dutch spell differently */
 var NLCAP={
@@ -11066,7 +11316,7 @@ function worldShare(){
   function pct(a,b){
     if(!b||!a)return "0";
     var v=100*a/b;
-    return v<10?v.toFixed(1).replace(/\.0$/,""):String(Math.round(v));
+    return v<10?fmtTrim(v,1):String(Math.round(v));
   }
   return {people:pct(popKnown,popAll),land:pct(landKnown,landAll),caps:caps};
 }
@@ -11081,10 +11331,13 @@ function deepCuts(){
   });
   return {flag:flag,map:map};
 }
-function fmtArea(km2){
-  var v=km2<10?km2.toFixed(2).replace(/0+$/,"").replace(/\.$/,""):km2<100?km2.toFixed(1).replace(/\.0$/,""):fmtNum(km2);
-  return v+" km\u00b2";
+/* An area as the atlas prints it. From a hundred square kilometres up it is a whole number; below
+   that it keeps a decimal or two, because the Holy See is 0.49 km² and a whole number calls it
+   nothing at all. This sat unused until v259 while three places printed fmtNum instead. */
+function fmtAreaNum(km2){
+  return km2<10?fmtTrim(km2,2):km2<100?fmtTrim(km2,1):fmtNum(km2);
 }
+function fmtArea(km2){return fmtAreaNum(km2)+" km\u00b2";}
 /* The honest way to be compared with other people, with no server: say it where they are. The
    phone's own share sheet where there is one, the clipboard where there is not. */
 function shareRecords(w){
@@ -11565,8 +11818,8 @@ function fill(str,map){
 }
 function tidy(n){
   if(n>=10)return Math.round(n).toString();
-  if(n>=2)return (Math.round(n*2)/2).toString().replace(".",lang==="en"?".":",");
-  return n.toFixed(1).replace(".",lang==="en"?".":",");
+  if(n>=2)return (Math.round(n*2)/2).toString().replace(".",numMark(1));
+  return fmtDec(n,1);
 }
 /* three or four playful lines, built from the numbers themselves */
 function funLines(f){
@@ -11770,14 +12023,34 @@ function cotdOfDay(){
   return pool[Math.floor(rnd()*pool.length)];
 }
 function fmtPop(m){
-  if(m>=1)return (m>=100?Math.round(m):m.toFixed(1).replace(/\.0$/,""))+" "+t("million");
-  return Math.round(m*1000)+" "+t("thousand");
+  if(m>=1){
+    var v=m>=100?Math.round(m):Math.round(m*10)/10;
+    return (m>=100?fmtNum(v):fmtTrim(v,1))+" "+millionWord(v);
+  }
+  return fmtNum(m*1000)+" "+t("thousand");
 }
+/* Numbers are written the way each language writes them: the first mark groups thousands, the
+   second starts the decimals. Until v259 only Dutch had its own pair. French, German and Spanish
+   were given the English comma between thousands, which is their decimal mark, so a coastline of
+   1,300 km read as a little over one kilometre there, and every decimal was printed with a point.
+   French groups with a space, and it is a no-break space so a figure never splits over a line. */
+var NUMMARK={en:[",","."],nl:[".",","],fr:["\u00a0",","],de:[".",","],es:[".",","]};
+function numMark(i){return (NUMMARK[lang]||NUMMARK.en)[i];}
 function fmtNum(v){
-  var s=Math.round(v).toString(),out="",i,c=0;
-  for(i=s.length-1;i>=0;i--){out=s.charAt(i)+out;if(++c%3===0&&i)out=(lang==="nl"?".":",")+out;}
-  return out;
+  var s=Math.round(Math.abs(v)).toString(),out="",i,c=0,sep=numMark(0);
+  for(i=s.length-1;i>=0;i--){out=s.charAt(i)+out;if(++c%3===0&&i)out=sep+out;}
+  return (Math.round(v)<0?"-":"")+out;
 }
+/* a decimal with the language's own mark, keeping its zeros so "3,0 M" sits level with "2,9 M" */
+function fmtDec(v,d){return v.toFixed(d).replace(".",numMark(1));}
+/* the same with the trailing zeros dropped: "3 million", not "3.0 million" */
+function fmtTrim(v,d){
+  var s=v.toFixed(d);
+  if(s.indexOf(".")>=0)s=s.replace(/0+$/,"").replace(/\.$/,"");
+  return s.replace(".",numMark(1));
+}
+/* French keeps "million" singular below two; German and Spanish only for exactly one */
+function millionWord(n){return t((lang==="fr"?n<2:n===1)?"millionOne":"million");}
 function fmtCoord(ll){
   var la=ll[1],lo=ll[0];
   return Math.abs(Math.round(la))+"°"+(la>=0?"N":"S")+" "+Math.abs(Math.round(lo))+"°"+(lo>=0?"E":"W");
@@ -11947,7 +12220,7 @@ function paintCotd(){
   fields.innerHTML="";
   ppField(fields,t("capital"),cap);
   ppField(fields,t("people"),fmtPop(info[1])+"  ·  #"+rk.pop[f.c]);
-  ppField(fields,t("areaLbl"),fmtNum(info[2])+" km²  ·  #"+rk.area[f.c]);
+  ppField(fields,t("areaLbl"),fmtArea(info[2])+"  ·  #"+rk.area[f.c]);
   var nb=[];
   try{nb=neighbours(f.n);}catch(e){nb=[];}
   ppField(fields,t("borders"),nb.length?nb.map(function(n){
