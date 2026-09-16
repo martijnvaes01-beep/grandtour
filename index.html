@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v216";</script>
+<script>window.GT_BUILD="v217";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -8987,8 +8987,21 @@ window.addEventListener("message",function(e){
   if(!m||typeof m!=="object")return;
   /* the framed copy saying hello: anything pressed while it was loading goes now */
   if(m.gtready&&!INFRAME){frameReady=true;flushPhoneQueue();return;}
-  /* a command for the framed copy. Only the frame obeys, and only from its own parent. */
-  if(m.gt&&INFRAME&&e.source===window.parent){
+  /* A COMMAND FOR THE FRAMED COPY, AND ONLY WHERE CHEATING IS THE POINT.
+
+     The frame is how the workbench drives a phone sized copy of the app, so it obeys only inside a
+     frame and only its own parent - but that is the wrong pair of locks, because in the public
+     build anybody who frames index.html?frame=1 IS the parent. One postMessage of {gt:"wipe"} then
+     calls GTDEBUG.wipe on a visitor, which is localStorage.removeItem on their progress; {gt:"xp"}
+     moves their rank. Checked on the public build before this line: a message sent with no frame
+     at all (where window.parent is window) took the save from 100 XP to 10,099.
+
+     Storage partitioning gives a framed page its own bucket on current browsers, so the wipe
+     mostly lands on a copy nobody has - which is why this is cleanup and not an emergency. It is
+     still the one thing in this project that cannot be rebuilt, so the door is shut rather than
+     leaned on: the whole channel is a debug channel, and CHEATS is what a debug channel hangs off.
+     window.GTDEBUG was already behind it; this is the other way in, and it was standing open. */
+  if(m.gt&&CHEATS&&INFRAME&&e.source===window.parent){
     if(m.gt==="xp")GTDEBUG.xp(m.n);
     else if(m.gt==="reroll")GTDEBUG.reroll();
     else if(m.gt==="wipe")GTDEBUG.wipe();
