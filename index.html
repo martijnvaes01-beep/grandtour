@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v217";</script>
+<script>window.GT_BUILD="v218";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -1898,6 +1898,10 @@ var REGION_ORDER=["ALL","EU","AS","AF","NA","SA","OC"];
    - The first time a build opens a save it has not seen before, the save is copied as it was to
      KEY+".before-update", before this build has written a byte of it. If an update ever does
      damage a save, that copy is the undo.
+   - That copy is one build deep, and builds go out several times a day, so a second one is kept at
+     KEY+".before-update.kept" and replaced at most once a week. The near copy is the undo for the
+     build that just landed; the kept one is the undo that a run of builds in one afternoon cannot
+     churn away.
    - A save that cannot be read is not written over. Its bytes go to KEY+".unreadable" first, and
      the game starts from nothing rather than refusing to start.
 
@@ -1924,6 +1928,26 @@ var store=null;
       parsed=null;
     } else if(here&&parsed.build!==here){
       try{localStorage.setItem(KEY+".before-update",raw);}catch(e){}
+      /* AND ONE THAT A RUN OF BUILDS CANNOT CHURN AWAY.
+
+         The line above is overwritten by every build, and on this project that can be three times
+         in an afternoon: by the time somebody notices a save is wrong, the copy from before the
+         build that did it has been replaced twice. This one is only replaced when it is a week
+         old, so there is always a copy from before whatever has been going on lately. */
+      try{
+        var kept=KEY+".before-update.kept",at=+localStorage.getItem(kept+".at")||0;
+        if(!localStorage.getItem(kept)||Date.now()-at>6048e5){
+          localStorage.setItem(kept,raw);
+          localStorage.setItem(kept+".at",String(Date.now()));
+        }
+      }catch(e){
+        /* Out of room. The kept copy is a luxury and the save is not, so it gives its room back
+           rather than sitting there squatting on what the real save needs to write. */
+        try{
+          localStorage.removeItem(KEY+".before-update.kept");
+          localStorage.removeItem(KEY+".before-update.kept.at");
+        }catch(e2){}
+      }
       parsed.build=here;
     }
   }
