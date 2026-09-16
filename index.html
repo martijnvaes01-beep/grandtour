@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v222";</script>
+<script>window.GT_BUILD="v224";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -767,6 +767,8 @@ en:{sub:"countries · flags, globe, atlas",
   legDone:"{n} of {t} right",
   legsLab:"The five games",bestDays:"best {n}",
   standLab:"Where you stand",dayBack:"Back to the desk",
+  aFlag:"A flag",lblFull:"Full screen",lblPhone:"Phone frame",
+  lblZoomIn:"Zoom in",lblZoomOut:"Zoom out",
   setTitle:"Settings",shareLab:"Share my scores",shareOn:"On",shareOff:"Off",
   priv1:"Grand Tour keeps everything you have played on this device. Your progress, your records and your settings never leave it.",
   priv2:"When you finish a round, the score is sent to the server together with a random id, so the game can tell you how that round compares with other players. The id is a string of random characters made in your browser. It is not your name, your address or anything about your phone, and there is no way to get from it back to you.",
@@ -964,6 +966,8 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   legDone:"{n} sur {t} juste",
   legsLab:"Les cinq jeux",bestDays:"record {n}",
   standLab:"Votre classement",dayBack:"Retour au comptoir",
+  aFlag:"Un drapeau",lblFull:"Plein écran",lblPhone:"Cadre téléphone",
+  lblZoomIn:"Zoom avant",lblZoomOut:"Zoom arrière",
   setTitle:"Réglages",shareLab:"Partager mes scores",shareOn:"Oui",shareOff:"Non",
   priv1:"Grand Tour garde tout ce que vous avez joué sur cet appareil. Votre progression, vos records et vos réglages ne le quittent jamais.",
   priv2:"Quand vous terminez une manche, le score part vers le serveur avec un identifiant aléatoire, pour que le jeu puisse vous dire ce que vaut cette manche par rapport aux autres joueurs. Cet identifiant est une suite de caractères tirés au hasard dans votre navigateur. Ce n'est ni votre nom, ni votre adresse, ni rien qui concerne votre téléphone, et il n'existe aucun chemin de retour vers vous.",
@@ -1161,6 +1165,8 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   legDone:"{n} von {t} richtig",
   legsLab:"Die f\u00fcnf Spiele",bestDays:"Bestwert {n}",
   standLab:"Dein Platz",dayBack:"Zur\u00fcck zum Schalter",
+  aFlag:"Eine Flagge",lblFull:"Vollbild",lblPhone:"Telefonrahmen",
+  lblZoomIn:"Vergrößern",lblZoomOut:"Verkleinern",
   setTitle:"Einstellungen",shareLab:"Meine Ergebnisse teilen",shareOn:"An",shareOff:"Aus",
   priv1:"Grand Tour behält alles Gespielte auf diesem Gerät. Dein Fortschritt, deine Rekorde und deine Einstellungen verlassen es nie.",
   priv2:"Wenn du eine Runde beendest, geht das Ergebnis mit einer zufälligen Kennung an den Server, damit das Spiel dir sagen kann, wie diese Runde im Vergleich zu anderen Spielern steht. Die Kennung ist eine Folge zufälliger Zeichen, erzeugt in deinem Browser. Sie ist nicht dein Name, nicht deine Adresse und nichts über dein Telefon, und es gibt keinen Weg von ihr zurück zu dir.",
@@ -1358,6 +1364,8 @@ es:{sub:"países · banderas, globo, atlas",
   legDone:"{n} de {t} acertados",
   legsLab:"Los cinco juegos",bestDays:"r\u00e9cord {n}",
   standLab:"Tu puesto",dayBack:"Volver al mostrador",
+  aFlag:"Una bandera",lblFull:"Pantalla completa",lblPhone:"Marco de teléfono",
+  lblZoomIn:"Acercar",lblZoomOut:"Alejar",
   setTitle:"Ajustes",shareLab:"Compartir mis puntuaciones",shareOn:"Sí",shareOff:"No",
   priv1:"Grand Tour guarda todo lo que has jugado en este dispositivo. Tu progreso, tus récords y tus ajustes nunca salen de él.",
   priv2:"Cuando terminas una ronda, la puntuación se envía al servidor junto con un identificador aleatorio, para que el juego pueda decirte cómo se compara esa ronda con la de otros jugadores. Ese identificador es una cadena de caracteres al azar creada en tu navegador. No es tu nombre, ni tu dirección, ni nada sobre tu teléfono, y no hay forma de volver desde él hasta ti.",
@@ -1555,6 +1563,8 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   legDone:"{n} van {t} goed",
   legsLab:"De vijf spellen",bestDays:"beste {n}",
   standLab:"Waar je staat",dayBack:"Terug naar de balie",
+  aFlag:"Een vlag",lblFull:"Volledig scherm",lblPhone:"Telefoonrand",
+  lblZoomIn:"Inzoomen",lblZoomOut:"Uitzoomen",
   setTitle:"Instellingen",shareLab:"Deel mijn scores",shareOn:"Aan",shareOff:"Uit",
   priv1:"Grand Tour bewaart alles wat je gespeeld hebt op dit toestel. Je voortgang, je records en je instellingen gaan er nooit vanaf.",
   priv2:"Als je een ronde afmaakt, gaat de score naar de server met een willekeurig nummer erbij, zodat het spel je kan zeggen hoe die ronde zich verhoudt tot andere spelers. Dat nummer is een reeks willekeurige tekens die in je browser gemaakt is. Het is niet je naam, niet je adres en niets over je telefoon, en er is geen weg terug van dat nummer naar jou.",
@@ -2403,7 +2413,10 @@ function setBox(n,v){boxMap()[n]=v;}
 
 /* ---------- flags ---------- */
 var NS="http://www.w3.org/2000/svg",parser=new DOMParser(),svgCache={};
-function flagNode(f){
+/* say: what a reader should hear. Left out it is the country's name, which is right on a card, a
+   list or a passport where the name is printed beside it. A board that is asking about the flag
+   passes t("aFlag") instead, because the name is the answer. */
+function flagNode(f,say){
   /* An empty frame of the right shape while the file is on its way, so a card keeps its layout
      and simply fills in. Nothing is cached in that state: the real flag has to be able to
      replace it. */
@@ -2428,7 +2441,7 @@ function flagNode(f){
   }
   var n=document.importNode(svgCache[f.c],true);
   n.setAttribute("role","img");
-  n.setAttribute("aria-label",cname(f));
+  n.setAttribute("aria-label",(say===undefined)?cname(f):say);
   n.setAttribute("preserveAspectRatio","xMidYMid meet");
   n.setAttribute("width","640");
   n.setAttribute("height","480");
@@ -5015,7 +5028,7 @@ function forgeHost(){
 }
 function flagPaint(f){
   if(paintCache[f.c])return paintCache[f.c];
-  var host=forgeHost(),node=flagNode(f),area={},i,el,fl,b;
+  var host=forgeHost(),node=flagNode(f,t("aFlag")),area={},i,el,fl,b;
   host.innerHTML="";host.appendChild(node);
   var all=node.getElementsByTagName("*");
   for(i=0;i<all.length;i++){
@@ -5152,22 +5165,22 @@ function applyForge(f,family,kind,hard,base){
   var node,parts,j,z;
   if(kind==="mirror"){
     if(FLAG_HSYM[f.c])return null;
-    node=flagNode(f);turnFlag(node,"translate(640,0) scale(-1,1)");return node;
+    node=flagNode(f,t("aFlag"));turnFlag(node,"translate(640,0) scale(-1,1)");return node;
   }
   if(kind==="upend"){
     if(FLAG_VSYM[f.c])return null;
-    node=flagNode(f);turnFlag(node,"translate(0,480) scale(1,-1)");return node;
+    node=flagNode(f,t("aFlag"));turnFlag(node,"translate(0,480) scale(1,-1)");return node;
   }
   if(kind==="quarter"){
     /* the whole cloth turned a quarter turn and squeezed back into 640 by 480, so a
        tricolour of bands across comes out as one of bands down: a flag nobody flies */
     if(QUARTER_SAME[f.c])return null;
-    node=flagNode(f);
+    node=flagNode(f,t("aFlag"));
     turnFlag(node,"translate(640,0) rotate(90) scale(0.75,1.3333)");
     return node;
   }
   if(kind==="flip"){
-    node=flagNode(f);
+    node=flagNode(f,t("aFlag"));
     parts=chargeParts(node);
     if(!parts.length)return null;
     /* a disc comes through a half turn unchanged, and a forgery nobody can see is a bug */
@@ -5184,7 +5197,7 @@ function applyForge(f,family,kind,hard,base){
   }
   if(kind==="graft"){
     /* somebody else's badge, sized to the space this flag's own badge had */
-    var tb=partsBox(chargeParts(flagNode(f))||[]);
+    var tb=partsBox(chargeParts(flagNode(f,t("aFlag")))||[]);
     if(!(tb.w>=20&&tb.h>=20))return null;
     /* the look-alikes first, because a badge off a flag already on the table is one the
        reader has a chance of placing; then anybody, so the desk never runs dry */
@@ -5200,7 +5213,7 @@ function applyForge(f,family,kind,hard,base){
       var db=partsBox(dp);
       if(db.w<20||db.h<20)continue;
       /* a fresh cloth for every attempt, so a graft that arrives blank leaves no trace */
-      node=flagNode(f);
+      node=flagNode(f,t("aFlag"));
       parts=chargeParts(node);
       if(!parts.length)return null;
       var k2=Math.min(tb.w/db.w,tb.h/db.h);
@@ -5229,7 +5242,7 @@ function applyForge(f,family,kind,hard,base){
     return null;
   }
   if(kind==="slide"||kind==="charge"||kind==="spin"){
-    node=flagNode(f);
+    node=flagNode(f,t("aFlag"));
     parts=chargeParts(node);
     if(!parts.length)return null;
     z=partsBox(parts);
@@ -5282,7 +5295,7 @@ function applyForge(f,family,kind,hard,base){
     if(got){map={};map[paint[0]]=got;}
   }
   if(!map)return null;
-  node=base||flagNode(f);
+  node=base||flagNode(f,t("aFlag"));
   repaint(node,map);
   return node;
 }
@@ -6705,13 +6718,13 @@ function featureScore(table){
 var QUIZ={
   name:{
     ask:"askName",counter:true,
-    subject:function(f){return flagNode(f);},
+    subject:function(f){return flagNode(f,t("aFlag"));},
     option:function(o){var s=document.createElement("span");s.textContent=cname(o);return s;},
     score:function(){return masteredIn(store.box)+"/"+FLAGS.length;}
   },
   sprint:{
     ask:"askSprint",gate:1,
-    subject:function(f){return flagNode(f);},
+    subject:function(f){return flagNode(f,t("aFlag"));},
     option:function(o){var s=document.createElement("span");s.textContent=cname(o);return s;},
     score:function(){return t("best")+" "+(store.bestSprint||0);}
   },
@@ -6720,7 +6733,7 @@ var QUIZ={
     subject:function(f){
       var c=document.createElement("div");c.className="namecard";c.textContent=cname(f);return c;
     },
-    option:function(o){return flagNode(o);},
+    option:function(o){return flagNode(o,t("aFlag"));},
     score:function(){return masteredIn(store.box)+"/"+FLAGS.length;}
   },
   cap:{
@@ -6752,7 +6765,7 @@ var QUIZ={
   look:{
     ask:"askLook",gate:3,
     has:function(f){return !!IMPIN[f.c];},
-    subject:function(f){return flagNode(f);},
+    subject:function(f){return flagNode(f,t("aFlag"));},
     from:function(f){return [f].concat(famFor(f)||[]);},
     option:function(o){var sp=document.createElement("span");sp.textContent=cname(o);return sp;},
     score:function(){return masteredIn(store.box)+"/"+IMPCOUNT;}
@@ -7304,7 +7317,7 @@ function imposterDesk(gate){
       return c;
     },
     from:function(f){return [f].concat(imp.others||[]);},
-    option:function(o,right){return right?imp.fake.cloneNode(true):flagNode(o);},
+    option:function(o,right){return right?imp.fake.cloneNode(true):flagNode(o,t("aFlag"));},
     said:function(right,picked){
       return right
         ? ["ok",t("impFound"),{b:cname(current),r:impTell()}]
@@ -9519,7 +9532,7 @@ function dailyRender(){
       row.appendChild(arrow);
     }
     var wrap=document.createElement("span");wrap.className="thumb";
-    if(FLAGBYNAME[n])wrap.appendChild(flagNode(FLAGBYNAME[n]));
+    if(FLAGBYNAME[n])wrap.appendChild(flagNode(FLAGBYNAME[n],t("aFlag")));
     /* No name under the flag. Recognising the two flags is the first half of the puzzle,
        and printing the answer under each of them gave it away twice over. */
     var col=document.createElement("span");col.className="thumbcol";
@@ -13424,6 +13437,13 @@ applyLang=function(){
   if($("daymodal")&&!$("daymodal").hidden)dayAsk();
   $("menu").setAttribute("aria-label",t("menu"));
   $("sound").setAttribute("aria-label",t(store.sound?"soundOn":"soundOff"));
+  /* the rest of the icon row and the two zoom keys, which said "+" and "-" - the glyph read out
+     a second time rather than a name for what the button does */
+  [["fs","lblFull"],["phone","lblPhone"],["introgear","setTitle"],
+   ["zin","lblZoomIn"],["zout","lblZoomOut"]].forEach(function(p){
+    var el=$(p[0]);
+    if(el)el.setAttribute("aria-label",t(p[1]));
+  });
   if($("intro")&&!$("intro").hidden)paintIntro();
   paintRank();
 };
