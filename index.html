@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v218";</script>
+<script>window.GT_BUILD="v222";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -648,8 +648,8 @@ var UI={
 en:{sub:"countries · flags, globe, atlas",
   mName:"Name the flag",mFind:"Find the flag",mLocate:"Locate",mSpot:"Name the country",mShape:"Outline",mAtlas:"Atlas",
   all:"All",AF:"Africa",AS:"Asia",EU:"Europe",NA:"North America",SA:"South America",OC:"Oceania",
-  askName:"Which country flies this flag?",askFind:"Find the flag of",askLocate:"Where in the world is",askSpot:"Which country is lit up?",
-  askShape:"Which country has this outline?",
+  askName:"Whose flag is this?",askFind:"Find the flag of",askLocate:"Where in the world is",askSpot:"Which country is lit up?",
+  askShape:"Whose outline is this?",
   next:"Next",skip:"Skip",reveal:"Show me",check:"Check",reset:"Reset progress",resetSure:"Sure? Tap again",
   acc:"Accuracy",streak:"Streak",seen:"Answered",mast:"Mastered",
   correct:"Correct.",wrongFlag:"Not quite. That was",picked:"You picked",
@@ -673,27 +673,27 @@ en:{sub:"countries · flags, globe, atlas",
   rankOpens:"{n} new games, all yours",rankOnward:"Nothing new sealed at this one. Carry on.",
   rankTake:"To the desk",xpLab:"XP",phoneWaking:"The phone is still waking up.",
   mImposter:"Imposter",dImposter:"Three real flags and one forgery",
-  mLook:"Lookalikes",dLook:"Name it, and every wrong answer looks like it",
-  askLook:"These four look alike. Which flies it?",
+  mLook:"Lookalikes",dLook:"Four countries whose flags could be each other",
+  askLook:"Whose flag is this? All four look alike.",
   mTrap:"Capital trap",dTrap:"The famous city is rarely the one in charge",
   askTrap:"Which of these runs the country?",
   trapNo:"Famous, but not the capital.",
-  mCrowd:"More or fewer",dCrowd:"Which country holds more people",
-  askCrowd:"Does {c} hold more or fewer people than {o}?",
+  mCrowd:"More or fewer",dCrowd:"Which country has more people",
+  askCrowd:"Does {c} have more or fewer people than {o}?",
   crowdMore:"More",crowdFewer:"Fewer",
-  mRich:"Richer or poorer",dRich:"Which country earns more a head",
-  askRich:"Does {c} earn more or less a head than {o}?",
-  richMore:"More",richLess:"Less",
-  mDense:"Packed or empty",dDense:"Which country lives closer together",
-  askDense:"Is {c} packed tighter or emptier than {o}?",
-  denseMore:"Tighter",denseLess:"Emptier",
-  mEconomy:"The bigger purse",dEconomy:"Which whole economy is larger",
-  askEconomy:"Is the whole of {c} worth more or less than {o}?",
-  ecoMore:"More",ecoLess:"Less",
+  mRich:"Richer or poorer",dRich:"Which country is richer per person",
+  askRich:"Is {c} richer or poorer per person than {o}?",
+  richMore:"Richer",richLess:"Poorer",
+  mDense:"Packed or empty",dDense:"Which country is more crowded",
+  askDense:"Is {c} more crowded or emptier than {o}?",
+  denseMore:"More crowded",denseLess:"Emptier",
+  mEconomy:"The bigger purse",dEconomy:"Which economy is bigger",
+  askEconomy:"Does {c} have a bigger or smaller economy than {o}?",
+  ecoMore:"Bigger",ecoLess:"Smaller",
   mNorth:"Further north",dNorth:"Which country sits closer to the pole",
-  askNorth:"Does {c} lie further north or further south than {o}?",
+  askNorth:"Is {c} further north or further south than {o}?",
   northUp:"Further north",northDown:"Further south",
-  mNeigh:"More neighbours",dNeigh:"Which country can walk to more countries",
+  mNeigh:"More neighbours",dNeigh:"Which country has more neighbours",
   askNeigh:"Does {c} border more or fewer countries than {o}?",
   neighMore:"More",neighFewer:"Fewer",
   mDossier:"The dossier",dDossier:"Name the country from its file",
@@ -733,7 +733,7 @@ en:{sub:"countries · flags, globe, atlas",
   mAtlasWork:"On the map",dAtlasWork:"Where in the world it actually is",
   mFigures:"By the numbers",dFigures:"How big, how many, how rich, what it sells",
   mWorldle:"Worldle",dWorldle:"The outline, then warmer and warmer",
-  askWorldle:"Which country is this outline? Five tries.",
+  askWorldle:"Whose outline is this? Five tries.",
   mBlind:"Blind flags",dBlind:"No options. Write the country.",
   askBlind:"Name this flag",
   mBorder:"Neighbours",dBorder:"Capitals, and every wrong one is next door",
@@ -775,7 +775,7 @@ en:{sub:"countries · flags, globe, atlas",
   splashLead:"Start the",splashGo:"Tap to begin",splashSub:"World service · est. 1926",
   mCap:"Capitals",dCap:"Which city runs the country",askCapital:"What is the capital of",
   mlCoast:"Coastline",mlBorder:"Land border",
-  askCoast:"Has {c} more or less coastline than {o}?",askBorder:"Has {c} more or less land border than {o}?",
+  askCoast:"Does {c} have a longer or shorter coastline than {o}?",askBorder:"Does {c} have a longer or shorter land border than {o}?",
   lenLonger:"Longer",lenShorter:"Shorter",
   streakRan:"in a row",newBest:"best yet",noLandBorder:"no land border",
   mBigger:"More or less",dBigger:"Two countries, one column, drawn fresh each time",
@@ -870,8 +870,8 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   rankOpens:"{n} nouveaux jeux, rien que pour vous",rankOnward:"Rien de nouveau à ce grade. Poursuivez.",
   rankTake:"Au bureau",xpLab:"XP",phoneWaking:"Le téléphone démarre encore.",
   mImposter:"L'imposteur",dImposter:"Trois vrais drapeaux et un faux",
-  mLook:"Sosies",dLook:"Nommez-le, et chaque mauvaise réponse lui ressemble",
-  askLook:"Ces quatre se ressemblent. Lequel est-ce ?",
+  mLook:"Sosies",dLook:"Quatre pays aux drapeaux presque identiques",
+  askLook:"À qui est ce drapeau ? Les quatre se ressemblent.",
   mTrap:"Piège des capitales",dTrap:"La ville célèbre est rarement celle qui gouverne",
   askTrap:"Laquelle de ces villes gouverne le pays ?",
   trapNo:"Célèbre, mais pas la capitale.",
@@ -1067,8 +1067,8 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   rankOpens:"{n} neue Spiele, alle deine",rankOnward:"Hier ist nichts mehr versiegelt. Weiter so.",
   rankTake:"Zum Schreibtisch",xpLab:"XP",phoneWaking:"Das Telefon fährt noch hoch.",
   mImposter:"Der Hochstapler",dImposter:"Drei echte Flaggen und eine Fälschung",
-  mLook:"Doppelgänger",dLook:"Benenne sie, und jede falsche Antwort sieht ihr ähnlich",
-  askLook:"Diese vier ähneln sich. Welches ist es?",
+  mLook:"Doppelgänger",dLook:"Vier Länder mit zum Verwechseln ähnlichen Flaggen",
+  askLook:"Wessen Flagge ist das? Alle vier ähneln sich.",
   mTrap:"Hauptstadtfalle",dTrap:"Die berühmte Stadt regiert nur selten",
   askTrap:"Welche dieser Städte regiert das Land?",
   trapNo:"Berühmt, aber nicht die Hauptstadt.",
@@ -1264,8 +1264,8 @@ es:{sub:"países · banderas, globo, atlas",
   rankOpens:"{n} juegos nuevos, todos tuyos",rankOnward:"Aquí ya no queda nada sellado. Sigue.",
   rankTake:"Al escritorio",xpLab:"XP",phoneWaking:"El teléfono todavía está arrancando.",
   mImposter:"El impostor",dImposter:"Tres banderas de verdad y una falsificación",
-  mLook:"Parecidas",dLook:"Nómbrala, y cada respuesta falsa se le parece",
-  askLook:"Estas cuatro se parecen. ¿Cuál es?",
+  mLook:"Parecidas",dLook:"Cuatro países con banderas casi idénticas",
+  askLook:"¿De quién es esta bandera? Las cuatro se parecen.",
   mTrap:"Trampa de capitales",dTrap:"La ciudad famosa rara vez es la que manda",
   askTrap:"¿Cuál de estas ciudades gobierna el país?",
   trapNo:"Famosa, pero no es la capital.",
@@ -1461,8 +1461,8 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   rankOpens:"{n} nieuwe spellen staan voor je open",rankOnward:"Er gaat nu niets nieuws open. Speel verder.",
   rankTake:"Aan de slag",xpLab:"XP",phoneWaking:"De telefoon start nog op.",
   mImposter:"Bedrieger",dImposter:"Drie echte vlaggen en één vervalsing",
-  mLook:"Dubbelgangers",dLook:"Noem het, en elk fout antwoord lijkt erop",
-  askLook:"Deze vier lijken op elkaar. Welk land is het?",
+  mLook:"Dubbelgangers",dLook:"Vier landen met vlaggen die op elkaar lijken",
+  askLook:"Van wie is deze vlag? Alle vier lijken op elkaar.",
   mTrap:"Hoofdstadval",dTrap:"De bekendste stad is zelden de hoofdstad",
   askTrap:"In welke van deze steden zit de regering?",
   trapNo:"Beroemd, maar niet de hoofdstad.",
@@ -4610,7 +4610,7 @@ function globleTry(name){
     snd.heat(km,better);
     if(mode==="worldle"&&globle.guesses.length>=WORLDLE_TRIES){
       globle.done=true;
-      verdict("no",t("outOfTries"),{b:fill(t("itWas"),{c:nameOf(globle.target)}),r:""});
+      verdict("no",t("outOfTries"),{b:fill(t("itWas"),{c:sname(nameOf(globle.target))}),r:""});
       snd.wrong();buzz(18);
       if(globle.seeded)dailyFinish(WORLDLE_TRIES);
       else sendScore(mode,0,1,"ALL");
@@ -4680,7 +4680,7 @@ function globleReveal(){
   if(globle.done)return;
   globle.done=true;
   if(!globle.seeded)sendScore(mode,0,1,"ALL");
-  verdict("no",t("shown"),{b:fill(t("itWas"),{c:nameOf(globle.target)}),r:""});
+  verdict("no",t("shown"),{b:fill(t("itWas"),{c:sname(nameOf(globle.target))}),r:""});
   globleRender();
   /* Shown, not solved. On the day this is the first of five games and the reveal used to end
      here, so leg 0 had no way out of it: Next dealt the same secret again, for ever. */
@@ -8768,7 +8768,7 @@ function biggerRender(){
   /* name the country being judged: "bigger or smaller" on its own says nothing about
      which of the two cards you are being asked about */
   var askKey=(mode==="daily")?"askBigger":(MIXASK[mixKey]||"askBigger");
-  $("prompt").textContent=fill(t(askKey),{c:cname(bigger.other),o:cname(bigger.holder)});
+  $("prompt").textContent=fill(t(askKey),{c:sname(cname(bigger.other)),o:sname(cname(bigger.holder))});
   /* the column being judged, stamped on the board, because it changes every time */
   var col=document.createElement("span");col.className="bigcol";
   var ci=document.createElement("i");ci.textContent=t("bigColLab");
@@ -8791,7 +8791,7 @@ function biggerRender(){
     arrow.textContent=row[0]==="up"?"▲":"▼";
     var lbl=document.createElement("span");lbl.className="biglbl";lbl.textContent=row[1];
     var who=document.createElement("span");who.className="bigwho";
-    who.textContent=fill(t("bigThan"),{o:cname(bigger.holder)});
+    who.textContent=fill(t("bigThan"),{o:sname(cname(bigger.holder))});
     b.appendChild(arrow);b.appendChild(lbl);b.appendChild(who);
     b.onclick=function(){biggerTry(row[0]==="up");};
     opts.appendChild(b);
@@ -9383,6 +9383,10 @@ function dailyHighlights(){
   if(last!==daily.from&&last!==daily.to)globe.hi[last]=css("--accent");
 }
 function nameOf(n){return FLAGBYNAME[n]?cname(FLAGBYNAME[n]):n;}
+/* A NAME INSIDE A SENTENCE, WHICH IN ENGLISH IS NOT ALWAYS THE NAME. See the note at THE_THE.
+   Takes the name, not the country, so it can be put round cname() or nameOf() alike. */
+var THE_THE=/^(Bahamas|Comoros|Gambia|Maldives|Netherlands|Philippines|Seychelles|Marshall Islands|Solomon Islands|United Arab Emirates|United Kingdom|United States|Central African Republic|Dominican Republic|Democratic Republic of the Congo|Republic of the Congo)$/;
+function sname(n){return (lang==="en"&&THE_THE.test(n))?"the "+n:n;}
 function paintShare(){
   $("share").hidden=!(mode==="daily"&&daily.done);
 }
@@ -9447,7 +9451,7 @@ function shapeLost(why){
   drawShape(current,0);            /* the answer is worth seeing the right way up */
   paintClues();
   heatChips(daily.guesses,SHAPE_TRIES);
-  verdict("no",why,{b:fill(t("itWas"),{c:cname(current)}),r:regionName(current.r)});
+  verdict("no",why,{b:fill(t("itWas"),{c:sname(cname(current))}),r:regionName(current.r)});
   snd.wrong();buzz(18);
   $("guess").value="";
   dailyFinish(SHAPE_TRIES+clueCost(),false);
