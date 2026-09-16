@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v224";</script>
+<script>window.GT_BUILD="v225";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -13970,6 +13970,40 @@ if(CHEATS&&/[?&]dbg=1/.test(location.search)){
       return (performance.now()-t)/(n||30);
     }};
 }
+/* See the note above sheetWatch: a dialog nobody is put inside is a dialog announced and then
+   hidden from the one person who was told about it. */
+(function sheetWatch(){
+  var back=null;
+  function sheets(){return document.querySelectorAll(".modal");}
+  [].forEach.call(sheets(),function(m){
+    /* a sheet with no X closes on its own terms and is left alone */
+    if(!m.querySelector(".sheetclose"))return;
+    try{
+      new MutationObserver(function(){
+        if(m.hidden){
+          if(back&&back.focus){try{back.focus({preventScroll:true});}catch(e){}}
+          back=null;
+          return;
+        }
+        back=document.activeElement;
+        var sheet=m.querySelector(".sheet")||m;
+        if(!sheet.hasAttribute("tabindex"))sheet.setAttribute("tabindex","-1");
+        try{sheet.focus({preventScroll:true});}catch(e){}
+      }).observe(m,{attributes:true,attributeFilter:["hidden"]});
+    }catch(e){}
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key!=="Escape")return;
+    var open=null;
+    [].forEach.call(sheets(),function(m){
+      /* if two are somehow open at once, the later one in the document is the one on top */
+      if(!m.hidden&&m.querySelector(".sheetclose"))open=m;
+    });
+    if(!open)return;
+    e.preventDefault();
+    open.querySelector(".sheetclose").click();
+  });
+})();
 showSplash();
 if(store.phone&&!INFRAME)phoneOn();
 })();
