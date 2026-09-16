@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v257";</script>
+<script>window.GT_BUILD="v258";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -4994,32 +4994,73 @@ function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()
 
 var roundQueue=[],roundKey="";
 function queueKey(){return mode+"|"+region;}
-var lastDealt={};
+/* WHICH ROUND EACH COUNTRY WAS LAST DEALT IN, AND WHICH ROUND WE ARE ON. Runtime only, the same as
+   the one-round memory it replaces: nothing about this is saved, so a new session starts with
+   everything equally fresh and the shape of the save is untouched. */
+var seenRound={},roundNo=0;
+/* A third of every round comes from outside the weak rungs. See the note in refillRound for what
+   that buys and what it costs; it is one number if it wants moving. */
+var FRESH_SHARE=1/3;
 function refillRound(){
   var p=pool().slice();
   shuffle(p);
-  /* WEAKEST FIRST WAS TOO LITERAL.
+  roundNo++;
+  /* WEAKEST FIRST WAS TOO LITERAL, AND THEN THE FIX FOR IT WAS TOO SHORT-SIGHTED.
 
-     The shuffle is fine and the sort is stable, so within a box the order really is random.
-     The fault is that the sort key was the box and nothing else. A round takes the first
-     twenty of the queue, so once the boxes have spread out, which is after about one
-     session, the twenty countries you are worst at are the twenty you are dealt, in every
-     round, for ever: getting one right promotes it and the next worst takes its place,
-     getting it wrong keeps it exactly where it was. From the outside that looks like a
-     shuffle that does not shuffle, and it is not one.
+     The sort key was the box and nothing else, so once the boxes spread - about one session - the
+     twenty countries you are worst at were the twenty you were dealt, every round, for ever. A
+     random offset of a couple of boxes and a penalty for anything dealt in the round just finished
+     were supposed to answer that.
 
-     Two changes, both to the key. A random offset of up to two and a bit boxes, so three
-     rungs overlap and the front of the queue is drawn from a spread rather than from one
-     rung. And a penalty for anything dealt in the round just finished, so the same card
-     twice running has to earn it. Weak countries still come up far more often, which is
-     what the boxes are for; they just stop being the only ones. */
+     Simulated against three players, counting how many of a round's twenty had also come up in the
+     previous three rounds: a new player 3, a regular player 10, and a player who knows most of the
+     map 16. So it was not a broken shuffle. It was the boxes working exactly as designed, and it
+     read worse the better you got - because a player who knows the map has about sixty countries
+     they are shaky on, a round is twenty, and three rounds is sixty. Every question you get is one
+     of the sixty.
+
+     TWO CHANGES.
+
+     The memory was one round long: lastDealt was wiped on every refill, so a country dealt two
+     rounds ago counted as never dealt at all. It remembers three now, with the penalty fading. On
+     its own that takes the regular player from 10 to 6 and the good player from 16 to 14 - almost
+     nothing, and the reason is arithmetic rather than tuning. With sixty to choose from and twenty
+     a round, three rounds covers nearly all of them however they are ordered.
+
+     So a third of every round is drawn from outside the weak rungs: seven of the twenty taken at
+     random from the half of the pool that has waited longest, whatever box they are in. Random from
+     the older half rather than strictly the oldest, because strictly oldest is a queue and a queue
+     comes back round in the same order every time, which is its own kind of the same flags again.
+
+     Together the good player goes from 16 of 20 to 7, and from 4.7 straight out of the last round
+     to 0.7. The new player barely moves, which is right: nothing was wrong for them.
+
+     THE COST, which is real: the share of a round spent on countries you are actually bad at falls
+     from 20 of 20 to 14 for the good player and from 16 to 12 for the regular one. Two thirds of a
+     round is still revision. */
+  var cap=Math.min(roundLen(),ROUND_LEN);
+  var want=Math.max(0,Math.min(p.length-1,Math.round(cap*FRESH_SHARE)));
+  var fresh=[],taken={};
+  if(want>0){
+    var byAge=p.slice().sort(function(a,b){
+      return (seenRound[a.n]||0)-(seenRound[b.n]||0);
+    });
+    var older=byAge.slice(0,Math.max(want,Math.round(byAge.length/2)));
+    shuffle(older);
+    fresh=older.slice(0,want);
+    fresh.forEach(function(f){taken[f.n]=1;});
+  }
+  var rest=p.filter(function(f){return !taken[f.n];});
   var key={};
-  p.forEach(function(f){
-    key[f.n]=boxOf(f.n)+Math.random()*2.2+(lastDealt[f.n]?1.1:0);
+  rest.forEach(function(f){
+    /* how many rounds ago this country was last dealt, and what that is worth against its box */
+    var age=roundNo-(seenRound[f.n]||-99);
+    var pen=age<=1?1.6:(age===2?1.0:(age===3?0.5:0));
+    key[f.n]=boxOf(f.n)+Math.random()*2.2+pen;
   });
-  p.sort(function(a,b){return key[a.n]-key[b.n];});
-  roundQueue=p;roundKey=queueKey();
-  lastDealt={};
+  rest.sort(function(a,b){return key[a.n]-key[b.n];});
+  roundQueue=fresh.concat(rest);
+  roundKey=queueKey();
 }
 function takeFromRound(){
   /* locate and name the country walk the whole pool once and then stop: refilling would deal
@@ -5033,7 +5074,7 @@ function takeFromRound(){
   if(next&&current&&next.n===current.n&&roundQueue.length){
     roundQueue.push(next);next=roundQueue.shift();
   }
-  if(next)lastDealt[next.n]=1;      /* remembered until the next refill, and no longer */
+  if(next)seenRound[next.n]=roundNo;   /* which round it was dealt in: read back for three of them */
   return next;
 }
 function roundLeft(){return roundKey===queueKey()?roundQueue.length:pool().length;}
