@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v281";</script>
+<script>window.GT_BUILD="v283";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -4263,13 +4263,27 @@ function initGlobe(){
 }
 /* the nearest hand drawn line to a point on the sphere, in kilometres. A polyline is a
    run of vertices, so the closest vertex is close enough to answer with. */
-function inFlatRing(ring,lon,lat){
+function flatHit(ring,lon,lat){
   var inside=false,n=ring.length/2,i,j;
   for(i=0,j=n-1;i<n;j=i++){
     var xi=ring[i*2],yi=ring[i*2+1],xj=ring[j*2],yj=ring[j*2+1];
     if(((yi>lat)!==(yj>lat))&&(lon<(xj-xi)*(lat-yi)/(yj-yi)+xi))inside=!inside;
   }
   return inside;
+}
+/* A RING MAY SPEAK IN LONGITUDES PAST 180, and the Pacific does: it is one ocean either side of the
+   date line and cutting it in two drew a seam through the middle of it. The drawing does not mind,
+   because sin and cos do not, but this is flat arithmetic - a finger in the eastern Pacific arrives
+   as -150 and the ring is talking about 210. Offer the tap in the ring's own frame as well. The
+   ring's own span is measured once and kept on it, the way its unit vectors are. */
+function inFlatRing(ring,lon,lat){
+  if(ring.maxLon===undefined){
+    var mx=-1e9,t;
+    for(t=0;t<ring.length;t+=2)if(ring[t]>mx)mx=ring[t];
+    ring.maxLon=mx;
+  }
+  if(ring.maxLon>180&&lon<0&&flatHit(ring,lon+360,lat))return true;
+  return flatHit(ring,lon,lat);
 }
 /* A range is an area, so standing in it is the answer. A river is a line, so being near
    enough to it is. Ranges still fall back to nearest vertex, because a click just off a
@@ -6732,7 +6746,12 @@ var SEAAREA={
 "Caribbean Sea":[[-88,21,-83,22.5,-78,21,-73.5,20.2,-68,19,-63,17.5,-60,14.5,-61,10.5,-66,10.5,-72,10,-77,8.5,-82,9,-84.5,15,-87,17.5]],
 "Atlantic Ocean":[[-55,52,-35,58,-15,55,-10,44,-13,30,-17,15,-14,0,-5,-12,5,-30,-5,-48,-30,-52,-52,-45,-65,-35,-70,-15,-58,-2,-52,5,-60,15,-72,28,-72,40]],
 "Indian Ocean":[[28,-32,40,-24,52,-12,62,-6,75,-2,90,-5,105,-12,115,-22,118,-33,110,-45,85,-48,60,-45,38,-42,26,-38]],
-"Pacific Ocean":[[-179.5,52,-150,56,-130,48,-122,32,-110,20,-95,10,-82,2,-75,-12,-78,-32,-85,-45,-120,-48,-155,-40,-179.5,-25],[120,32,135,40,152,46,170,44,179.5,30,179.5,-25,168,-32,152,-32,140,-18,132,-4,126,8,120,18]]
+/* ONE RING, AND ITS LONGITUDES RUN PAST 180 ON PURPOSE. This was two polygons cut at the date
+   line and closed along it, which drew a hard vertical seam through the middle of the ocean - a
+   boundary where there is no boundary. Every ring here is turned into unit vectors by sin and cos
+   before it is drawn and sin(285) is sin(-75), so the numbers being out of range costs nothing and
+   the cut disappears with the edge that made it. inFlatRing knows to offer a tap in this frame. */
+"Pacific Ocean":[[120,32,135,40,152,46,170,44,180.5,52,210,56,230,48,238,32,250,20,265,10,278,2,285,-12,282,-32,275,-45,240,-48,205,-40,180.5,-25,168,-32,152,-32,140,-18,132,-4,126,8,120,18]]
 };
 /* smallest first, so the Adriatic answers before the Mediterranean it sits inside, and the
    Caribbean before the Atlantic. Worked out once: the seas do not move. */
@@ -7010,7 +7029,14 @@ function lineCentre(setKey,name){
   if(setKey==="range"||setKey==="sea"){
     var ring=geom[0],N=ring.length/2,x=0,y=0,i;
     for(i=0;i<N;i++){x+=ring[i*2];y+=ring[i*2+1];}
-    return [x/N,y/N];
+    /* The Pacific's ring carries on past 180 rather than being cut at the date line, so its average
+       comes out at 197. That is the middle of the ocean and it is the same place as -163, but it
+       leaves here as an ordinary coordinate: everything downstream expects one, and no caller
+       should have to know that one basin out of twenty is written differently from the rest. */
+    var lonC=x/N;
+    while(lonC>180)lonC-=360;
+    while(lonC<-180)lonC+=360;
+    return [lonC,y/N];
   }
   var best=geom[0],j;
   for(j=1;j<geom.length;j++)if(geom[j].length>best.length)best=geom[j];
