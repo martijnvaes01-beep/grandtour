@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v280";</script>
+<script>window.GT_BUILD="v281";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -1849,11 +1849,17 @@ function normaliseStore(){
   if(store.dayReset!==DAY_RESET){
     store.dayReset=DAY_RESET;
     if(store.daily&&typeof store.daily==="object"){store.daily.ran=0;store.daily.done=false;}
-    /* and a fresh set of questions with it, or the second go at today is the first go again.
-       dayShift salts daySeed, which is what picks the day's own puzzle and the four games behind
-       it, so one turn of this is a different day. Read into its own variable further down the
-       file, after this has run. */
-    store.dayShift=(store.dayShift||0)+1;
+    /* IT USED TO BUMP store.dayShift HERE, AND THAT IS THE BUG THIS BLOCK CAUSED.
+
+       The idea was right - clearing today's lock without changing the questions means the second go
+       at today is the first go again - but the counter it bumped lived in the save, and a brand new
+       save takes this branch on its very first load because it has no stamp to compare. So new
+       saves sat on one and older ones on two, and the two of them were dealt different days and
+       then compared on the same date.
+
+       DAY_SALT does that job now, in the source, the same for everybody: to reroll a day for
+       everyone at once, move it and ship. store.dayShift is left in every save exactly where it is
+       and nothing reads it - taking a field out is a save-shape change for no gain. */
   }
 }
 /* WHERE THE SCORES GO.
@@ -8560,7 +8566,7 @@ function phoneOff(){
   /* take back everything that happened in there before writing anything of our own */
   saveHeld=false;
   reloadStore();
-  dayShift=store.dayShift||0;
+  daySalt=DAY_SALT;
   store.phone=false;save();
   syncTabs();paintRank();paintStats();
   $("device").hidden=true;
@@ -9465,11 +9471,24 @@ function dayNumber(key){
   var d=key.split("-");
   return Math.floor(Date.UTC(+d[0],+d[1]-1,+d[2])/864e5);
 }
-/* debug: a nudge on the day's seed. every daily draw, the country of the day, the
-   puzzle and which engine the rotation serves, runs through it, so one button reshuffles
-   the lot. never saved: a reload puts the real day back. */
-var dayShift=store.dayShift||0;
-function daySeed(key){return dayShift?key+"#"+dayShift:key;}
+/* THE DAY'S SALT, AND IT BELONGS TO THE DAY RATHER THAN TO THE SAVE.
+
+   Every daily draw, the country of the day, and which engine leg 0 runs on go through this before
+   the date is hashed, so it decides the whole day. It used to be store.dayShift - a count of how
+   many times that particular save had lived through a DAY_RESET - which meant a save that was here
+   before the last stamp was on two, a save started since was on one, and the two of them were
+   handed different puzzles and then ranked against each other on the same date.
+
+   One number in the source, the same in every copy of the app that is running. Rerolling a day for
+   everybody is a build now, which is what it always should have been: a lever that each save pulls
+   a different number of times is not a reroll, it is a fork. It starts at 1 because that is where
+   every save started since the last stamp already sits, so moving to it changes today for the
+   fewest people. */
+var DAY_SALT=1;
+/* the live one. The workbench reroll nudges this and nothing else, so it is exactly what its own
+   comment always claimed: never saved, and a reload puts the real day back. */
+var daySalt=DAY_SALT;
+function daySeed(key){return daySalt?key+"#"+daySalt:key;}
 /* the phone frame is another copy of the app running its own script. It is same origin,
    so the rail hands the job over rather than reaching around it. */
 /* The copy of the app inside the phone, once it has finished starting up. While the
@@ -9543,7 +9562,9 @@ var GTDEBUG={
     debugSync(store.xp+" XP · "+rankName(rankIndex(store.xp)));
   },
   reroll:function(){
-    dayShift++;store.dayShift=dayShift;
+    /* runtime only: a reload puts the real day back. It used to write store.dayShift, which left
+       whoever pressed it on a different day from everybody else for good. */
+    daySalt++;
     dailyLoad();
     if(!$("cotd").hidden)openCotd();
     if(!introOpen){setMode(mode);if(mode==="daily")dailyBegin();}
@@ -9590,7 +9611,8 @@ if(INFRAME){
   })();
 }
 function dailyKind(key){
-  var i=(dayNumber(key)+dayShift)%DAILY_KINDS.length;
+  /* the second place the salt reaches: which of the four shapes leg 0 takes */
+  var i=(dayNumber(key)+daySalt)%DAILY_KINDS.length;
   return DAILY_KINDS[(i+DAILY_KINDS.length)%DAILY_KINDS.length];
 }
 /* which engine is on screen right now: the daily borrows the others */
@@ -13546,7 +13568,7 @@ function paintIntro(){
     ?(store.sound?"♪":"♪̶"):(store.sound?t("soundOn"):t("soundOff"));
   var rr=$("introreroll");
   if(rr){
-    rr.title=t("rerollLab")+(dayShift?" ("+dayShift+")":"");
+    rr.title=t("rerollLab")+(daySalt!==DAY_SALT?" ("+daySalt+")":"");
     rr.setAttribute("aria-label",t("rerollLab"));
   }
   var rk=$("introrank");
