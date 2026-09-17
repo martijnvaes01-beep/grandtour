@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v307";</script>
+<script>window.GT_BUILD="v308";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -3473,7 +3473,7 @@ function markerAt(px,py){
   });
   return best;
 }
-function frameTo(lon,lat,then,toZoom){
+function frameTo(lon,lat,toZoom,then){
   var cv=globe.cv;
   if(!cv||!globe.base){spinTo(lon,lat,then,0,toZoom);return;}
   var r=cv.getBoundingClientRect();
@@ -6530,7 +6530,7 @@ function render(){
   } else if(mode==="spot"){
     $("prompt").textContent=t("askSpot");
     var sc=locationOf(current.n);
-    if(sc)frameTo(sc[0],sc[1],null,Math.min(3,frameZoom(current.n)));
+    if(sc)frameTo(sc[0],sc[1],Math.min(3,frameZoom(current.n)));
     else drawGlobe();
   }
   paintStats();
@@ -7102,7 +7102,7 @@ function locateCountry(f){
   pinOn(f.n);
   if(c){
     var gz=frameZoom(f.n);
-    frameTo(c[0],c[1],null,gz);
+    frameTo(c[0],c[1],gz);
   }
   setTimeout(relayout,60);
 }
