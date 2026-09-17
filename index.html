@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v302";</script>
+<script>window.GT_BUILD="v303";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -11649,6 +11649,7 @@ function paintSettings(){
   $("credlab").textContent=t("credTitle");
   $("replab").textContent=t("repTitle");
   $("svlab").textContent=t("svTitle");
+  $("svbtn").hidden=!saveIOOpen();
 
   if(saveio){paintSaveIO();return;}
   if(form){paintReport();return;}
@@ -11667,6 +11668,20 @@ function paintSettings(){
    header that says which it is. Nothing is summarised and nothing is renamed, because everything
    clever has to be undone on the way back in and a restore that half-understands its input is worse
    than no restore at all. */
+/* THE PAGE IS BUILT AND THE DOOR IS SHUT. The owner's call: a code can be handed round, and while
+   the thing it hands over is only local - XP, rank, which boards are open, the flag boxes - the
+   compared figures are built on the server out of rounds actually played, so a pasted code puts
+   nobody on the table. What it does do is share a pid, and then ten people write to one row.
+
+   So the row is not on the settings list unless the page was opened with ?save=1. That is not a
+   secret and is not meant to be one: it is a link to send to the people who need to carry their
+   progress across the move to a new host, which is the one moment this has to exist. Nothing here
+   is a cheat gate - the CHEATS rule about query strings is about unlocking the game, and a player
+   copying their own save is not that. To open it to everybody later, delete this one function and
+   the line in paintSettings that reads it. */
+function saveIOOpen(){
+  try{return CHEATS||/[?&]save=1(&|$)/.test(location.search);}catch(e){return false;}
+}
 var SV_HEAD="GT1", SV_GZ="GT1z";
 function svPaintOut(code){
   $("svout").value=code||"";
