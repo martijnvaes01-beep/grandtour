@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v315";</script>
+<script>window.GT_BUILD="v316";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -7494,7 +7494,7 @@ function setMode(m,keepRegion){
   document.documentElement.style.removeProperty("--dosval");
   legStop();         /* and so does the card between two legs */
   dayClockStop();    /* and the clock on the question that is no longer on screen */
-  if(m!=="sprint"){store.mode=m;save();}
+  if(m!=="sprint"&&m!=="daily"){store.mode=m;save();}
   TABS.forEach(function(k){
     var b=$("m-"+k);
     if(b)b.setAttribute("aria-pressed",m===k);
@@ -12356,7 +12356,7 @@ document.addEventListener("keydown",function(e){
   }
   if(splashUp()){e.preventDefault();startFromSplash();return;}
   if(introOpen){
-    if(e.key==="Enter"){e.preventDefault();startMode(store.mode&&store.mode!=="sprint"?store.mode:"name");}
+    if(e.key==="Enter"){e.preventDefault();startMode(store.mode&&store.mode!=="sprint"&&store.mode!=="daily"?store.mode:"name");}
     return;
   }
   var a=document.activeElement;
@@ -12428,7 +12428,7 @@ document.addEventListener("visibilitychange",function(){
 
 fitViewport();          /* before anything lays itself out against the wrong height */
 applyLang();
-setMode(store.mode&&store.mode!=="sprint"?store.mode:"name");
+setMode(store.mode&&store.mode!=="sprint"&&store.mode!=="daily"?store.mode:"name");
 appReady=true;
 warmGeo();          /* the fine coastlines, decoded while nobody is waiting on them */
 $("sound").innerHTML=store.sound?"&#9834;":"&#9834;&#822;";
