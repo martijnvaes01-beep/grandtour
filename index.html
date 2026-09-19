@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v325";</script>
+<script>window.GT_BUILD="v326";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -710,7 +710,7 @@ en:{sub:"countries · flags, globe, atlas",
   askDaily:"Walk overland from one country to the other",steps:"steps",par:"shortest:",
   already:"is already in the chain",notAdjacent:"does not border",solved:"Solved.",
   noSuchCountry:"No country by that name.",dailyHint:"Type a neighbouring country",
-  tricky:"Tricky",missed:"Missed this run",copy:"Copy result",copied:"Copied.",
+  tricky:"Tricky",missed:"Missed this run",copy:"Copy result",shareDay:"Share result",copied:"Copied.",
   tagline:"The world, filed and indexed",
   rank:"Rank",levelUp:"Promoted",menu:"Menu",soundOn:"Sound on",soundOff:"Sound off",go:"GO",
   done:"Done",newToday:"New today",streakBest:"Best streak",sprintBest:"Best sprint",
@@ -924,7 +924,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   askDaily:"Marchez par voie de terre d'un pays à l'autre",steps:"étapes",par:"le plus court :",
   already:"est déjà dans la chaîne",notAdjacent:"ne borde pas",solved:"Résolu.",
   noSuchCountry:"Aucun pays de ce nom.",dailyHint:"Tapez un pays voisin",
-  tricky:"Difficiles",missed:"Manqués cette partie",copy:"Copier le résultat",copied:"Copié.",
+  tricky:"Difficiles",missed:"Manqués cette partie",copy:"Copier le résultat",shareDay:"Partager le résultat",copied:"Copié.",
   tagline:"Le monde, classé et indexé",
   rank:"Grade",levelUp:"Promu",menu:"Menu",soundOn:"Son activé",soundOff:"Son coupé",go:"ALLEZ",
   done:"Fait",newToday:"Nouveau ce jour",streakBest:"Meilleure série",sprintBest:"Meilleur sprint",
@@ -1138,7 +1138,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   askDaily:"Geh über Land von einem Land zum anderen",steps:"Schritte",par:"kürzester Weg:",
   already:"ist schon in der Kette",notAdjacent:"grenzt nicht an",solved:"Gelöst.",
   noSuchCountry:"Kein Land dieses Namens.",dailyHint:"Tippe einen Nachbarstaat ein",
-  tricky:"Knifflig",missed:"In dieser Runde verpasst",copy:"Ergebnis kopieren",copied:"Kopiert.",
+  tricky:"Knifflig",missed:"In dieser Runde verpasst",copy:"Ergebnis kopieren",shareDay:"Ergebnis teilen",copied:"Kopiert.",
   tagline:"Die Welt, abgelegt und verzeichnet",
   rank:"Rang",levelUp:"Befördert",menu:"Menü",soundOn:"Ton an",soundOff:"Ton aus",go:"LOS",
   done:"Erledigt",newToday:"Heute neu",streakBest:"Beste Serie",sprintBest:"Bester Sprint",
@@ -1352,7 +1352,7 @@ es:{sub:"países · banderas, globo, atlas",
   askDaily:"Camina por tierra de un país al otro",steps:"pasos",par:"el más corto:",
   already:"ya está en la cadena",notAdjacent:"no linda con",solved:"Resuelto.",
   noSuchCountry:"No hay ningún país con ese nombre.",dailyHint:"Escribe un país vecino",
-  tricky:"Difíciles",missed:"Fallados en esta ronda",copy:"Copiar resultado",copied:"Copiado.",
+  tricky:"Difíciles",missed:"Fallados en esta ronda",copy:"Copiar resultado",shareDay:"Compartir resultado",copied:"Copiado.",
   tagline:"El mundo, archivado e indexado",
   rank:"Rango",levelUp:"Ascendido",menu:"Menú",soundOn:"Sonido activado",soundOff:"Sonido apagado",go:"YA",
   done:"Hecho",newToday:"Nuevo hoy",streakBest:"Mejor racha",sprintBest:"Mejor sprint",
@@ -1566,7 +1566,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   askDaily:"Zoek een route over land tussen deze twee landen",steps:"stappen",par:"kortste:",
   already:"zit al in de rij",notAdjacent:"grenst niet aan",solved:"Opgelost.",
   noSuchCountry:"Geen land met die naam.",dailyHint:"Typ een buurland",
-  tricky:"Lastig",missed:"Deze ronde gemist",copy:"Kopieer resultaat",copied:"Gekopieerd.",
+  tricky:"Lastig",missed:"Deze ronde gemist",copy:"Kopieer resultaat",shareDay:"Deel je resultaat",copied:"Gekopieerd.",
   tagline:"De wereld, netjes gearchiveerd",
   rank:"Rang",levelUp:"Bevorderd",menu:"Menu",soundOn:"Geluid aan",soundOff:"Geluid uit",go:"START",
   done:"Klaar",newToday:"Nieuw vandaag",streakBest:"Beste reeks",sprintBest:"Beste sprint",
@@ -6832,7 +6832,7 @@ function dailyChainStart(){
 }
 function dailyChainNext(){
   var got=run.right,L=dayRun.legs[dayRun.leg]||{m:mode,r:region};
-  dayRun.log.push({m:L.m,r:L.r,got:got,of:roundLen()});
+  dayRun.log.push({m:L.m,r:L.r,got:got,of:roundLen(),marks:(run.marks||[]).slice()});
   dayRun.right+=got;dayRun.total+=roundLen();
   if(dayRun.leg+1>=dayRun.legs.length)return false;
   dayRun.leg++;
@@ -7479,7 +7479,7 @@ function applyLang(){
   });
   syncTabs();
   $("dailytip").textContent=t("dailyHint");
-  $("share").textContent=t("copy");
+  $("share").textContent=t(navigator.share?"shareDay":"copy");
   var tight=window.innerWidth<=560||window.innerHeight<=900;
   $("introphone").textContent=tight?"▯":t("phoneOn");
   $("introphone").setAttribute("aria-label",t("phoneOn"));
@@ -8558,11 +8558,19 @@ function dailyReveal(){
   dailySave();
   paintShare();
 }
+var SHARE_URL="https://martijnvaes01-beep.github.io/grandtour/";
+var SQ_OK="\ud83d\udfe9",SQ_NO="\ud83d\udfe5";
+function dayGridRow(e){
+  var m=(e.marks&&e.marks.length)?e.marks.slice(0,e.of):null,i,out="";
+  if(!m){m=[];for(i=0;i<e.of;i++)m.push(i<e.got?1:0);}
+  for(i=0;i<m.length;i++)out+=m[i]?SQ_OK:SQ_NO;
+  return out;
+}
 function dailyShareText(){
   if(dayRun.log&&dayRun.log.length){
     var tot=0,out=0;
-    var line=dayRun.log.map(function(e){tot+=e.got;out+=e.of;return String(e.got);}).join(" · ");
-    return "Grand Tour "+daily.date+"  "+tot+"/"+out+"\n"+line;
+    var rows=dayRun.log.map(function(e){tot+=e.got;out+=e.of;return dayGridRow(e);});
+    return "Grand Tour Daily "+daily.date+"  "+tot+"/"+out+"\n"+rows.join("\n")+"\n"+SHARE_URL;
   }
   if(daily.kind==="globle")
     return "Grand Tour "+daily.date+"  "+t("kindGloble")+"  "+globle.guesses.length+" "+t("guessesLab");
@@ -8574,7 +8582,11 @@ function dailyShareText(){
 }
 function dailyCopy(){
   var text=dailyShareText();
-  function done(){flash(t("copied")+" "+text);snd.copy();}
+  function done(){flash(t("copied"));snd.copy();}
+  if(navigator.share){
+    navigator.share({text:text}).then(function(){snd.copy();},function(){});
+    return;
+  }
   try{
     if(navigator.clipboard&&navigator.clipboard.writeText){
       navigator.clipboard.writeText(text).then(done,fallback);
@@ -9811,7 +9823,7 @@ function shareRecords(w){
   var text=["Grand Tour \u00b7 "+rankName(rankIndex(store.xp||0)),
     "\ud83c\udf0d "+fill(t("shareWorld"),{p:w.people,l:w.land,c:w.caps}),
     "\ud83c\udfc6 "+fill(t("shareBest"),{s:store.best||0,r:store.bestSprint||0}),
-    "https://martijnvaes01-beep.github.io/grandtour/"].join("\n");
+    SHARE_URL].join("\n");
   if(navigator.share){
     navigator.share({text:text}).then(function(){snd.copy();},function(){});
     return;
