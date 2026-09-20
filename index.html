@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v346";</script>
+<script>window.GT_BUILD="v347";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -7232,21 +7232,23 @@ function answerLocation(name){
   }
   scheduleNext(right?1250:3600);
 }
+var freeGuess=false;
 function answerShape(){
   if(locked||!current)return;
   var guess=$("guess").value;
   if(!guess.trim())return;
+  freeGuess=false;
   var right=matches(guess,current);
   if(mode==="dossier"&&!right&&(dossier.tries||1)>1){
     var gf=resolveTyped(guess);
-    if(!gf){flash(t("noSuchCountry"));return;}
+    if(!gf){flash(t("noSuchCountry"));snd.nope();freeGuess=true;return;}
     dossier.tries--;
     dossier.spent+=DOS_MISS;
     var ga=locationOf(gf.n),gb=locationOf(current.n);
     var km=(ga&&gb)?Math.round(greatCircle(ga,gb)):0;
     var arw=(ga&&gb)?bearingArrow(ga,gb):"";
     dossier.said.push({n:gf.n,km:km,arrow:arw});
-    snd.wrong();buzz(12);
+    snd.wrong();buzz(12);freeGuess=true;   /* said here, and quieter on purpose: not again upstairs */
     $("guess").value="";
     verdict("no",namesLeft(dossier.tries),
       {b:cname(gf)+"  "+fmtNum(km)+" km "+arw,r:heatWord(km)});
@@ -7258,8 +7260,8 @@ function answerShape(){
   if(mode==="shape"&&!right){
     if(shapeRun.forName!==current.n)shapeRun={forName:current.n,n:run.n,said:[]};
     var sf=resolveTyped(guess);
-    if(!sf){flash(t("noSuchCountry"));return;}
-    if(shapeRun.said.indexOf(sf.n)>=0){flash(nameOf(sf.n)+" · "+t("already2"));$("guess").value="";return;}
+    if(!sf){flash(t("noSuchCountry"));snd.nope();freeGuess=true;return;}
+    if(shapeRun.said.indexOf(sf.n)>=0){flash(nameOf(sf.n)+" · "+t("already2"));snd.nope();freeGuess=true;$("guess").value="";return;}
     shapeRun.said.push(sf.n);
     if(shapeRun.said.length<SHAPE_TRIES){
       $("guess").value="";
@@ -12128,6 +12130,7 @@ answerShape=function(){
   var right=matches(guess,current);
   var worth=(mode==="dossier")?dossierScore():0;
   baseAnswerShape();
+  if(freeGuess)return;
   if(right){
     snd.correct(store.streak);buzz(18);
     addXP(mode==="dossier"?Math.round(worth*2.6):paidAnswer(store.streak));
@@ -12135,7 +12138,7 @@ answerShape=function(){
   else {snd.wrong();buzz([12,50,12]);}
 };
 revealAnswer=function(){
-  if(locked)return;
+  if(locked||!current)return;
   snd.reveal();
   baseReveal();
 };
