@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v347";</script>
+<script>window.GT_BUILD="v349";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -2059,7 +2059,7 @@ var HADSAVE=false;
   HADSAVE=!!raw;
   store=parsed||{seen:0,correct:0,streak:0,best:0,lang:null,build:here};
 })();
-var DAY_RESET="2026-09-15-reroll";
+var DAY_RESET="2026-09-20-trade";
 function normaliseStore(){
   ["box","geo","shape","spot","cap","fake","blind","trade","terra","dossier","miss","found","stamps"].forEach(function(k){
     if(!store[k]||typeof store[k]!=="object")store[k]={};
@@ -6325,10 +6325,6 @@ var QUIZ={
     has:function(f){return !!EXPORTS[f.c];},
     subject:function(f){
       var box=document.createElement("div");box.className="manifest";
-      if(!tightFit()){
-        var lab=document.createElement("span");lab.className="manlab";lab.textContent=t("manifest");
-        box.appendChild(lab);
-      }
       function block(key,goods,cls,out){
         if(!goods)return;
         var head=document.createElement("span");
@@ -6351,16 +6347,6 @@ var QUIZ={
           row.appendChild(nm);row.appendChild(bar);
           rows.appendChild(row);
         });
-        if(rest>2&&!tightFit()){
-          var row2=document.createElement("span");row2.className="manrow rest";
-          var nm2=document.createElement("b");nm2.textContent=t("manRest");
-          var bar2=document.createElement("span");bar2.className="manbar";
-          var f2=document.createElement("i");
-          f2.style.width=Math.max(4,Math.round(rest/top*100))+"%";
-          bar2.appendChild(f2);
-          row2.appendChild(nm2);row2.appendChild(bar2);
-          rows.appendChild(row2);
-        }
         box.appendChild(rows);
       }
       block("manSells",goodsOut(f),"out",true);
@@ -6370,7 +6356,7 @@ var QUIZ={
         var line=document.createElement("span");line.className="manpart "+cls;
         var head=document.createElement("i");head.textContent=t(key);
         line.appendChild(head);
-        var lim=Math.min(list.length,tightFit()?2:3);
+        var lim=Math.min(list.length,2);   /* two partners a line on every screen */
         for(var p=0;p<lim;p++){
           var who=document.createElement("b");
           who.textContent=partnerName(list[p][0])+" "+list[p][1]+"%";
@@ -6380,11 +6366,6 @@ var QUIZ={
       }
       partners("manTo",PARTOUT[f.c],"out");
       partners("manFrom",PARTIN[f.c],"in");
-      if(!tightFit()){
-        var note=document.createElement("span");note.className="mannote";
-        note.textContent=t("manApprox");
-        box.appendChild(note);
-      }
       var gdp=tighterFit()?0:economyOf(f);
       if(gdp){
         var foot=document.createElement("span");foot.className="manfoot";
@@ -11534,8 +11515,7 @@ function tighterFit(){
 }
 function GOODS_SHOWN(){
   if(tighterFit())return 3;
-  if(tightFit())return 4;
-  return 5;
+  return 4;
 }
 function fitViewport(){
   var d=document.documentElement,top=0,bot=0;
