@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v344";</script>
+<script>window.GT_BUILD="v346";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -2267,15 +2267,18 @@ normaliseStore();
   }catch(e){}
 })();
 var saveHeld=false;
-var saveWarned=false,tabWarned=false;
-function warnSlip(key){
+var saveWarned=false,tabWarned=false,slipTimer=null;
+function slipText(msg,fade){
   try{
     var el=$("errslip");if(!el)return;
-    $("errtext").textContent=t(key);
+    $("errtext").textContent=msg;
     $("errreport").hidden=true;
     el.hidden=false;
+    clearTimeout(slipTimer);slipTimer=null;
+    if(fade)slipTimer=setTimeout(function(){el.hidden=true;},5000);
   }catch(e){/* a warning that throws is worse than the thing it warns about */}
 }
+function warnSlip(key){slipText(t(key));}
 function save(){
   if(saveHeld)return;
   try{localStorage.setItem(KEY,JSON.stringify(store));}
@@ -6879,6 +6882,7 @@ window.addEventListener("error",function(e){errNote(e&&(e.message||e.error),e&&e
 window.addEventListener("unhandledrejection",function(e){errNote(e&&e.reason,"promise");});
 
 function flash(msg){
+  if(introOpen){slipText(msg,true);return;}
   var v=$("verdict");
   v.innerHTML='<span class="hint"></span>';
   v.querySelector(".hint").textContent=msg;
@@ -8675,6 +8679,12 @@ function dailyReveal(){
 }
 var SHARE_URL="https://martijnvaes01-beep.github.io/grandtour/";
 var DAY_LINK=SHARE_URL+"?day=1";
+var KOFI_URL="";
+function kofiOn(){return !!KOFI_URL||CHEATS;}
+function kofiGo(){
+  if(KOFI_URL){try{window.open(KOFI_URL,"_blank","noopener");}catch(e){}return;}
+  flash(t("kofiSoon"));   /* only reachable in the test build; flash finds the desk itself */
+}
 var SQ_OK="\ud83d\udfe9",SQ_NO="\ud83d\udfe5";
 function dayGridRow(e){
   var m=(e.marks&&e.marks.length)?e.marks.slice(0,e.of):null,i,out="";
@@ -9646,9 +9656,9 @@ function paintSettings(){
   $("sharelab").textContent=t("shareLab");
   $("shareval").textContent=t(store.share?"shareOn":"shareOff");
   $("sharebtn").setAttribute("aria-pressed",store.share?"true":"false");
-  $("kofibtn").hidden=!CHEATS;
+  $("kofibtn").hidden=!kofiOn();
   $("kofilab").textContent=t("kofiLab");
-  $("kofival").textContent=t("kofiSoon");
+  $("kofival").textContent=KOFI_URL?"Ko-fi":t("kofiSoon");
   $("privlab").textContent=t("privTitle");
   $("credlab").textContent=t("credTitle");
   $("termslab").textContent=t("termsTitle");
@@ -11648,7 +11658,7 @@ function buildDrawers(){
 function paintKofi(cd){
   var k=$("kofidot");
   if(!k)return;
-  k.hidden=!CHEATS;
+  k.hidden=!kofiOn();
   if(k.hidden)return;
   k.title=t("kofiLab");
   k.setAttribute("aria-label",t("kofiLab"));
@@ -12344,8 +12354,8 @@ $("sharebtn").onclick=function(){
 $("privbtn").onclick=function(){setView="privacy";paintSettings();snd.tap();};
 $("credbtn").onclick=function(){setView="credits";paintSettings();snd.tap();};
 $("termsbtn").onclick=function(){setView="terms";paintSettings();snd.tap();};
-$("kofibtn").onclick=function(){flash(t("kofiSoon"));};
-$("kofidot").onclick=function(){snd.tap();flash(t("kofiSoon"));};
+$("kofibtn").onclick=kofiGo;
+$("kofidot").onclick=kofiGo;
 $("repbtn").onclick=function(){openReport("");snd.tap();};
 $("svbtn").onclick=function(){openSaveIO();snd.tap();};
 $("svmake").onclick=function(){
