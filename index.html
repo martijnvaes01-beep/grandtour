@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v350";</script>
+<script>window.GT_BUILD="v351";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -7290,6 +7290,7 @@ function revealAnswer(){
   scheduleNext(2200);
 }
 
+var typeWanted=false;
 function syncActs(){
   var q=QUIZ[mode],kind=playKind(mode);
   var over=!!(run.done
@@ -7301,6 +7302,7 @@ function syncActs(){
   var held=$("next").classList.contains("waiting");
   $("skip").hidden=true;
   $("next").hidden=!(over||held);
+  $("typerow").hidden=!typeWanted||over;
   void q;
 }
 function paintStats(){
@@ -7681,7 +7683,8 @@ function setMode(m,keepRegion){
       ||kind==="route"
       ?" plain":"");
   $("opts").hidden=!((QUIZ[m]&&!QUIZ[m].typed)||kind==="bigger");
-  $("typerow").hidden=!(kind==="shape"||kind==="route"||kind==="globle"||kind==="spot"||(QUIZ[m]&&QUIZ[m].typed));
+  typeWanted=(kind==="shape"||kind==="route"||kind==="globle"||kind==="spot"||(QUIZ[m]&&QUIZ[m].typed));
+  $("typerow").hidden=!typeWanted;
   $("chain").hidden=!(kind==="route"||kind==="globle"||(kind==="shape"&&m==="daily"));
   $("dailytip").hidden=!((kind==="route"||kind==="globle")&&m!=="worldle");
   $("timerbar").hidden=!(m==="sprint"||m==="bigger");
