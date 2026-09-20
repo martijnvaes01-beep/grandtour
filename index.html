@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v334";</script>
+<script>window.GT_BUILD="v336";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -786,6 +786,8 @@ en:{sub:"countries · flags, globe, atlas",
   privTitle:"Privacy",backLab:"Back",
   vsOthers:"Against other players",vsDays:"30 days",
   errOops:"Something went wrong here. You can carry on.",errReport:"Report it",
+  saveFail:"Your progress is not being saved. Your browser is out of room, or it is blocking storage.",
+  twoTabs:"Grand Tour is open in another tab. Keep one, or they will write over each other.",
   legNext:"Next",legWon:"Solved",legLost:"Not solved",dayScoreLab:"Today",
   standWait:"Comparing with today's players",standToday:"of today's {n} players",
   myDayWorld:"you {b} · best today {w}",dayRegionFixed:"Today's games choose the region",
@@ -1009,6 +1011,8 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   privTitle:"Confidentialité",backLab:"Retour",
   vsOthers:"Face aux autres joueurs",vsDays:"30 jours",
   errOops:"Un problème est survenu ici. Vous pouvez continuer.",errReport:"Le signaler",
+  saveFail:"Votre progression n'est plus enregistrée. Votre navigateur est plein, ou il bloque le stockage.",
+  twoTabs:"Grand Tour est ouvert dans un autre onglet. N'en gardez qu'un, sinon ils s'écrasent l'un l'autre.",
   legNext:"Suivant",legWon:"Trouvé",legLost:"Pas trouvé",dayScoreLab:"Aujourd'hui",
   standWait:"Comparaison avec les joueurs du jour",standToday:"des {n} joueurs du jour",
   myDayWorld:"vous {b} · meilleur du jour {w}",dayRegionFixed:"Aujourd'hui, la région est imposée",
@@ -1232,6 +1236,8 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   privTitle:"Datenschutz",backLab:"Zurück",
   vsOthers:"Gegen andere Spieler",vsDays:"30 Tage",
   errOops:"Hier ist etwas schiefgegangen. Du kannst weiterspielen.",errReport:"Melden",
+  saveFail:"Dein Fortschritt wird nicht gespeichert. Der Browser ist voll oder blockiert den Speicher.",
+  twoTabs:"Grand Tour läuft noch in einem anderen Tab. Lass nur einen offen, sonst überschreiben sie sich.",
   legNext:"Weiter",legWon:"Gelöst",legLost:"Nicht gelöst",dayScoreLab:"Heute",
   standWait:"Wird mit den Spielern von heute verglichen",standToday:"der {n} Spieler von heute",
   myDayWorld:"du {b} · Tagesbestwert {w}",dayRegionFixed:"Heute ist die Region vorgegeben",
@@ -1455,6 +1461,8 @@ es:{sub:"países · banderas, globo, atlas",
   privTitle:"Privacidad",backLab:"Atrás",
   vsOthers:"Contra otros jugadores",vsDays:"30 d\u00edas",
   errOops:"Aquí ha fallado algo. Puedes seguir jugando.",errReport:"Informar",
+  saveFail:"Tu progreso no se está guardando. A tu navegador le falta espacio, o bloquea el almacenamiento.",
+  twoTabs:"Grand Tour está abierto en otra pestaña. Deja solo una, o se sobrescriben entre sí.",
   legNext:"Siguiente",legWon:"Resuelto",legLost:"Sin resolver",dayScoreLab:"Hoy",
   standWait:"Comparando con los jugadores de hoy",standToday:"de los {n} jugadores de hoy",
   myDayWorld:"tú {b} · mejor de hoy {w}",dayRegionFixed:"Hoy la región viene dada",
@@ -1678,6 +1686,8 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   privTitle:"Privacy",backLab:"Terug",
   vsOthers:"Tegen andere spelers",vsDays:"30 dagen",
   errOops:"Hier ging iets mis. Je kunt gewoon verder.",errReport:"Melden",
+  saveFail:"Je voortgang wordt niet bewaard. Je browser zit vol, of hij blokkeert opslag.",
+  twoTabs:"Grand Tour staat ook in een ander tabblad open. Houd er één open, anders overschrijven ze elkaar.",
   legNext:"Volgende",legWon:"Opgelost",legLost:"Niet opgelost",dayScoreLab:"Vandaag",
   standWait:"Even vergelijken met de spelers van vandaag",standToday:"van de {n} spelers van vandaag",
   myDayWorld:"jij {b} · beste vandaag {w}",dayRegionFixed:"Vandaag ligt de regio vast",
@@ -1993,6 +2003,7 @@ document.documentElement.setAttribute("data-theme","light");
 var SAVE_KEY="vexil.v2";
 var KEY=CHEATS?SAVE_KEY+".test":SAVE_KEY,MASTER=4;
 var store=null;
+var HADSAVE=false;
 (function(){
   var raw=null,parsed=null;
   var here=(typeof window.GT_BUILD==="string")?window.GT_BUILD.split(" ")[0]:"";
@@ -2025,6 +2036,7 @@ var store=null;
       parsed.build=here;
     }
   }
+  HADSAVE=!!raw;
   store=parsed||{seen:0,correct:0,streak:0,best:0,lang:null,build:here};
 })();
 var DAY_RESET="2026-09-15-reroll";
@@ -2235,9 +2247,21 @@ normaliseStore();
   }catch(e){}
 })();
 var saveHeld=false;
+var saveWarned=false,tabWarned=false;
+function warnSlip(key){
+  try{
+    var el=$("errslip");if(!el)return;
+    $("errtext").textContent=t(key);
+    $("errreport").hidden=true;
+    el.hidden=false;
+  }catch(e){/* a warning that throws is worse than the thing it warns about */}
+}
 function save(){
   if(saveHeld)return;
-  try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}
+  try{localStorage.setItem(KEY,JSON.stringify(store));}
+  catch(e){
+    if(!saveWarned){saveWarned=true;warnSlip("saveFail");}
+  }
 }
 function reloadStore(){
   try{
@@ -6827,6 +6851,7 @@ function errNote(msg,where){
     if(!el)return;
     $("errtext").textContent=t("errOops");
     $("errreport").textContent=t("errReport");
+    $("errreport").hidden=false;      /* warnSlip shares this slip and hides it */
     el.hidden=false;
   }catch(e){/* a handler that throws is worse than the error it was handling */}
 }
@@ -8629,6 +8654,7 @@ function dailyReveal(){
   paintShare();
 }
 var SHARE_URL="https://martijnvaes01-beep.github.io/grandtour/";
+var DAY_LINK=SHARE_URL+"?day=1";
 var SQ_OK="\ud83d\udfe9",SQ_NO="\ud83d\udfe5";
 function dayGridRow(e){
   var m=(e.marks&&e.marks.length)?e.marks.slice(0,e.of):null,i,out="";
@@ -8640,7 +8666,7 @@ function dailyShareText(){
   if(dayRun.log&&dayRun.log.length){
     var tot=0,out=0;
     var rows=dayRun.log.map(function(e){tot+=e.got;out+=e.of;return dayGridRow(e);});
-    return "Grand Tour Daily "+daily.date+"  "+tot+"/"+out+"\n"+rows.join("\n")+"\n"+SHARE_URL;
+    return "Grand Tour Daily "+daily.date+"  "+tot+"/"+out+"\n"+rows.join("\n")+"\n"+DAY_LINK;
   }
   if(daily.kind==="globle")
     return "Grand Tour "+daily.date+"  "+t("kindGloble")+"  "+globle.guesses.length+" "+t("guessesLab");
@@ -11744,6 +11770,7 @@ function holdSpin(){
   clearTimeout(spinIdle);
   spinIdle=setTimeout(function(){if(introOpen&&!globe.drag&&!globe.pick)spinGlobe();},4000);
 }
+var dayWanted=(function(){try{return /[?&]day=1(&|$)/.test(location.search);}catch(e){return false;}})();
 var splashDone=false;
 function splashUp(){return !splashDone&&$("splash")&&!$("splash").hidden;}
 function showSplash(){
@@ -11789,9 +11816,10 @@ function clearBoot(){
   bootTimers=[];
 }
 function later(fn,ms){bootTimers.push(setTimeout(fn,ms));}
-function introBootDelay(){return booted?BEATS_BACK.cards:BEATS_FIRST.cards;}
+function shortIntro(){return booted||HADSAVE||dayWanted;}
+function introBootDelay(){return shortIntro()?BEATS_BACK.cards:BEATS_FIRST.cards;}
 function runIntroBoot(){
-  var el=$("intro"),first=!booted;
+  var el=$("intro"),first=!shortIntro();
   var B=first?BEATS_FIRST:BEATS_BACK;
   clearBoot();
   el.classList.remove("playing","settled","titlein","dealt");
@@ -11833,6 +11861,7 @@ function runIntroBoot(){
     if(!introOpen)return;
     $("intro").classList.add("settled");
     $("intro").classList.remove("playing");
+    if(dayWanted){dayWanted=false;later(function(){if(introOpen)setMode("daily");},260);}
     if(!globe.drag)spinGlobe();
   },B.end*1000);
   later(function(){
@@ -12576,6 +12605,10 @@ function wakeUp(){
     relayoutSoon();
   }catch(e){}
 }
+window.addEventListener("storage",function(e){
+  if(!e||e.key!==KEY||tabWarned)return;
+  tabWarned=true;warnSlip("twoTabs");
+});
 window.addEventListener("pageshow",function(e){
   setTimeout(wakeUp,e&&e.persisted?0:60);
 });
