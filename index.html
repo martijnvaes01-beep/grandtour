@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v399";</script>
+<script>window.GT_BUILD="v400";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -13262,12 +13262,11 @@ $("sound").innerHTML=store.sound?"&#9834;":"&#9834;&#822;";
 if(CHEATS&&/[?&]dbg=1/.test(location.search)){
   window.__VEXDBG={setMode:setMode,startMode:startMode,MODES:(typeof MODES!=="undefined"?MODES:null),
     ladder:function(){
-      var boards=TABS.concat(Object.keys(FOLDERS)).filter(function(k,i,a){return a.indexOf(k)===i;});
       return {
         ranks:RANKS.map(function(r,i){return {lv:i+1,xp:r.xp,title:r.en};}),
-        boards:boards.map(function(k){
-          var lab=MODE_LABEL[k]||FOLDER_LABEL[k];
-          return {key:k,name:(lab&&UI.en[lab])||k,lv:gateOf(k)+1,folder:FOLDERS[k]?"folder":(folderOf(k)||""),scored:!!SCORED[k]};
+        boards:TABS.map(function(k){
+          var f=folderOf(k),fl=FOLDER_LABEL[f];
+          return {key:k,name:UI.en[MODE_LABEL[k]]||k,lv:gateOf(k)+1,folder:(fl&&UI.en[fl])||"",scored:!!SCORED[k]};
         })
       };
     },
