@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v398";</script>
+<script>window.GT_BUILD="v399";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -8822,7 +8822,7 @@ function dailyKind(key){
   var i=(dayNumber(key)+daySalt)%DAILY_KINDS.length;
   return DAILY_KINDS[(i+DAILY_KINDS.length)%DAILY_KINDS.length];
 }
-var GATES={shape:1,spot:2,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8,postcard:9};
+var GATES={shape:1,spot:2,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8,postcard:8};
 var VERSION="src";
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc"||m==="sea";}
 function gateOf(m){var q=QUIZ[m];return (q&&q.gate)||GATES[m]||0;}
@@ -13261,6 +13261,16 @@ warmGeo();          /* the fine coastlines, decoded while nobody is waiting on t
 $("sound").innerHTML=store.sound?"&#9834;":"&#9834;&#822;";
 if(CHEATS&&/[?&]dbg=1/.test(location.search)){
   window.__VEXDBG={setMode:setMode,startMode:startMode,MODES:(typeof MODES!=="undefined"?MODES:null),
+    ladder:function(){
+      var boards=TABS.concat(Object.keys(FOLDERS)).filter(function(k,i,a){return a.indexOf(k)===i;});
+      return {
+        ranks:RANKS.map(function(r,i){return {lv:i+1,xp:r.xp,title:r.en};}),
+        boards:boards.map(function(k){
+          var lab=MODE_LABEL[k]||FOLDER_LABEL[k];
+          return {key:k,name:(lab&&UI.en[lab])||k,lv:gateOf(k)+1,folder:FOLDERS[k]?"folder":(folderOf(k)||""),scored:!!SCORED[k]};
+        })
+      };
+    },
     QUIZ:QUIZ,fit:fitViewport,fitDrawers:fitDrawers,showIntro:showIntro,hideIntro:hideIntro,
     store:store,globe:globe,relayout:relayout,next:(typeof nextQuestion==="function"?nextQuestion:null),
     run:function(){return run;},day:function(){return dayRun;},imp:function(){return imp;},setRunN:function(v){run.n=v;run.right=v;},
