@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v420";</script>
+<script>window.GT_BUILD="v422";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -470,6 +470,7 @@
       <span class="repsaid" id="duelsaid" role="status" aria-live="polite"></span>
     </div>
     <div class="sheetacts">
+      <button class="btn" id="duelagain" hidden></button>
       <button class="btn ghost" id="duelok"></button>
     </div>
   </div>
@@ -909,6 +910,14 @@ en:{sub:"countries · flags, globe, atlas",
   duelOnNow:"playing",
   duelLead:"Two phones, the same ten questions, ten seconds each. The first right answer takes the question; a wrong one costs 20 and leaves the rest of the clock to the other player.",
   duelSent:"Answer in\u2026",
+  duelTheirMiss:"They got it wrong. It is yours.",
+  duelThemOut:"Them \u00b7 out",
+  duelAgain:"Play again",
+  duelAgainWait:"Waiting for them\u2026",
+  duelAgainThem:"They want another. Play again",
+  duelShare:"Send the code",
+  duelShareText:"Duel me on Grand Tour",
+  duelCopied:"Link copied.",
   duelTookIt:"Yours. That was",
   duelTheyTook:"They got there first:",
   duelNoOne:"Nobody got it. It was",
@@ -1186,6 +1195,43 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   moveGot:"C'est fait ! Votre progression est sur cet appareil.",
   moveAway:"Votre progression est en route : code {c}",
   privMove:"Si vous transférez votre progression vers un autre appareil, elle attend dix minutes au plus sur notre serveur et est effacée dès que le code est utilisé.",
+  duelLab:"Duel",
+  duelRow:"Défier un ami",
+  duelOnNow:"en cours",
+  duelLead:"Deux téléphones, les mêmes dix questions, dix secondes chacune. La première bonne réponse emporte la question ; une mauvaise coûte 20 points et laisse le reste du temps à l'autre.",
+  duelMake:"Lancer un duel",
+  duelHave:"J'ai un code",
+  duelPick:"Quel jeu ?",
+  duelWaitLead:"Donnez ce code à votre adversaire. Le duel commence dès qu'il est là.",
+  duelWho:"En attente de votre adversaire…",
+  duelJoinLead:"Saisissez le code qu'on vous a donné.",
+  duelJoin:"Rejoindre",
+  duelHint:"ABC-123",
+  duelEndLead:"",
+  duelYou:"Vous",duelThem:"L'autre",duelQ:"Question",
+  duelWon:"Gagné",duelLost:"Perdu",duelDrew:"Égalité",
+  duelTheirs:"Son choix",
+  duelBad:"Ce code est inconnu ou a expiré.",
+  duelFull:"Ce duel a déjà deux joueurs.",
+  duelOver:"Ce duel est terminé.",
+  duelFail:"Ça n'a pas marché. Réessayez dans un instant.",
+  duelBusy:"Trop d'essais. Attendez une minute.",
+  duelDeal:"Ce jeu a trop peu de questions pour un duel.",
+  duelAway:"Votre adversaire ne répond plus.",
+  duelBack:"Votre adversaire est revenu.",
+  duelGone:"Duel perdu : plus de connexion.",
+  duelSent:"Réponse envoyée…",
+  duelTookIt:"Pour vous. C'était",
+  duelTheyTook:"L'autre a été plus rapide :",
+  duelNoOne:"Personne ne l'a eu. C'était",
+  duelTheirMiss:"L'autre s'est trompé. La question est à vous.",
+  duelThemOut:"L'autre · raté",
+  duelAgain:"Rejouer",
+  duelAgainWait:"En attente de l'autre…",
+  duelAgainThem:"L'autre veut rejouer. Rejouer",
+  duelShare:"Envoyer le code",
+  duelShareText:"Affronte-moi sur Grand Tour",
+  duelCopied:"Lien copié.",
   kofiLab:"Soutenir Grand Tour",kofiStamp:"Un café ?",kofiBig:"Fait par une seule personne, gratuit",
   kofiLine:"Grand Tour vous a appris un drapeau ou deux ? Un café, et le bureau reste ouvert. Ko-fi s'ouvre dans un nouvel onglet.",
   kofiYes:"M'offrir un café",kofiNo:"Plus tard",kofiSoon:"Pas encore relié",
@@ -1439,6 +1485,43 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   moveGot:"Geschafft! Dein Fortschritt ist jetzt auf diesem Gerät.",
   moveAway:"Dein Fortschritt ist unterwegs: Code {c}",
   privMove:"Überträgst du deinen Fortschritt auf ein anderes Gerät, wartet er höchstens zehn Minuten auf unserem Server und wird gelöscht, sobald der Code benutzt ist.",
+  duelLab:"Duell",
+  duelRow:"Gegen einen Freund",
+  duelOnNow:"läuft",
+  duelLead:"Zwei Handys, dieselben zehn Fragen, je zehn Sekunden. Die erste richtige Antwort holt die Frage. Eine falsche kostet 20 Punkte, und die restliche Zeit gehört dem anderen.",
+  duelMake:"Duell starten",
+  duelHave:"Ich habe einen Code",
+  duelPick:"Welches Spiel?",
+  duelWaitLead:"Gib diesen Code weiter. Sobald der andere da ist, geht es los.",
+  duelWho:"Warten auf den anderen…",
+  duelJoinLead:"Gib den Code ein, den du bekommen hast.",
+  duelJoin:"Mitmachen",
+  duelHint:"ABC-123",
+  duelEndLead:"",
+  duelYou:"Du",duelThem:"Gegner",duelQ:"Frage",
+  duelWon:"Gewonnen",duelLost:"Verloren",duelDrew:"Unentschieden",
+  duelTheirs:"Gegner",
+  duelBad:"Diesen Code kennen wir nicht, oder er ist abgelaufen.",
+  duelFull:"Dieses Duell hat schon zwei Spieler.",
+  duelOver:"Dieses Duell ist vorbei.",
+  duelFail:"Das hat nicht geklappt. Versuch es gleich noch einmal.",
+  duelBusy:"Zu viele Versuche. Warte eine Minute.",
+  duelDeal:"Dieses Spiel hat zu wenige Fragen für ein Duell.",
+  duelAway:"Dein Gegner ist still geworden.",
+  duelBack:"Dein Gegner ist wieder da.",
+  duelGone:"Duell verloren: keine Verbindung.",
+  duelSent:"Antwort ist raus…",
+  duelTookIt:"Deine. Das war",
+  duelTheyTook:"Der andere war schneller:",
+  duelNoOne:"Keiner hatte sie. Es war",
+  duelTheirMiss:"Falsch geraten. Die Frage gehört dir.",
+  duelThemOut:"Gegner · raus",
+  duelAgain:"Noch einmal",
+  duelAgainWait:"Warten auf den anderen…",
+  duelAgainThem:"Der andere will noch einmal. Los",
+  duelShare:"Code schicken",
+  duelShareText:"Duell gegen mich bei Grand Tour",
+  duelCopied:"Link kopiert.",
   kofiLab:"Grand Tour unterstützen",kofiStamp:"Ein Kaffee?",kofiBig:"Von einer Person gemacht, kostenlos",
   kofiLine:"Hat dir Grand Tour ein, zwei Flaggen beigebracht? Mit einem Kaffee bleibt das Büro offen. Ko-fi öffnet sich in einem neuen Tab.",
   kofiYes:"Einen Kaffee spendieren",kofiNo:"Vielleicht später",kofiSoon:"Noch nicht angebunden",
@@ -1692,6 +1775,43 @@ es:{sub:"países · banderas, globo, atlas",
   moveGot:"¡Hecho! Tu progreso está ahora en este dispositivo.",
   moveAway:"Tu progreso está en camino: código {c}",
   privMove:"Si pasas tu progreso a otro dispositivo, espera como mucho diez minutos en nuestro servidor y se borra en cuanto se usa el código.",
+  duelLab:"Duelo",
+  duelRow:"Reta a un amigo",
+  duelOnNow:"en juego",
+  duelLead:"Dos móviles, las mismas diez preguntas, diez segundos cada una. La primera respuesta acertada se lleva la pregunta; fallar cuesta 20 y deja el resto del tiempo al otro.",
+  duelMake:"Empezar un duelo",
+  duelHave:"Tengo un código",
+  duelPick:"¿Qué juego?",
+  duelWaitLead:"Pásale este código a tu rival. El duelo empieza en cuanto entre.",
+  duelWho:"Esperando a tu rival…",
+  duelJoinLead:"Escribe el código que te han dado.",
+  duelJoin:"Entrar",
+  duelHint:"ABC-123",
+  duelEndLead:"",
+  duelYou:"Tú",duelThem:"Rival",duelQ:"Pregunta",
+  duelWon:"Ganas",duelLost:"Pierdes",duelDrew:"Empate",
+  duelTheirs:"Su elección",
+  duelBad:"Ese código no existe o ha caducado.",
+  duelFull:"Ese duelo ya tiene dos jugadores.",
+  duelOver:"Ese duelo ya ha terminado.",
+  duelFail:"No ha funcionado. Inténtalo dentro de un momento.",
+  duelBusy:"Demasiados intentos. Espera un minuto.",
+  duelDeal:"Ese juego tiene muy pocas preguntas para un duelo.",
+  duelAway:"Tu rival se ha quedado sin señal.",
+  duelBack:"Tu rival ha vuelto.",
+  duelGone:"Duelo perdido: sin conexión.",
+  duelSent:"Respuesta enviada…",
+  duelTookIt:"Tuya. Era",
+  duelTheyTook:"Tu rival ha llegado antes:",
+  duelNoOne:"No la ha sacado nadie. Era",
+  duelTheirMiss:"Ha fallado. La pregunta es tuya.",
+  duelThemOut:"Rival · fuera",
+  duelAgain:"Otra vez",
+  duelAgainWait:"Esperando a tu rival…",
+  duelAgainThem:"Tu rival quiere otra. Jugar",
+  duelShare:"Enviar el código",
+  duelShareText:"Te reto en Grand Tour",
+  duelCopied:"Enlace copiado.",
   kofiLab:"Apoyar Grand Tour",kofiStamp:"¿Un café?",kofiBig:"Hecho por una sola persona, gratis",
   kofiLine:"¿Grand Tour te ha enseñado una bandera o dos? Con un café, la oficina sigue abierta. Ko-fi se abre en una pestaña nueva.",
   kofiYes:"Invítame a un café",kofiNo:"Quizá luego",kofiSoon:"Aún sin conectar",
@@ -1945,6 +2065,43 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   moveGot:"Gelukt! Je voortgang staat nu op dit toestel.",
   moveAway:"Je voortgang is onderweg: code {c}",
   privMove:"Zet je je voortgang over naar een ander toestel, dan wacht die hoogstens tien minuten op onze server en wordt hij gewist zodra de code gebruikt is.",
+  duelLab:"Duel",
+  duelRow:"Duel met een vriend",
+  duelOnNow:"bezig",
+  duelLead:"Twee telefoons, dezelfde tien vragen, tien seconden per vraag. Wie als eerste goed antwoordt pakt de vraag. Een fout antwoord kost 20 punten en de rest van de klok is voor de ander.",
+  duelMake:"Begin een duel",
+  duelHave:"Ik heb een code",
+  duelPick:"Welk spel?",
+  duelWaitLead:"Geef deze code aan de ander. Zodra die binnen is begint het duel.",
+  duelWho:"Wachten op de ander…",
+  duelJoinLead:"Typ de code die je hebt gekregen.",
+  duelJoin:"Meedoen",
+  duelHint:"ABC-123",
+  duelEndLead:"",
+  duelYou:"Jij",duelThem:"Ander",duelQ:"Vraag",
+  duelWon:"Gewonnen",duelLost:"Verloren",duelDrew:"Gelijkspel",
+  duelTheirs:"Ander",
+  duelBad:"Die code kennen we niet, of hij is verlopen.",
+  duelFull:"Dat duel zit al vol.",
+  duelOver:"Dat duel is al afgelopen.",
+  duelFail:"Dat lukte niet. Probeer het zo nog eens.",
+  duelBusy:"Te veel pogingen. Wacht een minuut.",
+  duelDeal:"Dat spel heeft te weinig vragen voor een duel.",
+  duelAway:"De ander is stil gevallen.",
+  duelBack:"De ander is er weer.",
+  duelGone:"Het duel is weg: geen verbinding.",
+  duelSent:"Antwoord is binnen…",
+  duelTookIt:"Voor jou. Dat was",
+  duelTheyTook:"De ander was eerder:",
+  duelNoOne:"Niemand had hem. Het was",
+  duelTheirMiss:"Fout van de ander. De vraag is van jou.",
+  duelThemOut:"Ander · eruit",
+  duelAgain:"Nog een keer",
+  duelAgainWait:"Wachten op de ander…",
+  duelAgainThem:"De ander wil nog een keer. Doe mee",
+  duelShare:"Stuur de code",
+  duelShareText:"Duel met me op Grand Tour",
+  duelCopied:"Link gekopieerd.",
   kofiLab:"Steun Grand Tour",kofiStamp:"Een koffie?",kofiBig:"Door één persoon gemaakt, gratis te spelen",
   kofiLine:"Heeft Grand Tour je een vlag of twee geleerd? Met een koffie blijft het bureau open. Ko-fi opent in een nieuw tabblad.",
   kofiYes:"Trakteer op een koffie",kofiNo:"Misschien later",kofiSoon:"Nog niet aangesloten",
@@ -2594,7 +2751,8 @@ var FLAGBYCODE={};FLAGS.forEach(function(f){FLAGBYCODE[f.c]=f;});
 var mode="name",region=store.region||"ALL",current=null,options=[],locked=false,autoTimer=null;
 var duel={on:false,ws:null,code:"",key:"",seat:-1,board:"",n:10,secs:10,phase:"",i:-1,
   score:[],lv:[],q:null,qAt:0,opts:null,picked:null,got:false,jump:false,
-  readyT:0,clockT:0,pingT:0,retryT:0,tries:0,view:"home",maker:false,end:null};
+  readyT:0,clockT:0,pingT:0,retryT:0,missT:0,tries:0,view:"home",maker:false,end:null,
+  again:false,wantThem:false};
 function scheduleNext(ms){
   if(autoTimer)clearTimeout(autoTimer);
   var token=current,m=mode;
@@ -8054,11 +8212,14 @@ function paintStats(){
   syncActs();
   if(duel.on){
     var them=duel.seat===0?1:0;
-    $("k-acc").textContent=t("duelYou");
+    var mylv=(duel.lv||[])[duel.seat],thlv=(duel.lv||[])[them];
+    $("k-acc").textContent=t("duelYou")+(mylv?" \u00b7 "+rankName(mylv-1):"");
     $("s-acc").textContent=duel.score[duel.seat]||0;
     $("k-streak").textContent=t("duelQ");
     $("s-streak").textContent=Math.max(1,duel.i+1)+"/"+duel.n;
-    $("k-seen").textContent=t("duelThem")+(duel.got&&duel.phase==="q"?" ✓":"");
+    $("k-seen").textContent=(duel.got&&duel.phase==="q")
+      ? t("duelThemOut")
+      : t("duelThem")+(thlv?" \u00b7 "+rankName(thlv-1):"");
     $("s-seen").textContent=duel.score[them]||0;
   } else {
     if(dayRun.on){
@@ -10614,6 +10775,21 @@ function duelKey(){
   return k;
 }
 function duelFmt(c){return c.slice(0,3)+"-"+c.slice(3);}
+function duelLink(){
+  var base=SHARE_URL;
+  try{if(CHEATS)base=location.href.split("?")[0].split("#")[0];}catch(e){}
+  return base+"?duel="+duel.code;
+}
+function duelShare(){
+  if(!duel.code)return;
+  var url=duelLink();
+  if(navigator.share){
+    try{navigator.share({title:"Grand Tour",text:t("duelShareText"),url:url})["catch"](function(){});return;}catch(e){}
+  }
+  try{
+    navigator.clipboard.writeText(url).then(function(){duelSay("duelCopied",true);},function(){duelSay("duelFail");});
+  }catch(e){duelSay("duelFail");}
+}
 function duelSay(k,good){
   var e=$("duelsaid");if(!e)return;
   e.textContent=k?t(k):"";
@@ -10671,6 +10847,10 @@ function paintDuel(){
   $("dueljoin").textContent=t("duelJoin");
   $("duelok").textContent=t(v==="home"||v==="end"?"close":"backLab");
   $("duelcodein").setAttribute("placeholder",t("duelHint"));
+  var canAgain=(v==="end"&&!!duel.ws);
+  $("duelagain").hidden=!canAgain;
+  $("duelagain").disabled=!!duel.again;
+  $("duelagain").textContent=t(duel.again?"duelAgainWait":(duel.wantThem?"duelAgainThem":"duelAgain"));
   if(v==="pick"&&!$("duelboards").children.length){
     DUEL_ON_BOARDS.forEach(function(b){
       var el=document.createElement("button");
@@ -10682,8 +10862,9 @@ function paintDuel(){
   }
   if(v==="wait"){
     $("duelcode").textContent=duel.code?duelFmt(duel.code):"";
-    $("duelwho").textContent=t("duelWho");
-    $("duelsend").hidden=true;
+    $("duelwho").textContent=(duel.board?t(MODE_LABEL[duel.board])+" \u00b7 ":"")+t("duelWho");
+    $("duelsend").hidden=!duel.maker;
+    $("duelsend").textContent=t("duelShare");
   }
   if(v==="end")duelEndCard();
 }
@@ -10801,13 +10982,33 @@ function duelMsg(m){
   }
   if(m.t==="start"){
     duel.board=m.board;duel.n=m.n;duel.secs=m.secs;duel.lv=m.lv||[];
+    duel.end=null;duel.again=false;duel.wantThem=false;
+    duel.score=[];duel.i=-1;duel.q=null;duel.picked=null;duel.got=false;
+    clearTimeout(duel.missT);duel.missT=0;
+    duel.view="home";
+    duelShut();
     duelStart();
+    paintStats();
     countdown(3,function(){duelSend({t:"ready"});});
     return;
   }
   if(m.t==="q"){duelQ(m,null);return;}
   if(m.t==="got"){
-    if(m.seat!==duel.seat){duel.got=true;paintStats();}
+    if(m.seat===duel.seat)return;
+    duel.got=true;paintStats();
+    clearTimeout(duel.missT);
+    duel.missT=setTimeout(function(){
+      duel.missT=0;
+      if(duel.phase!=="q"||duel.picked!==null||locked)return;
+      snd.pip();
+      flash(t("duelTheirMiss"));
+    },400);
+    return;
+  }
+  if(m.t==="want"){
+    if(m.seat===duel.seat)return;
+    duel.wantThem=true;
+    if(duel.view==="end"&&!$("duelmodal").hidden){paintDuel();snd.stamp();}
     return;
   }
   if(m.t==="r"){duelReveal(m);return;}
@@ -10815,8 +11016,9 @@ function duelMsg(m){
   if(m.t==="away"){if(m.seat!==duel.seat)flash(t("duelAway"));return;}
   if(m.t==="end"){
     duel.end=m;duel.score=m.score||duel.score;
+    duel.again=false;duel.wantThem=false;
     duelClockStop();clearTimeout(duel.readyT);duel.readyT=0;
-    duelSocketStop();
+    clearTimeout(duel.missT);duel.missT=0;
     locked=true;
     snd.win();
     duel.view="end";
@@ -10834,6 +11036,7 @@ function duelStart(){
 }
 function duelQ(m,picked){
   duel.phase="q";duel.i=m.i;duel.q=m;duel.score=m.score||duel.score;
+  clearTimeout(duel.missT);duel.missT=0;
   duel.got=false;duel.picked=(typeof picked==="number"&&picked>=0)?picked:null;
   duel.qAt=Date.now()-((m.secs*1000)-(m.left===undefined?m.secs*1000:m.left));
   clearTimeout(duel.readyT);duel.readyT=0;
@@ -10869,6 +11072,7 @@ function duelAnswer(choice,btn){
 }
 function duelReveal(r){
   duel.phase="rev";duel.score=r.score||duel.score;duel.picked=null;
+  clearTimeout(duel.missT);duel.missT=0;
   duelClockStop();
   locked=true;
   var me=duel.seat,them=me===0?1:0;
@@ -10900,6 +11104,16 @@ function duelReveal(r){
   paintStats();
   clearTimeout(duel.readyT);
   duel.readyT=setTimeout(function(){duel.readyT=0;duelSend({t:"ready"});},r.last?900:2300);
+}
+
+function duelAgain(){
+  if(duel.again||!duel.ws)return;
+  var qs=duelDeal(duel.board);
+  if(!qs){duelSay("duelDeal");return;}
+  duel.again=true;
+  duelSend({t:"again",qs:qs});
+  duelSay("");
+  paintDuel();
 }
 
 function duelClockStop(){
@@ -13085,6 +13299,7 @@ function holdSpin(){
   spinIdle=setTimeout(function(){if(introOpen&&!globe.drag&&!globe.pick)spinGlobe();},4000);
 }
 var dayWanted=(function(){try{return /[?&]day=1(&|$)/.test(location.search);}catch(e){return false;}})();
+var duelWanted=(function(){try{var m=/[?&]duel=([A-Za-z0-9]{6})(&|$)/.exec(location.search);return m?m[1].toUpperCase():"";}catch(e){return "";}})();
 var splashDone=false;
 function splashUp(){return !splashDone&&$("splash")&&!$("splash").hidden;}
 function showSplash(){
@@ -13130,7 +13345,7 @@ function clearBoot(){
   bootTimers=[];
 }
 function later(fn,ms){bootTimers.push(setTimeout(fn,ms));}
-function shortIntro(){return booted||HADSAVE||dayWanted;}
+function shortIntro(){return booted||HADSAVE||dayWanted||!!duelWanted;}
 function introBootDelay(){return shortIntro()?BEATS_BACK.cards:BEATS_FIRST.cards;}
 function runIntroBoot(){
   var el=$("intro"),first=!shortIntro();
@@ -13177,6 +13392,16 @@ function runIntroBoot(){
     $("intro").classList.add("settled");
     $("intro").classList.remove("playing");
     if(dayWanted){dayWanted=false;later(function(){if(introOpen)setMode("daily");},260);}
+    if(duelWanted&&duelOn()){
+      var code=duelWanted;duelWanted="";
+      later(function(){
+        if(!introOpen)return;
+        duel.code=code;duel.maker=false;duel.key=duelKey();
+        duel.view="wait";duelSay("");
+        openDuel();
+        duelConnect();
+      },260);
+    }
     if(!globe.drag)spinGlobe();
   },B.end*1000);
   later(function(){
@@ -13614,6 +13839,8 @@ $("duelbtn").onclick=function(){$("setmodal").hidden=true;openDuel();};
 $("duelmake").onclick=function(){duel.view="pick";duelSay("");paintDuel();};
 $("duelhave").onclick=function(){duel.view="in";duelSay("");paintDuel();};
 $("dueljoin").onclick=duelJoinGo;
+$("duelagain").onclick=duelAgain;
+$("duelsend").onclick=duelShare;
 $("duelcodein").addEventListener("keydown",function(e){if(e.key==="Enter")duelJoinGo();});
 function duelDone(){
   if(duel.view==="pick"||duel.view==="in"){duel.view="home";duelSay("");paintDuel();return;}
