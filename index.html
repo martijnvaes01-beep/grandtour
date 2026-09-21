@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v354";</script>
+<script>window.GT_BUILD="v359";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -6390,7 +6390,7 @@ var QUIZ={
         var head=document.createElement("span");
         head.className="manhead "+cls;head.textContent=t(key);
         box.appendChild(head);
-        var rows=document.createElement("span");rows.className="manrows";
+        var rows=document.createElement("span");rows.className="manrows "+cls;
         var shares=[],i;
         var show=GOODS_SHOWN();
         var lim=Math.min(goods.length,show);
@@ -6399,6 +6399,7 @@ var QUIZ={
         var top=Math.max.apply(null,shares.concat([rest>2?rest:1,1]));
         goods.slice(0,show).forEach(function(g,i){
           var row=document.createElement("span");row.className="manrow "+cls;
+          row.setAttribute("data-share",shares[i]);
           var nm=document.createElement("b");nm.textContent=goodWord(g);
           var bar=document.createElement("span");bar.className="manbar";
           var fill=document.createElement("i");
@@ -6434,6 +6435,7 @@ var QUIZ={
         foot.appendChild(fl);foot.appendChild(fv);
         box.appendChild(foot);
       }
+      setTimeout(fitTrade,0);
       return box;
     },
     from:function(f){
@@ -6684,6 +6686,54 @@ function fitDossier(){
     root.style.setProperty("--dosval",size.toFixed(1)+"px");
   }
 }
+var TRADE_FLOOR=2;      /* two a side is still four clues; below that the card stops being a sheet */
+function tradeOver(stage){
+  var bar=document.querySelector("#drill>.stats");
+  var floor=bar?bar.getBoundingClientRect().top:stage.getBoundingClientRect().bottom;
+  var opts=document.querySelectorAll("#opts .opt");
+  if(opts.length&&opts[opts.length-1].getBoundingClientRect().bottom>floor-8)return true;
+  stage.scrollTop=0.5;
+  var over=stage.scrollTop;
+  stage.scrollTop=0;
+  return over>=0.25;
+}
+function tradeScale(rows){
+  var kids=rows.children,shares=[],i;
+  for(i=0;i<kids.length;i++)shares.push(parseFloat(kids[i].getAttribute("data-share"))||0);
+  var rest=100;for(i=0;i<shares.length;i++)rest-=shares[i];
+  var top=Math.max.apply(null,shares.concat([rest>2?rest:1,1]));
+  for(i=0;i<kids.length;i++){
+    var fill=kids[i].querySelector(".manbar i");
+    if(fill)fill.style.width=Math.max(4,Math.round(shares[i]/top*100))+"%";
+  }
+}
+function tradeDrop(box){
+  var pick=null;
+  [".manrows.out",".manrows.in"].forEach(function(sel){
+    var side=box.querySelector(sel);
+    if(!side||side.children.length<=TRADE_FLOOR)return;
+    if(!pick||side.children.length>pick.children.length)pick=side;
+  });
+  if(pick){
+    pick.removeChild(pick.lastChild);
+    tradeScale(pick);
+    return true;
+  }
+  var line=box.querySelector(".manpart.in")||box.querySelector(".manpart.out");
+  if(!line)return false;
+  line.parentNode.removeChild(line);
+  return true;
+}
+function fitTrade(){
+  if(mode!=="trade")return;
+  var stage=document.querySelector(".stage"),box=document.querySelector(".manifest");
+  if(!stage||!box)return;
+  var guard=0;
+  while(guard++<8&&tradeOver(stage)){
+    if(!tradeDrop(box))break;
+  }
+}
+
 function paintDosTries(){
   var host=document.getElementById("dostries");
   if(!host)return;
@@ -7544,6 +7594,7 @@ function relayout(){
   if(globe.ctx&&(mode==="locate"||mode==="daily")){sizeGlobe();drawGlobe();}
   if(mode==="shape"&&current)drawShape(current);
   if(mode==="dossier")fitDossier();
+  if(mode==="trade")fitTrade();
 }
 function toggleFullscreen(){
   var el=document.documentElement;
@@ -11585,7 +11636,8 @@ function tighterFit(){
 }
 function GOODS_SHOWN(){
   if(tighterFit())return 3;
-  return 4;
+  if(tightFit()&&!deskWide())return 4;
+  return 5;
 }
 function fitViewport(){
   var d=document.documentElement,top=0,bot=0;
