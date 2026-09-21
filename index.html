@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v392";</script>
+<script>window.GT_BUILD="v393";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -2116,7 +2116,7 @@ var HADSAVE=false;
 })();
 var DAY_RESET="2026-09-20-trade";
 function normaliseStore(){
-  ["box","geo","shape","spot","cap","fake","blind","trade","terra","dossier","miss","found","stamps"].forEach(function(k){
+  ["box","geo","shape","spot","cap","fake","blind","trade","terra","dossier","miss","found","stamps","isle"].forEach(function(k){
     if(!store[k]||typeof store[k]!=="object")store[k]={};
   });
   if(typeof store.dayResetSrv!=="string")store.dayResetSrv="";
@@ -2417,7 +2417,7 @@ function boxMap(){
   if(mode==="locate")return store.geo;
   if(mode==="shape")return store.shape;
   if(mode==="spot")return store.spot;
-  if(mode==="postcard")return isleBox;   /* runtime only while the board is a slice: see ISLES */
+  if(mode==="postcard")return store.isle;   /* islands, not countries: see ISLES */
   var q=QUIZ[mode];
   if(q&&q.box)return store[q.box];
   return store.box;
@@ -6513,7 +6513,6 @@ var ISLES=[
     es:"La capital de todo el país está en esta isla, no en el continente. Monos en el bosque nuboso y tortugas que ponen huevos en las playas negras."}}
 ];
 var ISLEBY={};ISLES.forEach(function(i){i.c=i.own[0];ISLEBY[i.n]=i;});
-var isleBox={};
 function isleName(i){return (lang!=="en"&&i[lang])||i.n;}
 function isleOwners(i){
   var names=i.own.map(function(c){var f=FLAGBYCODE[c];return f?cname(f):c;});
@@ -6789,7 +6788,7 @@ var QUIZ={
       return [right?"ok":"no",right?t("correct"):t("wrongFlag"),{b:isleName(current),r:""}];
     },
     score:function(){
-      var n=0;ISLES.forEach(function(i){if((isleBox[i.n]||0)>MASTER)n++;});return n+"/"+ISLES.length;
+      var n=0;ISLES.forEach(function(i){if((store.isle[i.n]||0)>MASTER)n++;});return n+"/"+ISLES.length;
     }
   },
   border:{
@@ -8087,7 +8086,7 @@ function paintChips(){
     }
     else if(mode==="postcard"){
       var is=code==="ALL"?ISLES:ISLES.filter(function(i){return i.r===code;});
-      n.textContent=is.filter(function(i){return (isleBox[i.n]||0)>MASTER;}).length+"/"+is.length;
+      n.textContent=is.filter(function(i){return (store.isle[i.n]||0)>MASTER;}).length+"/"+is.length;
     }
     else{
       var set=code==="ALL"?FLAGS:FLAGS.filter(function(f){return f.r===code;});
