@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="GT test">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v400";</script>
+<script>window.GT_BUILD="v401";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -9020,7 +9020,7 @@ function dailyKind(key){
   var i=(dayNumber(key)+daySalt)%DAILY_KINDS.length;
   return DAILY_KINDS[(i+DAILY_KINDS.length)%DAILY_KINDS.length];
 }
-var GATES={shape:1,spot:2,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,nature:8,postcard:8};
+var GATES={shape:1,spot:2,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,postcard:8};
 var VERSION="src";
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc"||m==="sea";}
 function gateOf(m){var q=QUIZ[m];return (q&&q.gate)||GATES[m]||0;}
