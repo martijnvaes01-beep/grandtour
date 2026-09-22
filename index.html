@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v446";</script>
+<script>window.GT_BUILD="v450";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -453,6 +453,7 @@
       <p class="duelnote lock" id="duellock" hidden></p>
       <div class="duelhome" id="duelhome">
         <button class="btn" id="duelmake"></button>
+        <button class="btn" id="duelsendch"></button>
         <button class="btn ghost" id="duelhave"></button>
       </div>
       <div class="duelboards" id="duelboards" hidden></div>
@@ -462,6 +463,7 @@
         <div class="duelqr" id="duelqr" hidden></div>
         <span class="duelnote" id="duelqrnote" hidden></span>
         <span class="movetime" id="duelwho"></span>
+        <button class="btn" id="duelgo" hidden></button>
         <button class="btn ghost" id="duelsend"></button>
       </div>
       <div class="movein" id="duelin" hidden>
@@ -920,7 +922,7 @@ en:{sub:"countries · flags, globe, atlas",
   moveGot:"Done! Your progress is on this device now.",
   moveAway:"Your progress is on its way: code {c}",
   privMove:"If you move your progress to another device, it waits on our server for ten minutes at most and is deleted as soon as the code is used.",
-  privDuel:"A duel runs on our server while you play it: the ten questions, both answers, the two scores and each player's duel rating, and nothing that says who either of you is. It is deleted a minute after the duel ends.",
+  privDuel:"A duel runs on our server while you play it: the ten questions, both answers, the two scores and each player's duel rating, and nothing that says who either of you is. A duel is deleted a minute after it ends. A challenge waits up to two days for an answer, and then goes the same way.",
   duelLab:"Duel",
   duelRow:"Duel a friend",
   duelOnNow:"playing",
@@ -947,6 +949,14 @@ en:{sub:"countries · flags, globe, atlas",
   duelDouble:"Last question. Worth double, and a wrong one costs double.",
   duelsLab:"Duels",
   duelsPlayed:"Played",
+  duelSendCh:"Send a challenge",
+  duelSendIt:"Send it",
+  duelSending:"Sending\u2026",
+  duelSentLead:"Your ten are played. Send this and they can answer it whenever they like - it waits two days.",
+  duelSendWho:"Not sent yet",
+  duelSentWho:"Waiting for them to play it",
+  duelSoloThem:"Them",
+  duelStale:"That challenge has gone. They had two days.",
   duelRating:"Rating",
   duelScan:"Or point a camera at this",
   duelTheyWent:"They have gone. Close this and start another.",
@@ -1230,7 +1240,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   moveGot:"C'est fait ! Votre progression est sur cet appareil.",
   moveAway:"Votre progression est en route : code {c}",
   privMove:"Si vous transférez votre progression vers un autre appareil, elle attend dix minutes au plus sur notre serveur et est effacée dès que le code est utilisé.",
-  privDuel:"Un duel se joue sur notre serveur : les dix questions, les deux réponses, les deux scores et le classement de chacun, et rien qui dise qui vous êtes ni qui est en face. Tout est effacé une minute après la fin.",
+  privDuel:"Un duel se joue sur notre serveur : les dix questions, les deux réponses, les deux scores et le classement de chacun, et rien qui dise qui vous êtes ni qui est en face. Un duel est effacé une minute après la fin. Un défi attend une réponse deux jours au plus, puis disparaît de la même façon.",
   duelLab:"Duel",
   duelRow:"Défier un ami",
   duelOnNow:"en cours",
@@ -1281,6 +1291,14 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   duelDouble:"Derni\u00e8re question. Elle vaut double, et une erreur co\u00fbte double.",
   duelsLab:"Duels",
   duelsPlayed:"Jou\u00e9s",
+  duelSendCh:"Envoyer un d\u00e9fi",
+  duelSendIt:"Envoyer",
+  duelSending:"Envoi\u2026",
+  duelSentLead:"Tes dix sont jou\u00e9es. Envoie ceci et l'autre y r\u00e9pondra quand il veut : \u00e7a tient deux jours.",
+  duelSendWho:"Pas encore envoy\u00e9",
+  duelSentWho:"On attend qu'il y joue",
+  duelSoloThem:"L'autre",
+  duelStale:"Ce d\u00e9fi n'existe plus. Il tenait deux jours.",
   duelRating:"Classement",
   duelScan:"Ou vise ceci avec un appareil photo",
   duelTheyWent:"L'autre est parti. Fermez et lancez-en un autre.",
@@ -1540,7 +1558,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   moveGot:"Geschafft! Dein Fortschritt ist jetzt auf diesem Gerät.",
   moveAway:"Dein Fortschritt ist unterwegs: Code {c}",
   privMove:"Überträgst du deinen Fortschritt auf ein anderes Gerät, wartet er höchstens zehn Minuten auf unserem Server und wird gelöscht, sobald der Code benutzt ist.",
-  privDuel:"Ein Duell läuft auf unserem Server, solange ihr spielt: die zehn Fragen, beide Antworten, beide Punktestände und beide Wertungen. Nichts davon sagt, wer ihr seid. Eine Minute nach dem Duell ist alles gelöscht.",
+  privDuel:"Ein Duell läuft auf unserem Server, solange ihr spielt: die zehn Fragen, beide Antworten, beide Punktestände und beide Wertungen. Nichts davon sagt, wer ihr seid. Eine Minute nach dem Duell ist alles gelöscht. Eine Herausforderung wartet höchstens zwei Tage auf eine Antwort und ist dann ebenso weg.",
   duelLab:"Duell",
   duelRow:"Gegen einen Freund",
   duelOnNow:"läuft",
@@ -1591,6 +1609,14 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   duelDouble:"Letzte Frage. Sie z\u00e4hlt doppelt, und ein Fehler kostet doppelt.",
   duelsLab:"Duelle",
   duelsPlayed:"Gespielt",
+  duelSendCh:"Herausforderung schicken",
+  duelSendIt:"Abschicken",
+  duelSending:"Wird geschickt\u2026",
+  duelSentLead:"Deine zehn sind gespielt. Schick das weiter, dann kann der andere antworten, wann er will - es h\u00e4lt zwei Tage.",
+  duelSendWho:"Noch nicht verschickt",
+  duelSentWho:"Wir warten, dass er spielt",
+  duelSoloThem:"Der andere",
+  duelStale:"Diese Herausforderung ist weg. Zwei Tage waren es.",
   duelRating:"Wertung",
   duelScan:"Oder halte eine Kamera davor",
   duelTheyWent:"Der andere ist weg. Schließ das und starte ein neues.",
@@ -1850,7 +1876,7 @@ es:{sub:"países · banderas, globo, atlas",
   moveGot:"¡Hecho! Tu progreso está ahora en este dispositivo.",
   moveAway:"Tu progreso está en camino: código {c}",
   privMove:"Si pasas tu progreso a otro dispositivo, espera como mucho diez minutos en nuestro servidor y se borra en cuanto se usa el código.",
-  privDuel:"Un duelo se juega en nuestro servidor mientras dura: las diez preguntas, las dos respuestas, los dos marcadores y la puntuación de cada uno, y nada que diga quién eres tú ni quién está enfrente. Se borra un minuto después de terminar.",
+  privDuel:"Un duelo se juega en nuestro servidor mientras dura: las diez preguntas, las dos respuestas, los dos marcadores y la puntuación de cada uno, y nada que diga quién eres tú ni quién está enfrente. Un duelo se borra un minuto después de terminar. Un reto espera respuesta dos días como mucho, y luego se borra igual.",
   duelLab:"Duelo",
   duelRow:"Reta a un amigo",
   duelOnNow:"en juego",
@@ -1901,6 +1927,14 @@ es:{sub:"países · banderas, globo, atlas",
   duelDouble:"\u00daltima pregunta. Vale el doble, y fallarla cuesta el doble.",
   duelsLab:"Duelos",
   duelsPlayed:"Jugados",
+  duelSendCh:"Mandar un reto",
+  duelSendIt:"Mandarlo",
+  duelSending:"Mandando\u2026",
+  duelSentLead:"Tus diez ya est\u00e1n. Manda esto y te responder\u00e1 cuando quiera: aguanta dos d\u00edas.",
+  duelSendWho:"Todav\u00eda sin mandar",
+  duelSentWho:"Esperando a que juegue",
+  duelSoloThem:"El otro",
+  duelStale:"Ese reto ya no est\u00e1. Aguantaba dos d\u00edas.",
   duelRating:"Puntuación",
   duelScan:"O apunta una cámara aquí",
   duelTheyWent:"Tu rival se ha ido. Cierra y empieza otro.",
@@ -2160,7 +2194,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   moveGot:"Gelukt! Je voortgang staat nu op dit toestel.",
   moveAway:"Je voortgang is onderweg: code {c}",
   privMove:"Zet je je voortgang over naar een ander toestel, dan wacht die hoogstens tien minuten op onze server en wordt hij gewist zodra de code gebruikt is.",
-  privDuel:"Een duel loopt op onze server zolang het duurt: de tien vragen, beide antwoorden, beide standen en ieders rating, en niets waaraan te zien is wie jullie zijn. Een minuut na afloop is alles weg.",
+  privDuel:"Een duel loopt op onze server zolang het duurt: de tien vragen, beide antwoorden, beide standen en ieders rating, en niets waaraan te zien is wie jullie zijn. Een minuut na afloop is alles weg. Een uitdaging blijft hooguit twee dagen wachten op een antwoord en verdwijnt daarna net zo goed.",
   duelLab:"Duel",
   duelRow:"Duel met een vriend",
   duelOnNow:"bezig",
@@ -2211,6 +2245,14 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   duelDouble:"Laatste vraag. Die telt dubbel, en fout gaat ook dubbel.",
   duelsLab:"Duels",
   duelsPlayed:"Gespeeld",
+  duelSendCh:"Daag iemand uit",
+  duelSendIt:"Versturen",
+  duelSending:"Bezig met versturen\u2026",
+  duelSentLead:"Jouw tien zitten erop. Stuur dit door, dan speelt de ander het wanneer het uitkomt - het blijft twee dagen staan.",
+  duelSendWho:"Nog niet verstuurd",
+  duelSentWho:"Wachten tot de ander speelt",
+  duelSoloThem:"De ander",
+  duelStale:"Die uitdaging is weg. Twee dagen stond ze open.",
   duelRating:"Rating",
   duelScan:"Of richt er een camera op",
   duelTheyWent:"De ander is weg. Sluit dit en begin een nieuwe.",
@@ -2582,6 +2624,7 @@ function normaliseStore(){
   });
   if(typeof store.dayResetSrv!=="string")store.dayResetSrv="";
   if(typeof store.duelElo!=="number"||!isFinite(store.duelElo))store.duelElo=DUEL_ELO0;
+  if(!store.duelWait||typeof store.duelWait!=="object")store.duelWait=null;
   ["duelN","duelW","duelL","duelD"].forEach(function(k){
     if(typeof store[k]!=="number"||!isFinite(store[k]))store[k]=0;
   });
@@ -2872,7 +2915,8 @@ var DUEL_ELO0=1000,DUEL_ELO_MIN=100;
 var duel={on:false,ws:null,code:"",key:"",seat:-1,board:"",n:10,secs:10,phase:"",i:-1,
   score:[],lv:[],elo:[],q:null,qAt:0,opts:null,picked:null,got:false,jump:false,
   rated:false,barSeed:false,roll:{},eloWas:0,eloGot:null,eloIdle:false,
-  pick:"",x:1,repick:false,
+  pick:"",x:1,repick:false,want:"live",
+  mode:"live",solo:null,sent:null,
   readyT:0,clockT:0,pingT:0,retryT:0,missT:0,tries:0,view:"home",maker:false,end:null,
   again:false,wantThem:false,gone:false,selfT:0,fromLink:false,
   series:{n:0,you:0,them:0}};
@@ -11198,6 +11242,13 @@ function duelSay(k,good){
   e.textContent=k?t(k):"";
   e.className="repsaid"+(k?(good?" good":" bad"):"");
 }
+var DUEL_SECS={name:10,find:10,look:10,cap:10,postcard:15};
+var DUEL_LAST_X=2;
+var DUEL_WRONG_PTS=-20;
+function duelPointsOf(ms,secs){
+  var f=Math.max(0,Math.min(1,ms/(secs*1000)));
+  return 50+Math.round(50*(1-f));
+}
 var DUEL_MIX="mix";
 var DUEL_ROUNDS=[4,3,3];
 function duelRound(board,n,out,used){
@@ -11307,18 +11358,23 @@ function paintDuelBar(){
   var me=duel.seat,them=me===0?1:0;
   var myElo=store.duelElo||DUEL_ELO0,thElo=(duel.elo||[])[them]||0;
   $("dbmelab").textContent=t("duelYou")+" \u00b7 "+myElo;
-  $("dbthlab").textContent=t("duelThem")+(thElo?" \u00b7 "+thElo:"");
+  $("dbthlab").textContent=(duel.solo?t("duelSoloThem"):t("duelThem"))+(thElo?" \u00b7 "+thElo:"");
   $("dbq").textContent=Math.max(1,duel.i+1)+"/"+duel.n+(duel.x>1?" \u00d7"+duel.x:"");
   $("dbq").classList.toggle("dbl",duel.x>1);
   var quiet=!duel.barSeed;
   duelRollTo($("dbme"),duel.score[me]||0,$("dbmepop"),quiet);
-  duelRollTo($("dbth"),duel.score[them]||0,$("dbthpop"),quiet);
+  if(duel.mode==="async"&&duel.phase!=="end"){
+    $("dbth").textContent="\u00b7\u00b7";
+    $("dbth").setAttribute("data-v","0");
+  }
+  else duelRollTo($("dbth"),duel.score[them]||0,$("dbthpop"),quiet);
   duel.barSeed=true;
   $("dbtheirs").classList.toggle("out",!!(duel.got&&duel.phase==="q"));
 }
 
 function openDuel(){
-  duel.view=duel.end?"end":(duel.code?"wait":"home");
+  if(!duel.on&&!duel.ws&&store.duelWait)duelCheck();
+  duel.view=duel.end?"end":((duel.sent&&!duel.code)?"send":(duel.code?"wait":"home"));
   duelSay("");
   paintDuel();
   if($("duelmodal").hidden){$("duelmodal").hidden=false;snd.open();}
@@ -11331,21 +11387,26 @@ function duelShut(){
 function paintDuel(){
   var v=duel.view;
   $("duellab").textContent=t("duelLab");
-  $("duellead").textContent=t({home:"duelLead",pick:"duelPick",wait:"duelWaitLead","in":"duelJoinLead",end:"duelEndLead"}[v]||"duelLead");
+  $("duellead").textContent=t({home:"duelLead",pick:"duelPick",
+    wait:(duel.mode==="async"?"duelSentLead":"duelWaitLead"),
+    send:"duelSentLead","in":"duelJoinLead",end:"duelEndLead"}[v]||"duelLead");
   var ready=duelReady();
+  var waity=(v==="wait"||v==="send");
   $("duelhome").hidden=(v!=="home")||!ready;
   $("duellock").hidden=(v!=="home")||ready;
   $("duellock").textContent=fill(t("duelLocked"),{n:rankName(DUEL_GATE)});
   $("duelstray").hidden=!duelStray()||(v!=="wait"&&v!=="home");
   $("duelstray").textContent=t("duelStray");
   $("duelboards").hidden=v!=="pick";
-  $("duelwait").hidden=v!=="wait";
+  $("duelwait").hidden=!waity;
   $("duelin").hidden=v!=="in";
   $("duelscanbox").hidden=(v!=="in")||!duelScanOn();
   if(v!=="in")duelScanStop();
   if($("duelscan"))$("duelscan").textContent=t(duelCam.stream?"duelScanOff":"duelScanGo");
   $("duelend").hidden=v!=="end";
   $("duelmake").textContent=t("duelMake");
+  $("duelsendch").textContent=t("duelSendCh");
+  $("duelsendch").hidden=!ready;
   $("duelhave").textContent=t("duelHave");
   $("dueljoin").textContent=t("duelJoin");
   $("duelok").textContent=t(v==="home"||v==="end"?"close":"backLab");
@@ -11361,17 +11422,21 @@ function paintDuel(){
       var el=document.createElement("button");
       el.className="btn"+(b===DUEL_MIX?"":" ghost");el.type="button";
       el.textContent=b===DUEL_MIX?t("duelMix"):t(MODE_LABEL[b]);
-      el.onclick=function(){duelBoard(b);};
+      el.onclick=function(){duelBoard(b);};   /* duel.want says which kind it is for */
       $("duelboards").appendChild(el);
     });
   }
-  if(v==="wait"){
+  if(waity){
     $("duelcode").textContent=duel.code?duelFmt(duel.code):"";
     var what=(duel.pick===DUEL_MIX)?t("duelMix"):(duel.board?t(MODE_LABEL[duel.board]):"");
-    $("duelwho").textContent=(what?what+" \u00b7 ":"")+t("duelWho");
-    $("duelsend").hidden=!duel.maker;
+    $("duelwho").textContent=(what?what+" \u00b7 ":"")+
+      t(duel.mode==="async"?(duel.code?"duelSentWho":"duelSendWho"):"duelWho");
+    $("duelgo").hidden=!(duel.mode==="async"&&!duel.code);
+    $("duelgo").textContent=t("duelSendIt");
+    $("duelsend").hidden=!duel.maker||!duel.code;
     $("duelsend").textContent=t("duelShare");
     var box=$("duelqr"),lab=$("duelqrlab"),want=duel.maker&&!!duel.code;
+    void 0;
     if(!want){box.hidden=true;lab.hidden=true;box.setAttribute("data-for","");}
     else{
       if(box.getAttribute("data-for")!==duel.code){
@@ -11442,6 +11507,7 @@ function duelEndCard(){
 
 function duelBoard(b){
   if(!duelReady()){duelSay("duelFail");return;}
+  if(duel.want==="async"){duelSoloStart(b);return;}
   if(duel.repick){
     duel.repick=false;duel.pick=b;
     duel.view="end";paintDuel();
@@ -11526,12 +11592,21 @@ function duelMsg(m){
   if(m.t==="err"){
     duel.code="";duelSocketStop();
     duel.view="home";paintDuel();
+    if(duel.mode==="async"&&store.duelWait&&m.why==="unknown"){
+      duelForget();
+      duelSay("duelStale");
+      paintDuel();
+      return;
+    }
     duelSay(m.why==="full"?"duelFull":(m.why==="over"?"duelOver":"duelBad"));
     return;
   }
   if(m.t==="hello"){
     duel.seat=m.seat;duel.board=m.board;duel.n=m.n;duel.secs=m.secs;
     duel.score=m.score||[];duel.lv=m.lv||[];duel.elo=m.elo||[];duel.phase=m.phase;duel.i=m.i;
+    duel.mode=m.mode||"live";
+    if(duel.mode==="async"&&m.phase==="await"&&m.seat===0){duel.view="wait";paintDuel();return;}
+    if(duel.mode==="async"&&m.phase==="await"&&m.seat>0)return;
     if(m.phase==="q"&&m.q){duelStart();duelQ(m.q,m.picked);}
     else if(m.phase==="rev"&&m.r){duelStart();duelReveal(m.r);}
     else if(m.phase==="end"&&m.end)duelMsg(m.end);
@@ -11581,6 +11656,7 @@ function duelMsg(m){
   }
   if(m.t==="end"){
     duel.end=m;duel.score=m.score||duel.score;
+    if(duel.mode==="async"&&store.duelWait&&store.duelWait.code===duel.code){store.duelWait=null;save();}
     duel.again=false;duel.wantThem=false;
     duel.series.n++;
     if(m.win===duel.seat)duel.series.you++;
@@ -11645,6 +11721,12 @@ function duelAnswer(choice,btn){
   duel.opts.forEach(function(o,k){if(o===choice)pick=k;});
   duel.picked=pick;
   if(btn)btn.classList.add("picked");
+  if(duel.solo){
+    $("opts").classList.add("answered");
+    snd.stamp();
+    duelSoloAnswer(pick);
+    return;
+  }
   $("opts").classList.add("answered");
   snd.stamp();
   duelSend({t:"a",i:duel.i,pick:pick,ms:Math.max(0,Date.now()-duel.qAt)});
@@ -11700,7 +11782,11 @@ function duelReveal(r){
   duel.got=false;
   paintStats();
   clearTimeout(duel.readyT);
-  duel.readyT=setTimeout(function(){duel.readyT=0;duelSend({t:"ready"});},r.last?900:2300);
+  duel.readyT=setTimeout(function(){
+    duel.readyT=0;
+    if(duel.solo)return duelSoloNext();
+    duelSend({t:"ready"});
+  },r.last?900:2300);
 }
 
 function duelAgain(){
@@ -11774,6 +11860,102 @@ function duelScanStart(){
     });
 }
 
+function duelSoloStart(pick){
+  var qs=duelDeal(pick);
+  if(!qs){duelSay("duelDeal");return false;}
+  duel.mode="async";
+  duel.pick=pick;
+  duel.board=(pick===DUEL_MIX)?qs[0].b:pick;
+  duel.maker=true;duel.gone=false;duel.end=null;duel.sent=null;
+  duel.series={n:0,you:0,them:0};
+  duel.seat=0;duel.n=qs.length;duel.score=[0,0];duel.lv=[];duel.elo=[];
+  duel.solo={qs:qs,i:-1,picks:[],ms:[],score:0};
+  duelShut();
+  duel.on=true;duel.rated=false;duel.barSeed=false;duel.eloGot=null;duel.i=-1;
+  document.documentElement.setAttribute("data-duel","1");
+  duel.jump=true;
+  try{startMode(duel.board);}finally{duel.jump=false;}
+  countdown(3,function(){duelSoloNext();});
+  return true;
+}
+function duelSoloNext(){
+  var s=duel.solo;
+  if(!s)return;
+  s.i++;
+  if(s.i>=s.qs.length)return duelSoloDone();
+  var q=s.qs[s.i];
+  duel.secs=DUEL_SECS[q.b||duel.board]||10;
+  duelQ({t:"q",i:s.i,n:s.qs.length,s:q.s,o:q.o,secs:duel.secs,b:q.b||duel.board,
+    x:(s.i===s.qs.length-1)?DUEL_LAST_X:1,left:duel.secs*1000,score:[s.score,0]},null);
+}
+function duelSoloAnswer(pick){
+  var s=duel.solo;
+  if(!s)return;
+  var q=s.qs[s.i],ms=Math.max(0,Math.min(Date.now()-duel.qAt,duel.secs*1000));
+  s.picks[s.i]=pick;s.ms[s.i]=ms;
+  var right=pick>=0&&pick===q.a;
+  var x=(s.i===s.qs.length-1)?DUEL_LAST_X:1;
+  var pts=pick<0?0:(right?duelPointsOf(ms,duel.secs)*x:DUEL_WRONG_PTS*x);
+  s.score=Math.max(0,s.score+pts);
+  duel.score=[s.score,0];
+  setTimeout(function(){
+    if(!duel.solo||duel.solo!==s)return;
+    duelReveal({t:"r",i:s.i,a:q.a,picks:[pick,-1],pts:[pts,0],score:[s.score,0],
+      won:right?0:-1,last:s.i===s.qs.length-1});
+  },right?60:420);
+}
+function duelSoloDone(){
+  var s=duel.solo;
+  if(!s)return;
+  duelClockStop();
+  locked=true;
+  duel.phase="sent";
+  duel.sent={board:s.qs[0].b||duel.board,qs:s.qs,picks:s.picks.slice(),ms:s.ms.slice(),score:s.score};
+  duel.solo=null;
+  duel.view="send";
+  duelSay("");
+  openDuel();
+  duelSend2();
+}
+function duelSend2(){
+  var d=duel.sent;
+  if(!d||duel.code)return;
+  duel.key=duelKey();
+  duelSay("duelSending");
+  $("duelgo").disabled=true;
+  fetch(SCORE_URL+"/api/duel",{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},
+    body:JSON.stringify({mode:"async",board:d.board,qs:d.qs,picks:d.picks,ms:d.ms,
+      key:duel.key,lv:rankProgress().i+1,elo:store.duelElo||DUEL_ELO0})})
+    .then(function(r){
+      if(r.status===429)throw "busy";
+      if(r.status!==200)throw "fail";
+      return r.json();
+    }).then(function(j){
+      if(!j||!/^[A-Z0-9]{6}$/.test(j.code))throw "fail";
+      duel.code=j.code;
+      store.duelWait={code:j.code,key:duel.key,at:Date.now(),board:d.board,score:d.score};
+      save();
+      duelSay("");
+      duel.view="wait";
+      paintDuel();
+    })["catch"](function(err){
+      $("duelgo").disabled=false;
+      duelSay(err==="busy"?"duelBusy":"duelFail");
+    });
+}
+function duelCheck(){
+  var w=store.duelWait;
+  if(!w||!w.code||!w.key||!duelReady())return;
+  duel.mode="async";duel.maker=true;duel.rated=false;duel.eloGot=null;duel.barSeed=false;
+  duel.code=w.code;duel.key=w.key;duel.gone=false;
+  duel.view="wait";
+  duelConnect();
+}
+function duelForget(){
+  store.duelWait=null;save();
+  duel.sent=null;duel.code="";duel.key="";duel.mode="live";
+}
+
 function duelClockStop(){
   if(duel.clockT){clearInterval(duel.clockT);duel.clockT=0;}
   tapeStop();
@@ -11794,7 +11976,11 @@ function duelClockPaint(){
   $("timertext").textContent=secs+"s";
   if(left<=0){
     duelClockStop();
-    if(!locked){locked=true;duelSend({t:"a",i:duel.i,pick:-1,ms:full});snd.nope();}
+    if(!locked){
+      locked=true;snd.nope();
+      if(duel.solo){duelSoloAnswer(-1);return;}
+      duelSend({t:"a",i:duel.i,pick:-1,ms:full});
+    }
   }
 }
 
@@ -11807,6 +11993,7 @@ function duelQuit(){
 function duelStop(){
   duelScanStop();
   duelClockStop();
+  duel.solo=null;duel.mode="live";
   clearTimeout(duel.readyT);duel.readyT=0;
   duelSocketStop();
   clearTimeout(duel.selfT);duel.selfT=0;
@@ -14515,8 +14702,10 @@ $("movetake").onclick=moveTake;
 $("movecodein").addEventListener("keydown",function(e){if(e.key==="Enter")moveTake();});
 $("movecancel").onclick=function(){moveCheck(true);};
 $("duelbtn").onclick=function(){$("setmodal").hidden=true;openDuel();};
-$("duelmake").onclick=function(){duel.view="pick";duelSay("");paintDuel();};
-$("duelhave").onclick=function(){duel.view="in";duelSay("");paintDuel();};
+$("duelmake").onclick=function(){duel.want="live";duel.view="pick";duelSay("");paintDuel();};
+$("duelsendch").onclick=function(){duel.want="async";duel.view="pick";duelSay("");paintDuel();};
+$("duelgo").onclick=duelSend2;
+$("duelhave").onclick=function(){duel.want="live";duel.view="in";duelSay("");paintDuel();};
 $("dueljoin").onclick=duelJoinGo;
 $("duelscan").onclick=duelScanStart;
 $("duelother").onclick=function(){duel.repick=true;duel.view="pick";duelSay("");paintDuel();};   /* only ever shown where there is a detector to press it: see duelScanOn */
