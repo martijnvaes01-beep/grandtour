@@ -1,4 +1,4 @@
-/* Grand Tour v530. Written by standalone.js; edit it there. */
+/* Grand Tour v537. Written by standalone.js; edit it there. */
 var CACHE="grandtour";
 var KEEP=["./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.json","assets/coast.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
 self.addEventListener("install",function(e){
@@ -45,12 +45,16 @@ self.addEventListener("fetch",function(e){
    a device subscribes; a worker that finds nothing falls back to English, which is what t() does.
    The Cache API is used rather than IndexedDB for one reason: this worker already opens a cache,
    and three lines of something already here beats twenty of something new. */
+/* ONE SENTENCE THAT IS TRUE OF BOTH THINGS A PUSH CAN MEAN (v531): a challenge of yours answered,
+   or somebody wanting revenge. A push carries no body, so the worker cannot say which, and a line
+   that named one would be wrong half the time. Post waiting at the bureau is both, and it is what
+   the letter a result arrives in already is. */
 var PUSH_SAY={
-  en:["Grand Tour","Your challenge has been answered."],
-  nl:["Grand Tour","Je uitdaging is gespeeld."],
-  fr:["Grand Tour","Votre défi a été relevé."],
-  de:["Grand Tour","Deine Herausforderung wurde gespielt."],
-  es:["Grand Tour","Han jugado tu reto."]
+  en:["Grand Tour","There's post for you at the duel bureau."],
+  nl:["Grand Tour","Er ligt post voor je bij het duelbureau."],
+  fr:["Grand Tour","Du courrier vous attend au bureau des duels."],
+  de:["Grand Tour","Im Duellbüro liegt Post für dich."],
+  es:["Grand Tour","Tienes correo en la oficina de duelos."]
 };
 function pushLang(){
   return caches.open(CACHE).then(function(c){
