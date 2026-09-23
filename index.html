@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v517";</script>
+<script>window.GT_BUILD="v524";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -301,6 +301,10 @@
           <span class="setname" id="duelrowlab"></span>
           <span class="setval" id="duelrowval"></span>
         </button>
+        <button class="setrow" id="pushbtn" hidden>
+          <span class="setname" id="pushlab"></span>
+          <span class="setval" id="pushval"></span>
+        </button>
         <button class="setrow" id="movebtn">
           <span class="setname" id="movelab"></span>
           <span class="setval" id="moveval"></span>
@@ -493,6 +497,7 @@
         <b class="duelbig won" id="duelpostbig"></b>
         <div class="duelpostrow"><span id="duelpostlab"></span><b id="duelpostscore"></b></div>
         <span class="duelelo" id="duelpostelo"><i></i><b></b></span>
+        <button class="btn ghost" id="duelpostpush" hidden></button>
       </div>
       <div class="duelboards" id="duelboards" hidden></div>
       <div class="moveout" id="duelwait" hidden>
@@ -969,7 +974,9 @@ en:{sub:"countries · flags, globe, atlas",
   moveGot:"Done! Your progress is on this device now.",
   moveAway:"Your progress is on its way: code {c}",
   privMove:"If you move your progress to another device, it waits on our server for ten minutes at most and is deleted as soon as the code is used.",
-  privDuel:"A duel runs on our server while you play it: the ten questions, both answers, the two scores and each player's duel rating, and nothing that says who either of you is. A duel is deleted two minutes after the last of you has left. A challenge waits up to two days for an answer, and then goes the same way. While it waits, our server has its six letter code on a list so a stranger can find it, and nothing else about it.",
+  privDuel:"A duel runs on our server while you play it: the questions, both answers, the two scores and each player's rating, and nothing that says who either of you is. A duel is deleted two minutes after the last of you has left. A challenge waits up to two days for an answer, and then goes the same way. While it waits, our server has its six letter code on a list so a stranger can find it, and nothing else about it.",
+  privName:"Once you have played a ranked duel, your rating is kept on our server under that same random code. You can choose a name to go with it. That name is the one thing in this game other people see: it goes on the leaderboard beside your rating, and whoever you duel sees it too. Leave it empty and you are on no list at all - the game plays exactly the same. A name is picked once; write to us and it comes off again. Your rating, your record and your name are deleted together after ninety days without a ranked duel.",
+  privPush:"Turn notifications on and we keep the address your browser gives us for that one device. It is used for one thing: telling you that a challenge of yours has been answered. The notification itself carries nothing - not the game, not the score, not who played it - because the app works that out when you open it. Turn them off and the address is deleted the same moment. It also goes after ninety days without a ranked duel, or as soon as your browser tells us the device is no longer there.",
   duelLab:"Duel",
   duelRow:"Duel a friend",
   duelOnNow:"playing",
@@ -1014,6 +1021,16 @@ en:{sub:"countries · flags, globe, atlas",
   duelPeak:"Best ever",
   duelWhoLab:"On the table as",
   duelWhoNone:"Pick a name to appear",
+  pushLab:"Notifications",
+  pushYes:"On",
+  pushNot:"Off",
+  pushNo:"Blocked",
+  pushHomeShort:"Home screen only",
+  pushHome:"Add the game to your home screen first",
+  pushAsk:"Tell me when somebody plays it",
+  pushSaid:"Done. We will tell you when somebody plays it.",
+  pushFail:"That did not work, and nothing was turned on.",
+  pushBlocked:"Your browser is blocking notifications for this site. Only its own settings can undo that.",
   duelRankIs:"#{n} of {of} worldwide",
   duelNameLead:"Pick a name and you appear on the leaderboard. You pick it once - it cannot be changed afterwards.",
   duelNameOnce:"Sure? This name stays yours, and you cannot change it later.",
@@ -1338,7 +1355,9 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   moveGot:"C'est fait ! Votre progression est sur cet appareil.",
   moveAway:"Votre progression est en route : code {c}",
   privMove:"Si vous transférez votre progression vers un autre appareil, elle attend dix minutes au plus sur notre serveur et est effacée dès que le code est utilisé.",
-  privDuel:"Un duel se joue sur notre serveur : les dix questions, les deux réponses, les deux scores et le classement de chacun, et rien qui dise qui vous êtes ni qui est en face. Un duel est effacé deux minutes après le départ du dernier joueur. Un défi attend une réponse deux jours au plus, puis disparaît de la même façon. Pendant ce temps, notre serveur garde son code de six lettres sur une liste pour qu'un inconnu puisse le trouver, et rien d'autre.",
+  privDuel:"Un duel se joue sur notre serveur : les questions, les deux réponses, les deux scores et le classement de chacun, et rien qui dise qui vous êtes ni qui est en face. Un duel est effacé deux minutes après le départ du dernier joueur. Un défi attend une réponse deux jours au plus, puis disparaît de la même façon. Pendant ce temps, notre serveur garde son code de six lettres sur une liste pour qu'un inconnu puisse le trouver, et rien d'autre.",
+  privName:"Dès votre premier duel classé, notre serveur conserve votre classement sous ce même code aléatoire. Vous pouvez y ajouter un nom. C'est la seule chose ici que les autres voient : il figure au classement à côté de votre score, et la personne que vous affrontez le voit aussi. Laissez-le vide et vous n'apparaissez sur aucune liste ; le jeu ne change en rien. Un nom se choisit une fois ; écrivez-nous et il sera retiré. Votre classement, vos résultats et votre nom sont effacés ensemble après quatre-vingt-dix jours sans duel classé.",
+  privPush:"Si vous activez les notifications, nous conservons l'adresse que votre navigateur nous donne pour cet appareil. Elle sert à une seule chose : vous dire qu'on a répondu à l'un de vos défis. La notification elle-même ne contient rien - ni le jeu, ni le score, ni qui a joué - car l'application le découvre à l'ouverture. Désactivez-les et l'adresse est effacée au même instant. Elle disparaît aussi après quatre-vingt-dix jours sans duel classé, ou dès que votre navigateur nous signale que l'appareil n'existe plus.",
   duelLab:"Duel",
   duelRow:"Défier un ami",
   duelOnNow:"en cours",
@@ -1408,6 +1427,16 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   duelPeak:"Record",
   duelWhoLab:"Au classement",
   duelWhoNone:"Choisis un nom pour y figurer",
+  pushLab:"Notifications",
+  pushYes:"Activées",
+  pushNot:"Désactivées",
+  pushNo:"Bloquées",
+  pushHomeShort:"Écran d'accueil",
+  pushHome:"Ajoutez d'abord le jeu à votre écran d'accueil",
+  pushAsk:"Prévenez-moi quand quelqu'un y joue",
+  pushSaid:"C'est noté. Vous serez prévenu dès que quelqu'un y joue.",
+  pushFail:"Ça n'a pas marché. Rien n'a été activé.",
+  pushBlocked:"Votre navigateur bloque les notifications pour ce site. Lui seul peut les rétablir.",
   duelRankIs:"#{n} sur {of} dans le monde",
   duelNameLead:"Choisis un nom et tu apparais au classement. Tu le choisis une seule fois : impossible d'en changer ensuite.",
   duelNameOnce:"Tu es sûr ? Ce nom reste le tien et tu ne pourras plus en changer.",
@@ -1707,7 +1736,9 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   moveGot:"Geschafft! Dein Fortschritt ist jetzt auf diesem Gerät.",
   moveAway:"Dein Fortschritt ist unterwegs: Code {c}",
   privMove:"Überträgst du deinen Fortschritt auf ein anderes Gerät, wartet er höchstens zehn Minuten auf unserem Server und wird gelöscht, sobald der Code benutzt ist.",
-  privDuel:"Ein Duell läuft auf unserem Server, solange ihr spielt: die zehn Fragen, beide Antworten, beide Punktestände und beide Wertungen. Nichts davon sagt, wer ihr seid. Zwei Minuten nachdem der Letzte gegangen ist, ist alles gelöscht. Eine Herausforderung wartet höchstens zwei Tage auf eine Antwort und ist dann ebenso weg. Solange sie wartet, steht ihr sechsstelliger Code auf einer Liste, damit ein Fremder sie findet - sonst nichts.",
+  privDuel:"Ein Duell läuft auf unserem Server, solange ihr spielt: die Fragen, beide Antworten, beide Punktestände und beide Wertungen. Nichts davon sagt, wer ihr seid. Zwei Minuten nachdem der Letzte gegangen ist, ist alles gelöscht. Eine Herausforderung wartet höchstens zwei Tage auf eine Antwort und ist dann ebenso weg. Solange sie wartet, steht ihr sechsstelliger Code auf einer Liste, damit ein Fremder sie findet - sonst nichts.",
+  privName:"Sobald du ein gewertetes Duell gespielt hast, bewahrt unser Server deine Wertung unter demselben zufälligen Code auf. Du kannst einen Namen dazu wählen. Er ist das Einzige in diesem Spiel, das andere zu sehen bekommen: Er steht in der Rangliste neben deiner Wertung, und wer gegen dich spielt, sieht ihn ebenfalls. Lässt du ihn leer, stehst du auf keiner Liste. Am Spiel ändert das nichts. Ein Name wird einmal gewählt; schreib uns, und er wird wieder entfernt. Wertung, Bilanz und Name werden nach neunzig Tagen ohne gewertetes Duell zusammen gelöscht.",
+  privPush:"Schaltest du Mitteilungen ein, bewahren wir die Adresse auf, die dein Browser uns für dieses eine Gerät gibt. Sie dient einem Zweck: dir zu sagen, dass jemand eine deiner Herausforderungen gespielt hat. In der Mitteilung selbst steht nichts - nicht das Spiel, nicht der Punktestand, nicht wer gespielt hat. Das findet die App heraus, sobald du sie öffnest. Schaltest du sie wieder aus, ist die Adresse im selben Moment gelöscht. Sie geht auch nach neunzig Tagen ohne gewertetes Duell, oder sobald dein Browser uns sagt, dass es das Gerät nicht mehr gibt.",
   duelLab:"Duell",
   duelRow:"Gegen einen Freund",
   duelOnNow:"läuft",
@@ -1777,6 +1808,16 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   duelPeak:"Bestwert",
   duelWhoLab:"In der Rangliste",
   duelWhoNone:"Namen wählen, um dabei zu sein",
+  pushLab:"Mitteilungen",
+  pushYes:"An",
+  pushNot:"Aus",
+  pushNo:"Blockiert",
+  pushHomeShort:"Nur Startbildschirm",
+  pushHome:"Leg das Spiel zuerst auf den Startbildschirm",
+  pushAsk:"Sag mir Bescheid, wenn jemand spielt",
+  pushSaid:"Gut. Du hörst es, sobald jemand spielt.",
+  pushFail:"Das hat nicht geklappt. Es ist nichts eingeschaltet.",
+  pushBlocked:"Dein Browser blockiert Mitteilungen für diese Seite. Nur dort lässt sich das ändern.",
   duelRankIs:"#{n} von {of} weltweit",
   duelNameLead:"Wähl einen Namen, dann stehst du in der Rangliste. Du wählst ihn einmal - ändern geht danach nicht mehr.",
   duelNameOnce:"Sicher? Dieser Name bleibt deiner, und ändern geht später nicht mehr.",
@@ -2076,7 +2117,9 @@ es:{sub:"países · banderas, globo, atlas",
   moveGot:"¡Hecho! Tu progreso está ahora en este dispositivo.",
   moveAway:"Tu progreso está en camino: código {c}",
   privMove:"Si pasas tu progreso a otro dispositivo, espera como mucho diez minutos en nuestro servidor y se borra en cuanto se usa el código.",
-  privDuel:"Un duelo se juega en nuestro servidor mientras dura: las diez preguntas, las dos respuestas, los dos marcadores y la puntuación de cada uno, y nada que diga quién eres tú ni quién está enfrente. Un duelo se borra dos minutos después de que se vaya el último jugador. Un reto espera respuesta dos días como mucho, y luego se borra igual. Mientras espera, nuestro servidor guarda su código de seis letras en una lista para que alguien lo encuentre, y nada más.",
+  privDuel:"Un duelo se juega en nuestro servidor mientras dura: las preguntas, las dos respuestas, los dos marcadores y la puntuación de cada uno, y nada que diga quién eres tú ni quién está enfrente. Un duelo se borra dos minutos después de que se vaya el último jugador. Un reto espera respuesta dos días como mucho, y luego se borra igual. Mientras espera, nuestro servidor guarda su código de seis letras en una lista para que alguien lo encuentre, y nada más.",
+  privName:"En cuanto juegas un duelo clasificatorio, nuestro servidor guarda tu puntuación con ese mismo código aleatorio. Puedes añadirle un nombre. Es lo único de este juego que ven los demás: aparece en la clasificación junto a tu puntuación, y también lo ve quien juega contra ti. Déjalo vacío y no sales en ninguna lista; el juego funciona igual. Un nombre se elige una vez; escríbenos y lo quitamos. Tu puntuación, tu historial y tu nombre se borran juntos a los noventa días sin un duelo clasificatorio.",
+  privPush:"Si activas las notificaciones, guardamos la dirección que tu navegador nos da para ese dispositivo. Sirve para una sola cosa: avisarte de que alguien ha jugado uno de tus retos. La notificación en sí no lleva nada - ni el juego, ni la puntuación, ni quién jugó - porque eso lo averigua la app al abrirse. Si las desactivas, la dirección se borra en ese mismo momento. También desaparece a los noventa días sin un duelo clasificatorio, o en cuanto tu navegador nos dice que el dispositivo ya no existe.",
   duelLab:"Duelo",
   duelRow:"Reta a un amigo",
   duelOnNow:"en juego",
@@ -2146,6 +2189,16 @@ es:{sub:"países · banderas, globo, atlas",
   duelPeak:"Récord",
   duelWhoLab:"En la clasificación",
   duelWhoNone:"Elige un nombre para aparecer",
+  pushLab:"Notificaciones",
+  pushYes:"Activadas",
+  pushNot:"Desactivadas",
+  pushNo:"Bloqueadas",
+  pushHomeShort:"Pantalla de inicio",
+  pushHome:"Añade antes el juego a tu pantalla de inicio",
+  pushAsk:"Avísame cuando alguien lo juegue",
+  pushSaid:"Hecho. Te avisamos en cuanto alguien lo juegue.",
+  pushFail:"No ha funcionado. No se ha activado nada.",
+  pushBlocked:"Tu navegador bloquea las notificaciones de este sitio. Solo desde ahí se puede cambiar.",
   duelRankIs:"#{n} de {of} en el mundo",
   duelNameLead:"Elige un nombre y saldrás en la clasificación. Lo eliges una sola vez: después ya no se puede cambiar.",
   duelNameOnce:"¿Seguro? Este nombre será el tuyo y luego ya no se puede cambiar.",
@@ -2445,7 +2498,9 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   moveGot:"Gelukt! Je voortgang staat nu op dit toestel.",
   moveAway:"Je voortgang is onderweg: code {c}",
   privMove:"Zet je je voortgang over naar een ander toestel, dan wacht die hoogstens tien minuten op onze server en wordt hij gewist zodra de code gebruikt is.",
-  privDuel:"Een duel loopt op onze server zolang het duurt: de tien vragen, beide antwoorden, beide standen en ieders rating, en niets waaraan te zien is wie jullie zijn. Twee minuten nadat de laatste is weggegaan, is alles weg. Een uitdaging blijft hooguit twee dagen wachten op een antwoord en verdwijnt daarna net zo goed. Zolang ze klaarligt staat haar code van zes tekens op een lijst zodat een vreemde haar kan vinden, en verder niets.",
+  privDuel:"Een duel loopt op onze server zolang het duurt: de vragen, beide antwoorden, beide standen en ieders rating, en niets waaraan te zien is wie jullie zijn. Twee minuten nadat de laatste is weggegaan, is alles weg. Een uitdaging blijft hooguit twee dagen wachten op een antwoord en verdwijnt daarna net zo goed. Zolang ze klaarligt staat haar code van zes tekens op een lijst zodat een vreemde haar kan vinden, en verder niets.",
+  privName:"Heb je een competitief duel gespeeld, dan bewaart onze server je rating onder diezelfde willekeurige code. Je mag er een naam bij kiezen. Die naam is het enige in dit spel dat anderen te zien krijgen: hij staat op de ranglijst naast je rating, en wie tegen je speelt ziet hem ook. Laat je hem leeg, dan sta je nergens op - het spel speelt precies hetzelfde. Een naam kies je één keer; stuur ons een bericht en hij gaat er weer af. Je rating, je resultaten en je naam verdwijnen samen na negentig dagen zonder competitief duel.",
+  privPush:"Zet je meldingen aan, dan bewaren we het adres dat je browser ons voor dat ene toestel geeft. Het dient voor één ding: je laten weten dat een uitdaging van jou gespeeld is. In de melding zelf zit niets - niet het spel, niet de score, niet wie hem speelde - want dat zoekt de app zelf uit zodra je hem opent. Zet je ze weer uit, dan is het adres op datzelfde moment weg. Het verdwijnt ook na negentig dagen zonder competitief duel, of zodra je browser zegt dat het toestel er niet meer is.",
   duelLab:"Duel",
   duelRow:"Duel met een vriend",
   duelOnNow:"bezig",
@@ -2515,6 +2570,16 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   duelPeak:"Hoogste ooit",
   duelWhoLab:"Op de ranglijst",
   duelWhoNone:"Kies een naam om erop te staan",
+  pushLab:"Meldingen",
+  pushYes:"Aan",
+  pushNot:"Uit",
+  pushNo:"Geblokkeerd",
+  pushHomeShort:"Alleen beginscherm",
+  pushHome:"Zet het spel eerst op je beginscherm",
+  pushAsk:"Laat het me weten als iemand hem speelt",
+  pushSaid:"Gelukt. Je hoort het als iemand hem speelt.",
+  pushFail:"Dat lukte niet. Er staat niets aan.",
+  pushBlocked:"Je browser blokkeert meldingen voor deze site. Dat kun je alleen daar weer aanzetten.",
   duelRankIs:"#{n} van {of} wereldwijd",
   duelNameLead:"Kies een naam en je komt op de ranglijst. Je kiest hem één keer - daarna kun je hem niet meer veranderen.",
   duelNameOnce:"Weet je het zeker? Deze naam blijft van jou en kun je later niet meer veranderen.",
@@ -2974,6 +3039,7 @@ function normaliseStore(){
   }
 }
 var SCORE_URL="https://grandtour-scores.martijnvaes01.workers.dev";
+var VAPID_PUBLIC="BF0IzGfsXWf9GAx0UhzGEcpOD5pMUJzvDEyiYCbJd1mCU2-vVZ6smSYtDFsfIpvmTGocBmqwclQPW7WVkirK59E";
 
 var SCORED={daily:1,sprint:1,name:1,find:1,look:1,imposter:1,blind:1,cap:1,trap:1,locate:1,
   spot:1,globle:1,worldle:1,shape:1,bigger:1,trade:1,dossier:1,riverloc:1,sea:1,rangeloc:1};
@@ -3158,6 +3224,84 @@ function playerId(){
   }
   return store.pid;
 }
+var pushSt={ready:false,on:false,ep:"",busy:false};
+function pushHas(){
+  return !!(SCORE_URL&&window.PushManager&&window.Notification&&navigator.serviceWorker);
+}
+function pushNeedsHome(){
+  if(!pushHas())return false;
+  var ios=/iP(hone|ad|od)/.test(navigator.userAgent)||
+    (navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  if(!ios)return false;
+  var installed=(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||
+    navigator.standalone===true;
+  return !installed;
+}
+function pushCan(){return pushHas()&&!pushNeedsHome();}
+function pushDenied(){try{return window.Notification&&Notification.permission==="denied";}catch(e){return false;}}
+function pushKeyBytes(){
+  var s=VAPID_PUBLIC.replace(/-/g,"+").replace(/_/g,"/");
+  var raw=atob(s+"=".repeat((4-s.length%4)%4)),out=new Uint8Array(raw.length),i;
+  for(i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);
+  return out;
+}
+function pushKeepLang(){
+  try{
+    if(!window.caches)return;
+    caches.open("grandtour").then(function(c){c.put("gt-lang",new Response(lang||"en"));}).catch(function(){});
+  }catch(e){}
+}
+function pushSync(then){
+  if(!pushHas()){pushSt.ready=true;if(then)then();return;}
+  navigator.serviceWorker.getRegistration().then(function(reg){
+    if(!reg||!reg.pushManager){pushSt.ready=true;pushSt.on=false;if(then)then();return;}
+    return reg.pushManager.getSubscription().then(function(s){
+      pushSt.ready=true;pushSt.on=!!s;pushSt.ep=s?s.endpoint:"";
+      if(then)then();
+    });
+  }).catch(function(){pushSt.ready=true;pushSt.on=false;if(then)then();});
+}
+function pushTell(ep,off,then){
+  var body={pid:playerId(),sec:playerSec(),ep:ep};
+  if(!off)body.lang=lang||"en";
+  fetch(SCORE_URL+"/api/push"+(off?"/off":""),{method:"POST",headers:{"Content-Type":"text/plain"},
+    body:JSON.stringify(body),keepalive:true})
+    .then(function(r){return r.json().catch(function(){return{ok:r.status===200};});})
+    .then(function(j){if(then)then(!!(j&&j.ok));})
+    .catch(function(){if(then)then(false);});
+}
+function pushOnGo(then){
+  if(pushSt.busy||!pushCan())return then&&then(false);
+  pushSt.busy=true;
+  var done=function(ok){pushSt.busy=false;if(then)then(ok);};
+  Notification.requestPermission().then(function(p){
+    if(p!=="granted")return done(false);
+    return navigator.serviceWorker.ready.then(function(reg){
+      return reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:pushKeyBytes()});
+    }).then(function(s){
+      pushKeepLang();
+      pushTell(s.endpoint,false,function(ok){
+        pushSt.on=ok;pushSt.ep=ok?s.endpoint:"";
+        if(!ok){try{s.unsubscribe();}catch(e){}}
+        done(ok);
+      });
+    });
+  }).catch(function(){done(false);});
+}
+function pushOffGo(then){
+  if(pushSt.busy)return then&&then(false);
+  pushSt.busy=true;
+  var done=function(){pushSt.busy=false;pushSt.on=false;pushSt.ep="";if(then)then(true);};
+  navigator.serviceWorker.getRegistration().then(function(reg){
+    if(!reg||!reg.pushManager)return done();
+    return reg.pushManager.getSubscription().then(function(s){
+      if(!s)return done();
+      var ep=s.endpoint;
+      pushTell(ep,true,function(){try{s.unsubscribe();}catch(e){}done();});
+    });
+  }).catch(function(){done();});
+}
+
 function playerSec(){
   if(!store.psec){
     var a="",b=new Uint8Array(16);
@@ -11153,7 +11297,7 @@ function openStats(){
 function closeStats(){$("statsmodal").hidden=true;snd.close();}
 var setView="list";
 var SETPAGE={
-  privacy:{title:"privTitle",keys:["priv0","priv1","priv2","privMove","privDuel","privWhy","privRights","privId"]},
+  privacy:{title:"privTitle",keys:["priv0","priv1","priv2","privMove","privDuel","privName","privPush","privWhy","privRights","privId"]},
   terms:{title:"termsTitle",keys:["terms1","terms2","terms3","terms4"]},
   credits:{title:"credTitle",keys:["credIntro",
     "cred1H","cred1","cred2H","cred2","cred3H","cred3","cred3b","cred4H","cred4","cred5H","cred5","cred6"]}
@@ -11176,6 +11320,11 @@ function paintSettings(){
   $("duelbtn").hidden=!duelOn();
   $("duelrowlab").textContent=t("duelRow");
   $("duelrowval").textContent=duel.on?t("duelOnNow"):"";
+  $("pushbtn").hidden=!pushHas();
+  $("pushlab").textContent=t("pushLab");
+  $("pushval").textContent=pushNeedsHome()?t("pushHomeShort"):
+    (pushDenied()?t("pushNo"):t(pushSt.on?"pushYes":"pushNot"));
+  $("pushbtn").setAttribute("aria-pressed",pushSt.on?"true":"false");
   $("kofibtn").hidden=!kofiOn();
   $("kofilab").textContent=t("kofiLab");
   $("kofival").textContent=KOFI_URL?"Ko-fi":t("kofiSoon");
@@ -11962,6 +12111,9 @@ function duelPostCard(){
   var el=$("duelpostelo");
   el.querySelector("i").textContent=t("duelRating");
   el.querySelector("b").textContent=store.duelElo||DUEL_ELO0;
+  var pb=$("duelpostpush");
+  pb.textContent=t("pushAsk");
+  pb.hidden=!(duel.code&&pushCan()&&!pushSt.on&&!pushDenied());
 }
 function paintDuel(){
   var v=duel.view;
@@ -15534,6 +15686,7 @@ applyLang=function(){
   baseApplyLang();
   if($("daymodal")&&!$("daymodal").hidden)dayAsk();
   if($("duelmodal")&&!$("duelmodal").hidden)paintDuel();
+  if($("setmodal")&&!$("setmodal").hidden)paintSettings();
   $("menu").setAttribute("aria-label",t("menu"));
   var ledger=document.querySelector("#drill>.stats");
   if(ledger)ledger.setAttribute("aria-label",t("statsTitle"));
@@ -15708,6 +15861,20 @@ $("movetake").onclick=moveTake;
 $("movecodein").addEventListener("keydown",function(e){if(e.key==="Enter")moveTake();});
 $("movecancel").onclick=function(){moveCheck(true);};
 $("duelbtn").onclick=function(){$("setmodal").hidden=true;openDuel();};
+$("pushbtn").onclick=function(){
+  if(pushNeedsHome())return flash(t("pushHome"));   /* the sentence, not the word */
+  if(pushDenied())return flash(t("pushBlocked"));
+  if(pushSt.busy)return;
+  if(pushSt.on)pushOffGo(function(){paintSettings();});
+  else pushOnGo(function(ok){paintSettings();flash(t(ok?"pushSaid":"pushFail"));});
+};
+$("duelpostpush").onclick=function(){
+  if(pushSt.busy)return;
+  pushOnGo(function(ok){
+    $("duelpostpush").hidden=true;
+    flash(t(ok?"pushSaid":"pushFail"));
+  });
+};
 $("duelmake").onclick=function(){duel.want="live";duel.view="pick";duelSay("");paintDuel();};
 $("duelsendch").onclick=function(){if(duel.taking)return;duel.view="rank";duelSay("");paintDuel();};
 $("duelrankgo").onclick=duelOnline;
@@ -16147,6 +16314,15 @@ warmGeo();          /* the fine coastlines, decoded while nobody is waiting on t
 $("sound").innerHTML=store.sound?"&#9834;":"&#9834;&#822;";
 if(CHEATS&&/[?&]dbg=1/.test(location.search)){
   window.__VEXDBG={
+    push:{
+      state:function(){return pushSt;},
+      has:function(){return pushHas();},can:function(){return pushCan();},
+      home:function(){return pushNeedsHome();},denied:function(){return pushDenied();},
+      key:function(){return pushKeyBytes();},
+      sync:function(cb){pushSync(cb);},
+      on:function(cb){pushOnGo(cb);},off:function(cb){pushOffGo(cb);},
+      lang:function(){pushKeepLang();}
+    },
     duel:function(){return duel;},openDuel:function(){openDuel();},paintDuel:function(){paintDuel();},
     duelDeal:function(p,n){return duelDeal(p,n);},
     duelSolo:function(p){return duelSoloStart(p||DUEL_MIX);},
