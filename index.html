@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v537";</script>
+<script>window.GT_BUILD="v538";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -12416,7 +12416,8 @@ function paintDuel(){
   $("duelok").textContent=t(v==="home"||v==="end"||posted?"close":"backLab");
   $("duelcodein").setAttribute("placeholder",t("duelHint"));
   var canAgain=(v==="end"&&!!duel.ws&&!duel.gone&&duel.mode!=="async");
-  var canRev=(v==="end"&&duel.mode==="async"&&!!duel.end&&!!duel.end.rate&&!!duel.rollOpen);
+  var canRev=(v==="end"&&duel.mode==="async"&&!!duel.end&&!!duel.end.rate&&!!duel.rollOpen&&
+    duel.end.win!==duel.seat&&duel.end.win!==-1);
   $("duelrev").hidden=!canRev;
   $("duelrev").textContent=t("duelRevGo");
   $("duelagain").hidden=!canAgain;
