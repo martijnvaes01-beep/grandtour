@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v587";</script>
+<script>window.GT_BUILD="v590";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -1043,6 +1043,7 @@ en:{sub:"countries · flags, globe, atlas",
   duelShareText:"Duel me on Grand Tour",
   duelCopied:"Link copied.",
   duelYourMiss:"Wrong. The rest of the time goes to your opponent.",
+  duelSamePair:"You two have already played a rated duel today: this one counts in your record, not your rating.",
   duelNoRate:"No rating change: one of you didn't answer anything.",
   duelScanGo:"Scan a code",
   duelScanOff:"Stop the camera",
@@ -1503,6 +1504,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   duelShareText:"Affronte-moi sur Grand Tour",
   duelCopied:"Lien copié.",
   duelYourMiss:"Raté. Le reste du temps revient à l'adversaire.",
+  duelSamePair:"Vous vous êtes déjà affrontés en classé aujourd'hui : celui-ci compte dans vos résultats, pas dans votre cote.",
   duelNoRate:"Cote inchangée : l'un de vous n'a répondu à aucune question.",
   duelScanGo:"Scanner un code",
   duelScanOff:"Arrêter la caméra",
@@ -1938,6 +1940,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   duelShareText:"Duell gegen mich bei Grand Tour",
   duelCopied:"Link kopiert.",
   duelYourMiss:"Falsch. Jetzt hat dein Gegner die restliche Zeit.",
+  duelSamePair:"Ihr habt heute schon ein gewertetes Duell gespielt: Dieses zählt für eure Bilanz, nicht für die Wertung.",
   duelNoRate:"Keine Wertung: Einer von euch hat keine Frage beantwortet.",
   duelScanGo:"Code scannen",
   duelScanOff:"Kamera ausschalten",
@@ -2373,6 +2376,7 @@ es:{sub:"países · banderas, globo, atlas",
   duelShareText:"Te reto en Grand Tour",
   duelCopied:"Enlace copiado.",
   duelYourMiss:"Esa no era. El resto del tiempo es de tu rival.",
+  duelSamePair:"Hoy ya jugasteis un duelo clasificatorio: este cuenta en vuestro historial, no en la puntuación.",
   duelNoRate:"La puntuación no cambia: uno de los dos no respondió a nada.",
   duelScanGo:"Escanear un código",
   duelScanOff:"Apagar la cámara",
@@ -2808,6 +2812,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   duelShareText:"Durf jij het tegen me op te nemen in Grand Tour?",
   duelCopied:"Link gekopieerd.",
   duelYourMiss:"Die was het niet. De rest van de klok is voor je tegenstander.",
+  duelSamePair:"Jullie speelden vandaag al een ranked duel tegen elkaar: dit telt mee in je resultaten, niet in je rating.",
   duelNoRate:"Je rating verandert niet: een van jullie heeft geen enkele vraag beantwoord.",
   duelScanGo:"Code scannen",
   duelScanOff:"Camera uit",
@@ -12652,7 +12657,8 @@ function duelRated(r,vs){
   if(vs&&typeof vs.elo==="number")duel.vsElo={elo:vs.elo,d:typeof vs.d==="number"?vs.d:0};
   if(duel.rated||!r||typeof r.elo!=="number")return false;
   duel.rated=true;
-  duel.eloIdle=false;
+  duel.eloIdle=false;duel.samePair=false;
+  duel.samePair=!!r.same;
   duel.eloWas=store.duelElo||DUEL_ELO0;
   duel.eloGot=typeof r.d==="number"?r.d:(r.elo-duel.eloWas);
   duel.eloAt=0;
@@ -12674,13 +12680,13 @@ function duelRated(r,vs){
 }
 function duelEloApply(sc,pts){
   if(duel.rated||duel.seat<0)return;
-  if(duel.mode!=="async"){duel.rated=true;duel.eloGot=null;duel.eloIdle=false;return;}
+  if(duel.mode!=="async"){duel.rated=true;duel.eloGot=null;duel.eloIdle=false;duel.samePair=false;return;}
   duel.rated=true;
   var them=duel.seat===0?1:0;
   if(pts&&(!duelPlayed(pts[duel.seat])||!duelPlayed(pts[them]))){
     duel.eloGot=null;duel.eloIdle=true;return;
   }
-  duel.eloIdle=false;
+  duel.eloIdle=false;duel.samePair=false;
   var mine=duel.eloAt||store.duelElo||DUEL_ELO0;
   var theirs=(duel.elo||[])[them]||DUEL_ELO0;
   var k=(store.duelN||0)<20?32:24;
@@ -13254,9 +13260,9 @@ function duelEndCard(){
     return;
   }
   if(rollable){}
-  else if(duel.eloIdle){
+  else if(duel.eloIdle||duel.samePair){
     var ei=document.createElement("span");ei.className="duelelo idle";
-    var eit=document.createElement("i");eit.textContent=t("duelNoRate");
+    var eit=document.createElement("i");eit.textContent=t(duel.samePair?"duelSamePair":"duelNoRate");
     ei.appendChild(eit);
     rows.appendChild(ei);
   }
@@ -13408,10 +13414,10 @@ function duelRollout(rows,e,me,them,fresh){
   duelRollLand(fresh!==false,(n*gap+0.42)*1000);
 }
 function duelRollElo(me,them){
-  if(duel.eloIdle){
+  if(duel.eloIdle||duel.samePair){
     var idle=document.createElement("div");idle.className="drelo";
     var ib=document.createElement("span");var ii=document.createElement("i");
-    ii.textContent=t("duelNoRate");ib.appendChild(ii);idle.appendChild(ib);
+    ii.textContent=t(duel.samePair?"duelSamePair":"duelNoRate");ib.appendChild(ii);idle.appendChild(ib);
     return idle;
   }
   if(duel.eloGot===null||duel.eloGot===undefined)return null;
@@ -13648,7 +13654,7 @@ function duelMsg(m){
     duel.board=m.board;duel.n=m.n;duel.secs=m.secs;duel.lv=m.lv||[];duel.elo=m.elo||duel.elo;duel.nm=m.nm||duel.nm;
     duel.end=null;duel.again=false;duel.wantThem=false;
     duel.score=[];duel.i=-1;duel.q=null;duel.picked=null;duel.got=false;
-    duel.rated=false;duel.barSeed=false;duel.eloGot=null;duel.eloIdle=false;
+    duel.rated=false;duel.barSeed=false;duel.eloGot=null;duel.eloIdle=false;duel.samePair=false;
     clearTimeout(duel.missT);duel.missT=0;
     duel.view="home";
     duelShut();
@@ -13718,7 +13724,7 @@ function duelMsg(m){
 function duelStart(){
   if(duel.on)return;
   duel.on=true;duel.end=null;duel.i=-1;duel.q=null;duel.picked=null;duel.got=false;
-  duel.rated=false;duel.barSeed=false;duel.eloGot=null;duel.eloIdle=false;
+  duel.rated=false;duel.barSeed=false;duel.eloGot=null;duel.eloIdle=false;duel.samePair=false;
   document.documentElement.setAttribute("data-duel",duel.mode==="async"?"rank":"1");
   duelShut();
   duel.jump=true;
