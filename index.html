@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v579";</script>
+<script>window.GT_BUILD="v581";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -9968,6 +9968,29 @@ function resetGlobeView(){
 }
 var RETIRED={crowd:"bigger",rich:"bigger",dense:"bigger",economy:"bigger",
   north:"bigger",neigh:"bigger",border:"cap"};
+function surfacesOf(m,kind){
+  kind=kind||playKind(m);
+  var q=QUIZ[m],trace=isTrace(m),o={};
+  o.globe=(kind==="locate"||kind==="route"||kind==="globle"||kind==="spot")&&m!=="worldle";
+  o.shape=(kind==="shape"||kind==="cap"||m==="worldle"||m==="trap"||m==="border"||(m==="find"&&deskWide()));
+  o.big=kind==="bigger";
+  o.clues=kind==="shape";
+  o.subject=!(kind==="shape"||kind==="globle"||kind==="bigger"||kind==="spot");
+  o.plain=(kind==="locate"||kind==="cap"||kind==="imposter"||m==="dossier"||m==="trap"||m==="find"||m==="postcard"||m==="sizeup"
+    ||kind==="route");
+  o.opts=((q&&!q.typed&&!q.custom)||kind==="bigger")&&!trace;
+  o.field=!!(kind==="shape"||kind==="route"||kind==="globle"||kind==="spot"||(q&&q.typed));
+  o.fieldShown=o.field&&!trace;
+  o.chain=(kind==="route"||kind==="globle"||(kind==="shape"&&m==="daily"));
+  o.tip=((kind==="route"||kind==="globle")&&m!=="worldle");
+  o.clock=(m==="sprint"||m==="bigger"||duel.on);
+  o.reveal=!!(dayRun.on||m==="dossier"||locating(m)||m==="spot"||m==="shape"||m==="globle"||m==="daily"
+    ||(q&&(q.typed||q.custom)));
+  if(dayClocked(m))o.reveal=false;
+  if(duel.on)o.reveal=false;
+  if(trace)o.reveal=false;
+  return o;
+}
 function setMode(m,keepRegion){
   pcShowOff();
   hopLiveMemo.k="";   /* the tricky list moves as you play */
@@ -10001,38 +10024,30 @@ function setMode(m,keepRegion){
   var kind=playKind(m);
   document.documentElement.setAttribute("data-kind",kind);
   var drilling=m!=="atlas";
-  var onGlobe=(kind==="locate"||kind==="route"||kind==="globle"||kind==="spot")&&m!=="worldle";
+  var sf=surfacesOf(m,kind);
+  var onGlobe=sf.globe;
   $("drill").hidden=!drilling;
   $("progress").hidden=drilling;
   $("atlas").hidden=drilling;
-  $("globewrap").hidden=!onGlobe;
+  $("globewrap").hidden=!sf.globe;
   $("scorecard").innerHTML="";
-  $("shapewrap").hidden=!(kind==="shape"||kind==="cap"||m==="worldle"||m==="trap"||m==="border"
-    ||(m==="find"&&deskWide()));
-  $("bigwrap").hidden=kind!=="bigger";
-  if($("cluerail"))$("cluerail").hidden=kind!=="shape";
+  $("shapewrap").hidden=!sf.shape;
+  $("bigwrap").hidden=!sf.big;
+  if($("cluerail"))$("cluerail").hidden=!sf.clues;
   globe.lines=null;   /* the hand drawn lines belong to the game that asked for them */
-  $("flagbox").hidden=(kind==="shape"||kind==="globle"||kind==="bigger"||kind==="spot");
-  $("flagbox").className="flagbox"+
-    (kind==="locate"||kind==="cap"||kind==="imposter"||m==="dossier"||m==="trap"||m==="find"||m==="postcard"||m==="sizeup"
-      ||kind==="route"
-      ?" plain":"");
-  $("opts").hidden=!((QUIZ[m]&&!QUIZ[m].typed&&!QUIZ[m].custom)||kind==="bigger");
-  typeWanted=(kind==="shape"||kind==="route"||kind==="globle"||kind==="spot"||(QUIZ[m]&&QUIZ[m].typed));
-  $("typerow").hidden=!typeWanted;
+  $("flagbox").hidden=!sf.subject;
+  $("flagbox").className="flagbox"+(sf.plain?" plain":"");
+  $("opts").hidden=!sf.opts;
+  typeWanted=sf.field;
+  $("typerow").hidden=!sf.fieldShown;
   if(typeWanted){setTimeout(typeFoot,700);setTimeout(typeFoot,1800);}
-  $("chain").hidden=!(kind==="route"||kind==="globle"||(kind==="shape"&&m==="daily"));
-  $("dailytip").hidden=!((kind==="route"||kind==="globle")&&m!=="worldle");
-  $("timerbar").hidden=!(m==="sprint"||m==="bigger"||duel.on);
+  $("chain").hidden=!sf.chain;
+  $("dailytip").hidden=!sf.tip;
+  $("timerbar").hidden=!sf.clock;
   $("scorecard").hidden=true;
   $("skip").hidden=true;
-  $("reveal").hidden=!(dayRun.on||m==="dossier"||locating(m)||m==="spot"||m==="shape"||m==="globle"||m==="daily"
-    ||(QUIZ[m]&&(QUIZ[m].typed||QUIZ[m].custom)));
-  if(dayClocked(m))$("reveal").hidden=true;
-  if(duel.on)$("reveal").hidden=true;
-  if(isTrace(m)){$("opts").hidden=true;$("typerow").hidden=true;
-    $("reveal").hidden=true;}
-  if(!$("opts").hidden&&!$("flagbox").hidden)document.documentElement.setAttribute("data-pair","1");
+  $("reveal").hidden=!sf.reveal;
+  if(sf.opts&&sf.subject)document.documentElement.setAttribute("data-pair","1");
   else document.documentElement.removeAttribute("data-pair");
   $("share").hidden=true;
   $("next").textContent=(kind==="globle"||kind==="bigger")?t("newSecret"):t("next");
