@@ -1,4 +1,4 @@
-/* Grand Tour v596. Written by standalone.js; edit it there. */
+/* Grand Tour v597. Written by standalone.js; edit it there. */
 var CACHE="grandtour";
 var KEEP=["./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.96aa85ca2f.json","assets/coast.c087b86c1b.json","assets/zing.e25139343a.json","assets/more.b89ddfda92.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
 self.addEventListener("install",function(e){
