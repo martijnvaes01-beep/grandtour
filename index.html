@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v590";</script>
+<script>window.GT_BUILD="v591";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -3146,10 +3146,10 @@ function topo50(){
 }
 
 var ASSETS={
-  flags:{url:"assets/flags.json",json:true,
+  flags:{url:"assets/flags.96aa85ca2f.json",json:true,
     has:function(){return !!FLAGSVG;},
     take:function(v){FLAGSVG=v;svgCache={};INKCACHE={};}},
-  coast:{url:"assets/coast.json",json:false,
+  coast:{url:"assets/coast.c087b86c1b.json",json:false,
     has:function(){return !!(TOPO50_TEXT||TOPO50);},
     take:function(v){TOPO50_TEXT=v;}}
 };

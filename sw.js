@@ -1,6 +1,6 @@
-/* Grand Tour v590. Written by standalone.js; edit it there. */
+/* Grand Tour v591. Written by standalone.js; edit it there. */
 var CACHE="grandtour";
-var KEEP=["./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.json","assets/coast.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
+var KEEP=["./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.96aa85ca2f.json","assets/coast.c087b86c1b.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
 self.addEventListener("install",function(e){
   self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(function(c){
@@ -9,13 +9,30 @@ self.addEventListener("install",function(e){
     }));
   }));
 });
-self.addEventListener("activate",function(e){e.waitUntil(self.clients.claim());});
+/* a hashed asset another build asked for is dead weight: gone when this worker takes over (v591) */
+var HASHED=/\/assets\/[a-z]+\.[0-9a-f]{10}\.json$/;
+self.addEventListener("activate",function(e){e.waitUntil(caches.open(CACHE).then(function(c){
+  return c.keys().then(function(ks){return Promise.all(ks.map(function(k){
+    var p=new URL(k.url).pathname;
+    if(HASHED.test(p)&&!KEEP.some(function(u){return p.slice(-u.length)===u;}))return c.delete(k);
+  }));});
+}).catch(function(){}).then(function(){return self.clients.claim();}));});
 function keyOf(req){var u=new URL(req.url);return u.origin+u.pathname;}
 self.addEventListener("fetch",function(e){
   var req=e.request;
   if(req.method!=="GET")return;
   var u=new URL(req.url);
   if(u.origin!==self.location.origin)return;
+  /* A NAME THAT IS ITS CONTENT NEVER CHANGES, so its copy is the answer and the network is only for
+     the first time (v591). Everything else is still network first. */
+  if(HASHED.test(u.pathname)){
+    e.respondWith(caches.open(CACHE).then(function(c){
+      return c.match(keyOf(req)).then(function(hit){
+        return hit||fetch(req).then(function(r){if(r&&r.ok)c.put(keyOf(req),r.clone());return r;});
+      });
+    }));
+    return;
+  }
   e.respondWith(fetch(req).then(function(r){
     if(r&&r.ok&&r.type==="basic"){
       var copy=r.clone();
