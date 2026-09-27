@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v574";</script>
+<script>window.GT_BUILD="v575";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -16410,14 +16410,27 @@ function paintIntro(){
   paintStampRow();
   paintRank();
 }
+var IDLE_REST_MS=30000,lastInput=performance.now(),spinResting=false;
+["pointerdown","keydown","wheel","touchstart"].forEach(function(ev){
+  document.addEventListener(ev,function(){
+    lastInput=performance.now();
+    if(spinResting&&introOpen&&!spinId){spinResting=false;spinGlobe();}
+  },{capture:true,passive:true});
+});
 function spinGlobe(){
   stopSpin();
+  spinResting=false;
+  var rest=1;
   if(globe.glideId){cancelAnimationFrame(globe.glideId);globe.glideId=0;globe.vel=0;}
   var tick=0;
   spinId=requestAnimationFrame(function step(){
     globe.vel*=0.94;
     var k=globe.spinBoost==null?1:globe.spinBoost;
-    var d=(0.07+globe.vel)*k;
+    if(introOpen&&k<=1&&performance.now()-lastInput>IDLE_REST_MS){
+      rest*=0.94;
+      if(rest<0.01){drawGlobe();spinId=0;spinResting=true;return;}
+    } else rest=1;
+    var d=(0.07+globe.vel)*k*rest;
     if(d>0.0005||d<-0.0005){
       globe.lam+=d;
       var skip=k>8?3:(k>2?2:1);
