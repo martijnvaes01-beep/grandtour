@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v577";</script>
+<script>window.GT_BUILD="v579";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -3350,9 +3350,50 @@ function normaliseStore(){
 var SCORE_URL="https://grandtour-scores.martijnvaes01.workers.dev";
 var VAPID_PUBLIC="BF0IzGfsXWf9GAx0UhzGEcpOD5pMUJzvDEyiYCbJd1mCU2-vVZ6smSYtDFsfIpvmTGocBmqwclQPW7WVkirK59E";
 
-var SCORED={daily:1,sprint:1,name:1,find:1,look:1,imposter:1,blind:1,cap:1,trap:1,locate:1,hop:1,
-  ink:1,sizeup:1,pin:1,
-  spot:1,globle:1,worldle:1,shape:1,bigger:1,trade:1,dossier:1,riverloc:1,sea:1,rangeloc:1};
+var BOARDDEF=[
+  {k:"name",f:"flags",fi:0,l:"mName",d:"dName",g:0,s:1,t:["luggage",0,252,-1,5]},
+  {k:"find",f:"flags",fi:1,l:"mFind",d:"dFind",g:0,s:1,t:["admit",0,240,1.4,6]},
+  {k:"look",f:"flags",fi:2,l:"mLook",d:"dLook",g:3,s:1,t:["twin",0,250,0.9,6]},
+  {k:"imposter",f:"flags",fi:3,l:"mImposter",d:"dImposter",g:4,s:1,t:["forgery",0,250,-1.3,7]},
+  {k:"blind",f:"flags",fi:4,l:"mBlind",d:"dBlind",g:7,s:1,t:["blind",0,244,1.1,8]},
+  {k:"ink",f:"flags",fi:5,l:"mInk",d:"dInk",g:3,s:1,t:["admit",0,244,-1.2,9]},
+  {k:"dossier",f:"figures",fi:2,l:"mDossier",d:"dDossier",g:10,s:1,t:["file",0,246,1.3,7]},
+  {k:"cap",f:"cities",fi:0,l:"mCap",d:"dCap",g:2,s:1,t:["hotel",0,244,1.4,6]},
+  {k:"trap",f:"cities",fi:1,l:"mTrap",d:"dTrap",g:6,s:1,t:["rail",0,244,1,8]},
+  {k:"pin",f:"cities",fi:2,l:"mPin",d:"dPin",g:4,s:1,t:["board",0,250,-1.1,9]},
+  {k:"locate",f:"atlaswork",fi:0,l:"mLocate",d:"dLocate",g:0,s:1,t:["board",0,258,-1.2,7]},
+  {k:"hop",f:"atlaswork",fi:1,l:"mHop",d:"dHop",g:2,s:1,t:["steamer",0,250,1.1,8]},
+  {k:"spot",f:"atlaswork",fi:2,l:"mSpot",d:"dSpot",g:2,s:1,t:["planetarium",0,250,1,8]},
+  {k:"shape",f:"atlaswork",fi:3,l:"mShape",d:"dShape",g:1,s:1,t:["library",0,246,1,9]},
+  {k:"sizeup",f:"atlaswork",fi:4,l:"mSizeup",d:"dSizeup",g:3,s:1,t:["scale",0,246,1,9]},
+  {k:"bigger",f:"figures",fi:0,l:"mBigger",d:"dBigger",g:5,s:1,t:["scale",0,246,0.8,8]},
+  {k:"trade",f:"figures",fi:1,l:"mTrade",d:"dTrade",g:7,s:1,t:["crate",0,250,-1,7]},
+  {k:"riverloc",f:"nature",fi:0,l:"mRiverLoc",d:"dRiverLoc",g:2,s:1,t:["river",0,250,-1,6]},
+  {k:"sea",f:"nature",fi:1,l:"mSea",d:"dSea",g:5,s:1,t:["ocean",0,246,1.2,7]},
+  {k:"rangeloc",f:"nature",fi:2,l:"mRangeLoc",d:"dRangeLoc",g:4,s:1,t:["summit",0,250,0.9,9]},
+  {k:"postcard",f:"nature",fi:3,l:"mPostcard",d:"dPostcard",g:8,s:0,t:["postcard",0,246,-1.1,8]},
+  {k:"globle",f:"atlaswork",fi:5,l:"mGloble",d:"dGloble",g:3,s:1,t:["therm",0,246,1.1,8]},
+  {k:"worldle",f:"atlaswork",fi:6,l:"mWorldle",d:"dWorldle",g:6,s:1,t:["wordle",0,240,-1.2,9]},
+  {k:"sprint",f:"flags",fi:6,l:"mSprint",d:"dSprint",g:1,s:1,t:["cloak",0,252,-1.4,10]},
+  {k:"daily",f:"",fi:0,l:"mDaily",d:"",g:0,s:1,t:["rail",0,214,1.2,4]},
+  {k:"atlas",f:"",fi:0,l:"mAtlas",d:"",g:0,s:0,t:["stamp",0,146,2,9]}
+];
+var MODE_LABEL_EXTRA={border:"mBorder"};
+var MODE_DESC_EXTRA={border:"dBorder",crowd:"dCrowd",rich:"dRich"};
+var BOARDBY={};BOARDDEF.forEach(function(r){BOARDBY[r.k]=r;});
+var TABS=BOARDDEF.map(function(r){return r.k;});
+var SCORED={};BOARDDEF.forEach(function(r){if(r.s)SCORED[r.k]=1;});
+var MODE_LABEL={},MODE_DESC={};
+BOARDDEF.forEach(function(r){MODE_LABEL[r.k]=r.l;if(r.d)MODE_DESC[r.k]=r.d;});
+Object.keys(MODE_LABEL_EXTRA).forEach(function(k){MODE_LABEL[k]=MODE_LABEL_EXTRA[k];});
+Object.keys(MODE_DESC_EXTRA).forEach(function(k){MODE_DESC[k]=MODE_DESC_EXTRA[k];});
+var FOLDER_ORDER=["flags","atlaswork","cities","nature","figures"];
+var FOLDERS={};
+FOLDER_ORDER.forEach(function(f){
+  FOLDERS[f]=BOARDDEF.filter(function(r){return r.f===f;})
+    .sort(function(a,c){return a.fi-c.fi;}).map(function(r){return r.k;});
+});
+
 
 var RAWBOARD={sprint:1,bigger:1};
 var VERSUS=["sprint","bigger","daily","streak"];
@@ -8357,7 +8398,7 @@ var QUIZ={
     score:function(){return masteredIn(store.box)+"/"+FLAGS.length;}
   },
   sprint:{
-    ask:"askSprint",gate:1,
+    ask:"askSprint",
     subject:function(f){return flagNode(f,t("aFlag"));},
     option:function(o){var s=document.createElement("span");s.textContent=cname(o);return s;},
     score:function(){return t("best")+" "+(store.bestSprint||0);}
@@ -8372,7 +8413,7 @@ var QUIZ={
     score:function(){return masteredIn(store.box)+"/"+FLAGS.length;}
   },
   cap:{
-    ask:"askCapital",box:"cap",gate:2,
+    ask:"askCapital",box:"cap",
     has:function(f){return !!capitalOf(f);},
     prep:function(f){needCoast(function(){if(current===f)drawShape(f);});drawShape(f);},
     subject:function(f){return targetCard(f);},
@@ -8416,7 +8457,7 @@ var QUIZ={
     score:function(){return masteredIn(store.cap)+"/"+FLAGS.length;}
   },
   look:{
-    ask:"askLook",gate:3,
+    ask:"askLook",
     has:function(f){return !!IMPIN[f.c];},
     subject:function(f){return flagNode(f,t("aFlag"));},
     from:function(f){return [f].concat(famFor(f)||[]);},
@@ -8424,7 +8465,7 @@ var QUIZ={
     score:function(){return masteredIn(store.box)+"/"+IMPCOUNT;}
   },
   trap:{
-    ask:"askTrap",box:"cap",gate:6,
+    ask:"askTrap",box:"cap",
     has:function(f){return !!DECOY[f.c]&&!!capitalOf(f);},
     prep:function(f){needCoast(function(){if(current===f)drawShape(f);});drawShape(f);},
     subject:function(f){return targetCard(f);},
@@ -8444,7 +8485,7 @@ var QUIZ={
     score:function(){return masteredIn(store.cap)+"/"+FLAGS.length;}
   },
   trade:{
-    ask:"askTrade",box:"trade",gate:7,
+    ask:"askTrade",box:"trade",
     has:function(f){return !!EXPORTS[f.c];},
     subject:function(f){
       var box=document.createElement("div");box.className="manifest";
@@ -8535,18 +8576,18 @@ var QUIZ={
     score:function(){return masteredIn(store.trade)+"/"+Object.keys(EXPORTS).length;}
   },
   sea:{
-    ask:"askSea",box:"terra",gate:5,
+    ask:"askSea",box:"terra",
     has:featureHas(SEA),from:featureFrom(SEA),option:featureOption(SEA),
     subject:function(f){return targetCard(f);},
     score:featureScore(SEA)
   },
   blind:{
-    ask:"askBlind",box:"blind",typed:true,gate:7,
+    ask:"askBlind",box:"blind",typed:true,
     subject:function(f){return flagNode(f);},
     score:function(){return masteredIn(store.blind)+"/"+FLAGS.length;}
   },
   ink:{
-    ask:"askInk",gate:3,
+    ask:"askInk",
     has:function(f){return flagInk(f).length>=2;},
     prep:function(f){inkPick(f);},
     subject:function(f){
@@ -8578,7 +8619,7 @@ var QUIZ={
   },
   sizeup:{
     ask:function(f){return fill(t("askSizeup"),{c:cname(f),r:cname(FLAGBYNAME[sizeRefFor(f)]||f)});},
-    box:"terra",gate:3,custom:true,
+    box:"terra",custom:true,
     has:function(f){return !!FACTS[f.c]&&FACTS[f.c][2]>=5000&&!!shapeOf(f.n);},
     prep:function(f){
       var start=0.45+(Math.abs(hashName("k:"+f.n))%50)/100;
@@ -8609,7 +8650,7 @@ var QUIZ={
   },
   pin:{
     ask:function(f){return fill(t("askPin"),{c:capitalOf(f)});},
-    box:"terra",gate:4,custom:true,
+    box:"terra",custom:true,
     has:function(f){return !!CAPAT[f.c]&&!!capitalOf(f);},
     prep:function(f){pinQ={forName:f.n,at:null};globe.pins=null;},
     subject:function(f){return targetCard(f);},
@@ -8620,7 +8661,7 @@ var QUIZ={
     score:function(){return masteredIn(store.terra||{})+"/"+FLAGS.length;}
   },
   dossier:{
-    ask:"askDossier",box:"dossier",typed:true,gate:10,
+    ask:"askDossier",box:"dossier",typed:true,
     prep:function(f){
       if(dossier.forName===f.n)return;
       dossier={open:{},spent:0,forName:f.n,tries:DOS_TRIES,said:[],free:null};
@@ -9841,9 +9882,7 @@ function paintChips(){
     box.appendChild(b);
   });
 }
-var TABS=["name","find","look","imposter","blind","ink","dossier","cap","trap","pin",
-  "locate","hop","spot","shape","sizeup","bigger","trade","riverloc","sea","rangeloc","postcard",
-  "globle","worldle","sprint","daily","atlas"];
+
 var FOLDERTONE={
   daily    :["#E9E2C4","#4A3520"],   /* the ticket roll */
   flags    :["#1D4C6B","#FBF3E0"],   /* bunting */
@@ -10645,10 +10684,13 @@ function dailyKind(key){
   var i=(dayNumber(key)+daySalt)%DAILY_KINDS.length;
   return DAILY_KINDS[(i+DAILY_KINDS.length)%DAILY_KINDS.length];
 }
-var GATES={shape:1,spot:2,hop:2,riverloc:2,globle:3,rangeloc:4,bigger:5,worldle:6,postcard:8};
+var GATES={};BOARDDEF.forEach(function(r){if(r.g)GATES[r.k]=r.g;});
 var VERSION="src";
 function isTrace(m){m=m||mode;return m==="riverloc"||m==="rangeloc"||m==="sea";}
-function gateOf(m){var q=QUIZ[m];return (q&&q.gate)||GATES[m]||0;}
+function gateOf(m){
+  if(BOARDBY[m])return BOARDBY[m].g;
+  var q=QUIZ[m];return (q&&q.gate)||0;
+}
 var UNLOCK_ALL=CHEATS;
 function unlocked(m){return UNLOCK_ALL||rankIndex(store.xp||0)>=gateOf(m);}
 function gateLabel(m){return t("opensAt")+" "+rankName(gateOf(m));}
@@ -15343,20 +15385,8 @@ function paintCotd(){
 function knownMore(f){
   return factLine(KNOWNMORE,f);
 }
-var MODE_LABEL={name:"mName",find:"mFind",look:"mLook",imposter:"mImposter",blind:"mBlind",
-  ink:"mInk",sizeup:"mSizeup",pin:"mPin",
-  cap:"mCap",trap:"mTrap",border:"mBorder",locate:"mLocate",hop:"mHop",spot:"mSpot",
-  globle:"mGloble",worldle:"mWorldle",shape:"mShape",bigger:"mBigger",
-  trade:"mTrade",riverloc:"mRiverLoc",sea:"mSea",rangeloc:"mRangeLoc",
-  dossier:"mDossier",postcard:"mPostcard",
-  sprint:"mSprint",daily:"mDaily",atlas:"mAtlas"};
-var MODE_DESC={name:"dName",find:"dFind",look:"dLook",imposter:"dImposter",blind:"dBlind",
-  ink:"dInk",sizeup:"dSizeup",pin:"dPin",
-  cap:"dCap",trap:"dTrap",border:"dBorder",locate:"dLocate",hop:"dHop",spot:"dSpot",
-  globle:"dGloble",worldle:"dWorldle",shape:"dShape",bigger:"dBigger",crowd:"dCrowd",
-  rich:"dRich",trade:"dTrade",riverloc:"dRiverLoc",sea:"dSea",rangeloc:"dRangeLoc",
-  dossier:"dDossier",postcard:"dPostcard",
-  sprint:"dSprint"};
+
+
 var FOLDER_LABEL={flags:"mFlags",atlaswork:"mAtlasWork",cities:"mCities",
   nature:"mNature",figures:"mFigures"};
 var openFolderKey="";
@@ -16101,13 +16131,7 @@ var MODE_KEYS=[
   ["shape","mShape","dShape"],["sprint","mSprint","dSprint"],["bigger","mBigger","dBigger"],
   ["atlas","mAtlas","dAtlas"]
 ];
-var FOLDERS={
-  flags  :["name","find","look","imposter","blind","ink","sprint"],
-  atlaswork:["locate","hop","spot","shape","sizeup","globle","worldle"],
-  cities :["cap","trap","pin"],
-  nature :["riverloc","sea","rangeloc","postcard"],
-  figures:["bigger","trade","dossier"]
-};
+
 var TICKET_KEYS=[
   ["daily","mDaily"],["flags","mFlags"],["atlaswork","mAtlasWork"],
   ["cities","mCities"],["nature","mNature"],["figures","mFigures"],["atlas","mAtlas"],
@@ -16131,42 +16155,17 @@ function masteredIn(map){
 }
 
 var TAG_LAYOUT={
-  daily  :["rail"   ,0, 214, 1.2, 4],
-  duel   :["duel"   ,0,  68,-3.0, 10],
-  flags  :["bunting",0, 214,-1.0, 5],
-  atlaswork:["customs",0, 208, 1.3, 6],
-  cities :["hotel"  ,0, 218,-1.2, 7],
-  figures:["folder" ,0, 206, 1.1, 8],
-  atlas  :["stamp"  ,0, 146, 2.0, 9],
-  cap    :["hotel"  ,0, 244, 1.4, 6],
-  name    :["luggage",0, 252,-1.0, 5],
-  find    :["admit"  ,0, 240, 1.4, 6],
-  imposter:["forgery",0, 250,-1.3, 7],
-  blind   :["blind"  ,0, 244, 1.1, 8],
-  border  :["border" ,0, 246, 1.2, 7],
-  look    :["twin"   ,0, 250, 0.9, 6],
-  crowd   :["scale"  ,0, 246,-1.1, 9],
-  trap    :["rail"   ,0, 244, 1.0, 8],
-  worldle :["wordle" ,0, 240,-1.2, 9],
-  dossier :["file"   ,0, 246, 1.3, 7],
-  rich    :["bond"   ,0, 248, 1.0, 8],
-  trade   :["crate"  ,0, 250,-1.0, 7],
-  nature  :["steamer",0, 246, 1.1, 7],
-  riverloc:["river"  ,0, 250,-1.0, 6],
-  sea     :["ocean"  ,0, 246, 1.2, 7],
-  rangeloc:["summit" ,0, 250, 0.9, 9],
-  postcard:["postcard",0, 246,-1.1, 8],
-  locate:["board"  ,0, 258,-1.2, 7],
-  hop   :["steamer",0, 250, 1.1, 8],
-  spot  :["planetarium",0, 250, 1.0, 8],
-  globle:["therm"  ,0, 246, 1.1, 8],
-  shape :["library",0, 246, 1.0, 9],
-  bigger:["scale"  ,0, 246, 0.8, 8],
-  sprint:["cloak"  ,0, 252,-1.4,10],
-  ink   :["admit"  ,0, 244,-1.2, 9],
-  sizeup:["scale"  ,0, 246, 1.0, 9],
-  pin   :["board"  ,0, 250,-1.1, 9]
+  duel:["duel",0,68,-3,10],
+  flags:["bunting",0,214,-1,5],
+  atlaswork:["customs",0,208,1.3,6],
+  cities:["hotel",0,218,-1.2,7],
+  figures:["folder",0,206,1.1,8],
+  border:["border",0,246,1.2,7],
+  crowd:["scale",0,246,-1.1,9],
+  rich:["bond",0,248,1,8],
+  nature:["steamer",0,246,1.1,7]
 };
+BOARDDEF.forEach(function(r){if(r.t)TAG_LAYOUT[r.k]=r.t;});
 function tightFit(){
   return /^tight/.test(document.documentElement.getAttribute("data-fit")||"");
 }
