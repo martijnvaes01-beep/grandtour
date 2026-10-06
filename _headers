@@ -8,3 +8,8 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(self), payment=()
   Strict-Transport-Security: max-age=31536000
+
+# THE PAGES.DEV COPY IS NOT A SECOND SITE (v691): Cloudflare serves the same files at grandtour.pages.dev, and Google
+# should index only grandtourbureau.com. The canonical tags already say so; this says it louder.
+https://grandtour.pages.dev/*
+  X-Robots-Tag: noindex
