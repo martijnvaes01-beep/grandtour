@@ -1,4 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://grandtourbureau.com/</loc><lastmod>2026-10-06</lastmod></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://grandtourbureau.com/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/nl/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/fr/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/de/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/es/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/en/flag-quiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/flag-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/vlaggenquiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-drapeaux/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/flaggen-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-banderas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/flag-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/nl/vlaggenquiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/flag-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/vlaggenquiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-drapeaux/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/flaggen-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-banderas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/flag-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/fr/quiz-drapeaux/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/flag-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/vlaggenquiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-drapeaux/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/flaggen-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-banderas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/flag-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/de/flaggen-quiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/flag-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/vlaggenquiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-drapeaux/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/flaggen-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-banderas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/flag-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/es/quiz-banderas/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/flag-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/vlaggenquiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-drapeaux/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/flaggen-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-banderas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/flag-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/en/capitals-quiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/hoofdsteden-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/hauptstaedte-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/nl/hoofdsteden-quiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/hoofdsteden-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/hauptstaedte-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/fr/quiz-capitales/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/hoofdsteden-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/hauptstaedte-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/de/hauptstaedte-quiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/hoofdsteden-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/hauptstaedte-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/es/quiz-capitales/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/hoofdsteden-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/hauptstaedte-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-capitales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/capitals-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/en/rivers-and-mountains-quiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/rivieren-en-gebergten-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-fleuves-montagnes/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/fluesse-gebirge-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-rios-y-montanas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/nl/rivieren-en-gebergten-quiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/rivieren-en-gebergten-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-fleuves-montagnes/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/fluesse-gebirge-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-rios-y-montanas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/fr/quiz-fleuves-montagnes/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/rivieren-en-gebergten-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-fleuves-montagnes/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/fluesse-gebirge-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-rios-y-montanas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/de/fluesse-gebirge-quiz/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/rivieren-en-gebergten-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-fleuves-montagnes/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/fluesse-gebirge-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-rios-y-montanas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+  </url>
+  <url><loc>https://grandtourbureau.com/es/quiz-rios-y-montanas/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://grandtourbureau.com/nl/rivieren-en-gebergten-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grandtourbureau.com/fr/quiz-fleuves-montagnes/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://grandtourbureau.com/de/fluesse-gebirge-quiz/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://grandtourbureau.com/es/quiz-rios-y-montanas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grandtourbureau.com/en/rivers-and-mountains-quiz/"/>
+  </url>
 </urlset>
