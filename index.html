@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v677";</script>
+<script>window.GT_BUILD="v678";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -1040,6 +1040,7 @@ en:{sub:"countries · flags, globe, atlas",
   privName:"Once you have played a ranked duel, your rating is kept on our server under that same random code. You can pick a name to go with it. That name is the only thing other players see: it appears on the leaderboard next to your rating, and your opponents see it too. You need one to play ranked; the rest of the game works the same without it. You pick a name once; write to us if you want it removed. Your rating, record and name are all deleted after ninety days without a ranked duel.",
   privPush:"Turn notifications on and we keep the address your browser gives us for that one device. It is only used to tell you that someone has played one of your challenges, or wants revenge. The notification itself contains nothing - no game, no score, no player - the app looks that up when you open it. Turn them off and the address is deleted straight away. It is also deleted after ninety days without a ranked duel, or when your browser tells us the device is gone.",
   privSeason:"We keep two more things about ranked play. At the end of each month we record where every player finished - their rating and position - so the game can show you your season. That record is deleted after ninety days, and your phone keeps its own copy. When you ask for revenge, the challenge is kept for the other player with your name on it, so they can find it. It is deleted once it is played, or after two days.",
+  privVisits:"When you open the game, Cloudflare, which hosts it, counts the visit: which page, which kind of browser, roughly which country. It uses no cookies and keeps nothing that tells us who you are. We only ever see totals.",
   duelLab:"Duel",
   duelRow:"Duel a friend",
   duelOnNow:"playing",
@@ -1495,6 +1496,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   privName:"Dès votre premier duel classé, notre serveur conserve votre classement sous ce même code aléatoire. Vous pouvez y ajouter un nom. C'est la seule chose ici que les autres voient : il figure au classement à côté de votre score, et la personne que vous affrontez le voit aussi. Il en faut un pour jouer en classé ; le reste du jeu fonctionne sans. Un nom se choisit une fois ; écrivez-nous et il sera retiré. Votre classement, vos résultats et votre nom sont effacés ensemble après quatre-vingt-dix jours sans duel classé.",
   privPush:"Si vous activez les notifications, nous conservons l'adresse que votre navigateur nous donne pour cet appareil. Elle ne sert qu'à deux choses : vous dire qu'on a répondu à l'un de vos défis, et que quelqu'un veut sa revanche. La notification elle-même ne contient rien - ni le jeu, ni le score, ni qui a joué - car l'application le découvre à l'ouverture. Désactivez-les et l'adresse est effacée au même instant. Elle disparaît aussi après quatre-vingt-dix jours sans duel classé, ou dès que votre navigateur nous signale que l'appareil n'existe plus.",
   privSeason:"Deux autres choses sont conservées pour les duels classés. À la fin de chaque mois, nous notons où chaque joueur a terminé - son classement et sa place - pour que le jeu puisse vous montrer votre saison. Cette trace est effacée après quatre-vingt-dix jours, et votre téléphone en garde sa propre copie. Et quand vous demandez une revanche, le défi est gardé pour l'autre joueur, avec votre nom, pour qu'il puisse le trouver. Il est effacé dès qu'il est joué, ou au bout de deux jours.",
+  privVisits:"Quand vous ouvrez le jeu, Cloudflare, qui l'héberge, compte la visite : quelle page, quel type de navigateur, à peu près quel pays. Sans cookies, et sans rien garder qui nous dise qui vous êtes. Nous ne voyons que des totaux.",
   duelLab:"Duel",
   duelRow:"Défier un ami",
   duelOnNow:"en cours",
@@ -1950,6 +1952,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   privName:"Sobald du ein gewertetes Duell gespielt hast, bewahrt unser Server deine Wertung unter demselben zufälligen Code auf. Du kannst einen Namen dazu wählen. Er ist das Einzige in diesem Spiel, das andere zu sehen bekommen: Er steht in der Rangliste neben deiner Wertung, und wer gegen dich spielt, sieht ihn ebenfalls. Für gewertete Duelle brauchst du einen; der Rest des Spiels geht auch ohne. Ein Name wird einmal gewählt; schreib uns, und er wird wieder entfernt. Wertung, Bilanz und Name werden nach neunzig Tagen ohne gewertetes Duell zusammen gelöscht.",
   privPush:"Schaltest du Mitteilungen ein, bewahren wir die Adresse auf, die dein Browser uns für dieses eine Gerät gibt. Sie dient nur zwei Zwecken: dir zu sagen, dass jemand eine deiner Herausforderungen gespielt hat, und dass jemand Revanche will. In der Mitteilung selbst steht nichts - nicht das Spiel, nicht der Punktestand, nicht wer gespielt hat. Das findet die App heraus, sobald du sie öffnest. Schaltest du sie wieder aus, ist die Adresse im selben Moment gelöscht. Sie geht auch nach neunzig Tagen ohne gewertetes Duell, oder sobald dein Browser uns sagt, dass es das Gerät nicht mehr gibt.",
   privSeason:"Zu gewerteten Duellen bewahren wir noch zwei Dinge auf. Am Ende jedes Monats notieren wir, wo alle gelandet sind, die gespielt haben - Wertung und Platz -, damit dir das Spiel deine Saison zeigen kann. Das wird nach neunzig Tagen gelöscht; dein Handy behält eine eigene Kopie. Und forderst du Revanche, heben wir die Herausforderung mit deinem Namen für die andere Person auf, damit sie sie findet. Sie wird gelöscht, sobald sie gespielt ist, spätestens nach zwei Tagen.",
+  privVisits:"Öffnest du das Spiel, zählt Cloudflare, wo es liegt, den Besuch: welche Seite, welcher Browser, ungefähr aus welchem Land. Ohne Cookies, und ohne etwas aufzubewahren, woran wir dich erkennen. Wir sehen nur Summen.",
   duelLab:"Duell",
   duelRow:"Gegen einen Freund",
   duelOnNow:"läuft",
@@ -2405,6 +2408,7 @@ es:{sub:"países · banderas, globo, atlas",
   privName:"En cuanto juegas un duelo clasificatorio, nuestro servidor guarda tu puntuación con ese mismo código aleatorio. Puedes añadirle un nombre. Es lo único de este juego que ven los demás: aparece en la clasificación junto a tu puntuación, y también lo ve quien juega contra ti. Para jugar clasificatorias necesitas uno; el resto del juego funciona igual sin él. Un nombre se elige una vez; escríbenos y lo quitamos. Tu puntuación, tu historial y tu nombre se borran juntos a los noventa días sin un duelo clasificatorio.",
   privPush:"Si activas las notificaciones, guardamos la dirección que tu navegador nos da para ese dispositivo. Sirve solo para dos cosas: avisarte de que alguien ha jugado uno de tus retos y de que alguien quiere la revancha. La notificación en sí no lleva nada - ni el juego, ni la puntuación, ni quién jugó - porque eso lo averigua la app al abrirse. Si las desactivas, la dirección se borra en ese mismo momento. También desaparece a los noventa días sin un duelo clasificatorio, o en cuanto tu navegador nos dice que el dispositivo ya no existe.",
   privSeason:"De los duelos clasificatorios guardamos dos cosas más. Al final de cada mes apuntamos dónde terminó cada jugador - su puntuación y su puesto - para que el juego pueda enseñarte tu temporada. Ese registro se borra a los noventa días y tu teléfono guarda su propia copia. Y cuando pides la revancha, guardamos el reto para la otra persona, con tu nombre, para que pueda encontrarlo. Se borra en cuanto lo juega, o a los dos días.",
+  privVisits:"Cuando abres el juego, Cloudflare, que lo aloja, cuenta la visita: qué página, qué tipo de navegador y, más o menos, desde qué país. Sin cookies y sin guardar nada que nos diga quién eres. Solo vemos totales.",
   duelLab:"Duelo",
   duelRow:"Reta a un amigo",
   duelOnNow:"en juego",
@@ -2860,6 +2864,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   privName:"Heb je een ranked duel gespeeld, dan bewaart onze server je rating onder diezelfde willekeurige code. Je mag er een naam bij kiezen. Die naam is het enige in dit spel dat anderen te zien krijgen: hij staat op de ranglijst naast je rating, en wie tegen je speelt ziet hem ook. Voor ranked heb je er een nodig; de rest van het spel werkt ook zonder. Een naam kies je één keer; stuur ons een bericht en hij gaat er weer af. Je rating, je resultaten en je naam verdwijnen samen na negentig dagen zonder ranked duel.",
   privPush:"Zet je meldingen aan, dan bewaren we het adres dat je browser ons voor dat ene toestel geeft. Het is voor twee dingen: laten weten dat iemand je uitdaging heeft gespeeld, of dat iemand revanche wil. In de melding zelf zit niets - niet het spel, niet de score, niet wie hem speelde - want dat haalt de app op zodra je hem opent. Zet je ze weer uit, dan is het adres op datzelfde moment weg. Het verdwijnt ook na negentig dagen zonder ranked duel, of zodra je browser zegt dat het toestel er niet meer is.",
   privSeason:"Over ranked bewaren we nog twee dingen. Aan het eind van elke maand schrijven we op waar iedereen die speelde is geëindigd - rating en plek - zodat het spel je seizoen kan laten zien. Dat verdwijnt na negentig dagen; je telefoon houdt zelf een kopie. En vraag je revanche, dan bewaren we die uitdaging voor de ander, met jouw naam erbij, zodat die hem kan vinden. Hij verdwijnt zodra hij gespeeld is, of na twee dagen.",
+  privVisits:"Open je het spel, dan telt Cloudflare, waar het op draait, je bezoek: welke pagina, wat voor browser en ongeveer uit welk land. Daar komen geen cookies aan te pas en er blijft niets bewaard waaraan we jou herkennen. Wij zien alleen totalen.",
   duelLab:"Duel",
   duelRow:"Duel met een vriend",
   duelOnNow:"bezig",
@@ -13187,7 +13192,7 @@ function openStats(){
 function closeStats(){$("statsmodal").hidden=true;snd.close();}
 var setView="list";
 var SETPAGE={
-  privacy:{title:"privTitle",keys:["priv0","priv1","priv2","privMove","privDuel","privName","privPush","privSeason","privWhy","privRights","privId"]},
+  privacy:{title:"privTitle",keys:["priv0","priv1","priv2","privMove","privDuel","privName","privPush","privSeason","privVisits","privWhy","privRights","privId"]},
   terms:{title:"termsTitle",keys:["terms1","terms2","terms3","terms4"]},
   credits:{title:"credTitle",keys:["credIntro",
     "cred1H","cred1","cred2H","cred2","cred3H","cred3","cred3b","cred4H","cred4","cred5H","cred5","cred6"]}
