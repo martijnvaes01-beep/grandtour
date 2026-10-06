@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v678";</script>
+<script>window.GT_BUILD="v679";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -1030,7 +1030,7 @@ en:{sub:"countries · flags, globe, atlas",
   moveBad:"That code is wrong or has expired.",
   moveBusy:"Too many tries. Wait a minute and try again.",
   moveArrived:"Your progress arrived on your other device. This one starts fresh.",
-  moveHouse:"Grand Tour has moved to grandtourbureau.com. Tap to bring your progress with you.",
+  moveHouse:"Grand Tour has moved to grandtourbureau.com. Tap to bring your progress with you. On your home screen? Add it again from the new address.",
   moveHouseGo:"Bring it along",
   moveHome:"Nobody used the code, so your progress is back here.",
   moveGot:"Done! Your progress is on this device now.",
@@ -1486,7 +1486,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   moveBad:"Ce code est inconnu ou a expiré.",
   moveBusy:"Trop d'essais. Attendez une minute et réessayez.",
   moveArrived:"Votre progression est arrivée sur l'autre appareil. Celui-ci repart de zéro.",
-  moveHouse:"Grand Tour a déménagé : grandtourbureau.com. Emportez votre progression avec vous.",
+  moveHouse:"Grand Tour a déménagé : grandtourbureau.com. Emportez votre progression avec vous. Sur l'écran d'accueil ? Ajoutez-le de nouveau depuis la nouvelle adresse.",
   moveHouseGo:"L'emporter",
   moveHome:"Personne n'a utilisé le code : votre progression est revenue ici.",
   moveGot:"C'est fait ! Votre progression est sur cet appareil.",
@@ -1942,7 +1942,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   moveBad:"Diesen Code kennen wir nicht, oder er ist abgelaufen.",
   moveBusy:"Zu viele Versuche. Warte eine Minute und versuch es erneut.",
   moveArrived:"Dein Fortschritt ist auf dem anderen Gerät angekommen. Dieses hier fängt neu an.",
-  moveHouse:"Grand Tour ist umgezogen: grandtourbureau.com. Nimm deinen Fortschritt mit.",
+  moveHouse:"Grand Tour ist umgezogen: grandtourbureau.com. Nimm deinen Fortschritt mit. Auf dem Home-Bildschirm? Füge es unter der neuen Adresse neu hinzu.",
   moveHouseGo:"Mitnehmen",
   moveHome:"Niemand hat den Code benutzt, also ist dein Fortschritt wieder hier.",
   moveGot:"Geschafft! Dein Fortschritt ist jetzt auf diesem Gerät.",
@@ -2398,7 +2398,7 @@ es:{sub:"países · banderas, globo, atlas",
   moveBad:"Ese código no existe o ha caducado.",
   moveBusy:"Demasiados intentos. Espera un minuto y vuelve a probar.",
   moveArrived:"Tu progreso ha llegado al otro dispositivo. Este empieza de cero.",
-  moveHouse:"Grand Tour se ha mudado a grandtourbureau.com. Llévate tu progreso.",
+  moveHouse:"Grand Tour se ha mudado a grandtourbureau.com. Llévate tu progreso. ¿En la pantalla de inicio? Añádelo de nuevo desde la nueva dirección.",
   moveHouseGo:"Llevarlo",
   moveHome:"Nadie usó el código, así que tu progreso ha vuelto aquí.",
   moveGot:"¡Hecho! Tu progreso está ahora en este dispositivo.",
@@ -2854,7 +2854,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   moveBad:"Die code kennen we niet, of hij is verlopen.",
   moveBusy:"Te veel pogingen. Wacht een minuut en probeer het opnieuw.",
   moveArrived:"Je voortgang is aangekomen op je andere toestel. Hier begin je opnieuw.",
-  moveHouse:"Grand Tour is verhuisd naar grandtourbureau.com. Neem je voortgang mee.",
+  moveHouse:"Grand Tour is verhuisd naar grandtourbureau.com. Neem je voortgang mee. Op je beginscherm? Zet hem er opnieuw op vanaf het nieuwe adres.",
   moveHouseGo:"Meenemen",
   moveHome:"Niemand heeft de code gebruikt, dus je voortgang staat weer hier.",
   moveGot:"Gelukt! Je voortgang staat nu op dit toestel.",
@@ -5741,7 +5741,7 @@ function globleTry(name){
     st.solved++;st.guesses+=tries;
     if(!st.best||tries<st.best)st.best=tries;
     addXP(Math.max(20,72-tries*4));
-    if(globle.seeded)dailyFinish(tries);
+    if(globle.seeded)dailyFinish(tries,true,Math.max(0,DAILY_EACH+1-tries));
     else sendScore(mode,1,1,"ALL");
     save();
   } else {
