@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="The Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v691";</script>
+<script>window.GT_BUILD="v695";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -17432,6 +17432,18 @@ function holdSpin(){
   spinIdle=setTimeout(function(){if(introOpen&&!globe.drag&&!globe.pick)spinGlobe();},4000);
 }
 var dayWanted=(function(){try{return /[?&]day=1(&|$)/.test(location.search);}catch(e){return false;}})();
+var playWanted=(function(){
+  try{
+    var m=/[?&]play=(name|find|locate|cap)(?:&|$)/.exec(location.search),r=/[?&]r=(EU|AS|AF|NA|SA|OC)(?:&|$)/.exec(location.search);
+    return m?{m:m[1],r:r?r[1]:"ALL"}:null;
+  }catch(e){return null;}
+})();
+function startModeRegion(m,r){
+  if(!assetHave("flags")){assetRetry("flags",function(){if(assetHave("flags"))startModeRegion(m,r);});return;}
+  region=r;store.region=r;save();
+  hideIntro();setMode(unlocked(m)?m:"name",true);paintChips();
+  setTimeout(relayout,60);
+}
 var duelWanted=(function(){try{var m=/[?&]duel=([A-Za-z0-9]{6})(&|$)/.exec(location.search);return m?m[1].toUpperCase():"";}catch(e){return "";}})();
 var splashDone=false;
 function splashUp(){return !splashDone&&$("splash")&&!$("splash").hidden;}
@@ -17478,7 +17490,7 @@ function clearBoot(){
   bootTimers=[];
 }
 function later(fn,ms){bootTimers.push(setTimeout(fn,ms));}
-function shortIntro(){return booted||HADSAVE||dayWanted||!!duelWanted||lessMotion();}
+function shortIntro(){return booted||HADSAVE||dayWanted||!!playWanted||!!duelWanted||lessMotion();}
 function lessMotion(){
   try{return !!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);}catch(e){return false;}
 }
@@ -17528,6 +17540,7 @@ function runIntroBoot(){
     $("intro").classList.add("settled");
     $("intro").classList.remove("playing");
     if(dayWanted){dayWanted=false;later(function(){if(introOpen)setMode("daily");},260);}
+    if(playWanted){var pw=playWanted;playWanted=null;later(function(){if(introOpen)startModeRegion(pw.m,pw.r);},260);}
     if(duelWanted&&duelOn()){
       var code=duelWanted;duelWanted="";
       later(function(){
