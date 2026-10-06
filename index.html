@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="The Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v683";</script>
+<script>window.GT_BUILD="v685";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -4537,7 +4537,12 @@ function ringSegments(xyz,c,inside){
   var segs=[];
   if(!anyHid){
     var whole=[];
-    for(i=0;i<n;i++)whole.push([globe.cx+globe.R*pts[i][0],globe.cy-globe.R*pts[i][1]]);
+    var lx=1e9,ly=1e9;
+    for(i=0;i<n;i++){
+      var wx=globe.cx+globe.R*pts[i][0],wy=globe.cy-globe.R*pts[i][1];
+      if(i&&Math.abs(wx-lx)+Math.abs(wy-ly)<0.8)continue;
+      whole.push([wx,wy]);lx=wx;ly=wy;
+    }
     segs.push(whole);
     return segs;                 /* nothing clipped: the ring closes on itself */
   }
@@ -4558,7 +4563,8 @@ function ringSegments(xyz,c,inside){
         acc=0;prevAng=null;
         segs.push(cur);
       }
-      cur.push([globe.cx+globe.R*pts[idx][0],globe.cy-globe.R*pts[idx][1]]);
+      var px=globe.cx+globe.R*pts[idx][0],py=globe.cy-globe.R*pts[idx][1],lt=cur[cur.length-1];
+      if(!(cur.length>1&&Math.abs(px-lt[0])+Math.abs(py-lt[1])<0.8))cur.push([px,py]);
     } else {
       if(cur){
         t=pts[prev][2]/(pts[prev][2]-pts[idx][2]);
@@ -4886,6 +4892,7 @@ function drawGlobe(){
         ctx.restore();
         return;
       }
+      if(!(racing&&!tone)){
       ctx.strokeStyle=edge;
       ctx.globalAlpha=tone?0.85:0.42;
       ctx.lineWidth=tone?lw+0.7:lw;
@@ -4897,6 +4904,7 @@ function drawGlobe(){
       });
       ctx.stroke();
       ctx.globalAlpha=1;
+      }
       if(f.quiz&&q[2]>0.3&&cap[3]>biggest){biggest=cap[3];bigPos=[cx+R*q[0],cy-R*q[1],cap[3]*R];}
     });
     if(globe.plain&&bigPos&&globe.zoom>=1.8&&bigPos[2]>26&&f.name!==globe.pick)
@@ -10681,6 +10689,9 @@ function paintChips(){
     };
     box.appendChild(b);
   });
+  var key=region+"|"+mode;
+  if(paintChips.last===key)return;
+  paintChips.last=key;
   var on=box.querySelector('[aria-pressed="true"]');
   if(on&&box.scrollWidth>box.clientWidth){var br=box.getBoundingClientRect(),or=on.getBoundingClientRect();box.scrollLeft+=(or.left-br.left)-(box.clientWidth-or.width)/2;}
 }
@@ -15250,32 +15261,7 @@ function duelOnline(){
   duelSay("duelTaking");
   $("duelsendch").disabled=true;$("duelrankgo").disabled=true;
   var done=function(){duel.taking=false;$("duelsendch").disabled=false;$("duelrankgo").disabled=false;};
-  duelRank(null,done,function(){duelOnlineOld(done);});
-}
-function duelOnlineOld(done){
-  fetch(SCORE_URL+"/api/duel/take",{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},
-    body:JSON.stringify({not:(store.duelMine||[]).slice(-20)})})
-    .then(function(r){
-      if(r.status===429)throw "busy";
-      if(r.status!==200)throw "fail";
-      return r.json();
-    }).then(function(j){
-      done();
-      if(j&&j.code){
-        duel.mode="async";duel.maker=false;duel.gone=false;duel.end=null;duel.sent=null;
-        duel.series={n:0,you:0,them:0};
-        duel.code=j.code;duel.key=duelKey();
-        duel.view="wait";duelSay("");
-        duelConnect();
-        return;
-      }
-      if(duelWaits().length>=DUEL_OUT_MAX){duel.view="home";paintDuel();duelSay("duelOut");duelPeek();return;}
-      duelSay("");
-      duelSoloStart(DUEL_MIX);
-    })["catch"](function(err){
-      done();
-      duelSay(err==="busy"?"duelBusy":"duelFail");
-    });
+  duelRank(null,done,function(){done();duelSay("duelFail");});
 }
 
 var DUEL_OUT_MAX=3;
@@ -17465,8 +17451,10 @@ function hideIntro(){
   $("app").style.visibility="";
   backArm();                /* the phone's back button now means "to the desk" */
 }
+var NO_FLAG_BOARDS={riverloc:1,rangeloc:1,sea:1,tele:1,visa:1,sizeup:1,worldle:1,globle:1,postcard:1,dossier:1};
 function startMode(m){
-  if(!assetHave("flags")){
+  if(!assetHave("flags")&&NO_FLAG_BOARDS[m]){assetAsk("flags",function(){});}
+  else if(!assetHave("flags")){
     assetWaiting("oneMoment");
     assetRetry("flags",function(){
       if(assetHave("flags")){assetWaiting(null);startMode(m);}
