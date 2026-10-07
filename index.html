@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="The Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v710";</script>
+<script>window.GT_BUILD="v712";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -1040,6 +1040,7 @@ en:{sub:"countries · flags, globe, atlas",
   moveBad:"That code is wrong or has expired.",
   moveBusy:"Too many tries. Wait a minute and try again.",
   moveArrived:"Your progress arrived on your other device. This one starts fresh.",
+  moveHold:"Moving your progress is switched off while we fix a fault. Nothing is lost: your progress stays on this device. If you already have a code, you can still enter it.",
   moveHouse:"Grand Tour has moved to grandtourbureau.com. Tap to bring your progress with you. On your home screen? Add it again from the new address.",
   moveHouseGo:"Bring it along",
   moveHome:"Nobody used the code, so your progress is back here.",
@@ -1234,6 +1235,7 @@ en:{sub:"countries · flags, globe, atlas",
   duelAge13:"I am 13 or older",duelAgeNeed:"Ranked and a public name are for players aged 13 or over.",
   shareCta:"Can you beat it?",shareSave:"Save image",shareCopyText:"Copy text",shareCardPeople:"Humanity by flag",shareCardLand:"Land known",shareCardCaps:"Capitals",shareCardStreak:"Best streak",shareCardSprint:"Best sprint",
   dChainDay:"Five links on the clock. Every country must border the one before.",dDepartDay:"Four groups of four on one board. A board with no mistakes earns the fifth point.",
+  hopVoyage:"{n} ports, {km} km by sea",
   kofiLab:"Support Grand Tour",kofiStamp:"A coffee?",kofiBig:"Made by one person, free to play",
   kofiLine:"If Grand Tour has taught you a flag or two, a coffee keeps the bureau open. Ko-fi opens in a new tab.",
   kofiYes:"Buy me a coffee",kofiNo:"Maybe later",kofiSoon:"Not connected yet",
@@ -1499,6 +1501,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   moveBad:"Ce code est inconnu ou a expiré.",
   moveBusy:"Trop d'essais. Attendez une minute et réessayez.",
   moveArrived:"Votre progression est arrivée sur l'autre appareil. Celui-ci repart de zéro.",
+  moveHold:"Le transfert de progression est suspendu le temps de corriger une erreur. Rien n'est perdu : votre progression reste sur cet appareil. Si vous avez déjà un code, vous pouvez encore le saisir.",
   moveHouse:"Grand Tour a déménagé : grandtourbureau.com. Emportez votre progression avec vous. Sur l'écran d'accueil ? Ajoutez-le de nouveau depuis la nouvelle adresse.",
   moveHouseGo:"L'emporter",
   moveHome:"Personne n'a utilisé le code : votre progression est revenue ici.",
@@ -1693,6 +1696,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   duelAge13:"J'ai 13 ans ou plus",duelAgeNeed:"Le mode classé et un nom public sont réservés aux 13 ans et plus.",
   shareCta:"Ferez-vous mieux ?",shareSave:"Enregistrer l'image",shareCopyText:"Copier le texte",shareCardPeople:"Humanité par drapeau",shareCardLand:"Terres connues",shareCardCaps:"Capitales",shareCardStreak:"Meilleure série",shareCardSprint:"Meilleur sprint",
   dChainDay:"Cinq maillons contre la montre. Chaque pays touche le précédent.",dDepartDay:"Quatre groupes de quatre sur un seul tableau. Sans aucune erreur, le cinquième point est à vous.",
+  hopVoyage:"{n} escales, {km} km en mer",
   kofiLab:"Soutenir Grand Tour",kofiStamp:"Un café ?",kofiBig:"Gratuit, fait par une seule personne",
   kofiLine:"Grand Tour vous a appris un drapeau ou deux ? Un café, et le bureau reste ouvert. Ko-fi s'ouvre dans un nouvel onglet.",
   kofiYes:"Offrir un café",kofiNo:"Plus tard",kofiSoon:"Pas encore relié",
@@ -1958,6 +1962,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   moveBad:"Diesen Code kennen wir nicht, oder er ist abgelaufen.",
   moveBusy:"Zu viele Versuche. Warte eine Minute und versuch es erneut.",
   moveArrived:"Dein Fortschritt ist auf dem anderen Gerät angekommen. Dieses hier fängt neu an.",
+  moveHold:"Das Übertragen des Fortschritts ist ausgeschaltet, bis ein Fehler behoben ist. Nichts geht verloren: Dein Fortschritt bleibt auf diesem Gerät. Hast du schon einen Code, kannst du ihn noch eingeben.",
   moveHouse:"Grand Tour ist umgezogen: grandtourbureau.com. Nimm deinen Fortschritt mit. Auf dem Home-Bildschirm? Füge es unter der neuen Adresse neu hinzu.",
   moveHouseGo:"Mitnehmen",
   moveHome:"Niemand hat den Code benutzt, also ist dein Fortschritt wieder hier.",
@@ -2152,6 +2157,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   duelAge13:"Ich bin 13 oder älter",duelAgeNeed:"Gewertete Duelle und ein öffentlicher Name gibt es ab 13 Jahren.",
   shareCta:"Schaffst du mehr?",shareSave:"Bild speichern",shareCopyText:"Text kopieren",shareCardPeople:"Menschheit per Flagge",shareCardLand:"Bekannte Landfläche",shareCardCaps:"Hauptstädte",shareCardStreak:"Beste Serie",shareCardSprint:"Bester Sprint",
   dChainDay:"Fünf Glieder gegen die Uhr. Jedes Land grenzt ans vorige.",dDepartDay:"Vier Vierergruppen auf einer Tafel. Ganz ohne Fehler gibt es den fünften Punkt.",
+  hopVoyage:"{n} Häfen, {km} km auf See",
   kofiLab:"Grand Tour unterstützen",kofiStamp:"Ein Kaffee?",kofiBig:"Von einer Person gemacht, gratis spielbar",
   kofiLine:"Hat dir Grand Tour ein, zwei Flaggen beigebracht? Mit einem Kaffee bleibt das Büro offen. Ko-fi öffnet sich in einem neuen Tab.",
   kofiYes:"Einen Kaffee spendieren",kofiNo:"Vielleicht später",kofiSoon:"Noch nicht verbunden",
@@ -2417,6 +2423,7 @@ es:{sub:"países · banderas, globo, atlas",
   moveBad:"Ese código no existe o ha caducado.",
   moveBusy:"Demasiados intentos. Espera un minuto y vuelve a probar.",
   moveArrived:"Tu progreso ha llegado al otro dispositivo. Este empieza de cero.",
+  moveHold:"El traspaso de progreso está desactivado mientras arreglamos un fallo. No se pierde nada: tu progreso se queda en este dispositivo. Si ya tienes un código, aún puedes introducirlo.",
   moveHouse:"Grand Tour se ha mudado a grandtourbureau.com. Llévate tu progreso. ¿En la pantalla de inicio? Añádelo de nuevo desde la nueva dirección.",
   moveHouseGo:"Llevarlo",
   moveHome:"Nadie usó el código, así que tu progreso ha vuelto aquí.",
@@ -2611,6 +2618,7 @@ es:{sub:"países · banderas, globo, atlas",
   duelAge13:"Tengo 13 años o más",duelAgeNeed:"Las clasificatorias y un nombre público son para mayores de 13 años.",
   shareCta:"¿Puedes superarlo?",shareSave:"Guardar imagen",shareCopyText:"Copiar texto",shareCardPeople:"Humanidad por bandera",shareCardLand:"Tierra conocida",shareCardCaps:"Capitales",shareCardStreak:"Mejor racha",shareCardSprint:"Mejor sprint",
   dChainDay:"Cinco eslabones contra el reloj. Cada país limita con el anterior.",dDepartDay:"Cuatro grupos de cuatro en un solo tablero. Sin ningún fallo, te llevas el quinto punto.",
+  hopVoyage:"{n} puertos, {km} km por mar",
   kofiLab:"Apoyar Grand Tour",kofiStamp:"¿Un café?",kofiBig:"Hecho por una persona. Gratis.",
   kofiLine:"¿Has aprendido alguna bandera con Grand Tour? Un café ayuda a mantener abierta la oficina. Ko-fi se abre en otra pestaña.",
   kofiYes:"Invítame a un café",kofiNo:"Quizá luego",kofiSoon:"Aún sin conectar",
@@ -2876,6 +2884,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   moveBad:"Die code kennen we niet, of hij is verlopen.",
   moveBusy:"Te veel pogingen. Wacht een minuut en probeer het opnieuw.",
   moveArrived:"Je voortgang is aangekomen op je andere toestel. Hier begin je opnieuw.",
+  moveHold:"Voortgang overzetten staat uit terwijl we een fout herstellen. Er gaat niets verloren: je voortgang blijft op dit toestel. Heb je al een code, dan kun je die nog invoeren.",
   moveHouse:"Grand Tour is verhuisd naar grandtourbureau.com. Neem je voortgang mee. Op je beginscherm? Zet hem er opnieuw op vanaf het nieuwe adres.",
   moveHouseGo:"Meenemen",
   moveHome:"Niemand heeft de code gebruikt, dus je voortgang staat weer hier.",
@@ -3070,6 +3079,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   duelAge13:"Ik ben 13 jaar of ouder",duelAgeNeed:"Ranked en een publieke naam zijn voor spelers vanaf 13 jaar.",
   shareCta:"Doe jij beter?",shareSave:"Afbeelding bewaren",shareCopyText:"Tekst kopiëren",shareCardPeople:"Mensheid per vlag",shareCardLand:"Bekend land",shareCardCaps:"Hoofdsteden",shareCardStreak:"Beste reeks",shareCardSprint:"Beste sprint",
   dChainDay:"Vijf schakels tegen de klok. Elk land grenst aan het vorige.",dDepartDay:"Vier groepen van vier op één bord. Zonder één fout krijg je het vijfde punt.",
+  hopVoyage:"{n} havens, {km} km over zee",
   kofiLab:"Steun Grand Tour",kofiStamp:"Een koffie?",kofiBig:"Door één persoon gemaakt, gratis te spelen",
   kofiLine:"Heb je dankzij Grand Tour een vlag of twee geleerd? Met een koffie blijft het bureau open. Ko-fi opent in een nieuw tabblad.",
   kofiYes:"Trakteer op een koffie",kofiNo:"Misschien later",kofiSoon:"Nog niet aangesloten",
@@ -5191,6 +5201,35 @@ function drawGlobe(){
     ctx.beginPath();ctx.arc(x,y,2,0,7);ctx.fillStyle="#241812";ctx.fill();
     ctx.restore();
   }
+  if(mode==="hop"&&!introOpen&&voyage.length>1){
+    var vpts=voyage.map(function(n){var l=locationOf(n);if(!l)return null;var lo=l[0]*RAD,la=l[1]*RAD,cl=Math.cos(la);return [cl*Math.sin(lo),Math.sin(la),cl*Math.cos(lo)];});
+    var legs=voyage.length-1,upto=(globe.routeT==null?1:globe.routeT)*legs;
+    var vpath=[],k,j;
+    for(k=0;k<legs&&k<upto;k++){
+      var A=vpts[k],B=vpts[k+1];if(!A||!B)continue;
+      var dot=Math.max(-1,Math.min(1,A[0]*B[0]+A[1]*B[1]+A[2]*B[2])),om=Math.acos(dot),so=Math.sin(om)||1;
+      var steps=Math.max(4,Math.ceil(om/0.03)),end=Math.min(1,upto-k),seg=[];
+      for(j=0;j<=steps;j++){
+        var f=j/steps*end,wa=om?Math.sin((1-f)*om)/so:1-f,wb=om?Math.sin(f*om)/so:f;
+        var q=rot(A[0]*wa+B[0]*wb,A[1]*wa+B[1]*wb,A[2]*wa+B[2]*wb,c);
+        seg.push(q[2]>0.02?[cx+R*q[0],cy-R*q[1]]:null);
+      }
+      vpath.push(seg);
+    }
+    ctx.save();ctx.globalAlpha=1;ctx.lineCap="round";ctx.lineJoin="round";
+    [["rgba(247,241,225,.9)",4.6,[]],["#1F4E7A",2.2,[7,5]]].forEach(function(st){
+      ctx.strokeStyle=st[0];ctx.lineWidth=st[1];ctx.setLineDash(st[2]);ctx.beginPath();
+      vpath.forEach(function(seg){var on=false;seg.forEach(function(p){if(!p){on=false;return;}if(on)ctx.lineTo(p[0],p[1]);else ctx.moveTo(p[0],p[1]);on=true;});});
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    for(k=0;k<=legs&&k<=upto;k++){
+      var V=vpts[k];if(!V)continue;var qv=rot(V[0],V[1],V[2],c);if(qv[2]<0.03)continue;
+      ctx.beginPath();ctx.arc(cx+R*qv[0],cy-R*qv[1],k===0?4.5:3.2,0,7);ctx.fillStyle=k===0?"#C8372A":"#1F4E7A";ctx.fill();
+      ctx.lineWidth=1.4;ctx.strokeStyle="#F7F1E1";ctx.stroke();
+    }
+    ctx.restore();
+  }
   if(globe.pins)globe.pins.forEach(function(P){
     var lo=P.ll[0]*RAD,la=P.ll[1]*RAD,cl=Math.cos(la);
     var q=rot(cl*Math.sin(lo),Math.sin(la),cl*Math.cos(lo),c);
@@ -6056,7 +6095,35 @@ function refillRound(){
   });
   rest.sort(function(a,b){return key[a.n]-key[b.n];});
   roundQueue=fresh.concat(rest);
+  if(mode==="hop")roundQueue=voyageOrder(roundQueue);
   roundKey=queueKey();
+}
+var voyage=[],voyageAnim=0;
+function voyageOrder(q){
+  if(q.length<3)return q;
+  var left=q.slice(1),out=[q[0]];
+  while(left.length){
+    var at=locationOf(out[out.length-1].n),bi=0,bd=Infinity;
+    for(var i=0;i<left.length;i++){var l=locationOf(left[i].n);var d=(at&&l)?greatCircle(at,l):0;if(d<bd){bd=d;bi=i;}}
+    out.push(left.splice(bi,1)[0]);
+  }
+  return out;
+}
+function voyageKm(){
+  var km=0;
+  for(var i=1;i<voyage.length;i++){var a=locationOf(voyage[i-1]),b=locationOf(voyage[i]);if(a&&b)km+=greatCircle(a,b);}
+  return Math.round(km);
+}
+function voyageReplay(){
+  if(voyage.length<2)return;
+  var mine=++voyageAnim,t0=Date.now(),D=2600;
+  globe.routeT=0;
+  (function step(){
+    if(mine!==voyageAnim||mode!=="hop")return;
+    globe.routeT=Math.min(1,(Date.now()-t0)/D);
+    drawGlobe();
+    if(globe.routeT<1){requestAnimationFrame(step);setTimeout(function(){if(mine===voyageAnim&&globe.routeT<1&&Date.now()-t0>D+200){globe.routeT=1;drawGlobe();}},D+300);}
+  }());
 }
 function takeFromRound(){
   if(roundKey!==queueKey())refillRound();
@@ -6163,6 +6230,12 @@ function locateEnd(){
   var pct=document.createElement("span");pct.className="scorebest";
   pct.textContent=(total?Math.round(tally.right/total*100):0)+"%";
   card.appendChild(pct);
+  if(mode==="hop"&&voyage.length>1){
+    var vy=document.createElement("span");vy.className="scorebest voyagekm";
+    vy.textContent=fill(t("hopVoyage"),{km:fmtNum(voyageKm()),n:voyage.length});
+    card.appendChild(vy);
+    voyageReplay();
+  }
   var missed=Object.keys(runMissed);
   if(missed.length){
     var box=document.createElement("div");box.className="missed";
@@ -10334,6 +10407,7 @@ function answerLocation(name){
   var right=name===current.n;
   scoreAnswer(right,current.n);
   if(right)runSolved[current.n]=1;else runMissed[current.n]=1;
+  if(mode==="hop"&&voyage[voyage.length-1]!==current.n)voyage.push(current.n);
   paintSolved();
   var hopCap=mode==="hop"&&capitalOf(current)?fill(t("hopCap"),{c:capitalOf(current)}):"";
   if(right)verdict("ok",t("correct"),{b:cname(current),r:hopCap||regionName(current.r)});
@@ -10861,7 +10935,7 @@ function setMode(m,keepRegion){
   roundQueue=[];roundKey="";current=null;locked=false;
   store.streak=0;                 /* every start is a fresh run */
   resetGlobeView();
-  runSolved={};runMissed={};runDone=false;
+  runSolved={};runMissed={};runDone=false;voyage=[];voyageAnim++;globe.routeT=1;
   gameView=null;
   $("verdict").innerHTML="";
   mode=m;
@@ -13433,7 +13507,8 @@ function paintMove(){
   $("moveconfirm").hidden=moveStage!=="confirm";
   $("moveout").hidden=moveStage!=="out";
   $("movein").hidden=moveStage!=="in";
-  $("movelead").textContent=t({choose:"moveLead",confirm:"moveSure",out:"moveOutLead","in":"moveInLead"}[moveStage]);
+  $("movesend").hidden=true;
+  $("movelead").textContent=t({choose:"moveHold",confirm:"moveSure",out:"moveOutLead","in":"moveInLead"}[moveStage]);
   $("movesend").textContent=t("moveSend");$("movehave").textContent=t("moveHave");
   $("movego").textContent=t("moveGo");$("movenot").textContent=t("backLab");
   $("movecancel").textContent=t("moveCancel");$("movetake").textContent=t("moveTake");
@@ -13518,6 +13593,7 @@ function moveTake(){
 }
 function moveHouseGo(){moveToHouse=true;moveSend();}
 function moveHouseOffer(){
+  return;
   try{
     if(CHEATS||movePending()||!SHARE_URL)return;
     var h=location.hostname,nh=SHARE_URL.split("/")[2];
