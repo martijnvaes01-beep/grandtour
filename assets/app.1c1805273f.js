@@ -536,7 +536,7 @@ en:{sub:"countries · flags, globe, atlas",
   dChainDay:"Five links on the clock. Every country must border the one before.",dDepartDay:"Four groups of four on one board. A board with no mistakes earns the fifth point.",
   mTour:"World trip",
   dTour:"Every country in one trip, sixteen stops at a time",
-  tourLegOf:"Leg {n} of {t}",tourTrip:"The trip",tourMisses:"Wrong so far: {n}",tourDone:"Trip complete",tourPerfect:"A perfect world trip",tourNew:"New trip",tourCapLetter:"Capital starts with {l}",tripStartBig:"Where do you start your world trip?",tripStartLine:"Pick a continent. The route goes on from there to every country.",tripSurprise:"Surprise me",tripBon:"Bon voyage",tripFrom:"Departing: {c}",tripStopsLegs:"{n} stops, {l} legs",tourNewSure:"Start over? Tap again",
+  tourLegOf:"Leg {n} of {t}",tourTrip:"The trip",tourMisses:"Wrong so far: {n}",tourDone:"Trip complete",tourPerfect:"A perfect world trip",tourNew:"New trip",tourCapLetter:"Capital starts with {l}",tripStartBig:"Where do you start your world trip?",tripStartLine:"Type your country, or pick a continent. The route goes on from there to every country.",tripSurprise:"Surprise me",tripTypePh:"Type your own country",tripTypeGo:"Start",tripBon:"Bon voyage",tripFrom:"Departing: {c}",tripStopsLegs:"{n} stops, {l} legs",tourNewSure:"Start over? Tap again",
   askTourName:"Find {c}",
   askTourFlag:"Where does this flag fly?",
   askTourCap:"Where is {c}?",
@@ -1030,7 +1030,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   dChainDay:"Cinq maillons contre la montre. Chaque pays touche le précédent.",dDepartDay:"Quatre groupes de quatre sur un seul tableau. Sans aucune erreur, le cinquième point est à vous.",
   mTour:"Tour du monde",
   dTour:"Tous les pays en un seul voyage, étape par étape",
-  tourLegOf:"Étape {n} sur {t}",tourTrip:"Le voyage",tourMisses:"Erreurs : {n}",tourDone:"Voyage terminé",tourPerfect:"Un tour du monde sans faute",tourNew:"Nouveau voyage",tourCapLetter:"Capitale en {l}",tripStartBig:"Où commencez-vous votre tour du monde ?",tripStartLine:"Choisissez un continent. La route continue de là vers chaque pays.",tripSurprise:"Surprenez-moi",tripBon:"Bon voyage",tripFrom:"Départ : {c}",tripStopsLegs:"{n} escales, {l} étapes",tourNewSure:"Tout recommencer ? Touchez encore",
+  tourLegOf:"Étape {n} sur {t}",tourTrip:"Le voyage",tourMisses:"Erreurs : {n}",tourDone:"Voyage terminé",tourPerfect:"Un tour du monde sans faute",tourNew:"Nouveau voyage",tourCapLetter:"Capitale en {l}",tripStartBig:"Où commencez-vous votre tour du monde ?",tripStartLine:"Tapez votre pays ou choisissez un continent. La route continue de là vers chaque pays.",tripSurprise:"Surprenez-moi",tripTypePh:"Tapez votre pays",tripTypeGo:"Partir",tripBon:"Bon voyage",tripFrom:"Départ : {c}",tripStopsLegs:"{n} escales, {l} étapes",tourNewSure:"Tout recommencer ? Touchez encore",
   askTourName:"Trouvez {c}",
   askTourFlag:"Où flotte ce drapeau ?",
   askTourCap:"Où se trouve {c} ?",
@@ -1524,7 +1524,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   dChainDay:"Fünf Glieder gegen die Uhr. Jedes Land grenzt ans vorige.",dDepartDay:"Vier Vierergruppen auf einer Tafel. Ganz ohne Fehler gibt es den fünften Punkt.",
   mTour:"Weltreise",
   dTour:"Alle Länder auf einer Reise, Etappe für Etappe",
-  tourLegOf:"Etappe {n} von {t}",tourTrip:"Die Reise",tourMisses:"Fehler bisher: {n}",tourDone:"Reise geschafft",tourPerfect:"Eine fehlerfreie Weltreise",tourNew:"Neue Reise",tourCapLetter:"Hauptstadt mit {l}",tripStartBig:"Wo beginnt deine Weltreise?",tripStartLine:"Wähle einen Kontinent. Von dort führt die Route zu jedem Land.",tripSurprise:"Überrasch mich",tripBon:"Gute Reise",tripFrom:"Start: {c}",tripStopsLegs:"{n} Stationen, {l} Etappen",tourNewSure:"Neu beginnen? Noch einmal tippen",
+  tourLegOf:"Etappe {n} von {t}",tourTrip:"Die Reise",tourMisses:"Fehler bisher: {n}",tourDone:"Reise geschafft",tourPerfect:"Eine fehlerfreie Weltreise",tourNew:"Neue Reise",tourCapLetter:"Hauptstadt mit {l}",tripStartBig:"Wo beginnt deine Weltreise?",tripStartLine:"Tippe dein Land oder wähle einen Kontinent. Von dort führt die Route zu jedem Land.",tripSurprise:"Überrasch mich",tripTypePh:"Tippe dein Land",tripTypeGo:"Los",tripBon:"Gute Reise",tripFrom:"Start: {c}",tripStopsLegs:"{n} Stationen, {l} Etappen",tourNewSure:"Neu beginnen? Noch einmal tippen",
   askTourName:"Finde {c}",
   askTourFlag:"Wo weht diese Flagge?",
   askTourCap:"Wo liegt {c}?",
@@ -2018,7 +2018,7 @@ es:{sub:"países · banderas, globo, atlas",
   dChainDay:"Cinco eslabones contra el reloj. Cada país limita con el anterior.",dDepartDay:"Cuatro grupos de cuatro en un solo tablero. Sin ningún fallo, te llevas el quinto punto.",
   mTour:"Vuelta al mundo",
   dTour:"Todos los países en un solo viaje, etapa a etapa",
-  tourLegOf:"Etapa {n} de {t}",tourTrip:"El viaje",tourMisses:"Fallos: {n}",tourDone:"Viaje completado",tourPerfect:"Una vuelta al mundo sin fallos",tourNew:"Viaje nuevo",tourCapLetter:"Capital con {l}",tripStartBig:"¿Dónde empieza tu vuelta al mundo?",tripStartLine:"Elige un continente. Desde allí la ruta sigue por cada país.",tripSurprise:"Sorpréndeme",tripBon:"Buen viaje",tripFrom:"Salida: {c}",tripStopsLegs:"{n} paradas, {l} etapas",tourNewSure:"¿Empezar de nuevo? Toca otra vez",
+  tourLegOf:"Etapa {n} de {t}",tourTrip:"El viaje",tourMisses:"Fallos: {n}",tourDone:"Viaje completado",tourPerfect:"Una vuelta al mundo sin fallos",tourNew:"Viaje nuevo",tourCapLetter:"Capital con {l}",tripStartBig:"¿Dónde empieza tu vuelta al mundo?",tripStartLine:"Escribe tu país o elige un continente. Desde allí la ruta sigue por cada país.",tripSurprise:"Sorpréndeme",tripTypePh:"Escribe tu país",tripTypeGo:"Salir",tripBon:"Buen viaje",tripFrom:"Salida: {c}",tripStopsLegs:"{n} paradas, {l} etapas",tourNewSure:"¿Empezar de nuevo? Toca otra vez",
   askTourName:"Encuentra {c}",
   askTourFlag:"¿Dónde ondea esta bandera?",
   askTourCap:"¿Dónde está {c}?",
@@ -2512,7 +2512,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   dChainDay:"Vijf schakels tegen de klok. Elk land grenst aan het vorige.",dDepartDay:"Vier groepen van vier op één bord. Zonder één fout krijg je het vijfde punt.",
   mTour:"Wereldreis",
   dTour:"Alle landen in één reis, etappe voor etappe",
-  tourLegOf:"Etappe {n} van {t}",tourTrip:"De reis",tourMisses:"Fouten tot nu toe: {n}",tourDone:"Reis voltooid",tourPerfect:"Een foutloze wereldreis",tourNew:"Nieuwe reis",tourCapLetter:"Hoofdstad begint met {l}",tripStartBig:"Waar begin je je wereldreis?",tripStartLine:"Kies een werelddeel. Vanaf daar gaat de route langs elk land.",tripSurprise:"Verras me",tripBon:"Goede reis",tripFrom:"Vertrek: {c}",tripStopsLegs:"{n} stops, {l} etappes",tourNewSure:"Opnieuw beginnen? Tik nog eens",
+  tourLegOf:"Etappe {n} van {t}",tourTrip:"De reis",tourMisses:"Fouten tot nu toe: {n}",tourDone:"Reis voltooid",tourPerfect:"Een foutloze wereldreis",tourNew:"Nieuwe reis",tourCapLetter:"Hoofdstad begint met {l}",tripStartBig:"Waar begin je je wereldreis?",tripStartLine:"Typ je eigen land of kies een werelddeel. Vanaf daar gaat de route langs elk land.",tripSurprise:"Verras me",tripTypePh:"Typ je eigen land",tripTypeGo:"Start",tripBon:"Goede reis",tripFrom:"Vertrek: {c}",tripStopsLegs:"{n} stops, {l} etappes",tourNewSure:"Opnieuw beginnen? Tik nog eens",
   askTourName:"Zoek {c}",
   askTourFlag:"Waar wappert deze vlag?",
   askTourCap:"Waar ligt {c}?",
@@ -8663,11 +8663,12 @@ function tourCard(f){
   return row;
 }
 var TRIP_LEG=16;
-function tripNew(region){
+function tripNew(region,startName){
   var all=FLAGS.filter(function(f){return !!locationOf(f.n);});
   shuffle(all);
   var from=(region&&region!=="ALL")?all.filter(function(f){return f.r===region;}):all;
   var start=from.length?from[0]:all[0];
+  if(startName){for(var q=0;q<all.length;q++)if(all[q].n===startName){start=all[q];break;}}
   all.splice(all.indexOf(start),1);all.unshift(start);
   var ord=voyageOrder(all).map(function(f){return f.n;});
   store.trip={order:ord,i:0,miss:0,marks:[],legMiss:[],done:false};
@@ -8682,6 +8683,19 @@ function tripChoose(after){
   $("tripbig").textContent=t("tripStartBig");
   $("tripline").textContent=t("tripStartLine");
   var box=$("tripacts");box.innerHTML="";
+  var inp=document.createElement("input");inp.type="text";inp.id="tripcountry";inp.className="tripfield";
+  inp.setAttribute("autocomplete","off");inp.setAttribute("autocorrect","off");inp.setAttribute("autocapitalize","off");inp.spellcheck=false;
+  inp.placeholder=t("tripTypePh");
+  var go=document.createElement("button");go.type="button";go.className="btn tripgo";go.textContent=t("tripTypeGo");
+  var typed=function(){
+    var f=resolveTyped(inp.value);
+    if(!f){inp.classList.add("bad");setTimeout(function(){inp.classList.remove("bad");},900);snd.nope();return;}
+    tripGo("ALL",f.n);
+  };
+  go.onclick=typed;
+  inp.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();typed();}};
+  var row=document.createElement("div");row.className="triprow";row.appendChild(inp);row.appendChild(go);
+  box.appendChild(row);
   ["EU","AS","AF","NA","SA","OC","ALL"].forEach(function(code){
     var b=document.createElement("button");b.type="button";b.className=code==="ALL"?"btn ghost":"btn";
     b.textContent=code==="ALL"?t("tripSurprise"):t(code);
@@ -8694,10 +8708,10 @@ function tripShut(){
   if($("tripmodal").hidden)return;
   $("tripmodal").hidden=true;tripAfter=null;snd.close();
 }
-function tripGo(code){
+function tripGo(code,name){
   var after=tripAfter;
   $("tripmodal").hidden=true;tripAfter=null;
-  tripNew(code);
+  tripNew(code,name);
   tripDepart();
   if(after)after();
 }
