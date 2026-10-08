@@ -17416,8 +17416,8 @@ function placeApp(){
   var top=base.offsetTop+base.offsetHeight+8;
   var right=(base===k)?kr:Math.round((parseFloat(getComputedStyle(cd).right)||14)+cd.offsetWidth-a.offsetWidth*0.35);
   if(base===k){
-    top=base.offsetTop+base.offsetHeight-Math.round(a.offsetHeight*0.28);
-    right=Math.round(kr+k.offsetWidth*0.62);
+    top=base.offsetTop+base.offsetHeight-4;
+    right=Math.round(kr+(k.offsetWidth-a.offsetWidth)/2);
   }
   if(top+a.offsetHeight+14>floor){a.style.visibility="hidden";return;}
   a.style.visibility="";
