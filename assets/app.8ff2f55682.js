@@ -534,6 +534,14 @@ en:{sub:"countries · flags, globe, atlas",
   duelAge13:"I am 13 or older",duelAgeNeed:"Ranked and a public name are for players aged 13 or over.",
   shareCta:"Can you beat it?",shareSave:"Save image",shareCopyText:"Copy text",shareCardPeople:"Humanity by flag",shareCardLand:"Land known",shareCardCaps:"Capitals",shareCardStreak:"Best streak",shareCardSprint:"Best sprint",
   dChainDay:"Five links on the clock. Every country must border the one before.",dDepartDay:"Four groups of four on one board. A board with no mistakes earns the fifth point.",
+  mTour:"World trip",
+  dTour:"A world trip, one leg at a time",
+  askTourName:"Find {c}",
+  askTourFlag:"Where does this flag fly?",
+  askTourCap:"Where is {c}?",
+  askTourKnown:"Which country is known for this?",
+  tourTravelled:"Travelled",
+  tourStops:"{n} stops on this leg",
   hopVoyage:"{n} ports, {km} km by sea",
   appLab:"Get the app",
   appTag:"APP",
@@ -1019,6 +1027,14 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   duelAge13:"J'ai 13 ans ou plus",duelAgeNeed:"Le mode classé et un nom public sont réservés aux 13 ans et plus.",
   shareCta:"Ferez-vous mieux ?",shareSave:"Enregistrer l'image",shareCopyText:"Copier le texte",shareCardPeople:"Humanité par drapeau",shareCardLand:"Terres connues",shareCardCaps:"Capitales",shareCardStreak:"Meilleure série",shareCardSprint:"Meilleur sprint",
   dChainDay:"Cinq maillons contre la montre. Chaque pays touche le précédent.",dDepartDay:"Quatre groupes de quatre sur un seul tableau. Sans aucune erreur, le cinquième point est à vous.",
+  mTour:"Tour du monde",
+  dTour:"Un tour du monde, étape par étape",
+  askTourName:"Trouvez {c}",
+  askTourFlag:"Où flotte ce drapeau ?",
+  askTourCap:"Où se trouve {c} ?",
+  askTourKnown:"Quel pays est connu pour cela ?",
+  tourTravelled:"Parcouru",
+  tourStops:"{n} étapes sur ce tronçon",
   hopVoyage:"{n} escales, {km} km en mer",
   appLab:"Obtenir l'appli",
   appTag:"APPLI",
@@ -1504,6 +1520,14 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   duelAge13:"Ich bin 13 oder älter",duelAgeNeed:"Gewertete Duelle und ein öffentlicher Name gibt es ab 13 Jahren.",
   shareCta:"Schaffst du mehr?",shareSave:"Bild speichern",shareCopyText:"Text kopieren",shareCardPeople:"Menschheit per Flagge",shareCardLand:"Bekannte Landfläche",shareCardCaps:"Hauptstädte",shareCardStreak:"Beste Serie",shareCardSprint:"Bester Sprint",
   dChainDay:"Fünf Glieder gegen die Uhr. Jedes Land grenzt ans vorige.",dDepartDay:"Vier Vierergruppen auf einer Tafel. Ganz ohne Fehler gibt es den fünften Punkt.",
+  mTour:"Weltreise",
+  dTour:"Eine Weltreise, Etappe für Etappe",
+  askTourName:"Finde {c}",
+  askTourFlag:"Wo weht diese Flagge?",
+  askTourCap:"Wo liegt {c}?",
+  askTourKnown:"Welches Land ist dafür bekannt?",
+  tourTravelled:"Gereist",
+  tourStops:"{n} Stationen auf dieser Etappe",
   hopVoyage:"{n} Häfen, {km} km auf See",
   appLab:"App holen",
   appTag:"APP",
@@ -1989,6 +2013,14 @@ es:{sub:"países · banderas, globo, atlas",
   duelAge13:"Tengo 13 años o más",duelAgeNeed:"Las clasificatorias y un nombre público son para mayores de 13 años.",
   shareCta:"¿Puedes superarlo?",shareSave:"Guardar imagen",shareCopyText:"Copiar texto",shareCardPeople:"Humanidad por bandera",shareCardLand:"Tierra conocida",shareCardCaps:"Capitales",shareCardStreak:"Mejor racha",shareCardSprint:"Mejor sprint",
   dChainDay:"Cinco eslabones contra el reloj. Cada país limita con el anterior.",dDepartDay:"Cuatro grupos de cuatro en un solo tablero. Sin ningún fallo, te llevas el quinto punto.",
+  mTour:"Vuelta al mundo",
+  dTour:"Una vuelta al mundo, etapa a etapa",
+  askTourName:"Encuentra {c}",
+  askTourFlag:"¿Dónde ondea esta bandera?",
+  askTourCap:"¿Dónde está {c}?",
+  askTourKnown:"¿Qué país es famoso por esto?",
+  tourTravelled:"Recorrido",
+  tourStops:"{n} paradas en esta etapa",
   hopVoyage:"{n} puertos, {km} km por mar",
   appLab:"Obtén la app",
   appTag:"APP",
@@ -2474,6 +2506,14 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   duelAge13:"Ik ben 13 jaar of ouder",duelAgeNeed:"Ranked en een publieke naam zijn voor spelers vanaf 13 jaar.",
   shareCta:"Doe jij beter?",shareSave:"Afbeelding bewaren",shareCopyText:"Tekst kopiëren",shareCardPeople:"Mensheid per vlag",shareCardLand:"Bekend land",shareCardCaps:"Hoofdsteden",shareCardStreak:"Beste reeks",shareCardSprint:"Beste sprint",
   dChainDay:"Vijf schakels tegen de klok. Elk land grenst aan het vorige.",dDepartDay:"Vier groepen van vier op één bord. Zonder één fout krijg je het vijfde punt.",
+  mTour:"Wereldreis",
+  dTour:"Een wereldreis, etappe voor etappe",
+  askTourName:"Zoek {c}",
+  askTourFlag:"Waar wappert deze vlag?",
+  askTourCap:"Waar ligt {c}?",
+  askTourKnown:"Welk land staat hier om bekend?",
+  tourTravelled:"Gereisd",
+  tourStops:"{n} stops in deze etappe",
   hopVoyage:"{n} havens, {km} km over zee",
   appLab:"Haal de app",
   appTag:"APP",
@@ -2864,7 +2904,7 @@ var DAY_RESET="2026-10-04-v672";   /* v672, the owner: "unlock daily game aswell
 var DUEL_ELO0=1000,DUEL_ELO_MIN=100;
 var DUEL_LOG_MAX=10;
 function normaliseStore(){
-  ["box","geo","shape","spot","cap","fake","blind","trade","terra","dossier","miss","found","stamps","isle","pin","ink","keepOpen","tele","visa","compass"].forEach(function(k){
+  ["box","geo","shape","spot","cap","fake","blind","trade","terra","dossier","miss","found","stamps","isle","pin","ink","keepOpen","tele","visa","compass","tour"].forEach(function(k){
     if(!store[k]||typeof store[k]!=="object")store[k]={};
   });
   if(!(store.gateVer>=2)){
@@ -2929,6 +2969,8 @@ function normaliseStore(){
   if(typeof store.backup!=="boolean")store.backup=true;
   if(typeof store.syncAt!=="number"||!isFinite(store.syncAt))store.syncAt=0;
   if(typeof store.recSeen!=="boolean")store.recSeen=false;
+  if(typeof store.tourAt!=="string")store.tourAt="";
+  if(typeof store.tourLegs!=="number"||!isFinite(store.tourLegs)||store.tourLegs<0)store.tourLegs=0;
   if(!Array.isArray(store.grantsDone))store.grantsDone=[];
   if(!store.cotdLog||typeof store.cotdLog!=="object"||Array.isArray(store.cotdLog))store.cotdLog={};
   if(store.pid!==undefined&&!/^[a-z0-9]{8,32}$/.test(String(store.pid)))delete store.pid;
@@ -2952,6 +2994,7 @@ var BOARDDEF=[
   {k:"cap",f:"cities",fi:0,l:"mCap",d:"dCap",g:1,s:1,t:["consul",0,244,1.4,6]},
   {k:"trap",f:"cities",fi:1,l:"mTrap",d:"dTrap",g:7,s:1,t:["rail",0,244,1,8]},
   {k:"pin",f:"cities",fi:2,l:"mPin",d:"dPin",g:6,s:1,t:["cork",0,250,-1.1,9]},
+  {k:"tour",f:"atlaswork",fi:9,l:"mTour",d:"dTour",g:11,s:0,t:["grand",0,250,-1,9]},
   {k:"locate",f:"atlaswork",fi:0,l:"mLocate",d:"dLocate",g:0,s:1,t:["board",0,258,-1.2,7]},
   {k:"hop",f:"atlaswork",fi:1,l:"mHop",d:"dHop",g:3,s:1,t:["ferry",0,250,1.1,8]},
   {k:"spot",f:"atlaswork",fi:2,l:"mSpot",d:"dSpot",g:5,s:1,t:["planetarium",0,250,1,8]},
@@ -4624,7 +4667,7 @@ function drawGlobe(){
     ctx.beginPath();ctx.arc(x,y,2,0,7);ctx.fillStyle="#241812";ctx.fill();
     ctx.restore();
   }
-  if(mode==="hop"&&!introOpen&&voyage.length>1){
+  if((mode==="hop"||mode==="tour")&&!introOpen&&voyage.length>1){
     var vpts=voyage.map(function(n){var l=locationOf(n);if(!l)return null;var lo=l[0]*RAD,la=l[1]*RAD,cl=Math.cos(la);return [cl*Math.sin(lo),Math.sin(la),cl*Math.cos(lo)];});
     var legs=voyage.length-1,upto=(globe.routeT==null?1:globe.routeT)*legs;
     var vpath=[],k,j;
@@ -5037,6 +5080,12 @@ function globeClick(e){
     else if(f)off=f.other;
   }
   if(off){flash(off+" · "+t("notPlayed"));snd.nope();return;}
+  if(mode==="tour"){
+    if(locked)return;
+    if(!name||!FLAGBYNAME[name]){flash(t("ocean"));return;}
+    if(runSolved[name]||runMissed[name]){flash(cname(FLAGBYNAME[name])+" \u00b7 "+t("already2"));snd.nope();return;}
+    tourTry(name);return;
+  }
   var kind=playKind();
   if(kind==="globle"||kind==="route"){snd.tap();return;}
   if(!locating())return;
@@ -5519,6 +5568,7 @@ function refillRound(){
   rest.sort(function(a,b){return key[a.n]-key[b.n];});
   roundQueue=fresh.concat(rest);
   if(mode==="hop")roundQueue=voyageOrder(roundQueue);
+  if(mode==="tour")roundQueue=tourOrder(roundQueue);
   roundKey=queueKey();
 }
 var voyage=[],voyageAnim=0;
@@ -5542,7 +5592,7 @@ function voyageReplay(){
   var mine=++voyageAnim,t0=Date.now(),D=2600;
   globe.routeT=0;
   (function step(){
-    if(mine!==voyageAnim||mode!=="hop")return;
+    if(mine!==voyageAnim||(mode!=="hop"&&mode!=="tour"))return;
     globe.routeT=Math.min(1,(Date.now()-t0)/D);
     drawGlobe();
     if(globe.routeT<1){requestAnimationFrame(step);setTimeout(function(){if(mine===voyageAnim&&globe.routeT<1&&Date.now()-t0>D+200){globe.routeT=1;drawGlobe();}},D+300);}
@@ -8568,6 +8618,59 @@ function sizeCheck(){
   quizFinish(right,right?"ok":"no",right?t("correct"):t("sizeNo"),{b:line,r:cname(current)},right?1600:2600);
 }
 
+var tourQ={forName:null,kind:"name"};
+function tourPick(f){
+  var kinds=["name","name","flag","flag"];
+  if(capitalOf(f))kinds.push("cap","cap");
+  try{if(knownWords(f).length)kinds.push("known","known");}catch(e){caught(e,"tourPick");}
+  return {forName:f.n,kind:kinds[Math.floor(Math.random()*kinds.length)]};
+}
+function tourCard(f){
+  var row=document.createElement("div");row.className="target";
+  var th=document.createElement("span");th.className="thumb";
+  var nm=document.createElement("span");nm.className="tname";
+  var k=tourQ.kind;
+  if(k==="flag"){th.appendChild(flagNode(f));nm.textContent="?";}
+  else if(k==="cap"){
+    th.className="thumb glyph";
+    th.innerHTML='<svg viewBox="0 0 64 48" aria-hidden="true"><path d="M32 4C22 4 15 11 15 20c0 12 17 25 17 25s17-13 17-25C49 11 42 4 32 4z" fill="#A8483B"/><circle cx="32" cy="20" r="6.5" fill="#F7F1E1"/></svg>';
+    nm.textContent=capitalOf(f);
+  } else if(k==="known"){
+    th.className="thumb glyph";
+    th.innerHTML='<svg viewBox="0 0 64 48" aria-hidden="true"><path d="M32 3l5.5 12 13 1.4-9.7 8.8 2.8 12.8L32 31l-11.6 7 2.8-12.8-9.7-8.8 13-1.4z" fill="#D8B24A" stroke="#7A5A1C" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+    nm.textContent=knownWords(f).slice(0,3).join(" \u00b7 ");
+  } else {th.appendChild(flagNode(f));nm.textContent=cname(f);}
+  row.appendChild(th);row.appendChild(nm);
+  return row;
+}
+function tourOrder(q){
+  var found=store.tour||{};
+  var fresh=q.filter(function(f){return !(found[f.n]>=1);});
+  var base=(fresh.length>=ROUND_OF.tour?fresh:q).slice();
+  if(base.length<3)return base;
+  var at=store.tourAt&&locationOf(store.tourAt);
+  if(at){
+    var bi=0,bd=Infinity;
+    base.forEach(function(f,i){var l=locationOf(f.n);if(!l)return;var d=greatCircle(at,l);if(d<bd){bd=d;bi=i;}});
+    base.unshift(base.splice(bi,1)[0]);
+  }
+  return voyageOrder(base);
+}
+function tourTry(name){
+  if(locked||!current)return;
+  var right=name===current.n;
+  if(right)runSolved[current.n]=1;else runMissed[current.n]=1;
+  if(voyage[voyage.length-1]!==current.n)voyage.push(current.n);
+  store.tourAt=current.n;
+  paintSolved();
+  var cap=capitalOf(current),capLine=cap?fill(t("hopCap"),{c:cap}):"";
+  if(!right){var c=locationOf(current.n);if(c)frameTo(c[0],c[1]);}
+  else drawGlobe();
+  quizFinish(right,right?"ok":"no",right?t("correct"):t("picked"),
+    right?{b:cname(current),r:capLine||regionName(current.r)}
+         :{b:cname(FLAGBYNAME[name])||name,r:cname(current)+" "+t("wasHere")+(capLine?" \u00b7 "+capLine:"")},
+    right?1250:3600);
+}
 var PIN_FULL=50,PIN_ZERO=2000,PIN_OK=250;
 var pinQ={forName:null,at:null};
 function pinPoints(km){
@@ -9112,6 +9215,26 @@ var QUIZ={
     },
     score:function(){return masteredIn(store.terra||{})+"/"+FLAGS.length;}
   },
+  tour:{
+    ask:function(f){
+      if(tourQ.forName!==f.n)tourQ=tourPick(f);
+      var k=tourQ.kind;
+      if(k==="flag")return t("askTourFlag");
+      if(k==="cap")return fill(t("askTourCap"),{c:capitalOf(f)});
+      if(k==="known")return t("askTourKnown");
+      return fill(t("askTourName"),{c:cnameArt(f)});
+    },
+    box:"tour",custom:true,
+    has:function(f){return !!f;},
+    prep:function(f){paintSolved();globe.pins=null;},
+    subject:function(f){return tourCard(f);},
+    reveal:function(){
+      globe.hi[current.n]=css("--good");globe.mk[current.n]="ok";
+      var c=locationOf(current.n);
+      if(c)frameTo(c[0],c[1]);
+    },
+    score:function(){return masteredIn(store.tour||{})+"/"+FLAGS.length;}
+  },
   dossier:{
     ask:"askDossier",box:"dossier",typed:true,
     prep:function(f){
@@ -9630,7 +9753,7 @@ function flash(msg){
 }
 
 var ROUND_LEN=20;
-var ROUND_OF={dossier:8,trade:10,postcard:8,tele:10,visa:10,compass:10};
+var ROUND_OF={dossier:8,tour:16,trade:10,postcard:8,tele:10,visa:10,compass:10};
 
 var DAILY_EACH=5,DAILY_LEGS=5;
 var DAILY_REGIONS=["ALL","ALL","ALL","EU","AS","AF","NA","SA","OC"];
@@ -9899,6 +10022,10 @@ function runEnd(){
   head.appendChild(fill);head.appendChild(hl);head.appendChild(hv);
   if(!dayDone)head.appendChild(hp);
   roll.appendChild(head);
+  if(mode==="tour"&&!dayDone){
+    store.tourLegs=(store.tourLegs||0)+1;save();
+    slip("pts",t("tourTravelled"),fmtNum(voyageKm())+" km",fill2(t("tourStops"),{n:voyage.length}));
+  }
   if(dayDone){dayStandEl=slip("stand",t("standLab"),"··","");paintDayStand();}
   if(mode==="dossier"){
     var pts=run.pts||0,dst=store.stats.dossier||(store.stats.dossier={played:0,best:0,bestPts:0});
@@ -10348,7 +10475,7 @@ function typeFootSoon(){
 }
 function relayout(){
   typeFootSoon();
-  if(globe.ctx&&(locating()||mode==="daily")){sizeGlobe();drawGlobe();}
+  if(globe.ctx&&(locating()||mode==="daily"||mode==="tour")){sizeGlobe();drawGlobe();}
   if(mode==="shape"&&current)drawShape(current);
   if(mode==="dossier")fitDossier();
   if(mode==="trade")fitTrade();
@@ -11600,7 +11727,7 @@ function playKind(m){
   m=m||mode;
   if(m==="daily")return daily.kind;
   if(locating(m))return "locate";
-  if(m==="pin")return "locate";
+  if(m==="pin"||m==="tour")return "locate";
   if(METRICBOARD[m])return "bigger";
   if(m==="worldle")return "globle";
   if(m==="riverloc"||m==="rangeloc"||m==="sea")return "locate";
