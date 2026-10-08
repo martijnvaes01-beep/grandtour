@@ -536,7 +536,7 @@ en:{sub:"countries · flags, globe, atlas",
   dChainDay:"Five links on the clock. Every country must border the one before.",dDepartDay:"Four groups of four on one board. A board with no mistakes earns the fifth point.",
   mTour:"World trip",
   dTour:"Every country in one trip, sixteen stops at a time",
-  tourLegOf:"Leg {n} of {t}",tourTrip:"The trip",tourMisses:"Wrong so far: {n}",tourDone:"Trip complete",tourPerfect:"A perfect world trip",tourNew:"New trip",tourNewSure:"Start over? Tap again",
+  tourLegOf:"Leg {n} of {t}",tourTrip:"The trip",tourMisses:"Wrong so far: {n}",tourDone:"Trip complete",tourPerfect:"A perfect world trip",tourNew:"New trip",tourCapLetter:"Capital starts with {l}",tourNewSure:"Start over? Tap again",
   askTourName:"Find {c}",
   askTourFlag:"Where does this flag fly?",
   askTourCap:"Where is {c}?",
@@ -1030,7 +1030,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   dChainDay:"Cinq maillons contre la montre. Chaque pays touche le précédent.",dDepartDay:"Quatre groupes de quatre sur un seul tableau. Sans aucune erreur, le cinquième point est à vous.",
   mTour:"Tour du monde",
   dTour:"Tous les pays en un seul voyage, étape par étape",
-  tourLegOf:"Étape {n} sur {t}",tourTrip:"Le voyage",tourMisses:"Erreurs : {n}",tourDone:"Voyage terminé",tourPerfect:"Un tour du monde sans faute",tourNew:"Nouveau voyage",tourNewSure:"Tout recommencer ? Touchez encore",
+  tourLegOf:"Étape {n} sur {t}",tourTrip:"Le voyage",tourMisses:"Erreurs : {n}",tourDone:"Voyage terminé",tourPerfect:"Un tour du monde sans faute",tourNew:"Nouveau voyage",tourCapLetter:"Capitale en {l}",tourNewSure:"Tout recommencer ? Touchez encore",
   askTourName:"Trouvez {c}",
   askTourFlag:"Où flotte ce drapeau ?",
   askTourCap:"Où se trouve {c} ?",
@@ -1524,7 +1524,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   dChainDay:"Fünf Glieder gegen die Uhr. Jedes Land grenzt ans vorige.",dDepartDay:"Vier Vierergruppen auf einer Tafel. Ganz ohne Fehler gibt es den fünften Punkt.",
   mTour:"Weltreise",
   dTour:"Alle Länder auf einer Reise, Etappe für Etappe",
-  tourLegOf:"Etappe {n} von {t}",tourTrip:"Die Reise",tourMisses:"Fehler bisher: {n}",tourDone:"Reise geschafft",tourPerfect:"Eine fehlerfreie Weltreise",tourNew:"Neue Reise",tourNewSure:"Neu beginnen? Noch einmal tippen",
+  tourLegOf:"Etappe {n} von {t}",tourTrip:"Die Reise",tourMisses:"Fehler bisher: {n}",tourDone:"Reise geschafft",tourPerfect:"Eine fehlerfreie Weltreise",tourNew:"Neue Reise",tourCapLetter:"Hauptstadt mit {l}",tourNewSure:"Neu beginnen? Noch einmal tippen",
   askTourName:"Finde {c}",
   askTourFlag:"Wo weht diese Flagge?",
   askTourCap:"Wo liegt {c}?",
@@ -2018,7 +2018,7 @@ es:{sub:"países · banderas, globo, atlas",
   dChainDay:"Cinco eslabones contra el reloj. Cada país limita con el anterior.",dDepartDay:"Cuatro grupos de cuatro en un solo tablero. Sin ningún fallo, te llevas el quinto punto.",
   mTour:"Vuelta al mundo",
   dTour:"Todos los países en un solo viaje, etapa a etapa",
-  tourLegOf:"Etapa {n} de {t}",tourTrip:"El viaje",tourMisses:"Fallos: {n}",tourDone:"Viaje completado",tourPerfect:"Una vuelta al mundo sin fallos",tourNew:"Viaje nuevo",tourNewSure:"¿Empezar de nuevo? Toca otra vez",
+  tourLegOf:"Etapa {n} de {t}",tourTrip:"El viaje",tourMisses:"Fallos: {n}",tourDone:"Viaje completado",tourPerfect:"Una vuelta al mundo sin fallos",tourNew:"Viaje nuevo",tourCapLetter:"Capital con {l}",tourNewSure:"¿Empezar de nuevo? Toca otra vez",
   askTourName:"Encuentra {c}",
   askTourFlag:"¿Dónde ondea esta bandera?",
   askTourCap:"¿Dónde está {c}?",
@@ -2512,7 +2512,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   dChainDay:"Vijf schakels tegen de klok. Elk land grenst aan het vorige.",dDepartDay:"Vier groepen van vier op één bord. Zonder één fout krijg je het vijfde punt.",
   mTour:"Wereldreis",
   dTour:"Alle landen in één reis, etappe voor etappe",
-  tourLegOf:"Etappe {n} van {t}",tourTrip:"De reis",tourMisses:"Fouten tot nu toe: {n}",tourDone:"Reis voltooid",tourPerfect:"Een foutloze wereldreis",tourNew:"Nieuwe reis",tourNewSure:"Opnieuw beginnen? Tik nog eens",
+  tourLegOf:"Etappe {n} van {t}",tourTrip:"De reis",tourMisses:"Fouten tot nu toe: {n}",tourDone:"Reis voltooid",tourPerfect:"Een foutloze wereldreis",tourNew:"Nieuwe reis",tourCapLetter:"Hoofdstad begint met {l}",tourNewSure:"Opnieuw beginnen? Tik nog eens",
   askTourName:"Zoek {c}",
   askTourFlag:"Waar wappert deze vlag?",
   askTourCap:"Waar ligt {c}?",
@@ -8638,12 +8638,16 @@ function tourPick(f){
   try{if(knownWords(f).length)kinds.push("known","known");}catch(e){caught(e,"tourPick");}
   return {forName:f.n,kind:kinds[Math.floor(Math.random()*kinds.length)]};
 }
+function tourDetail(nm,text){
+  var d=document.createElement("i");d.className="tdetail";d.textContent=text;
+  nm.appendChild(d);
+}
 function tourCard(f){
   var row=document.createElement("div");row.className="target";
   var th=document.createElement("span");th.className="thumb";
   var nm=document.createElement("span");nm.className="tname";
   var k=tourQ.kind;
-  if(k==="flag"){th.appendChild(flagNode(f));nm.textContent="?";}
+  if(k==="flag"){th.appendChild(flagNode(f));nm.textContent="?";tourDetail(nm,regionName(f.r));}
   else if(k==="cap"){
     th.className="thumb glyph";
     th.innerHTML='<svg viewBox="0 0 64 48" aria-hidden="true"><path d="M32 4C22 4 15 11 15 20c0 12 17 25 17 25s17-13 17-25C49 11 42 4 32 4z" fill="#A8483B"/><circle cx="32" cy="20" r="6.5" fill="#F7F1E1"/></svg>';
@@ -8651,7 +8655,9 @@ function tourCard(f){
   } else if(k==="known"){
     th.className="thumb glyph";
     th.innerHTML='<svg viewBox="0 0 64 48" aria-hidden="true"><path d="M32 3l5.5 12 13 1.4-9.7 8.8 2.8 12.8L32 31l-11.6 7 2.8-12.8-9.7-8.8 13-1.4z" fill="#D8B24A" stroke="#7A5A1C" stroke-width="1.5" stroke-linejoin="round"/></svg>';
-    nm.textContent=knownWords(f).slice(0,3).join(" \u00b7 ");
+    nm.textContent=knownWords(f).slice(0,4).join(" \u00b7 ");
+    var cp=capitalOf(f);
+    tourDetail(nm,regionName(f.r)+(cp?" \u00b7 "+fill(t("tourCapLetter"),{l:cp.charAt(0).toUpperCase()}):""));
   } else {th.appendChild(flagNode(f));nm.textContent=cname(f);}
   row.appendChild(th);row.appendChild(nm);
   return row;
