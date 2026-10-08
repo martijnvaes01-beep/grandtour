@@ -531,12 +531,12 @@ en:{sub:"countries · flags, globe, atlas",
   telePeople:"{n} PEOPLE",teleFlag:"FLAG {k}",visaHead:"Passport",departHint:"Hint: one group is",
   duelRundown:"The {m} season is over",duelRundownOf:"of {n} players",duelRundownElo:"Final rating {e}",duelRundownPeak:"Peak {e}",duelRundownNew:"New season: everybody starts again at 1000, with five placement matches.",
   chainFree:"{n} of {of} neighbours left",
-  duelAge13:"I am 13 or older",duelAgeNeed:"Ranked and a public name are for players aged 13 or over.",
+  duelAge13:"I am 16 or older",duelAgeNeed:"Ranked and a public name are for players aged 16 or over.",
   shareCta:"Can you beat it?",shareSave:"Save image",shareCopyText:"Copy text",shareCardPeople:"Humanity by flag",shareCardLand:"Land known",shareCardCaps:"Capitals",shareCardStreak:"Best streak",shareCardSprint:"Best sprint",
   dChainDay:"Five links on the clock. Every country must border the one before.",dDepartDay:"Four groups of four on one board. A board with no mistakes earns the fifth point.",
   mTour:"World trip",
   dTour:"Every country in one trip, sixteen stops at a time",
-  tourLegOf:"Leg {n} of {t}",tourTrip:"The trip",tourMisses:"Wrong so far: {n}",tourDone:"Trip complete",tourPerfect:"A perfect world trip",tourNew:"New trip",tourCapLetter:"Capital starts with {l}",tripStartBig:"Where do you start your world trip?",tripStartLine:"Type your country, or pick a continent. The route goes on from there to every country.",tripSurprise:"Surprise me",tripTypePh:"Type your own country",tripTypeGo:"Start",tripBon:"Bon voyage",tripFrom:"Departing: {c}",tripStopsLegs:"{n} stops, {l} legs",tourNewSure:"Start over? Tap again",
+  tourLegOf:"Leg {n} of {t}",tourTrip:"The trip",tourMisses:"Wrong so far: {n}",tourDone:"Trip complete",tourPerfect:"A perfect world trip",tourNew:"New trip",tourCapLetter:"Capital starts with {l}",tripStartBig:"Where do you start your world trip?",tripStartLine:"Pick a continent, then tap your country. The route goes on from there to every country.",tripSurprise:"Surprise me",tripTypePh:"Type your own country",tripTypeGo:"Start",tripBon:"Bon voyage",tripFrom:"Departing: {c}",tripStopsLegs:"{n} stops, {l} legs",tourNewSure:"Start over? Tap again",
   askTourName:"Find {c}",
   askTourFlag:"Where does this flag fly?",
   askTourCap:"Where is {c}?",
@@ -582,7 +582,7 @@ en:{sub:"countries · flags, globe, atlas",
   priv1:"Everything you play stays on this device: your progress, your records and your settings.",
   priv2:"When you finish a round, only the score goes to our server, with a random code your browser generates. No name, no location, nothing about your phone. Scores are deleted after ninety days, and so are the backup copies we keep of them. Our server does see your internet address, as every website does: it is used for a moment to stop floods of requests, and never stored.",
   privWhy:"Why? A scoreboard needs scores to compare, and that is all we use them for: our legitimate interest, kept to the least that works. Notifications are kept only because you turned them on. If you'd rather not be counted, turn off the switch above; the game works the same.",
-  privWho:"Cloudflare runs our server, our database and this website, and counts the visits. If you turn on notifications, your browser's push service (Google, Apple or Mozilla) delivers them. Cloudflare may handle data outside the EU, under the EU's standard contractual clauses and the EU-US Data Privacy Framework. We don't sell data, show ads or share it with anyone else.",privAge:"Ranked play, a public name and notifications are for players aged 13 or over. If you're younger, play everything else: it all stays on your device.",privRights:"You can ask what we keep under your code, have it corrected or deleted, object to it, or take a copy. Write to hello@grandtourbureau.com or use the feedback form in Settings, with your code, and we answer within a month. You can also complain to the Belgian Data Protection Authority (dataprotectionauthority.be) or the one in your own country. Nothing about you is decided by a machine.",
+  privWho:"Cloudflare runs our server, our database and this website, and counts the visits. If you turn on notifications, your browser's push service (Google, Apple or Mozilla) delivers them. Cloudflare may handle data outside the EU, under the EU's standard contractual clauses and the EU-US Data Privacy Framework. We don't sell data, show ads or share it with anyone else.",privAge:"Ranked play, a public name and notifications are for players aged 16 or over. If you're younger, play everything else: it all stays on your device.",privRights:"You can ask what we keep under your code, have it corrected or deleted, object to it, or take a copy. Write to hello@grandtourbureau.com or use the feedback form in Settings, with your code, and we answer within a month. You can also complain to the Belgian Data Protection Authority (dataprotectionauthority.be) or the one in your own country. Nothing about you is decided by a machine.",
   privId:"Your code: {p}",
   svTitle:"Back up and restore",
   svLead:"Your progress lives on this device, and a copy is kept online while the backup is on. The recovery code gets it back on any device. You can also save it by hand, as a code or a file.",
@@ -1025,12 +1025,12 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   telePeople:"{n} HABITANTS",teleFlag:"DRAPEAU {k}",visaHead:"Passeport",departHint:"Indice : un groupe est",
   duelRundown:"La saison de {m} est terminée",duelRundownOf:"sur {n} joueurs",duelRundownElo:"Cote finale {e}",duelRundownPeak:"Record {e}",duelRundownNew:"Nouvelle saison : tout le monde repart de 1000, avec cinq matchs de placement.",
   chainFree:"{n} voisins libres sur {of}",
-  duelAge13:"J'ai 13 ans ou plus",duelAgeNeed:"Le mode classé et un nom public sont réservés aux 13 ans et plus.",
+  duelAge13:"J'ai 16 ans ou plus",duelAgeNeed:"Le mode classé et un nom public sont réservés aux 16 ans et plus.",
   shareCta:"Ferez-vous mieux ?",shareSave:"Enregistrer l'image",shareCopyText:"Copier le texte",shareCardPeople:"Humanité par drapeau",shareCardLand:"Terres connues",shareCardCaps:"Capitales",shareCardStreak:"Meilleure série",shareCardSprint:"Meilleur sprint",
   dChainDay:"Cinq maillons contre la montre. Chaque pays touche le précédent.",dDepartDay:"Quatre groupes de quatre sur un seul tableau. Sans aucune erreur, le cinquième point est à vous.",
   mTour:"Tour du monde",
   dTour:"Tous les pays en un seul voyage, étape par étape",
-  tourLegOf:"Étape {n} sur {t}",tourTrip:"Le voyage",tourMisses:"Erreurs : {n}",tourDone:"Voyage terminé",tourPerfect:"Un tour du monde sans faute",tourNew:"Nouveau voyage",tourCapLetter:"Capitale en {l}",tripStartBig:"Où commencez-vous votre tour du monde ?",tripStartLine:"Tapez votre pays ou choisissez un continent. La route continue de là vers chaque pays.",tripSurprise:"Surprenez-moi",tripTypePh:"Tapez votre pays",tripTypeGo:"Partir",tripBon:"Bon voyage",tripFrom:"Départ : {c}",tripStopsLegs:"{n} escales, {l} étapes",tourNewSure:"Tout recommencer ? Touchez encore",
+  tourLegOf:"Étape {n} sur {t}",tourTrip:"Le voyage",tourMisses:"Erreurs : {n}",tourDone:"Voyage terminé",tourPerfect:"Un tour du monde sans faute",tourNew:"Nouveau voyage",tourCapLetter:"Capitale en {l}",tripStartBig:"Où commencez-vous votre tour du monde ?",tripStartLine:"Choisissez un continent, puis touchez votre pays. La route continue de là vers chaque pays.",tripSurprise:"Surprenez-moi",tripTypePh:"Tapez votre pays",tripTypeGo:"Partir",tripBon:"Bon voyage",tripFrom:"Départ : {c}",tripStopsLegs:"{n} escales, {l} étapes",tourNewSure:"Tout recommencer ? Touchez encore",
   askTourName:"Trouvez {c}",
   askTourFlag:"Où flotte ce drapeau ?",
   askTourCap:"Où se trouve {c} ?",
@@ -1076,7 +1076,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   priv1:"Tout ce que vous jouez reste sur cet appareil : votre progression, vos records et vos réglages.",
   priv2:"Quand vous terminez une partie, seul le score part vers notre serveur, avec un code aléatoire créé par votre navigateur. Pas de nom, pas de position, rien sur votre appareil. Les scores sont effacés au bout de quatre-vingt-dix jours, et les copies de sauvegarde aussi. Notre serveur voit bien votre adresse internet, comme tout site : elle sert un instant à bloquer les avalanches de requêtes, et n'est jamais conservée.",
   privWhy:"Pourquoi ? Parce qu'un classement a besoin de chiffres à comparer, et c'est leur seul usage : notre intérêt légitime, réduit au strict nécessaire. Les notifications ne sont conservées que parce que vous les avez activées. Si vous préférez ne pas être compté, coupez l'interrupteur ci-dessus ; le jeu reste exactement le même.",
-  privWho:"Cloudflare fait tourner notre serveur, notre base de données et ce site, et compte les visites. Si vous activez les notifications, le service push de votre navigateur (Google, Apple ou Mozilla) les distribue. Cloudflare peut traiter des données hors de l'UE, dans le cadre des clauses contractuelles types de l'UE et du cadre de protection des données UE-États-Unis. Nous ne vendons rien, n'affichons aucune publicité et ne partageons rien avec personne.",privAge:"Le mode classé, un nom public et les notifications sont réservés aux joueurs de 13 ans et plus. Plus jeune, jouez à tout le reste : tout reste sur votre appareil.",privRights:"Vous pouvez demander ce que nous conservons sous votre code, le faire corriger ou effacer, vous y opposer ou en recevoir une copie. Écrivez à hello@grandtourbureau.com ou passez par le formulaire sous cette roue dentée, en indiquant votre code ; nous répondons dans le mois. Vous pouvez aussi porter plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be) ou de celle de votre pays. Aucune décision vous concernant n'est prise par une machine.",
+  privWho:"Cloudflare fait tourner notre serveur, notre base de données et ce site, et compte les visites. Si vous activez les notifications, le service push de votre navigateur (Google, Apple ou Mozilla) les distribue. Cloudflare peut traiter des données hors de l'UE, dans le cadre des clauses contractuelles types de l'UE et du cadre de protection des données UE-États-Unis. Nous ne vendons rien, n'affichons aucune publicité et ne partageons rien avec personne.",privAge:"Le mode classé, un nom public et les notifications sont réservés aux joueurs de 16 ans et plus. Plus jeune, jouez à tout le reste : tout reste sur votre appareil.",privRights:"Vous pouvez demander ce que nous conservons sous votre code, le faire corriger ou effacer, vous y opposer ou en recevoir une copie. Écrivez à hello@grandtourbureau.com ou passez par le formulaire sous cette roue dentée, en indiquant votre code ; nous répondons dans le mois. Vous pouvez aussi porter plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be) ou de celle de votre pays. Aucune décision vous concernant n'est prise par une machine.",
   privId:"Votre code : {p}",
   svTitle:"Sauvegarde et restauration",
   svLead:"Votre progression est sur cet appareil, et une copie est gardée en ligne tant que la sauvegarde est activée. Le code de récupération la ramène sur n'importe quel appareil. Vous pouvez aussi l'enregistrer vous-même, en code ou en fichier.",
@@ -1519,12 +1519,12 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   telePeople:"{n} EINWOHNER",teleFlag:"FLAGGE {k}",visaHead:"Reisepass",departHint:"Tipp: eine Gruppe ist",
   duelRundown:"Die Saison {m} ist vorbei",duelRundownOf:"von {n} Spielern",duelRundownElo:"Endwertung {e}",duelRundownPeak:"Höchstwert {e}",duelRundownNew:"Neue Saison: Alle starten wieder bei 1000, mit fünf Platzierungsspielen.",
   chainFree:"{n} von {of} Nachbarn frei",
-  duelAge13:"Ich bin 13 oder älter",duelAgeNeed:"Gewertete Duelle und ein öffentlicher Name gibt es ab 13 Jahren.",
+  duelAge13:"Ich bin 16 oder älter",duelAgeNeed:"Gewertete Duelle und ein öffentlicher Name gibt es ab 16 Jahren.",
   shareCta:"Schaffst du mehr?",shareSave:"Bild speichern",shareCopyText:"Text kopieren",shareCardPeople:"Menschheit per Flagge",shareCardLand:"Bekannte Landfläche",shareCardCaps:"Hauptstädte",shareCardStreak:"Beste Serie",shareCardSprint:"Bester Sprint",
   dChainDay:"Fünf Glieder gegen die Uhr. Jedes Land grenzt ans vorige.",dDepartDay:"Vier Vierergruppen auf einer Tafel. Ganz ohne Fehler gibt es den fünften Punkt.",
   mTour:"Weltreise",
   dTour:"Alle Länder auf einer Reise, Etappe für Etappe",
-  tourLegOf:"Etappe {n} von {t}",tourTrip:"Die Reise",tourMisses:"Fehler bisher: {n}",tourDone:"Reise geschafft",tourPerfect:"Eine fehlerfreie Weltreise",tourNew:"Neue Reise",tourCapLetter:"Hauptstadt mit {l}",tripStartBig:"Wo beginnt deine Weltreise?",tripStartLine:"Tippe dein Land oder wähle einen Kontinent. Von dort führt die Route zu jedem Land.",tripSurprise:"Überrasch mich",tripTypePh:"Tippe dein Land",tripTypeGo:"Los",tripBon:"Gute Reise",tripFrom:"Start: {c}",tripStopsLegs:"{n} Stationen, {l} Etappen",tourNewSure:"Neu beginnen? Noch einmal tippen",
+  tourLegOf:"Etappe {n} von {t}",tourTrip:"Die Reise",tourMisses:"Fehler bisher: {n}",tourDone:"Reise geschafft",tourPerfect:"Eine fehlerfreie Weltreise",tourNew:"Neue Reise",tourCapLetter:"Hauptstadt mit {l}",tripStartBig:"Wo beginnt deine Weltreise?",tripStartLine:"Wähle einen Kontinent und tippe dann auf dein Land. Von dort führt die Route zu jedem Land.",tripSurprise:"Überrasch mich",tripTypePh:"Tippe dein Land",tripTypeGo:"Los",tripBon:"Gute Reise",tripFrom:"Start: {c}",tripStopsLegs:"{n} Stationen, {l} Etappen",tourNewSure:"Neu beginnen? Noch einmal tippen",
   askTourName:"Finde {c}",
   askTourFlag:"Wo weht diese Flagge?",
   askTourCap:"Wo liegt {c}?",
@@ -1570,7 +1570,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   priv1:"Alles, was du spielst, bleibt auf diesem Gerät: dein Fortschritt, deine Rekorde und deine Einstellungen.",
   priv2:"Wenn du eine Runde beendest, geht nur die Punktzahl an unseren Server, zusammen mit einem Zufallscode, den dein Browser selbst erzeugt. Kein Name, kein Standort, nichts über dein Gerät. Punktzahlen werden nach neunzig Tagen gelöscht, unsere Sicherungskopien davon auch. Deine Internetadresse sieht unser Server wie jede Website: Sie wird kurz genutzt, um Anfragefluten abzuwehren, und nie gespeichert.",
   privWhy:"Warum? Weil eine Bestenliste Zahlen zum Vergleichen braucht, und nur dafür nutzen wir sie: unser berechtigtes Interesse, auf das Nötigste beschränkt. Mitteilungen speichern wir nur, weil du sie eingeschaltet hast. Willst du lieber nicht mitgezählt werden, leg den Schalter oben um; das Spiel läuft genau gleich.",
-  privWho:"Cloudflare betreibt unseren Server, unsere Datenbank und diese Website und zählt die Besuche. Schaltest du Mitteilungen ein, stellt sie der Push-Dienst deines Browsers zu (Google, Apple oder Mozilla). Cloudflare kann Daten auch außerhalb der EU verarbeiten, auf Grundlage der EU-Standardvertragsklauseln und des EU-US-Datenschutzrahmens. Wir verkaufen keine Daten, zeigen keine Werbung und geben nichts an andere weiter.",privAge:"Gewertete Duelle, ein öffentlicher Name und Mitteilungen sind für Spieler ab 13 Jahren. Bist du jünger, spiel alles andere: Das bleibt komplett auf deinem Gerät.",privRights:"Du kannst fragen, was wir unter deinem Code speichern, es berichtigen oder löschen lassen, widersprechen oder eine Kopie bekommen. Schreib an hello@grandtourbureau.com oder über das Formular unter diesem Zahnrad, mit deinem Code; wir antworten innerhalb eines Monats. Du kannst dich auch bei der belgischen Datenschutzbehörde (datenschutzbehorde.be) oder der Behörde deines Landes beschweren. Über dich entscheidet keine Maschine.",
+  privWho:"Cloudflare betreibt unseren Server, unsere Datenbank und diese Website und zählt die Besuche. Schaltest du Mitteilungen ein, stellt sie der Push-Dienst deines Browsers zu (Google, Apple oder Mozilla). Cloudflare kann Daten auch außerhalb der EU verarbeiten, auf Grundlage der EU-Standardvertragsklauseln und des EU-US-Datenschutzrahmens. Wir verkaufen keine Daten, zeigen keine Werbung und geben nichts an andere weiter.",privAge:"Gewertete Duelle, ein öffentlicher Name und Mitteilungen sind für Spieler ab 16 Jahren. Bist du jünger, spiel alles andere: Das bleibt komplett auf deinem Gerät.",privRights:"Du kannst fragen, was wir unter deinem Code speichern, es berichtigen oder löschen lassen, widersprechen oder eine Kopie bekommen. Schreib an hello@grandtourbureau.com oder über das Formular unter diesem Zahnrad, mit deinem Code; wir antworten innerhalb eines Monats. Du kannst dich auch bei der belgischen Datenschutzbehörde (datenschutzbehorde.be) oder der Behörde deines Landes beschweren. Über dich entscheidet keine Maschine.",
   privId:"Dein Code: {p}",
   svTitle:"Sichern und wiederherstellen",
   svLead:"Dein Fortschritt liegt auf diesem Gerät, und solange die Sicherung an ist, auch als Kopie online. Mit dem Wiederherstellungscode holst du ihn auf jedem Gerät zurück. Du kannst ihn auch selbst sichern, als Code oder als Datei.",
@@ -2013,12 +2013,12 @@ es:{sub:"países · banderas, globo, atlas",
   telePeople:"{n} HABITANTES",teleFlag:"BANDERA {k}",visaHead:"Pasaporte",departHint:"Pista: un grupo es",
   duelRundown:"La temporada de {m} ha terminado",duelRundownOf:"de {n} jugadores",duelRundownElo:"Puntuación final {e}",duelRundownPeak:"Máximo {e}",duelRundownNew:"Nueva temporada: todos vuelven a 1000, con cinco partidas de posicionamiento.",
   chainFree:"{n} de {of} vecinos libres",
-  duelAge13:"Tengo 13 años o más",duelAgeNeed:"Las clasificatorias y un nombre público son para mayores de 13 años.",
+  duelAge13:"Tengo 16 años o más",duelAgeNeed:"Las clasificatorias y un nombre público son para mayores de 16 años.",
   shareCta:"¿Puedes superarlo?",shareSave:"Guardar imagen",shareCopyText:"Copiar texto",shareCardPeople:"Humanidad por bandera",shareCardLand:"Tierra conocida",shareCardCaps:"Capitales",shareCardStreak:"Mejor racha",shareCardSprint:"Mejor sprint",
   dChainDay:"Cinco eslabones contra el reloj. Cada país limita con el anterior.",dDepartDay:"Cuatro grupos de cuatro en un solo tablero. Sin ningún fallo, te llevas el quinto punto.",
   mTour:"Vuelta al mundo",
   dTour:"Todos los países en un solo viaje, etapa a etapa",
-  tourLegOf:"Etapa {n} de {t}",tourTrip:"El viaje",tourMisses:"Fallos: {n}",tourDone:"Viaje completado",tourPerfect:"Una vuelta al mundo sin fallos",tourNew:"Viaje nuevo",tourCapLetter:"Capital con {l}",tripStartBig:"¿Dónde empieza tu vuelta al mundo?",tripStartLine:"Escribe tu país o elige un continente. Desde allí la ruta sigue por cada país.",tripSurprise:"Sorpréndeme",tripTypePh:"Escribe tu país",tripTypeGo:"Salir",tripBon:"Buen viaje",tripFrom:"Salida: {c}",tripStopsLegs:"{n} paradas, {l} etapas",tourNewSure:"¿Empezar de nuevo? Toca otra vez",
+  tourLegOf:"Etapa {n} de {t}",tourTrip:"El viaje",tourMisses:"Fallos: {n}",tourDone:"Viaje completado",tourPerfect:"Una vuelta al mundo sin fallos",tourNew:"Viaje nuevo",tourCapLetter:"Capital con {l}",tripStartBig:"¿Dónde empieza tu vuelta al mundo?",tripStartLine:"Elige un continente y toca tu país. Desde allí la ruta sigue por cada país.",tripSurprise:"Sorpréndeme",tripTypePh:"Escribe tu país",tripTypeGo:"Salir",tripBon:"Buen viaje",tripFrom:"Salida: {c}",tripStopsLegs:"{n} paradas, {l} etapas",tourNewSure:"¿Empezar de nuevo? Toca otra vez",
   askTourName:"Encuentra {c}",
   askTourFlag:"¿Dónde ondea esta bandera?",
   askTourCap:"¿Dónde está {c}?",
@@ -2064,7 +2064,7 @@ es:{sub:"países · banderas, globo, atlas",
   priv1:"Todo lo que juegas se queda en este dispositivo: tu progreso, tus récords y tus ajustes.",
   priv2:"Cuando terminas una ronda, solo la puntuación va a nuestro servidor, con un código aleatorio que crea tu propio navegador. Ni nombre, ni ubicación, nada sobre tu dispositivo. Las puntuaciones se borran a los noventa días, y las copias de seguridad también. Nuestro servidor ve tu dirección de internet, como cualquier web: se usa un momento para frenar avalanchas de peticiones y nunca se guarda.",
   privWhy:"¿Por qué? Porque una clasificación necesita cifras para comparar, y es lo único para lo que las usamos: nuestro interés legítimo, reducido a lo mínimo. Las notificaciones solo se guardan porque tú las activaste. Si prefieres no aparecer, apaga el interruptor de arriba; el juego funciona exactamente igual.",
-  privWho:"Cloudflare gestiona nuestro servidor, nuestra base de datos y esta web, y cuenta las visitas. Si activas las notificaciones, te las entrega el servicio push de tu navegador (Google, Apple o Mozilla). Cloudflare puede tratar datos fuera de la UE, con las cláusulas contractuales tipo de la UE y el Marco de Privacidad de Datos UE-EE. UU. No vendemos datos, no mostramos anuncios y no los compartimos con nadie más.",privAge:"Las clasificatorias, un nombre público y las notificaciones son para jugadores de 13 años o más. Si eres menor, juega a todo lo demás: todo se queda en tu dispositivo.",privRights:"Puedes preguntar qué guardamos con tu código, corregirlo o borrarlo, oponerte o llevarte una copia. Escribe a hello@grandtourbureau.com o usa el formulario de este mismo menú, con tu código, y te respondemos en un mes. También puedes reclamar ante la Autoridad de Protección de Datos belga (dataprotectionauthority.be) o la de tu país. Ninguna máquina decide nada sobre ti.",
+  privWho:"Cloudflare gestiona nuestro servidor, nuestra base de datos y esta web, y cuenta las visitas. Si activas las notificaciones, te las entrega el servicio push de tu navegador (Google, Apple o Mozilla). Cloudflare puede tratar datos fuera de la UE, con las cláusulas contractuales tipo de la UE y el Marco de Privacidad de Datos UE-EE. UU. No vendemos datos, no mostramos anuncios y no los compartimos con nadie más.",privAge:"Las clasificatorias, un nombre público y las notificaciones son para jugadores de 16 años o más. Si eres menor, juega a todo lo demás: todo se queda en tu dispositivo.",privRights:"Puedes preguntar qué guardamos con tu código, corregirlo o borrarlo, oponerte o llevarte una copia. Escribe a hello@grandtourbureau.com o usa el formulario de este mismo menú, con tu código, y te respondemos en un mes. También puedes reclamar ante la Autoridad de Protección de Datos belga (dataprotectionauthority.be) o la de tu país. Ninguna máquina decide nada sobre ti.",
   privId:"Tu código: {p}",
   svTitle:"Copia y restauración",
   svLead:"Tu progreso está en este dispositivo, y mientras la copia esté activada hay otra copia en línea. Con el código de recuperación lo recuperas en cualquier dispositivo. También puedes guardarlo a mano, como código o como archivo.",
@@ -2507,12 +2507,12 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   telePeople:"{n} INWONERS",teleFlag:"VLAG {k}",visaHead:"Paspoort",departHint:"Tip: één groep is",
   duelRundown:"Seizoen {m} zit erop",duelRundownOf:"van {n} spelers",duelRundownElo:"Eindrating {e}",duelRundownPeak:"Hoogste {e}",duelRundownNew:"Nieuw seizoen: iedereen begint weer op 1000, met vijf plaatsingswedstrijden.",
   chainFree:"{n} van {of} buurlanden over",
-  duelAge13:"Ik ben 13 jaar of ouder",duelAgeNeed:"Ranked en een publieke naam zijn voor spelers vanaf 13 jaar.",
+  duelAge13:"Ik ben 16 jaar of ouder",duelAgeNeed:"Ranked en een publieke naam zijn voor spelers vanaf 16 jaar.",
   shareCta:"Doe jij beter?",shareSave:"Afbeelding bewaren",shareCopyText:"Tekst kopiëren",shareCardPeople:"Mensheid per vlag",shareCardLand:"Bekend land",shareCardCaps:"Hoofdsteden",shareCardStreak:"Beste reeks",shareCardSprint:"Beste sprint",
   dChainDay:"Vijf schakels tegen de klok. Elk land grenst aan het vorige.",dDepartDay:"Vier groepen van vier op één bord. Zonder één fout krijg je het vijfde punt.",
   mTour:"Wereldreis",
   dTour:"Alle landen in één reis, etappe voor etappe",
-  tourLegOf:"Etappe {n} van {t}",tourTrip:"De reis",tourMisses:"Fouten tot nu toe: {n}",tourDone:"Reis voltooid",tourPerfect:"Een foutloze wereldreis",tourNew:"Nieuwe reis",tourCapLetter:"Hoofdstad begint met {l}",tripStartBig:"Waar begin je je wereldreis?",tripStartLine:"Typ je eigen land of kies een werelddeel. Vanaf daar gaat de route langs elk land.",tripSurprise:"Verras me",tripTypePh:"Typ je eigen land",tripTypeGo:"Start",tripBon:"Goede reis",tripFrom:"Vertrek: {c}",tripStopsLegs:"{n} stops, {l} etappes",tourNewSure:"Opnieuw beginnen? Tik nog eens",
+  tourLegOf:"Etappe {n} van {t}",tourTrip:"De reis",tourMisses:"Fouten tot nu toe: {n}",tourDone:"Reis voltooid",tourPerfect:"Een foutloze wereldreis",tourNew:"Nieuwe reis",tourCapLetter:"Hoofdstad begint met {l}",tripStartBig:"Waar begin je je wereldreis?",tripStartLine:"Kies een werelddeel en tik dan op je land. Vanaf daar gaat de route langs elk land.",tripSurprise:"Verras me",tripTypePh:"Typ je eigen land",tripTypeGo:"Start",tripBon:"Goede reis",tripFrom:"Vertrek: {c}",tripStopsLegs:"{n} stops, {l} etappes",tourNewSure:"Opnieuw beginnen? Tik nog eens",
   askTourName:"Zoek {c}",
   askTourFlag:"Waar wappert deze vlag?",
   askTourCap:"Waar ligt {c}?",
@@ -2558,7 +2558,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   priv1:"Alles wat je speelt blijft op dit toestel: je voortgang, je records en je instellingen.",
   priv2:"Maak je een ronde af, dan gaat alleen de score naar onze server, met een willekeurige code die je browser zelf verzint. Geen naam, geen locatie, niets over je toestel. Scores worden na negentig dagen gewist, en onze reservekopieën ervan ook. Je internetadres ziet onze server wel, zoals elke website: dat wordt heel even gebruikt om een stortvloed aan verzoeken tegen te houden en nooit bewaard.",
   privWhy:"Waarom? Omdat een scorebord cijfers nodig heeft om mee te vergelijken, en daar gebruiken we ze ook alleen voor: een gerechtvaardigd belang, zo klein mogelijk gehouden. Meldingen bewaren we alleen omdat jij ze aanzette. Wil je liever niet meegeteld worden, zet dan de schakelaar hierboven uit; het spel werkt precies hetzelfde.",
-  privWho:"Cloudflare draait onze server, onze database en deze website, en telt de bezoeken. Zet je meldingen aan, dan bezorgt de pushdienst van je browser ze (Google, Apple of Mozilla). Cloudflare kan gegevens ook buiten de EU verwerken, onder de standaardcontractbepalingen van de EU en het EU-VS-kader voor gegevensbescherming. We verkopen geen gegevens, tonen geen advertenties en delen niets met anderen.",privAge:"Ranked, een publieke naam en meldingen zijn voor spelers vanaf 13 jaar. Ben je jonger, speel dan de rest: dat blijft allemaal op je toestel.",privRights:"Je kunt vragen wat we onder je code bewaren, het laten verbeteren of wissen, bezwaar maken of een kopie krijgen. Mail naar hello@grandtourbureau.com of gebruik het formulier onder dit tandwiel, met je code erbij; we antwoorden binnen een maand. Je kunt ook een klacht indienen bij de Gegevensbeschermingsautoriteit (gegevensbeschermingsautoriteit.be) of bij die van je eigen land. Over jou beslist geen machine.",
+  privWho:"Cloudflare draait onze server, onze database en deze website, en telt de bezoeken. Zet je meldingen aan, dan bezorgt de pushdienst van je browser ze (Google, Apple of Mozilla). Cloudflare kan gegevens ook buiten de EU verwerken, onder de standaardcontractbepalingen van de EU en het EU-VS-kader voor gegevensbescherming. We verkopen geen gegevens, tonen geen advertenties en delen niets met anderen.",privAge:"Ranked, een publieke naam en meldingen zijn voor spelers vanaf 16 jaar. Ben je jonger, speel dan de rest: dat blijft allemaal op je toestel.",privRights:"Je kunt vragen wat we onder je code bewaren, het laten verbeteren of wissen, bezwaar maken of een kopie krijgen. Mail naar hello@grandtourbureau.com of gebruik het formulier onder dit tandwiel, met je code erbij; we antwoorden binnen een maand. Je kunt ook een klacht indienen bij de Gegevensbeschermingsautoriteit (gegevensbeschermingsautoriteit.be) of bij die van je eigen land. Over jou beslist geen machine.",
   privId:"Je code: {p}",
   svTitle:"Back-up en herstel",
   svLead:"Je voortgang staat op dit toestel, en er staat een kopie online zolang de back-up aan staat. Met de herstelcode haal je hem op elk toestel terug. Je kunt hem ook zelf bewaren, als code of als bestand.",
@@ -8682,27 +8682,38 @@ function tripChoose(after){
   $("triplab").textContent=t("mTour");
   $("tripbig").textContent=t("tripStartBig");
   $("tripline").textContent=t("tripStartLine");
-  var box=$("tripacts");box.innerHTML="";
-  var inp=document.createElement("input");inp.type="text";inp.id="tripcountry";inp.className="tripfield";
-  inp.setAttribute("autocomplete","off");inp.setAttribute("autocorrect","off");inp.setAttribute("autocapitalize","off");inp.spellcheck=false;
-  inp.placeholder=t("tripTypePh");
-  var go=document.createElement("button");go.type="button";go.className="btn tripgo";go.textContent=t("tripTypeGo");
-  var typed=function(){
-    var f=resolveTyped(inp.value);
-    if(!f){inp.classList.add("bad");setTimeout(function(){inp.classList.remove("bad");},900);snd.nope();return;}
-    tripGo("ALL",f.n);
-  };
-  go.onclick=typed;
-  inp.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();typed();}};
-  var row=document.createElement("div");row.className="triprow";row.appendChild(inp);row.appendChild(go);
-  box.appendChild(row);
+  tripPaintContinents();
+  $("tripmodal").hidden=false;snd.open();
+}
+function tripPaintContinents(){
+  var box=$("tripacts");box.innerHTML="";box.className="sheetacts tripacts";
   ["EU","AS","AF","NA","SA","OC","ALL"].forEach(function(code){
     var b=document.createElement("button");b.type="button";b.className=code==="ALL"?"btn ghost":"btn";
     b.textContent=code==="ALL"?t("tripSurprise"):t(code);
-    b.onclick=function(){tripGo(code);};
+    b.onclick=function(){if(code==="ALL")tripGo("ALL");else tripPaintCountries(code);};
     box.appendChild(b);
   });
-  $("tripmodal").hidden=false;snd.open();
+}
+function tripPaintCountries(code){
+  var box=$("tripacts");box.innerHTML="";box.className="sheetacts tripacts tripcountries";
+  var top=document.createElement("div");top.className="triptop";
+  var back=document.createElement("button");back.type="button";back.className="btn ghost";back.textContent="\u2039 "+t(code);
+  back.onclick=tripPaintContinents;
+  var sur=document.createElement("button");sur.type="button";sur.className="btn";sur.textContent=t("tripSurprise");
+  sur.onclick=function(){tripGo(code);};
+  top.appendChild(back);top.appendChild(sur);box.appendChild(top);
+  var list=document.createElement("div");list.className="tripcl";
+  FLAGS.filter(function(f){return f.r===code&&!!locationOf(f.n);})
+    .sort(function(x,y){return cname(x).localeCompare(cname(y));})
+    .forEach(function(f){
+      var r=document.createElement("button");r.type="button";r.className="tripcrow";
+      var th=document.createElement("span");th.className="thumb";th.appendChild(flagNode(f));
+      var nm=document.createElement("span");nm.textContent=cname(f);
+      r.appendChild(th);r.appendChild(nm);
+      r.onclick=function(){tripGo("ALL",f.n);};
+      list.appendChild(r);
+    });
+  box.appendChild(list);
 }
 function tripShut(){
   if($("tripmodal").hidden)return;
@@ -12262,7 +12273,14 @@ function dailyReveal(){
 var SHARE_URL="https://grandtourbureau.com/";
 var DAY_LINK=SHARE_URL+"?day=1";
 var KOFI_URL="https://ko-fi.com/martijn1";
-function kofiOn(){return !!KOFI_URL||CHEATS;}
+var IN_PLAY_APP=(function(){
+  var ref=/^android-app:/.test(document.referrer||"");
+  try{
+    if(ref)sessionStorage.setItem("gt.twa","1");
+    return ref||sessionStorage.getItem("gt.twa")==="1";
+  }catch(e){return ref;}
+})();
+function kofiOn(){return !IN_PLAY_APP&&(!!KOFI_URL||CHEATS);}
 var DUEL_LIVE=true;
 function duelOn(){return (DUEL_LIVE||CHEATS)&&!!SCORE_URL;}
 var DUEL_GATE=6;
