@@ -17480,10 +17480,10 @@ function placeApp(){
   var top=base.offsetTop+base.offsetHeight+8;
   var right=(base===k)?kr:Math.round((parseFloat(getComputedStyle(cd).right)||14)+cd.offsetWidth-a.offsetWidth*0.35);
   if(base===k){
-    top=base.offsetTop+base.offsetHeight-Math.round(a.offsetHeight*0.2);
+    top=base.offsetTop+base.offsetHeight+12;   /* a clear gap under the token, never touching it (the owner, 8 October) */
     right=Math.max(4,Math.round(kr-k.offsetWidth*0.55));
   }
-  if(top+a.offsetHeight+14>floor){a.style.visibility="hidden";return;}
+  if(top+a.offsetHeight+2>floor){a.style.visibility="hidden";return;}
   a.style.visibility="";
   a.style.top=top+"px";
   a.style.right=right+"px";
