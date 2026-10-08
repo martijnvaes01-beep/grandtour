@@ -10,6 +10,16 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(self), payment=()
   Strict-Transport-Security: max-age=31536000
 
+# LONG CACHE FOR WHAT HAS A NAME THAT CHANGES WITH ITS CONTENT (8 October, the PageSpeed report). Everything the page asks
+# for under /assets/ is named by a hash of its own text (flags, coast, zing, more, and the game script once it is a file
+# of its own), so a new build is a new name and the old copy can never be wrong: a year, immutable. The fonts keep their
+# names, so they get a month rather than a year. The page itself, sw.js and version.json are deliberately not here:
+# they have to be asked for again every time, which is what Pages already does for them.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=2592000
+
 # THE PAGES.DEV COPY IS NOT A SECOND SITE (v691): Cloudflare serves the same files at grandtour.pages.dev, and Google
 # should index only grandtourbureau.com. The canonical tags already say so; this says it louder.
 https://grandtour.pages.dev/*
