@@ -17288,7 +17288,7 @@ function placeApp(){
   var kr=(base===k)?(parseFloat(k.style.right)||27):0;
   var top=base.offsetTop+base.offsetHeight+8;
   var right=(base===k)?kr:Math.round((parseFloat(getComputedStyle(cd).right)||14)+cd.offsetWidth-a.offsetWidth*0.35);
-  if(top+a.offsetHeight+14>floor&&base===k){
+  if(base===k){
     top=base.offsetTop+base.offsetHeight-Math.round(a.offsetHeight*0.28);
     right=Math.round(kr+k.offsetWidth*0.62);
   }
