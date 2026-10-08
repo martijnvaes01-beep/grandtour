@@ -4110,10 +4110,28 @@ function stickPattern(pat){
   var s=Math.max(0.6,Math.min(8,globe.zoom||1));
   var gx=(globe.lam||0)*RAD*R,gy=(globe.phi||0)*RAD*R,w=tile*s;
   gx=gx-Math.floor(gx/w)*w;gy=gy-Math.floor(gy/w)*w;
-  try{pat.setTransform(new DOMMatrix().translate(gx,gy).scale(s));}catch(e){}
+  try{pat.setTransform(new DOMMatrix().translate(gx,gy).scale(s/(pat.gtq||1)));}catch(e){}
   return pat;
 }
 var GRAIN=null,TONEPAT={};
+var TILEQ=3;
+function toothTile(col){
+  var n=document.createElement("canvas");n.width=n.height=64;
+  var g=n.getContext("2d");
+  g.fillStyle=col;g.fillRect(0,0,64,64);
+  var i,img=g.getImageData(0,0,64,64),d=img.data;
+  for(i=0;i<d.length;i+=4){
+    var v=(Math.random()*20-8)|0;
+    d[i]=Math.max(0,Math.min(255,d[i]+v));
+    d[i+1]=Math.max(0,Math.min(255,d[i+1]+v));
+    d[i+2]=Math.max(0,Math.min(255,d[i+2]+v));
+  }
+  g.putImageData(img,0,0);
+  var c=document.createElement("canvas");c.width=c.height=64*TILEQ;
+  var h=c.getContext("2d");h.imageSmoothingEnabled=true;
+  h.drawImage(n,0,0,64*TILEQ,64*TILEQ);
+  return c;
+}
 function toneLight(col){
   if(!col)return false;
   var r,g,b,m=/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(col.trim());
@@ -4131,18 +4149,8 @@ function toneLight(col){
 function tonePattern(ctx,col){
   if(TONEPAT[col])return TONEPAT[col];
   try{
-    var c=document.createElement("canvas");c.width=c.height=64;
-    var g=c.getContext("2d");
-    g.fillStyle=col;g.fillRect(0,0,64,64);
-    var i,img=g.getImageData(0,0,64,64),d=img.data;
-    for(i=0;i<d.length;i+=4){
-      var v=(Math.random()*20-8)|0;
-      d[i]=Math.max(0,Math.min(255,d[i]+v));
-      d[i+1]=Math.max(0,Math.min(255,d[i+1]+v));
-      d[i+2]=Math.max(0,Math.min(255,d[i+2]+v));
-    }
-    g.putImageData(img,0,0);
-    TONEPAT[col]=ctx.createPattern(c,"repeat");
+    var c=toothTile(col);
+    TONEPAT[col]=ctx.createPattern(c,"repeat");TONEPAT[col].gtq=TILEQ;
   }catch(e){TONEPAT[col]=col;}
   return stickPattern(TONEPAT[col]);
 }
@@ -4150,20 +4158,10 @@ var HATCHPAT={};
 function hatchPattern(ctx,col){
   if(!HATCHPAT[col]){
     try{
-      var c=document.createElement("canvas");c.width=c.height=64;
-      var g=c.getContext("2d");
-      g.fillStyle=col;g.fillRect(0,0,64,64);
-      var i,img=g.getImageData(0,0,64,64),d=img.data;
-      for(i=0;i<d.length;i+=4){
-        var v=(Math.random()*20-8)|0;
-        d[i]=Math.max(0,Math.min(255,d[i]+v));
-        d[i+1]=Math.max(0,Math.min(255,d[i+1]+v));
-        d[i+2]=Math.max(0,Math.min(255,d[i+2]+v));
-      }
-      g.putImageData(img,0,0);
-      g.strokeStyle="#F7F1E1";g.globalAlpha=.5;g.lineWidth=1.8;
-      for(i=-64;i<=128;i+=8){g.beginPath();g.moveTo(i,0);g.lineTo(i+64,64);g.stroke();}
-      HATCHPAT[col]=ctx.createPattern(c,"repeat");
+      var c=toothTile(col),g=c.getContext("2d"),i,Q=TILEQ;
+      g.strokeStyle="#F7F1E1";g.globalAlpha=.5;g.lineWidth=1.8*Q;
+      for(i=-64;i<=128;i+=8){g.beginPath();g.moveTo(i*Q,0);g.lineTo((i+64)*Q,64*Q);g.stroke();}
+      HATCHPAT[col]=ctx.createPattern(c,"repeat");HATCHPAT[col].gtq=Q;
     }catch(e){HATCHPAT[col]=col;}
   }
   return stickPattern(HATCHPAT[col]);
