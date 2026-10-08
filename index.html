@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light" style="background:#D2623C">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <!-- The desk, before anything else on the page exists. The app's own stylesheet is a
      megabyte of inlined fonts before its first rule, and nothing in a style element applies
      until all of it is parsed, so a cold start showed the browser's white ground for as long
@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Grand Tour">
 <meta name="application-name" content="The Grand Tour">
 <meta name="theme-color" content="#D2623C">
-<script>window.GT_BUILD="v739";</script>
+<script>window.GT_BUILD="v740";</script>
 <!-- light, and not "light dark". Declaring a dark form tells the browser this page has one,
      so in dark mode it paints its own near black canvas before a single rule of the app applies:
      that is the black screen with the faint grid that shows at launch. Every palette in the app
@@ -843,18 +843,15 @@ html,body{overscroll-behavior:none;-webkit-user-select:none;user-select:none;
 html,body{touch-action:manipulation}
 </style>
 <script>
-/* PINCH ZOOM IS THE PAGE'S AGAIN, AND THE GLOBE'S ON THE GLOBE (8 October, the owner: "we only need it on the globes",
-   and the accessibility audit, r3-a11y-polish finding 5). The viewport used to say user-scalable=no and this cancelled
-   every iOS pinch on the whole document, so nobody could enlarge the small print. iOS still zooms the page when two
-   fingers land on a globe you pinch to zoom, which is the difference between the game working and the page scaling,
-   so the cancel stays - but only where a pinch means "zoom the map". Everywhere else the browser's own zoom works.
-   Double-tap zoom is what a tapping game must not have, and touch-action:manipulation (below) takes that away
-   without taking the pinch. The old dblclick cancel is gone: it also stopped double-click selecting a word. */
+/* PAGE PINCH ZOOM IS OFF AGAIN, THE GLOBE'S OWN PINCH STAYS (8 October, the owner: "remove pinch zoom. only keep it on
+   globe"). For a few hours the viewport allowed it and the cancel was limited to canvases; the owner turned that down.
+   The globe's pinch is the page's own touch handling, so it does not need the browser's zoom, and iOS ignores
+   user-scalable=no, which is why the gesture itself is cancelled everywhere. */
 (function(){
   document.addEventListener("gesturestart",function(e){
-    var t=e.target;
-    if(t&&t.closest&&t.closest("canvas"))e.preventDefault();
+    e.preventDefault();
   },{passive:false});
+  document.addEventListener("dblclick",function(e){e.preventDefault();},{passive:false});
 }());
 
 
