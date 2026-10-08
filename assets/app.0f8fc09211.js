@@ -10072,7 +10072,7 @@ function paintDayStand(){
   if(sd.kind==="down"){b.textContent=t("vsDown");s.textContent="";return;}
   if(sd.kind==="only"){b.textContent=t("onlyYou");s.textContent="";return;}
   b.textContent=sd.text;
-  s.textContent=sd.kind==="pct"?fill(t("standToday"),{n:sd.p.total}):"";
+  s.textContent=sd.kind==="pct"?fill(t("standToday"),{n:sd.p.total}):(sd.kind==="rank"?fill(t("betterPct"),{p:Math.round(sd.p.below/sd.p.total*100)}):"");
 }
 function runEnd(){
   stopAuto();
@@ -18842,6 +18842,13 @@ if(CHEATS&&/[?&]dbg=1/.test(location.search)){
     caught:function(){return (caught.log||[]).slice();},
     tourTry:function(n){tourTry(n||(current&&current.n));},
     cur:function(){return current&&current.n;},
+    dayEndDemo:function(pl){
+      dayRun.on=true;dayRun.legs=[{m:"name",r:"ALL"}];dayRun.leg=0;dayRun.right=18;dayRun.total=25;
+      dayRun.log=[1,2,3,4,5].map(function(){return {m:"name",r:"ALL",got:4,of:5,marks:[1,1,1,1,0]};});
+      run={n:5,right:4,missed:[],on:true,done:false,streak:0,best:4,pts:0,t0:Date.now()-60000,marks:[1,1,1,1,0],xp0:store.xp||0};
+      store.sent=store.sent||{};pl.made=Date.now();store.sent.daily={place:pl};
+      runEnd();
+    },
     push:{
       state:function(){return pushSt;},
       has:function(){return pushHas();},can:function(){return pushCan();},
