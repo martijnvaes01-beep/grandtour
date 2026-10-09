@@ -16145,25 +16145,28 @@ function shareDayCard(){
   shareCardGo({kicker:(t("mDaily")+(when?" \u00b7 "+when:"")).toUpperCase(),big:tot+"/"+out,sub:t("dayTitle").toUpperCase(),
     rows:rows,cta:t("shareCta"),stamp:tot>=out&&out?out+"/"+out:null},dailyShareText());
 }
-function shareRecordsCard(w){
-  var rows=[
-    {name:t("shareCardPeople"),value:w.people+"%"},
-    {name:t("shareCardLand"),value:w.land+"%"},
-    {name:t("shareCardCaps"),value:String(w.caps)},
-    {name:t("shareCardStreak"),value:String(store.best||0)},
-    {name:t("shareCardSprint"),value:String(store.bestSprint||0)}
+function recordRows(){
+  var st=store.stats||{},g=st.globle||{};
+  return [
+    {name:t("streakBest"),value:String(store.best||0)},
+    {name:t("sprintBest"),value:String(store.bestSprint||0)},
+    {name:t("mBigger"),value:String((st.bigger||{}).best||0)},
+    {name:t("recGloble"),value:g.best?String(g.best):"\u00b7\u00b7"}
   ];
-  var text=["The Grand Tour \u00b7 "+rankName(rankIndex(store.xp||0)),
-    fill(t("shareWorld"),{p:w.people,l:w.land,c:w.caps}),fill(t("shareBest"),{s:store.best||0,r:store.bestSprint||0}),SHARE_URL].join("\n");
+}
+function recordsText(){
+  var parts=recordRows().map(function(r){return r.name+" "+r.value;});
+  return ["The Grand Tour \u00b7 "+rankName(rankIndex(store.xp||0)),parts.join(" \u00b7 "),SHARE_URL].join("\n");
+}
+function shareRecordsCard(w){
+  var rows=recordRows();
+  var text=recordsText();
   shareCardGo({kicker:t("recordsLab").toUpperCase(),big:rankName(rankIndex(store.xp||0)),bigSize:110,sub:t("statsTitle").toUpperCase(),
     rows:rows,cta:t("shareCta"),stamp:null},text);
 }
 
 function shareRecords(w){
-  var text=["Grand Tour \u00b7 "+rankName(rankIndex(store.xp||0)),
-    "\ud83c\udf0d "+fill(t("shareWorld"),{p:w.people,l:w.land,c:w.caps}),
-    "\ud83c\udfc6 "+fill(t("shareBest"),{s:store.best||0,r:store.bestSprint||0}),
-    SHARE_URL].join("\n");
+  var text=recordsText();
   if(navigator.share){
     navigator.share({text:text}).then(function(){snd.copy();},function(){});
     return;
