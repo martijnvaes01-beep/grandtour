@@ -2749,6 +2749,7 @@ function topo50(){
   return TOPO50;
 }
 
+var ROOTUP=/^\/(nl|fr|de|es)\/(index\.html)?$/.test(location.pathname)?"../":"";
 var ASSETS={
   flags:{url:"assets/flags.96aa85ca2f.json",json:true,
     has:function(){return !!FLAGSVG;},
@@ -2786,7 +2787,7 @@ function assetAsk(k,then){
   var slow=/[?&]slow=(\d+)/.exec(location.search);
   var ctl=(typeof AbortController==="function")?new AbortController():null;
   var stall=ctl?setTimeout(function(){ctl.abort();},15000):0;
-  fetch(a.url+(slow?"?slow="+slow[1]:""),ctl?{signal:ctl.signal}:undefined).then(function(r){
+  fetch(ROOTUP+a.url+(slow?"?slow="+slow[1]:""),ctl?{signal:ctl.signal}:undefined).then(function(r){
     clearTimeout(stall);
     if(r.status===404){var gone=new Error("404");gone.gone=true;throw gone;}
     if(!r.ok)throw new Error(r.status);
@@ -2815,7 +2816,7 @@ var updateSeen=false,updateAsked=0;
     if(!("serviceWorker" in navigator))return;
     if(!forced&&(CHEATS||location.protocol!=="https:"))return;
     window.addEventListener("load",function(){
-      navigator.serviceWorker.register("sw.js").catch(function(){});
+      navigator.serviceWorker.register(ROOTUP+"sw.js").catch(function(){});
     });
   }catch(e){}
 })();
@@ -2826,7 +2827,7 @@ function checkUpdate(){
   updateAsked=now;
   var mine=parseInt(String(window.GT_BUILD||"").replace(/^v/,""),10);
   if(!isFinite(mine))return;              /* the single file source has no stamp: nothing to do */
-  fetch("version.json?h="+Math.floor(now/3600000),{cache:"no-store"})
+  fetch(ROOTUP+"version.json?h="+Math.floor(now/3600000),{cache:"no-store"})
     .then(function(r){return r.ok?r.json():null;})
     .then(function(v){
       if(!v||typeof v.build!=="number"||v.build<=mine)return;
@@ -3409,7 +3410,7 @@ function langNext(id){
   return "en";
 }
 (function(){
-  var m=/[?&]lang=(en|nl|fr|de|es)(?:&|$)/.exec(location.search||"");
+  var m=/[?&]lang=(en|nl|fr|de|es)(?:&|$)/.exec(location.search||"")||/^\/(nl|fr|de|es)\/(index\.html)?$/.exec(location.pathname||"");
   if(m&&langKnown(m[1]))store.lang=m[1];
 })();
 var lang=(store.lang&&langKnown(store.lang))?store.lang:langGuess();

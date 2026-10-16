@@ -1,6 +1,6 @@
-/* Grand Tour v767. Written by standalone.js; edit it there. */
+/* Grand Tour v771. Written by standalone.js; edit it there. */
 var CACHE="grandtour";
-var KEEP=["assets/app.2365529877.js","./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.96aa85ca2f.json","assets/coast.c087b86c1b.json","assets/zing.162e1052e8.json","assets/more.b89ddfda92.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
+var KEEP=["assets/app.a4f4aea2ae.js","./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.96aa85ca2f.json","assets/coast.c087b86c1b.json","assets/zing.162e1052e8.json","assets/more.b89ddfda92.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
 self.addEventListener("install",function(e){
   self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(function(c){
