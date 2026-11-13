@@ -1,6 +1,6 @@
-/* Grand Tour v772. Written by standalone.js; edit it there. */
+/* Grand Tour v777. Written by standalone.js; edit it there. */
 var CACHE="grandtour";
-var KEEP=["assets/app.a4f4aea2ae.js","./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.96aa85ca2f.json","assets/coast.c087b86c1b.json","assets/zing.162e1052e8.json","assets/more.b89ddfda92.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
+var KEEP=["assets/app.2b2dc73077.js","./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.96aa85ca2f.json","assets/coast.c087b86c1b.json","assets/zing.162e1052e8.json","assets/more.b89ddfda92.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
 self.addEventListener("install",function(e){
   self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(function(c){
@@ -8,7 +8,7 @@ self.addEventListener("install",function(e){
        each was fetched on its own. One fetch, kept under both names. The fonts never change their bytes,
        so they may come out of the HTTP cache the page has just filled. */
     return Promise.all(KEEP.filter(function(u){return u!=="./";}).map(function(u){
-      var mode=/^fonts//.test(u)?"default":"no-store";
+      var mode=/^fonts\//.test(u)?"default":"no-store";
       return fetch(u,{cache:mode}).then(function(r){
         if(!r.ok)return;
         if(u==="index.html")return Promise.all([c.put("./",r.clone()),c.put(u,r)]);

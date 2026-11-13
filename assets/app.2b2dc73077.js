@@ -516,7 +516,8 @@ en:{sub:"countries · flags, globe, atlas",
   duelGone:"Duel ended: connection lost.",
   gateToGo:"Opens at {lv}. {n} XP to go.",folderOpen:"{n} of {t} open",startHere:"Start here",rankNextShort:"Next: {g}",
   dayRunEnded:"Your run of {n} days has ended. Today starts a new one.",dayRunOn:"Finish today and your run reaches {n} days.",
-  kofiNudge:"{n} days in a row! If you'd like to buy the bureau a coffee, you can on Ko-fi.",lblLang:"Language",
+  kofiNudge:"{n} days in a row! If you'd like to buy the bureau a coffee, you can on Ko-fi.",
+  testAsk:"The bureau's Android app needs 12 testers for two weeks before Google lets it into the Play Store. Can you help?",testGo:"Join the test",lblLang:"Language",
   offlineNote:"You're offline. Duels, reports and moving your progress need a connection; everything else works.",
   duelTook:"You're ahead",duelOvertaken:"Overtaken",
   offlineDesk:"You're offline. Every game still works; duels and scores wait for the network.",
@@ -1010,7 +1011,8 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   duelSeries:"{n} duels · vous {a}, adversaire {b}",
   gateToGo:"S'ouvre au {lv}. Encore {n} XP.",folderOpen:"{n} sur {t} ouverts",startHere:"Commencez ici",rankNextShort:"Ensuite : {g}",
   dayRunEnded:"Votre série de {n} jours s'est arrêtée. Une nouvelle commence aujourd'hui.",dayRunOn:"Terminez aujourd'hui et votre série passe à {n} jours.",
-  kofiNudge:"{n} jours d'affilée. Si le bureau a mérité un café, c'est sur Ko-fi.",lblLang:"Langue",
+  kofiNudge:"{n} jours d'affilée. Si le bureau a mérité un café, c'est sur Ko-fi.",
+  testAsk:"L'appli Android du bureau a besoin de 12 testeurs pendant deux semaines avant que Google l'accepte sur le Play Store. Vous nous aidez ?",testGo:"Participer",lblLang:"Langue",
   offlineNote:"Vous êtes hors ligne. Les duels, les signalements et le transfert de progression ont besoin d'une connexion ; tout le reste fonctionne.",
   duelTook:"Vous menez",duelOvertaken:"Doublé !",
   offlineDesk:"Vous êtes hors ligne. Tous les jeux marchent ; les duels et les scores attendront le réseau.",
@@ -1504,7 +1506,8 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   duelSeries:"{n} Duelle · du {a}, Gegner {b}",
   gateToGo:"Frei ab {lv}. Noch {n} XP.",folderOpen:"{n} von {t} offen",startHere:"Hier anfangen",rankNextShort:"Als Nächstes: {g}",
   dayRunEnded:"Deine Serie von {n} Tagen ist vorbei. Heute beginnt eine neue.",dayRunOn:"Spiel heute zu Ende, dann steht deine Serie bei {n} Tagen.",
-  kofiNudge:"{n} Tage am Stück. Hat sich das Büro einen Kaffee verdient? Spendier ihm einen auf Ko-fi.",lblLang:"Sprache",
+  kofiNudge:"{n} Tage am Stück. Hat sich das Büro einen Kaffee verdient? Spendier ihm einen auf Ko-fi.",
+  testAsk:"Die Android-App des Büros braucht zwei Wochen lang 12 Tester, bevor Google sie in den Play Store lässt. Hilfst du mit?",testGo:"Mitmachen",lblLang:"Sprache",
   offlineNote:"Du bist offline. Duelle, Feedback und das Übertragen des Fortschritts brauchen eine Verbindung; alles andere geht.",
   duelTook:"Du führst",duelOvertaken:"Überholt",
   offlineDesk:"Du bist offline. Alle Spiele laufen weiter; Duelle und Punkte warten aufs Netz.",
@@ -1998,7 +2001,8 @@ es:{sub:"países · banderas, globo, atlas",
   duelSeries:"{n} duelos · tú {a}, rival {b}",
   gateToGo:"Se abre en el {lv}. Faltan {n} XP.",folderOpen:"{n} de {t} abiertos",startHere:"Empieza aquí",rankNextShort:"Siguiente: {g}",
   dayRunEnded:"Tu racha de {n} días se ha cortado. Hoy empieza otra.",dayRunOn:"Termina hoy y tu racha llega a {n} días.",
-  kofiNudge:"{n} días seguidos. Si la oficina se ha ganado un café, está en Ko-fi.",lblLang:"Idioma",
+  kofiNudge:"{n} días seguidos. Si la oficina se ha ganado un café, está en Ko-fi.",
+  testAsk:"La app de Android de la oficina necesita 12 probadores durante dos semanas antes de que Google la admita en Play Store. ¿Nos ayudas?",testGo:"Participar",lblLang:"Idioma",
   offlineNote:"Estás sin conexión. Los duelos, los comentarios y el traslado del progreso necesitan internet; todo lo demás funciona.",
   duelTook:"Vas ganando",duelOvertaken:"Te han adelantado",
   offlineDesk:"Estás sin conexión. Todos los juegos funcionan; los duelos y las puntuaciones esperan a la red.",
@@ -2492,7 +2496,8 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   duelSeries:"{n} duels · jij {a}, tegenstander {b}",
   gateToGo:"Open vanaf {lv}. Nog {n} XP.",folderOpen:"{n} van {t} open",startHere:"Begin hier",rankNextShort:"Volgende: {g}",
   dayRunEnded:"Je reeks van {n} dagen is voorbij. Vandaag begin je een nieuwe.",dayRunOn:"Speel vandaag uit en je reeks staat op {n} dagen.",
-  kofiNudge:"{n} dagen op rij. Heeft het bureau een koffie verdiend? Die staat op Ko-fi.",lblLang:"Taal",
+  kofiNudge:"{n} dagen op rij. Heeft het bureau een koffie verdiend? Die staat op Ko-fi.",
+  testAsk:"De Android-app van het bureau heeft twee weken lang 12 testers nodig voordat Google hem in de Play Store toelaat. Help je mee?",testGo:"Doe mee",lblLang:"Taal",
   offlineNote:"Je bent offline. Duels, feedback en je voortgang overzetten hebben internet nodig; de rest werkt gewoon.",
   duelTook:"Jij staat voor",duelOvertaken:"Ingehaald",
   offlineDesk:"Je bent offline. Alle spellen werken gewoon; duels en scores wachten tot er weer internet is.",
@@ -2816,7 +2821,7 @@ var updateSeen=false,updateAsked=0;
     if(!("serviceWorker" in navigator))return;
     if(!forced&&(CHEATS||location.protocol!=="https:"))return;
     window.addEventListener("load",function(){
-      navigator.serviceWorker.register(ROOTUP+"sw.js").catch(function(){});
+      navigator.serviceWorker.register(ROOTUP+"sw.js").catch(function(e){caught(e,"sw");});
     });
   }catch(e){}
 })();
@@ -2947,6 +2952,9 @@ function normaliseStore(){
   if(typeof store.duelName!=="string")store.duelName="";
   if(typeof store.duelNews!=="boolean")store.duelNews=false;
   if(typeof store.pushAsked!=="boolean")store.pushAsked=false;
+  if(typeof store.testAsks!=="number")store.testAsks=0;
+  if(typeof store.testDay!=="string")store.testDay="";
+  if(typeof store.testDone!=="boolean")store.testDone=false;
   if(!Array.isArray(store.duelSeasons))store.duelSeasons=[];
   if(typeof store.duelSeasonSeen!=="string")store.duelSeasonSeen="";
   if(typeof store.duelStr!=="number"||!isFinite(store.duelStr))store.duelStr=0;
@@ -12054,6 +12062,10 @@ function dailyFinish(score,won,got){
       var ks=st.streak;
       setTimeout(function(){slipText(fill(t("kofiNudge"),{n:ks}),true,{lab:t("kofiStamp"),go:kofiGo});},6000);
     }
+    else if(testersOn()&&!store.testDone&&store.testAsks<3&&store.testDay!==key){
+      store.testAsks++;store.testDay=key;save();
+      setTimeout(function(){slipText(t("testAsk"),false,{lab:t("testGo"),go:testersGo});},6000);
+    }
   }
   dailySave();
   paintShare();
@@ -12282,6 +12294,16 @@ var IN_PLAY_APP=(function(){
   }catch(e){return ref;}
 })();
 function kofiOn(){return !IN_PLAY_APP&&(!!KOFI_URL||CHEATS);}
+var TESTERS_URL="";
+function testersOn(){
+  if(!TESTERS_URL||IN_PLAY_APP)return false;
+  if(CHEATS&&/[?&]testers=1/.test(location.search||""))return true;
+  return /Android/i.test(navigator.userAgent||"");
+}
+function testersGo(){
+  store.testDone=true;save();
+  try{window.open(TESTERS_URL,"_blank","noopener");}catch(e){caught(e,"testersGo");}
+}
 var DUEL_LIVE=true;
 function duelOn(){return (DUEL_LIVE||CHEATS)&&!!SCORE_URL;}
 var DUEL_GATE=6;
@@ -18878,6 +18900,9 @@ if(CHEATS&&/[?&]dbg=1/.test(location.search)){
     caught:function(){return (caught.log||[]).slice();},
     tourTry:function(n){tourTry(n||(current&&current.n));},
     cur:function(){return current&&current.n;},
+    testers:function(){return {on:testersOn(),asks:store.testAsks,day:store.testDay,done:store.testDone};},
+    testersFinish:function(date){daily.date=date||new Date().toISOString().slice(0,10);daily.done=false;dailyFinish(20,true,5);},
+    testersSlip:function(){slipText(t("testAsk"),false,{lab:t("testGo"),go:testersGo});},
     dayEndDemo:function(pl){
       dayRun.on=true;dayRun.legs=[{m:"name",r:"ALL"}];dayRun.leg=0;dayRun.right=18;dayRun.total=25;
       dayRun.log=[1,2,3,4,5].map(function(){return {m:"name",r:"ALL",got:4,of:5,marks:[1,1,1,1,0]};});
