@@ -27,6 +27,12 @@
 /version.json
   Cache-Control: public, max-age=0, must-revalidate
 
+# THE PLAY APP'S DIGITAL ASSET LINKS (13 November 2026). Android reads this file to trust the app full screen, and it
+# wants JSON said as JSON. Nothing in _redirects may touch this path.
+/.well-known/assetlinks.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+
 # THE PAGES.DEV COPY IS NOT A SECOND SITE (v691): Cloudflare serves the same files at grandtour.pages.dev, and Google
 # should index only grandtourbureau.com. The canonical tags already say so; this says it louder.
 https://grandtour.pages.dev/*
