@@ -12294,7 +12294,7 @@ var IN_PLAY_APP=(function(){
   }catch(e){return ref;}
 })();
 function kofiOn(){return !IN_PLAY_APP&&(!!KOFI_URL||CHEATS);}
-var TESTERS_URL="";
+var TESTERS_URL="https://groups.google.com/g/grandtour-testers";
 function testersOn(){
   if(!TESTERS_URL||IN_PLAY_APP)return false;
   if(CHEATS&&/[?&]testers=1/.test(location.search||""))return true;
