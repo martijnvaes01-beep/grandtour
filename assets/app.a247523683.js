@@ -12293,6 +12293,7 @@ var IN_PLAY_APP=(function(){
     return ref||sessionStorage.getItem("gt.twa")==="1";
   }catch(e){return ref;}
 })();
+if(IN_PLAY_APP||(window.matchMedia&&matchMedia("(display-mode: fullscreen)").matches))document.documentElement.setAttribute("data-twa","1");
 function kofiOn(){return !IN_PLAY_APP&&(!!KOFI_URL||CHEATS);}
 var TESTERS_URL="https://groups.google.com/g/grandtour-testers";
 function testersOn(){
@@ -17425,6 +17426,7 @@ function fitViewport(){
     d.style.setProperty("--simT",top+"px");d.style.setProperty("--simB",bot+"px");
     d.setAttribute("data-sim","1");}
   var keep=bot?Math.min(bot,13):0;
+  if(d.hasAttribute("data-twa")&&top<40)top=40;
   d.style.setProperty("--insT",top+"px");
   d.style.setProperty("--insB",bot+"px");
   d.style.setProperty("--keepB",keep+"px");
