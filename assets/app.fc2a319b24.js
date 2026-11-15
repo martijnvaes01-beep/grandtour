@@ -247,7 +247,7 @@ en:{sub:"countries · flags, globe, atlas",
   dosRegion:"Region",dosPeople:"People",dosLand:"Area",dosInk:"Flag colours",
   dosWalk:"Land borders",
   dosFamous:"Known for",dosLetter:"First letter",dosSeat:"Seat of government",
-  ptsShort:"pts",notInRegion:"not in this region",turnUp:"Turn your phone upright",legOf:"game {n} of {t}",dosRank:"Size in the world",dosRankVal:"{n} largest",dosNextdoor:"Next door",
+  ptsShort:"pts",notInRegion:"not in this region",turnUp:"Turn your phone upright",legOf:"game {n} of {t}",dayWorth:"worth {n}/5",pinDay:"{km} km off · right within {ok} km",dosRank:"Size in the world",dosRankVal:"{n} largest",dosNextdoor:"Next door",
   dosLeft:"{n} names left",dosLeft1:"1 name left",dosCold:"Case unsolved",
   dosTotal:"Fees earned",dosOutOf:"of {n}",dosRecord:"Best round",dosShort:"{n} short",
   mInk:"Flag colours",
@@ -742,7 +742,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   dosRegion:"Partie du monde",dosPeople:"Habitants",dosLand:"Superficie",dosInk:"Couleurs du drapeau",
   dosWalk:"Frontières terrestres",
   dosFamous:"Connu pour",dosLetter:"Première lettre",dosSeat:"Siège du gouvernement",
-  ptsShort:"pts",turnUp:"Tenez le téléphone en portrait",legOf:"jeu {n} sur {t}",dosRank:"Rang par superficie",dosRankVal:"n° {n}",dosNextdoor:"Pays voisin",
+  ptsShort:"pts",turnUp:"Tenez le téléphone en portrait",legOf:"jeu {n} sur {t}",dayWorth:"vaut {n}/5",pinDay:"À {km} km · juste à moins de {ok} km",dosRank:"Rang par superficie",dosRankVal:"n° {n}",dosNextdoor:"Pays voisin",
   dosLeft:"{n} noms restants",dosLeft1:"1 nom restant",dosCold:"Classé sans suite",
   dosTotal:"Honoraires perçus",dosOutOf:"sur {n}",dosRecord:"Meilleure manche",dosShort:"{n} de moins",
   mInk:"Couleurs du drapeau",
@@ -1237,7 +1237,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   dosRegion:"Erdteil",dosPeople:"Einwohner",dosLand:"Fläche",dosInk:"Flaggenfarben",
   dosWalk:"Landgrenzen",
   dosFamous:"Bekannt für",dosLetter:"Erster Buchstabe",dosSeat:"Regierungssitz",
-  ptsShort:"Pkt",notInRegion:"nicht in dieser Region",turnUp:"Handy hochkant halten",legOf:"Spiel {n} von {t}",dosRank:"Größe weltweit",dosRankVal:"Platz {n}",dosNextdoor:"Nachbarland",
+  ptsShort:"Pkt",notInRegion:"nicht in dieser Region",turnUp:"Handy hochkant halten",legOf:"Spiel {n} von {t}",dayWorth:"wert {n}/5",pinDay:"{km} km daneben · richtig bis {ok} km",dosRank:"Größe weltweit",dosRankVal:"Platz {n}",dosNextdoor:"Nachbarland",
   dosLeft:"noch {n} Namen",dosLeft1:"noch 1 Name",dosCold:"Ungelesen abgelegt",
   dosTotal:"Verdiente Gebühren",dosOutOf:"von {n}",dosRecord:"Beste Runde",dosShort:"{n} zu wenig",
   mInk:"Flaggenfarben",
@@ -1732,7 +1732,7 @@ es:{sub:"países · banderas, globo, atlas",
   dosRegion:"Parte del mundo",dosPeople:"Habitantes",dosLand:"Superficie",dosInk:"Colores de la bandera",
   dosWalk:"Fronteras terrestres",
   dosFamous:"Conocido por",dosLetter:"Primera letra",dosSeat:"Sede del gobierno",
-  ptsShort:"pts",turnUp:"Pon el teléfono en vertical",legOf:"juego {n} de {t}",dosRank:"Tamaño en el mundo",dosRankVal:"n.º {n}",dosNextdoor:"País vecino",
+  ptsShort:"pts",turnUp:"Pon el teléfono en vertical",legOf:"juego {n} de {t}",dayWorth:"vale {n}/5",pinDay:"A {km} km · vale hasta {ok} km",dosRank:"Tamaño en el mundo",dosRankVal:"n.º {n}",dosNextdoor:"País vecino",
   dosLeft:"quedan {n} nombres",dosLeft1:"queda 1 nombre",dosCold:"Archivado sin leer",
   dosTotal:"Honorarios ganados",dosOutOf:"de {n}",dosRecord:"Mejor ronda",dosShort:"{n} menos",
   mInk:"Colores de bandera",
@@ -2227,7 +2227,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   dosRegion:"Werelddeel",dosPeople:"Inwoners",dosLand:"Oppervlakte",dosInk:"Vlagkleuren",
   dosWalk:"Landgrenzen",
   dosFamous:"Bekend om",dosLetter:"Eerste letter",dosSeat:"Regeringszetel",
-  ptsShort:"ptn",notInRegion:"niet in deze regio",turnUp:"Draai je telefoon rechtop",legOf:"spel {n} van {t}",dosRank:"Grootte in de wereld",dosRankVal:"nr. {n}",dosNextdoor:"Buurland",
+  ptsShort:"ptn",notInRegion:"niet in deze regio",turnUp:"Draai je telefoon rechtop",legOf:"spel {n} van {t}",dayWorth:"waard {n}/5",pinDay:"{km} km ernaast · goed tot {ok} km",dosRank:"Grootte in de wereld",dosRankVal:"nr. {n}",dosNextdoor:"Buurland",
   dosLeft:"nog {n} namen",dosLeft1:"nog 1 naam",dosCold:"Niet geraden",
   dosTotal:"Totaal verdiend",dosOutOf:"van {n}",dosRecord:"Beste ronde",dosShort:"{n} tekort",
   mInk:"Vlagkleuren",
@@ -5309,7 +5309,7 @@ function globleTry(name){
     st.solved++;st.guesses+=tries;
     if(!st.best||tries<st.best)st.best=tries;
     addXP(Math.max(20,72-tries*4));
-    if(globle.seeded)dailyFinish(tries,true,Math.max(0,DAILY_EACH+1-tries));
+    if(globle.seeded)dailyFinish(tries,true,dayGlobleWorth(tries));
     else sendScore(mode,1,1,"ALL");
     save();
   } else {
@@ -5374,6 +5374,7 @@ function globleList(){
 }
 function globleStats(){return mode==="worldle"?store.stats.worldle:store.stats.globle;}
 function globleRender(){
+  if(dayRun.on&&mode==="daily")paintRound();
   $("prompt").textContent=mode==="worldle"?t("askWorldle")
     :(globle.seeded?t("kindGloble"):t("askGloble"));
   if(mode!=="worldle")$("dailytip").textContent=t("globleTip");
@@ -8824,7 +8825,7 @@ function pinTry(ll){
   if(run.on&&!run.done)run.pts=(run.pts||0)+pts;
   globe.pins=[{ll:ll,col:"#A8483B",last:false},{ll:cap,col:css("--good"),last:true}];
   frameTo(cap[0],cap[1]);
-  quizFinish(km<=PIN_OK,km<=PIN_OK?"ok":"no",fill(t("pinSaid"),{km:fmtNum(km),p:pts}),
+  quizFinish(km<=PIN_OK,km<=PIN_OK?"ok":"no",dayRun.on?fill(t("pinDay"),{km:fmtNum(km),ok:fmtNum(PIN_OK)}):fill(t("pinSaid"),{km:fmtNum(km),p:pts}),
     {b:capitalOf(current),r:cname(current)},2600);
 }
 function quizFinish(right,kind,main,tail,ms){
@@ -9520,11 +9521,12 @@ function dossierCard(f){
   var wn=document.createElement("b");wn.textContent=dossierScore();
   var wl=document.createElement("i");wl.textContent=t("dosWorth");
   worth.appendChild(wn);worth.appendChild(wl);
-  band.appendChild(head);band.appendChild(worth);
+  band.appendChild(head);if(!dayRun.on)band.appendChild(worth);
   box.appendChild(band);
   var grid=document.createElement("div");grid.className="dosgrid";
   DOSSIER_CLUES.forEach(function(c,i){
     if(!c.has(f))return;
+    if(dosSealed(c.id))return;
     var cell=document.createElement("button");
     cell.type="button";
     cell.className="dosclue tk"+(i%7)+(dossier.open[c.id]?" open":"");
@@ -9542,7 +9544,7 @@ function dossierCard(f){
       if(c.id===dossier.free)cell.classList.add("gratis");
       cell.disabled=true;
     } else {
-      var pr=document.createElement("s");pr.textContent="\u2212"+c.cost;
+      var pr=document.createElement("s");pr.textContent=dayRun.on?"":"\u2212"+c.cost;
       cell.appendChild(pr);
       cell.onclick=function(){buyClue(c.id);};
     }
@@ -9642,7 +9644,7 @@ function paintDosTries(){
   host.appendChild(left);
 }
 function buyClue(id){
-  if(locked||dossier.open[id]||!current)return;
+  if(locked||dossier.open[id]||!current||dosSealed(id))return;
   var c=null;
   DOSSIER_CLUES.forEach(function(x){if(x.id===id)c=x;});
   if(!c)return;
@@ -10074,16 +10076,54 @@ function legCard(then,res,hold){
   }
   if(hold)setTimeout(show,hold);else show();
 }
+var DAY5_FROM="2026-11-17";
+function day5(){return (daily.date||todayKey())>=DAY5_FROM;}
+var GLOBLE_PAR=3;
+function dayGlobleWorth(tries){
+  return day5()?Math.max(1,DAILY_EACH-Math.max(0,tries-GLOBLE_PAR)):Math.max(0,DAILY_EACH+1-tries);
+}
+function dayShapeWorth(tries){return day5()?Math.max(0,DAILY_EACH+1-tries):DAILY_EACH;}
+function dayWalkWorth(steps){return day5()?Math.max(1,DAILY_EACH-Math.max(0,steps-(daily.par||steps))):DAILY_EACH;}
+var DOS_DAY_SEALED={letter:1,seat:1};
+function dosSealed(id){return !!(dayRun.on&&day5()&&DOS_DAY_SEALED[id]);}
+function dayWorthNow(){
+  if(!dayRun.on||dayRun.leg!==0||mode!=="daily"||daily.done)return null;
+  var k=daily.kind;
+  if(k==="globle")return dayGlobleWorth((globle.guesses||[]).length+1);
+  if(k==="shape")return (daily.tries||0)>=SHAPE_TRIES?0:dayShapeWorth((daily.tries||0)+1);
+  if(k==="route"&&daily.chain&&daily.chain.length){
+    var r=shortestRoute(daily.chain[daily.chain.length-1],daily.to);
+    return dayWalkWorth(daily.chain.length-1+(r?r.length-1:0));
+  }
+  return null;
+}
 function paintRound(){
   var el=$("roundtally");
   if(!el)return;
+  if(dayRun.on&&mode==="daily"){
+    if(daily.kind==="bigger"&&biggerDayFive()&&!bigger.over){
+      el.hidden=false;el.innerHTML="";
+      var ra=document.createElement("b");ra.textContent=("0"+Math.min(bigger.marks.length+1,DAILY_EACH)).slice(-2);
+      var rb=document.createElement("i");rb.textContent="/"+DAILY_EACH;
+      var rg=document.createElement("s");rg.textContent=t("legOf").replace("{n}",1).replace("{t}",dayRun.legs.length);
+      el.appendChild(ra);el.appendChild(rb);el.appendChild(rg);
+      return;
+    }
+    var w=dayWorthNow();
+    if(w===null){el.hidden=true;return;}
+    el.hidden=false;el.innerHTML="";
+    var wb=document.createElement("b");wb.textContent=fill(t("dayWorth"),{n:w});
+    var wg=document.createElement("s");wg.textContent=t("legOf").replace("{n}",1).replace("{t}",dayRun.legs.length);
+    el.appendChild(wb);el.appendChild(wg);
+    return;
+  }
   if(!run.on||run.done){el.hidden=true;return;}
   el.hidden=false;
   el.innerHTML="";
   var a=document.createElement("b");a.textContent=("0"+Math.min(run.n+1,roundLen())).slice(-2);
   var b=document.createElement("i");b.textContent="/"+roundLen();
   el.appendChild(a);el.appendChild(b);
-  if(mode==="dossier"){
+  if(mode==="dossier"&&!dayRun.on){
     var c=document.createElement("s");
     c.textContent=(run.pts||0)+" "+t("ptsShort");
     el.appendChild(c);
@@ -11537,6 +11577,7 @@ function biggerStart(seedKey){
   if(pool.length<8){mixKey="bigger";pool=biggerPool();}
   bigger.seeded=!!seedKey;
   bigger.streak=0;bigger.over=false;bigger.busy=false;
+  bigger.marks=[];                /* the day's calls in order, right or wrong, for the card after it */
   bigger.log=[];                  /* what the run got through, for the sheet at the end */
   bigger.holder=biggerPick(pool,null,null);
   bigger.other=biggerPick(pool,bigger.holder,null);
@@ -11609,6 +11650,7 @@ function biggerRender(){
     opts.appendChild(b);
   });
   biggerClock();
+  if(dayRun.on&&mode==="daily")paintRound();
   paintStats();relayoutSoon();
 }
 var BIG_SECONDS=13;
@@ -11622,7 +11664,7 @@ function biggerPaint(){
   var low=left<=2;
   $("timerfill").className="tfill"+(low?" low":"");
   $("timerbar").classList.toggle("low",low);
-  $("timertext").textContent=Math.ceil(left)+"s · "+bigger.streak;
+  $("timertext").textContent=Math.ceil(left)+"s · "+bigger.streak+(bigger.seeded&&dayRun.on?"/"+DAILY_EACH:"");
   return left;
 }
 function biggerClock(){
@@ -11664,37 +11706,54 @@ function biggerTry(saysBigger){
   shown.classList.add(right?"win":"lose");
   if(right){
     bigger.streak++;
+    bigger.marks.push(1);
     bigger.log.push({k:mixKey,a:cname(bigger.holder),b:cname(bigger.other),
       va:metricStr(bigger.holder),vb:metricStr(bigger.other)});
     var st=biggerStats();
-    if(bigger.streak>(st.best||0))st.best=bigger.streak;
+    if(bigger.streak>(st.best||0)&&bigger.marks.indexOf(0)<0)st.best=bigger.streak;
     snd.correct(bigger.streak);buzz(16);
     $("bigtip").textContent=fill(t("bigStreak"),{n:bigger.streak})+
       "   ·   "+metricStr(bigger.other);
-    if(bigger.seeded&&dayRun.on&&bigger.streak>=DAILY_EACH){
+    if(bigger.seeded&&dayRun.on&&(bigger.streak>=DAILY_EACH||(biggerDayFive()&&bigger.marks.length>=DAILY_EACH))){
       bigger.over=true;
-      dailyFinish(bigger.streak,true,DAILY_EACH);
+      dailyFinish(bigger.streak,bigger.streak>=DAILY_EACH,bigger.streak);
       return;
     }
-    setTimeout(function(){
-      if(bigger.over)return;
-      var keep=bigger.other,tries=0,pool;
-      do{
-        mixKey=mixPick(null);
-        pool=biggerPool();
-        tries++;
-      }while((pool.length<10||metricVal(keep)<=0)&&tries<14);
-      if(metricVal(keep)<=0)keep=biggerPick(pool,null,null);
-      bigger.holder=keep;
-      var g=0;
-      do{bigger.other=biggerPick(pool,bigger.holder,null);g++;}
-      while(bigger.other&&metricVal(bigger.other)===metricVal(bigger.holder)&&g<24);
-      bigger.busy=false;
-      biggerRender();
-    },900);
+    setTimeout(biggerNext,900);
   } else biggerLose("bigOut");
 }
+function biggerNext(){
+  if(bigger.over)return;
+  var keep=bigger.other,tries=0,pool;
+  do{
+    mixKey=mixPick(null);
+    pool=biggerPool();
+    tries++;
+  }while((pool.length<10||metricVal(keep)<=0)&&tries<14);
+  if(metricVal(keep)<=0)keep=biggerPick(pool,null,null);
+  bigger.holder=keep;
+  var g=0;
+  do{bigger.other=biggerPick(pool,bigger.holder,null);g++;}
+  while(bigger.other&&metricVal(bigger.other)===metricVal(bigger.holder)&&g<24);
+  bigger.busy=false;
+  biggerRender();
+}
+function biggerDayFive(){return !!(bigger.seeded&&dayRun.on&&day5());}
 function biggerLose(why){
+  bigger.marks.push(0);
+  if(biggerDayFive()&&bigger.marks.length<DAILY_EACH){
+    bigger.busy=true;
+    biggerClockStop();
+    snd.wrong();buzz([14,60,14]);
+    verdict("no",t(why),{b:metricStr(bigger.holder)+"  ·  "+metricStr(bigger.other),r:""});
+    var dayOf=dayRun;
+    setTimeout(function(){
+      if(dayRun!==dayOf||!dayRun.on||mode!=="daily"||bigger.over)return;
+      $("verdict").innerHTML="";
+      biggerNext();
+    },1900);
+    return;
+  }
   bigger.over=true;bigger.busy=false;
   biggerClockStop();
   snd.wrong();buzz([14,60,14]);
@@ -11953,7 +12012,7 @@ function dayClockPaint(){
   var low=left<=Math.min(4,dayClock.secs*0.3);
   $("timerfill").className="tfill"+(low?" low":"");
   $("timerbar").classList.toggle("low",low);
-  $("timertext").textContent=Math.ceil(left)+"s \u00b7 "+(run.right||0);
+  $("timertext").textContent=Math.ceil(left)+"s \u00b7 "+(run.right||0)+"/"+DAILY_EACH;
   return left;
 }
 function dayClockStart(){
@@ -12034,11 +12093,12 @@ function dailyFinish(score,won,got){
   if(dayRun.on&&dayRun.leg===0&&dayRun.legs.length>1){
     if(typeof got!=="number")got=won?DAILY_EACH:0;
     got=Math.max(0,Math.min(DAILY_EACH,Math.round(got)));
+    var ownMarks=(daily.kind==="bigger"&&biggerDayFive()&&bigger.marks)?bigger.marks.slice(0,DAILY_EACH):null;
     dayRun.log.push({m:daily.kind,r:"ALL",got:got,of:DAILY_EACH,own:1,won:won});
     dayRun.right+=got;dayRun.total+=DAILY_EACH;dayRun.now=(dayRun.now||0)+got;
     dayRun.leg=1;
     legCard(function(){dailyDeal(dayRun.legs[1]);},
-      {got:got,of:DAILY_EACH,own:daily.kind,won:won},1100);
+      {got:got,of:DAILY_EACH,own:daily.kind,won:won,marks:ownMarks},1100);
     return;
   }
   if(dayRun.on)return;
@@ -12116,6 +12176,7 @@ function clueValue(id){
 var cluesShown=0;
 function paintClues(){
   var rail=$("cluerail"),row=$("cluerow"),note=$("cluenote");
+  if(dayRun.on&&mode==="daily")paintRound();
   if(!rail)return;
   var live=playKind()==="shape";
   rail.hidden=!live;
@@ -12191,7 +12252,7 @@ function dailyShapeTry(){
     heatChips(daily.guesses,SHAPE_TRIES);
     verdict("ok",t("correct"),{b:cname(current),r:regionName(current.r)});
     snd.win();buzz([14,50,14]);
-    dailyFinish(daily.tries);
+    dailyFinish(daily.tries,true,dayShapeWorth(daily.tries));
     return;
   }
   flash(nameOf(f.n)+" · "+heatWord(km)+" · "+fmtNum(km)+" km "+daily.guesses[daily.guesses.length-1].arrow);
@@ -12230,6 +12291,7 @@ function dailyRender(){
 }
 function paintChain(){
   var el=$("chain");
+  if(dayRun.on&&mode==="daily")paintRound();
   el.innerHTML="";
   daily.chain.forEach(function(n,i){
     if(i){
@@ -12258,7 +12320,7 @@ function dailyTry(name){
   daily.chain.push(name);
   if(name===daily.to){
     var steps=daily.chain.length-1;
-    dailyFinish(steps);
+    dailyFinish(steps,true,dayWalkWorth(steps));
     verdict("ok",t("solved"),{b:steps+" "+t("steps"),r:t("par")+" "+daily.par});
     snd.win();
   } else {
@@ -17427,6 +17489,10 @@ function fitViewport(){
     d.setAttribute("data-sim","1");}
   var keep=bot?Math.min(bot,13):0;
   if(d.hasAttribute("data-twa")&&top<40)top=40;
+  if(d.hasAttribute("data-twa")){
+    if(fitViewport.twaT==null||top<fitViewport.twaT)fitViewport.twaT=top;
+    top=fitViewport.twaT;
+  }
   d.style.setProperty("--insT",top+"px");
   d.style.setProperty("--insB",bot+"px");
   d.style.setProperty("--keepB",keep+"px");
@@ -18582,8 +18648,24 @@ function kbPin(row){
   var b=kbBand(),h=row.getBoundingClientRect().height||56;
   document.documentElement.style.setProperty("--kbtop",Math.round(Math.max(b.top,b.bottom-h-2))+"px");
 }
+function kbGlide(change){
+  var d=document.documentElement,st=document.querySelector("#drill .stage");
+  if(!st||!d.hasAttribute("data-twa")||lessMotion()||!Element.prototype.animate){change();return;}
+  var els=[].slice.call(st.children).filter(function(e){return e.id!=="typerow"&&e.getClientRects().length;});
+  var was=els.map(function(e){return e.getBoundingClientRect().top;});
+  change();
+  kbState.glide=Date.now()+260;
+  els.forEach(function(e,i){
+    if(!e.getClientRects().length)return;
+    var dy=Math.round(was[i]-e.getBoundingClientRect().top);
+    if(Math.abs(dy)<2)return;
+    try{e.animate([{translate:"0 "+dy+"px"},{translate:"0 0"}],{duration:240,easing:"cubic-bezier(.2,.75,.25,1)"});}
+    catch(x){caught(x,"kbGlide");}
+  });
+}
 function kbDown(){
   var d=document.documentElement,was=d.hasAttribute("data-kb");
+  if(was)kbGlide(function(){d.removeAttribute("data-kb");});
   d.removeAttribute("data-kb");d.removeAttribute("data-kbup");
   if(was)typeFootSoon();   /* the box is back in the board: see typeFoot */
   d.style.setProperty("--kb","0px");
@@ -18605,13 +18687,16 @@ function kbApply(){
   if(!kbInRow()||!row||row.hidden){d.removeAttribute("data-kb");kbState.step=0;return;}
   if(!kbState.step)kbState.step=1;
   if(kbState.step>=3){d.removeAttribute("data-kb");return;}
-  d.setAttribute("data-kb",kbState.step===2?"pin":"1");
+  var kbTo=kbState.step===2?"pin":"1";
+  if(!d.hasAttribute("data-kb"))kbGlide(function(){d.setAttribute("data-kb",kbTo);});
+  else d.setAttribute("data-kb",kbTo);
   if(kbState.step===2)kbPin(row);
   if(!kbState.watch)kbState.watch=setInterval(function(){kbApply();kbVerify();},400);
 }
 function kbVerify(){
   var d=document.documentElement;
   if(!d.hasAttribute("data-kb"))return;
+  if(kbState.glide&&Date.now()<kbState.glide){clearTimeout(kbState.glideT);kbState.glideT=setTimeout(kbVerify,kbState.glide-Date.now()+20);return;}
   var row=document.getElementById("typerow");
   if(!row||row.hidden)return;
   var r=row.getBoundingClientRect(),b=kbBand();
