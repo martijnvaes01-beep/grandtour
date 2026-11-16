@@ -1,6 +1,6 @@
-/* Grand Tour v812. Written by standalone.js; edit it there. */
+/* Grand Tour v814. Written by standalone.js; edit it there. */
 var CACHE="grandtour";
-var KEEP=["assets/app.f2d57aad47.js","./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.96aa85ca2f.json","assets/coast.c087b86c1b.json","assets/zing.162e1052e8.json","assets/more.b89ddfda92.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
+var KEEP=["assets/app.1d3ede4f05.js","./","index.html","manifest.webmanifest","icon-180.png","icon-512.png","assets/flags.96aa85ca2f.json","assets/coast.c087b86c1b.json","assets/zing.162e1052e8.json","assets/more.b89ddfda92.json","fonts/abrilfatface.woff2","fonts/caveat.woff2","fonts/oswald.woff2","fonts/specialelite.woff2","fonts/staatliches.woff2"];
 self.addEventListener("install",function(e){
   self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(function(c){
@@ -81,6 +81,32 @@ var PUSH_SAY={
   de:["Grand Tour","Im Duellbüro liegt Post für dich."],
   es:["Grand Tour","Tienes correo en la oficina de duelos."]
 };
+/* THE EVENING REMINDER FOR THE DAILY (v796). Still no body: the worker keeps one letter per device
+   saying what it last woke it for ("d" the daily, "x" a duel), and this asks for it by the device's own
+   endpoint. If that cannot be had in three seconds it is a duel, which is what every push was before.
+   The run of days comes from the cache the page writes when a day is finished ("gt-day"). */
+var PUSH_DAY={
+  en:["The daily is waiting","Today's daily is still open. Five games, one try.","Your {n}-day run is still alive. Today's daily is waiting."],
+  nl:["De daily wacht","De daily van vandaag staat nog open. Vijf spellen, één poging.","Je reeks van {n} dagen leeft nog. De daily van vandaag wacht op je."],
+  fr:["La partie du jour attend","La partie du jour est encore ouverte. Cinq jeux, un seul essai.","Votre série de {n} jours tient toujours. La partie du jour vous attend."],
+  de:["Das Tagesspiel wartet","Das Tagesspiel von heute ist noch offen. Fünf Spiele, ein Versuch.","Deine Serie von {n} Tagen lebt noch. Das Tagesspiel wartet."],
+  es:["La partida del día espera","La partida de hoy sigue abierta. Cinco juegos, un intento.","Tu racha de {n} días sigue viva. La partida de hoy te espera."]
+};
+var PUSH_WHY="https://grandtour-scores.martijnvaes01.workers.dev/api/push/why";
+function pushWhy(){
+  return self.registration.pushManager.getSubscription().then(function(sub){
+    if(!sub)return "x";
+    var ctl=new AbortController();setTimeout(function(){ctl.abort();},3000);
+    return fetch(PUSH_WHY,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({ep:sub.endpoint}),signal:ctl.signal})
+      .then(function(r){return r.json();}).then(function(j){return j&&j.k==="d"?"d":"x";});
+  }).catch(function(){return "x";});
+}
+function pushDayRun(){
+  return caches.open(CACHE).then(function(c){return c.match("gt-day");})
+    .then(function(r){return r?r.json():null;}).catch(function(){return null;});
+}
+function localDay(n){var d=new Date(Date.now()+(n||0)*864e5);
+  return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
 function pushLang(){
   return caches.open(CACHE).then(function(c){
     return c.match("gt-lang").then(function(r){return r?r.text():"en";});
@@ -89,7 +115,17 @@ function pushLang(){
 self.addEventListener("push",function(e){
   /* showNotification is not optional: a browser that is asked for userVisibleOnly and then shown
      nothing puts up its own "this site was updated in the background", which is worse than ours. */
-  e.waitUntil(pushLang().then(function(lg){
+  e.waitUntil(Promise.all([pushLang(),pushWhy(),pushDayRun()]).then(function(a){
+    var lg=a[0],why=a[1],run=a[2];
+    if(why==="d"){
+      var dy=PUSH_DAY[lg]||PUSH_DAY.en,n=run&&run.d===localDay(-1)?(run.s|0):0;
+      return self.registration.showNotification(dy[0],{
+        body:n>=2?dy[2].replace("{n}",n):dy[1],
+        icon:"icon-512.png",badge:"icon-180.png",
+        tag:"gt-daily",renotify:false,
+        data:{go:"?day=1"}
+      });
+    }
     var say=PUSH_SAY[lg];
     return self.registration.showNotification(say[0],{
       body:say[1],

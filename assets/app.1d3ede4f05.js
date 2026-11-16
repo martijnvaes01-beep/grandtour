@@ -13645,7 +13645,7 @@ function swOpenStats(){
   var ps=mk("div","swpass"),tp=mk("div","swtop");
   tp.appendChild(mk("span",null,t("swPass")));tp.appendChild(mk("span",null,rankName(rp.i)));ps.appendChild(tp);
   var lv=mk("div","swlv");lv.appendChild(mk("div","swmedal",rp.i+1));
-  var lc=mk("div","swlvc");lc.appendChild(mk("b",null,rankTitle(rp.i)));
+  var lc=mk("div","swlvc");lc.appendChild(mk("b",null,duelMyName()));
   var bar=mk("div","swbar"),bi=mk("i");bi.style.width=Math.round((last?1:rp.pct)*100)+"%";bar.appendChild(bi);lc.appendChild(bar);
   lc.appendChild(mk("div","swxp",last?fmtNum(store.xp||0)+" XP":fill(t("swXp"),{a:fmtNum(store.xp||0),b:fmtNum(rp.to)})));
   lv.appendChild(lc);ps.appendChild(lv);
@@ -13676,6 +13676,8 @@ function swOpenStats(){
   var dtd=mk("div","swdtoday");dtd.appendChild(mk("i",null,t("swToday")));
   if(today){
     var tb=mk("b",null,Math.round(today.v*dl/100));tb.appendChild(mk("small",null,"/"+dl));dtd.appendChild(tb);
+    var dsd=standing("daily");
+    if(dsd&&(dsd.kind==="pct"||dsd.kind==="rank"||dsd.kind==="only"))dtd.appendChild(mk("em","swdpct",dsd.text));
   } else dtd.appendChild(mk("div","swno",t("swNotYet")));
   dt.appendChild(dtd);wal.appendChild(dt);
 
