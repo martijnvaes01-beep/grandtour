@@ -12891,6 +12891,7 @@ function kitOut(ctx){
 function audioOn(){
   if(!store.sound)return null;
   if(!TAPPED)return null;
+  if(document.hidden)return null;
   try{
     if(!SFX.ctx){
       var Ctor=window.AudioContext||window.webkitAudioContext;
@@ -12899,6 +12900,7 @@ function audioOn(){
       SFX.ctx.sfxOut=kitOut(SFX.ctx);
       SFX.ctx.sfxNoise=kitNoise(SFX.ctx);
     }
+    if(SFX.ctx.state==="interrupted"){SFX.ctx.resume();return null;}
     if(SFX.ctx.state!=="running")SFX.ctx.resume();
     return SFX.ctx;
   }catch(e){return null;}
@@ -14637,7 +14639,7 @@ function paintDuelBar(){
         var side=$(lead>0?"dbmine":"dbtheirs");
         side.setAttribute("data-took",t(lead>0?"duelTook":"duelOvertaken"));
         side.classList.remove("took");void side.offsetWidth;side.classList.add("took");
-        if(lead>0)snd.stamp();
+        setTimeout(function(){try{if(lead>0)snd.stamp();else snd.nope();}catch(e){caught(e,"duelTook");}},250);
       }
     }
     if(lead)duel.ropeLead=lead;
@@ -15526,6 +15528,8 @@ function duelMsg(m){
     if(duel.first)vsBox=duel.revFor?{lab:t("duelRevLab"),big:duel.revFor.nm||t("duelLetterAnon")}:{none:true,big:t("duelVsNone")};
     duel.cc=Array.isArray(m.cc)?m.cc:[];
     if(duel.mode==="async"&&duel.seat>0&&vsElo){
+      document.documentElement.setAttribute("data-mstart","1");
+      matchStartCover();
       var y0=duelSync.you||{};
       var meP={name:duelSync.name||"",cc:store.duelCc||"",elo:store.duelElo||DUEL_ELO0,rank:y0.rank||0,ccRank:y0.ccRank||0,
         badges:(y0.badges||store.badges||[])};
@@ -15541,7 +15545,7 @@ function duelMsg(m){
     countdown(3,function(){duelSend({t:"ready"});},vsBox);
     return;
   }
-  if(m.t==="q"){matchStartStop();duelQ(m,null);return;}
+  if(m.t==="q"){matchStartStop();document.documentElement.removeAttribute("data-mstart");duelQ(m,null);return;}
   if(m.t==="resume"){
     duel.paused=false;
     duelClockStop();
@@ -15595,9 +15599,9 @@ function duelMsg(m){
     duelClockStop();clearTimeout(duel.readyT);duel.readyT=0;
     clearTimeout(duel.missT);duel.missT=0;
     locked=true;
-    snd.win();
     duel.view="end";
-    setTimeout(function(){openDuel();},900);
+    var wonIt=m.win===duel.seat,liveEnd=duel.mode!=="async";
+    setTimeout(function(){openDuel();if(liveEnd){if(wonIt)snd.win();else snd.stamp();}},900);
     return;
   }
 }
@@ -16496,9 +16500,9 @@ function matchStart(me,them,done){
   mstEl=o;
   var tm=[];
   try{snd.flip();}catch(e){caught(e,"matchStart.flip");}
-  tm.push(setTimeout(function(){try{snd.stamp();}catch(e){caught(e,"matchStart.stamp");}},600));
+  seal.addEventListener("animationstart",function(e){if(e.animationName==="mstPop"&&mstEl===o)try{snd.stamp();}catch(x){caught(x,"matchStart.stamp");}});
+  vs.addEventListener("animationend",function(e){if(e.animationName==="mstStamp"&&mstEl===o)try{snd.stamp();buzz([20]);}catch(x){caught(x,"matchStart.vs");}});
   tm.push(setTimeout(function(){o.classList.add("open");},950));
-  tm.push(setTimeout(function(){try{snd.stamp();buzz([20]);}catch(e){caught(e,"matchStart.vs");}},1700));
   o._t=tm;
   var pressed=false;
   go.onclick=function(){
@@ -16508,6 +16512,11 @@ function matchStart(me,them,done){
     o._t.push(setTimeout(function(){matchStartStop();done();},480));
   };
   try{setTimeout(function(){if(mstEl===o)go.focus();},1200);}catch(e){caught(e,"matchStart.focus");}
+}
+function matchStartCover(){
+  matchStartStop();
+  var o=document.createElement("div");o.className="mst";o._t=[];
+  document.body.appendChild(o);mstEl=o;
 }
 function matchStartStop(){
   if(!mstEl)return;
@@ -16752,6 +16761,7 @@ function duelStop(){
   duel.q=null;duel.opts=null;duel.picked=null;duel.got=false;duel.phase="";duel.i=-1;
   duel.tries=0;
   document.documentElement.removeAttribute("data-duel");
+  document.documentElement.removeAttribute("data-mstart");
 }
 
 function openSaveIO(){
@@ -18848,7 +18858,7 @@ function clearBoot(){
 function later(fn,ms){bootTimers.push(setTimeout(fn,ms));}
 function shortIntro(){return booted||HADSAVE||dayWanted||!!playWanted||!!duelWanted||lessMotion();}
 function lessMotion(){
-  try{return !!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);}catch(e){return false;}
+  return false;
 }
 function introBootDelay(){return shortIntro()?BEATS_BACK.cards:BEATS_FIRST.cards;}
 function runIntroBoot(){
@@ -19943,6 +19953,7 @@ if(CHEATS&&/[?&]dbg=1/.test(location.search)){
       duelQ({t:"q",i:i||0,n:N,s:q.s,o:q.o,secs:sec,b:q.b,x:((i||0)===N-1?DUEL_LAST_X:1),left:sec*1000,score:[120,80]},null);
     },
     duelOff:function(){duelStop();},
+    mst:function(me,th){matchStart(me||{name:"FLAGKILLER69",cc:"BE",elo:1012,rank:3},th||{name:"Sibba",cc:"NL",elo:1125,rank:1},function(){});},
     duelMsg:function(m){duelMsg(m);},duel:function(){return duel;},
     finale:function(){duelFinale();},
     sync:function(){return duelSync;},seasonTake:function(l){duelSeasonTake(l);},hub:function(){duel.view="rank";openDuel();duel.view="rank";paintDuel();},
