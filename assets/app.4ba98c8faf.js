@@ -471,6 +471,7 @@ en:{sub:"countries · flags, globe, atlas",
   duelDosMiss:"Not {c} · {n} left",
   duelSetIs:"{q} questions · {g} games",
   duelBoardLab:"Leaderboard",
+  ccNone:"No country",ccLab:"Country",ccPick:"Change your country",idBureau:"GRAND TOUR · DUEL BUREAU",idCard:"IDENTITY CARD",idName:"Name",idLevel:"Level",idSince:"Since",idAnswered:"Answered",idRecord:"W–L · streak",idPrivate:"This profile is private.",idPrivLab:"Private profile",idPrivSay:"Private shows only your name, flag and rating to others.",walSaved:"Saved.",walNoRow:"Pick a name first.",walLab:"Wallet",walOpen:"My ID and badges",profLab:"Player",profGone:"This player is no longer on the standings.",bdgPaper:"BADGES",bdgNotYet:"not yet",bdgNone:"No badges yet. They are rare: every one is earned.",bdgHeld:"Held by {n} players",bdgHeld1:"Held by 1 player",bdgHowNew:"A new badge. Update the game to see how it is earned.",bdgNew:"NEW BADGE",bdgPin:"Pin it on",bdg_tester:"Tester",bdg_founder:"Founder",bdg_champ:"Champion",bdg_podium:"Podium",bdg_natchamp:"National champion",bdg_atlas:"Living Atlas",bdg_year:"Year of days",bdg_bug:"Bug hunter",bdgHow_tester:"Played the Android app during its closed test.",bdgHow_founder:"Finished ranked placement before Grand Tour went public.",bdgHow_champ:"Finished a monthly season at number 1 in the world.",bdgHow_podium:"Finished a monthly season in the world's top 3.",bdgHow_natchamp:"Finished a monthly season as number 1 of your country, with at least 5 players from it.",bdgHow_atlas:"Completed the world trip.",bdgHow_year:"Played the daily game 365 days in a row.",bdgHow_bug:"Reported a bug that got fixed. Given by hand.",stdTitle:"Standings",stdWorld:"WORLD",stdSeason:"{m} season · {n} days left",stdEmptyCc:"Nobody from your country is placed yet. Be the first.",stdPlace1:"1ST",stdPlace2:"2ND",stdPlace3:"3RD",mstTo:"To: {n}",mstBureau:"Duel bureau · ranked",mstRe:"Re: your next match",mstYou:"YOU",mstRival:"RIVAL",mstStart:"START",duelFirstWin:"First win of the day: +{n} XP bonus",duelResume:"Back on. The question you dropped on scored 0. {n} pauses left.",duelResume1:"Back on. The question you dropped on scored 0. 1 pause left.",duelResumeLab:"Next question",duelPaused:"Connection lost. Your run is paused for 2 minutes.",
   duelSlotFree:"Open",
   duelSlotWait:"Waiting",
   duelSlotLive:"Playing now",
@@ -991,6 +992,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   duelDosMiss:"Pas {c} · {n} restants",
   duelSetIs:"{q} questions · {g} jeux",
   duelBoardLab:"Classement",
+  ccNone:"Aucun pays",ccLab:"Pays",ccPick:"Changer de pays",idBureau:"GRAND TOUR · BUREAU DES DUELS",idCard:"CARTE D'IDENTITÉ",idName:"Nom",idLevel:"Niveau",idSince:"Depuis",idAnswered:"Réponses",idRecord:"V–D · série",idPrivate:"Ce profil est privé.",idPrivLab:"Profil privé",idPrivSay:"En privé, les autres ne voient que ton nom, ton drapeau et ton classement.",walSaved:"Enregistré.",walNoRow:"Choisis d'abord un nom.",walLab:"Portefeuille",walOpen:"Ma carte et mes badges",profLab:"Joueur",profGone:"Ce joueur n'est plus au classement.",bdgPaper:"BADGES",bdgNotYet:"pas encore",bdgNone:"Pas encore de badge. Ils sont rares : chacun se mérite.",bdgHeld:"Détenu par {n} joueurs",bdgHeld1:"Détenu par 1 joueur",bdgHowNew:"Un nouveau badge. Mets le jeu à jour pour savoir comment l'obtenir.",bdgNew:"NOUVEAU BADGE",bdgPin:"L'épingler",bdg_tester:"Testeur",bdg_founder:"Fondateur",bdg_champ:"Champion",bdg_podium:"Podium",bdg_natchamp:"Champion national",bdg_atlas:"Atlas vivant",bdg_year:"Une année de jours",bdg_bug:"Chasseur de bugs",bdgHow_tester:"A joué à l'appli Android pendant son test fermé.",bdgHow_founder:"A terminé ses matchs de placement avant le lancement public.",bdgHow_champ:"A fini une saison mensuelle numéro 1 mondial.",bdgHow_podium:"A fini une saison mensuelle dans le top 3 mondial.",bdgHow_natchamp:"A fini une saison mensuelle numéro 1 de son pays, avec au moins 5 joueurs de ce pays.",bdgHow_atlas:"A terminé le tour du monde.",bdgHow_year:"A joué au jeu du jour 365 jours d'affilée.",bdgHow_bug:"A signalé un bug qui a été corrigé. Remis à la main.",stdTitle:"Classement",stdWorld:"MONDE",stdSeason:"Saison de {m} · encore {n} jours",stdEmptyCc:"Personne de ton pays n'est encore classé. Sois le premier.",stdPlace1:"1ER",stdPlace2:"2E",stdPlace3:"3E",mstTo:"À : {n}",mstBureau:"Bureau des duels · classé",mstRe:"Objet : ton prochain match",mstYou:"TOI",mstRival:"RIVAL",mstStart:"START",duelFirstWin:"Première victoire du jour : +{n} XP en bonus",duelResume:"De retour. La question perdue vaut 0. Encore {n} pauses.",duelResume1:"De retour. La question perdue vaut 0. Encore 1 pause.",duelResumeLab:"Question suivante",duelPaused:"Connexion perdue. Ta partie est en pause pendant 2 minutes.",
   duelSlotFree:"Libre",
   duelSlotWait:"En attente",
   duelSlotLive:"En cours",
@@ -1486,6 +1488,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   duelDosMiss:"Nicht {c} · noch {n}",
   duelSetIs:"{q} Fragen · {g} Spiele",
   duelBoardLab:"Rangliste",
+  ccNone:"Kein Land",ccLab:"Land",ccPick:"Land ändern",idBureau:"GRAND TOUR · DUELLBÜRO",idCard:"PERSONALAUSWEIS",idName:"Name",idLevel:"Level",idSince:"Seit",idAnswered:"Beantwortet",idRecord:"S–N · Serie",idPrivate:"Dieses Profil ist privat.",idPrivLab:"Privates Profil",idPrivSay:"Privat zeigt anderen nur deinen Namen, deine Flagge und deine Wertung.",walSaved:"Gespeichert.",walNoRow:"Wähle zuerst einen Namen.",walLab:"Brieftasche",walOpen:"Mein Ausweis und Abzeichen",profLab:"Spieler",profGone:"Dieser Spieler steht nicht mehr in der Wertung.",bdgPaper:"ABZEICHEN",bdgNotYet:"noch nicht",bdgNone:"Noch keine Abzeichen. Sie sind selten: jedes ist verdient.",bdgHeld:"{n} Spieler haben es",bdgHeld1:"1 Spieler hat es",bdgHowNew:"Ein neues Abzeichen. Aktualisiere das Spiel, um zu sehen, wie man es bekommt.",bdgNew:"NEUES ABZEICHEN",bdgPin:"Anstecken",bdg_tester:"Tester",bdg_founder:"Gründer",bdg_champ:"Champion",bdg_podium:"Podium",bdg_natchamp:"Landesmeister",bdg_atlas:"Lebender Atlas",bdg_year:"Ein Jahr voller Tage",bdg_bug:"Fehlerjäger",bdgHow_tester:"Hat die Android-App im geschlossenen Test gespielt.",bdgHow_founder:"Hat die Platzierung vor dem öffentlichen Start abgeschlossen.",bdgHow_champ:"Hat eine Monatssaison als Nummer 1 der Welt beendet.",bdgHow_podium:"Hat eine Monatssaison unter den Top 3 der Welt beendet.",bdgHow_natchamp:"Hat eine Monatssaison als Nummer 1 seines Landes beendet, mit mindestens 5 Spielern von dort.",bdgHow_atlas:"Hat die Weltreise abgeschlossen.",bdgHow_year:"Hat das Tagesspiel 365 Tage am Stück gespielt.",bdgHow_bug:"Hat einen Fehler gemeldet, der behoben wurde. Von Hand vergeben.",stdTitle:"Wertung",stdWorld:"WELT",stdSeason:"Saison {m} · noch {n} Tage",stdEmptyCc:"Aus deinem Land ist noch niemand platziert. Sei der Erste.",stdPlace1:"1.",stdPlace2:"2.",stdPlace3:"3.",mstTo:"An: {n}",mstBureau:"Duellbüro · gewertet",mstRe:"Betreff: dein nächstes Match",mstYou:"DU",mstRival:"GEGNER",mstStart:"START",duelFirstWin:"Erster Sieg des Tages: +{n} XP Bonus",duelResume:"Wieder da. Die verlorene Frage zählt 0. Noch {n} Pausen.",duelResume1:"Wieder da. Die verlorene Frage zählt 0. Noch 1 Pause.",duelResumeLab:"Nächste Frage",duelPaused:"Verbindung weg. Dein Lauf ist 2 Minuten pausiert.",
   duelSlotFree:"Frei",
   duelSlotWait:"Wartet",
   duelSlotLive:"Läuft",
@@ -1981,6 +1984,7 @@ es:{sub:"países · banderas, globo, atlas",
   duelDosMiss:"No es {c} · quedan {n}",
   duelSetIs:"{q} preguntas · {g} juegos",
   duelBoardLab:"Clasificación",
+  ccNone:"Sin país",ccLab:"País",ccPick:"Cambiar de país",idBureau:"GRAND TOUR · OFICINA DE DUELOS",idCard:"DOCUMENTO DE IDENTIDAD",idName:"Nombre",idLevel:"Nivel",idSince:"Desde",idAnswered:"Respondidas",idRecord:"V–D · racha",idPrivate:"Este perfil es privado.",idPrivLab:"Perfil privado",idPrivSay:"En privado, los demás solo ven tu nombre, tu bandera y tu puntuación.",walSaved:"Guardado.",walNoRow:"Elige primero un nombre.",walLab:"Cartera",walOpen:"Mi carné y mis insignias",profLab:"Jugador",profGone:"Este jugador ya no está en la clasificación.",bdgPaper:"INSIGNIAS",bdgNotYet:"aún no",bdgNone:"Aún no hay insignias. Son raras: cada una se gana.",bdgHeld:"La tienen {n} jugadores",bdgHeld1:"La tiene 1 jugador",bdgHowNew:"Una insignia nueva. Actualiza el juego para ver cómo se gana.",bdgNew:"NUEVA INSIGNIA",bdgPin:"Prenderla",bdg_tester:"Probador",bdg_founder:"Fundador",bdg_champ:"Campeón",bdg_podium:"Podio",bdg_natchamp:"Campeón nacional",bdg_atlas:"Atlas viviente",bdg_year:"Un año de días",bdg_bug:"Cazador de errores",bdgHow_tester:"Jugó a la app de Android durante su prueba cerrada.",bdgHow_founder:"Terminó la clasificación antes del lanzamiento público.",bdgHow_champ:"Terminó una temporada mensual como número 1 del mundo.",bdgHow_podium:"Terminó una temporada mensual en el top 3 mundial.",bdgHow_natchamp:"Terminó una temporada mensual como número 1 de su país, con al menos 5 jugadores de allí.",bdgHow_atlas:"Completó la vuelta al mundo.",bdgHow_year:"Jugó el juego del día 365 días seguidos.",bdgHow_bug:"Informó de un error que se corrigió. Se entrega a mano.",stdTitle:"Clasificación",stdWorld:"MUNDO",stdSeason:"Temporada de {m} · quedan {n} días",stdEmptyCc:"Nadie de tu país está clasificado aún. Sé el primero.",stdPlace1:"1.º",stdPlace2:"2.º",stdPlace3:"3.º",mstTo:"Para: {n}",mstBureau:"Oficina de duelos · clasificatoria",mstRe:"Asunto: tu próximo duelo",mstYou:"TÚ",mstRival:"RIVAL",mstStart:"START",duelFirstWin:"Primera victoria del día: +{n} XP extra",duelResume:"De vuelta. La pregunta perdida vale 0. Quedan {n} pausas.",duelResume1:"De vuelta. La pregunta perdida vale 0. Queda 1 pausa.",duelResumeLab:"Siguiente pregunta",duelPaused:"Conexión perdida. Tu partida está en pausa 2 minutos.",
   duelSlotFree:"Libre",
   duelSlotWait:"Esperando",
   duelSlotLive:"En juego",
@@ -2476,6 +2480,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   duelDosMiss:"Niet {c} · nog {n}",
   duelSetIs:"{q} vragen · {g} spellen",
   duelBoardLab:"Ranglijst",
+  ccNone:"Geen land",ccLab:"Land",ccPick:"Land wijzigen",idBureau:"GRAND TOUR · DUELBUREAU",idCard:"IDENTITEITSKAART",idName:"Naam",idLevel:"Level",idSince:"Sinds",idAnswered:"Beantwoord",idRecord:"W–V · reeks",idPrivate:"Dit profiel is privé.",idPrivLab:"Privéprofiel",idPrivSay:"Privé laat anderen alleen je naam, vlag en rating zien.",walSaved:"Opgeslagen.",walNoRow:"Kies eerst een naam.",walLab:"Portemonnee",walOpen:"Mijn ID en badges",profLab:"Speler",profGone:"Deze speler staat niet meer in de ranglijst.",bdgPaper:"BADGES",bdgNotYet:"nog niet",bdgNone:"Nog geen badges. Ze zijn zeldzaam: elke badge is verdiend.",bdgHeld:"{n} spelers hebben hem",bdgHeld1:"1 speler heeft hem",bdgHowNew:"Een nieuwe badge. Werk het spel bij om te zien hoe je hem haalt.",bdgNew:"NIEUWE BADGE",bdgPin:"Opspelden",bdg_tester:"Tester",bdg_founder:"Oprichter",bdg_champ:"Kampioen",bdg_podium:"Podium",bdg_natchamp:"Nationaal kampioen",bdg_atlas:"Levende atlas",bdg_year:"Een jaar vol dagen",bdg_bug:"Bugjager",bdgHow_tester:"Speelde de Android-app tijdens de gesloten test.",bdgHow_founder:"Rondde de plaatsing af voordat Grand Tour openbaar ging.",bdgHow_champ:"Eindigde een maandseizoen als nummer 1 van de wereld.",bdgHow_podium:"Eindigde een maandseizoen in de top 3 van de wereld.",bdgHow_natchamp:"Eindigde een maandseizoen als nummer 1 van je land, met minstens 5 spelers uit dat land.",bdgHow_atlas:"Maakte de wereldreis af.",bdgHow_year:"Speelde het dagspel 365 dagen op rij.",bdgHow_bug:"Meldde een bug die is opgelost. Met de hand uitgereikt.",stdTitle:"Ranglijst",stdWorld:"WERELD",stdSeason:"Seizoen {m} · nog {n} dagen",stdEmptyCc:"Nog niemand uit je land is geplaatst. Wees de eerste.",stdPlace1:"1E",stdPlace2:"2E",stdPlace3:"3E",mstTo:"Aan: {n}",mstBureau:"Duelbureau · ranked",mstRe:"Betreft: je volgende match",mstYou:"JIJ",mstRival:"RIVAAL",mstStart:"START",duelFirstWin:"Eerste winst van de dag: +{n} XP bonus",duelResume:"Weer verbonden. De vraag waarop je wegviel telt 0. Nog {n} pauzes.",duelResume1:"Weer verbonden. De vraag waarop je wegviel telt 0. Nog 1 pauze.",duelResumeLab:"Volgende vraag",duelPaused:"Verbinding weg. Je run staat 2 minuten op pauze.",
   duelSlotFree:"Vrij",
   duelSlotWait:"Wachten",
   duelSlotLive:"Bezig",
@@ -9649,6 +9654,7 @@ function buyClue(id){
   DOSSIER_CLUES.forEach(function(x){if(x.id===id)c=x;});
   if(!c)return;
   dossier.open[id]=true;dossier.spent+=c.cost;
+  if(duel.on&&!duel.solo&&duel.q&&duel.q.b==="dossier")duelSend({t:"clue",i:duel.i,id:id});
   snd.flip();
   var cell=document.querySelector('.dosclue[data-clue="'+id+'"]');
   if(cell){
@@ -9761,6 +9767,12 @@ function render(){
   if(locating()){
     $("prompt").textContent=t("askLocate");
     box.appendChild(targetCard(current));
+  } else if(mode==="shape"&&duel.on&&duel.opts){
+    $("prompt").textContent=t("askShape");
+    var sf0=current;
+    needCoast(function(){if(current===sf0&&mode==="shape")drawShape(sf0);});
+    drawShape(current);
+    buildOptions(function(o){var sp=document.createElement("span");sp.textContent=cname(o);return sp;},false,duel.opts,true);
   } else if(mode==="shape"){
     $("prompt").textContent=t("askShape");
     if(shapeRun.forName!==current.n||shapeRun.n!==run.n)shapeRun={forName:current.n,n:run.n,said:[]};
@@ -10828,6 +10840,7 @@ function surfacesOf(m,kind){
   if(dayClocked(m))o.reveal=false;
   if(duel.on)o.reveal=false;
   if(trace)o.reveal=false;
+  if(duel.on&&m==="shape"){o.clues=false;o.opts=true;o.field=false;o.fieldShown=false;o.chain=false;}
   return o;
 }
 function setMode(m,keepRegion){
@@ -13139,6 +13152,23 @@ var RANKS=[
   {xp:17000,en:"Envoy Extraordinary",nl:"Buitengewoon gezant",fr:"Envoyé extraordinaire",de:"Außerordentlicher Gesandter",es:"Enviado extraordinario"},
   {xp:23000,en:"Master of the Grand Tour",nl:"Meester van de Grand Tour",fr:"Maître du Grand Tour",de:"Meister der Grand Tour",es:"Maestro del Gran Tour"}
 ];
+var RANK_TOP=99,RANK_STEP0=6000,RANK_STEP_GROW=100;
+var RANK_TITLES_HIGH={
+  25:{en:"Ambassador",nl:"Ambassadeur",fr:"Ambassadeur",de:"Botschafter",es:"Embajador"},
+  40:{en:"Keeper of the Prime Meridian",nl:"Hoeder van de nulmeridiaan",fr:"Gardien du méridien d'origine",de:"Hüter des Nullmeridians",es:"Guardián del meridiano cero"},
+  60:{en:"Circumnavigator",nl:"Wereldomzeiler",fr:"Circumnavigateur",de:"Weltumsegler",es:"Circunnavegante"},
+  80:{en:"Grand Cartographer",nl:"Grootcartograaf",fr:"Grand cartographe",de:"Großkartograf",es:"Gran cartógrafo"},
+  99:{en:"Living Atlas",nl:"Levende atlas",fr:"Atlas vivant",de:"Lebender Atlas",es:"Atlas viviente"}
+};
+(function(){
+  var last=RANKS[RANKS.length-1],n,step,xp=last.xp,title=last;
+  for(n=RANKS.length+1;n<=RANK_TOP;n++){
+    step=RANK_STEP0+RANK_STEP_GROW*Math.floor((n-15)/2);
+    xp+=step;
+    if(RANK_TITLES_HIGH[n])title=RANK_TITLES_HIGH[n];
+    RANKS.push({xp:xp,en:title.en,nl:title.nl,fr:title.fr,de:title.de,es:title.es});
+  }
+}());
 if(!store.xp)store.xp=0;
 function rankIndex(xp){
   var i=0,k;
@@ -14000,7 +14030,7 @@ function qrSvg(text,px){
   return svg;
 }
 
-var DUEL_ON_BOARDS=["name","find","look","cap","locate"];
+var DUEL_ON_BOARDS=["name","find","look","cap","locate","shape"];
 var DUEL_N=10;
 var DUEL_KEY_ABC="abcdefghijklmnopqrstuvwxyz0123456789";
 function duelKey(){
@@ -14039,12 +14069,15 @@ function duelSay(k,good){
   e.textContent=k?t(k):"";
   e.className="repsaid"+(k?(good?" good":" bad"):"");
 }
-var DUEL_SECS={name:10,find:10,look:10,cap:10,postcard:15,locate:20,dossier:45};
+var DUEL_SECS={name:10,find:10,look:10,cap:10,postcard:15,locate:20,dossier:45,shape:10};
 var DUEL_PICK_BOARDS=["name","find","look","cap","locate"];
 var DUEL_LAST_X=1;
 var DUEL_WRONG_PTS=-20;
-function duelPointsOf(ms,secs){
-  var f=Math.max(0,Math.min(1,ms/(secs*1000)));
+var DUEL_FREE_MS={locate:5000};
+function duelPointsOf(ms,secs,board){
+  var free=(board&&DUEL_FREE_MS[board])||0;
+  var span=Math.max(1,secs*1000-free);
+  var f=Math.max(0,Math.min(1,(ms-free)/span));
   return 50+Math.round(50*(1-f));
 }
 var DUEL_MIX="mix";
@@ -14057,11 +14090,13 @@ function duelRound(board,n,out,used){
     var lp=shuffle(poolFor("locate","ALL").slice()),lg=0;
     for(var li=0;li<lp.length&&lg<n;li++){
       if(used[lp[li].n])continue;
+      if(duelArea(lp[li])<DUEL_LOC_MIN)continue;
       used[lp[li].n]=1;lg++;
       out.push({s:lp[li].n,b:"locate"});
     }
     return lg===n;
   }
+  if(board==="shape")return duelShapeRound(n,out,used);
   var q=QUIZ[board],p=poolFor(board,"ALL");
   if(!q||p.length<4)return false;
   var subs=shuffle(p.slice()),got=0,i;
@@ -14081,6 +14116,27 @@ function duelRound(board,n,out,used){
     if(a<0)continue;
     used[f.n]=1;got++;
     out.push({s:f.n,o:list.map(function(o){return o.n;}),a:a,b:board});
+  }
+  return got===n;
+}
+var DUEL_LOC_MIN=10000;
+function duelArea(f){var fc=f&&FACTS[f.c];return fc&&fc[2]?fc[2]:0;}
+var DUEL_SHAPE_MIN=5000;
+function duelShapeRound(n,out,used){
+  var p=FLAGS.filter(function(f){return duelArea(f)>=DUEL_SHAPE_MIN&&!!shapeOf(f.n);});
+  if(p.length<12)return false;
+  var subs=shuffle(p.slice()),got=0;
+  for(var i=0;i<subs.length&&got<n;i++){
+    var f=subs[i];
+    if(used[f.n])continue;
+    var la=Math.log(duelArea(f));
+    var near=p.filter(function(o){return o.n!==f.n;}).sort(function(a,b){
+      return Math.abs(Math.log(duelArea(a))-la)-Math.abs(Math.log(duelArea(b))-la);
+    }).slice(0,8);
+    var list=shuffle([f].concat(shuffle(near).slice(0,3)));
+    var a=-1;list.forEach(function(o,k){if(o.n===f.n)a=k;});
+    used[f.n]=1;got++;
+    out.push({s:f.n,o:list.map(function(o){return o.n;}),a:a,b:"shape"});
   }
   return got===n;
 }
@@ -14136,6 +14192,7 @@ function duelRated(r,vs){
   if(!Array.isArray(store.duelLog))store.duelLog=[];
   store.duelLog.push({d:duel.eloGot,s:duel.eloGot>0?1:(duel.eloGot<0?0:0.5)});
   if(store.duelLog.length>DUEL_LOG_MAX)store.duelLog=store.duelLog.slice(-DUEL_LOG_MAX);
+  if(!duel.samePair)duelXpPay(!!(duel.end&&duel.end.win===duel.seat),duel.code);
   duelSyncDrop();
   store.duelNews=true;duel.news=true;
   save();
@@ -14221,6 +14278,10 @@ function paintDuelBar(){
   $("dbthlab").textContent=(thName||((duel.solo||duel.first)?t("duelSoloThem"):t("duelThem")))+(thElo?" \u00b7 "+thElo:"");
   $("dbtheirs").classList.toggle("nobody",!!(duel.first&&!duel.revFor));
   if(duel.first&&!duel.revFor)$("dbthlab").textContent=t("duelNoGhost");
+  if(duel.mode==="async"){
+    var mf=ccFlag(store.duelCc);if(mf)$("dbmelab").insertBefore(mf,$("dbmelab").firstChild);
+    var tf=(duel.first&&!duel.revFor)?null:ccFlag((duel.cc||[])[them]);if(tf)$("dbthlab").insertBefore(tf,$("dbthlab").firstChild);
+  }
   $("dbq").textContent=Math.max(1,duel.i+1)+"/"+duel.n+(duel.x>1?" \u00d7"+duel.x:"");
   $("dbq").classList.toggle("dbl",duel.x>1);
   var quiet=!duel.barSeed;
@@ -14346,6 +14407,7 @@ function duelHub(){
   who.querySelector("b").textContent=nm?(nm+(rank?"  \u00b7  "+rank:"")):t("duelWhoNone");
   who.classList.toggle("set",!!nm);
   who.classList.toggle("none",!nm);
+  $("hubid").textContent=t("walOpen");
   $("duelboard").textContent=t("duelBoardLab");
   $("duelboard").hidden=false;
   duelSyncGo();
@@ -14507,6 +14569,8 @@ function duelNamePaint(){
   $("hubageline").hidden=!!got;
   $("hubagetxt").textContent=t("duelAge13");
   el.setAttribute("placeholder",t("duelNameHint"));
+  $("hubcclab").textContent=t("ccLab");
+  ccSelect($("hubcc"),(duelSync.you&&duelSync.you.cc)||store.duelCc||"");
   if(!duel.nameSaid)$("hubnamesay").textContent=t(got?"duelNameYours":(duel.nameAsk?"duelNameOnce":
     (duel.nameGate?"duelNameFirst":"duelNameLead")));
 }
@@ -14539,6 +14603,8 @@ function duelNameSend(){
         return;
       }
       duelSync.name=j.name;
+      var ccw=$("hubcc").value;
+      if(ccw!==(store.duelCc||""))walletSend({cc:ccw});
       store.duelName=j.name;save();
       duel.nameGate=false;
       duelSyncDrop();
@@ -14565,41 +14631,7 @@ function duelNewsOff(){
   store.duelNews=false;duel.news=false;save();
   if(introOpen)buildDrawers();
 }
-function duelBoardPaint(){
-  var box=$("hubtable");
-  box.innerHTML="";
-  $("hubmklegend").querySelector("i").textContent=t("duelMkLegend");
-  var top=duelSync.top;
-  if(!top){
-    $("hubboardsay").textContent=t("duelBoardWait");
-    duelSyncGo();
-    return;
-  }
-  if(!top.length){$("hubboardsay").textContent=t("duelBoardEmpty");return;}
-  $("hubboardsay").textContent=duelSync.name?"":t("duelBoardJoin");
-  top.forEach(function(r){
-    var row=document.createElement("div");
-    row.className="hubrow"+(duelSync.name&&r.name===duelSync.name?" me":"");
-    var p=document.createElement("span");p.className="hubpos";p.textContent=r.pos;
-    var n=document.createElement("span");n.className="hubnm";
-    if(r.mk>=1&&r.mk<=3){
-      var mk=document.createElement("span");mk.className="hubmk m"+r.mk;mk.setAttribute("data-n",r.mk);
-      mk.setAttribute("title",fill(t("duelMkTitle"),{n:r.mk,m:seasonMonth(duelSync.mkS||"")}));
-      mk.setAttribute("aria-label",mk.getAttribute("title"));
-      n.appendChild(mk);
-    }
-    n.appendChild(document.createTextNode(r.name));
-    if((r.str||0)>=HOT_STREAK){
-      var h=document.createElement("span");h.className="hubhot";h.textContent=r.str;
-      h.setAttribute("title",fill(t("duelStreakRow"),{n:r.str}));
-      n.appendChild(document.createTextNode(" "));
-      n.appendChild(h);
-    }
-    var e=document.createElement("b");e.className="hubelo";e.textContent=r.elo;
-    row.appendChild(p);row.appendChild(n);row.appendChild(e);
-    box.appendChild(row);
-  });
-}
+function duelBoardPaint(){standingsPaint();}
 function duelPostCard(){
   var w=duelWaitFor(duel.code);
   var sc=(duel.sent&&typeof duel.sent.score==="number")?duel.sent.score:(w&&typeof w.score==="number"?w.score:null);
@@ -14628,7 +14660,10 @@ function paintDuel(){
   if(waity&&!duel.code&&!duel.sent){v="home";duel.view="home";waity=false;}
   var ranked=duel.mode==="async";
   var posted=waity&&ranked&&duel.maker,taking=waity&&ranked&&!duel.maker;
-  $("duellead").hidden=(v==="home")||(v==="rank")||(v==="board")||(v==="name")||posted;
+  $("duellead").hidden=(v==="home")||(v==="rank")||(v==="board")||(v==="name")||(v==="wallet")||(v==="prof")||posted;
+  document.querySelector("#duelmodal .duelsheet").classList.toggle("navy",v==="rank"||v==="board"||v==="wallet"||v==="prof");
+  $("duelwallet").hidden=(v!=="wallet"&&v!=="prof");
+  if(v==="wallet"||v==="prof")walletPaint();
   $("duellead").textContent=t(taking?"duelFound":({home:"duelLead",pick:"duelPick",rank:"duelRankLead",
     wait:(ranked?"duelSentLead":"duelWaitLead"),
     send:"duelSentLead","in":"duelJoinLead",end:"duelEndLead"}[v]||"duelLead"));
@@ -14637,6 +14672,7 @@ function paintDuel(){
   $("duelrankgo").disabled=!!duel.taking||!ready;
   if(!ready)$("duelrankgo").textContent=fill(t("gateToGo"),{lv:rankName(DUEL_GATE),n:fmtNum(Math.max(0,RANKS[DUEL_GATE].xp-(store.xp||0)))});
   if(v==="rank")duelHub();
+  $("duellab").textContent=t(v==="wallet"?"walLab":(v==="prof"?"profLab":(v==="board"?"stdTitle":"duelLab")));
   $("duelnamebox").hidden=v!=="name";
   if(v==="name")duelNamePaint();
   $("duelboardbox").hidden=v!=="board";
@@ -15061,7 +15097,8 @@ function duelConnect(){
     "&key="+encodeURIComponent(duel.key)+"&lv="+(rankProgress().i+1)+
     "&elo="+(store.duelElo||DUEL_ELO0)+
     "&pid="+encodeURIComponent(playerId())+
-    "&nm="+encodeURIComponent(duelMyName());
+    "&nm="+encodeURIComponent(duelMyName())+
+    "&cc="+encodeURIComponent(store.duelCc||"");
   var ws;
   try{ws=new WebSocket(url);}catch(e){duelSay("duelFail");return;}
   duel.ws=ws;
@@ -15083,11 +15120,14 @@ function duelConnect(){
     duel.ws=null;
     if(!duel.on&&duel.view!=="wait")return;
     if(duel.end)return;
-    if(duel.tries>=3){duelSay("duelGone");flash(t("duelGone"));duelStop();return;}
-    if(!duel.tries)flash(t("duelDrop"));
+    var rankRun=duel.mode==="async"&&duel.on;
+    var maxTries=rankRun?24:3;
+    if(duel.tries>=maxTries){duelSay("duelGone");flash(t("duelGone"));duelStop();return;}
+    if(!duel.tries)flash(t(rankRun?"duelPaused":"duelDrop"));
+    if(rankRun){locked=true;duelClockStop();}
     duel.tries++;
     clearTimeout(duel.retryT);
-    duel.retryT=setTimeout(duelConnect,1500);
+    duel.retryT=setTimeout(duelConnect,rankRun?Math.min(6000,1500+duel.tries*500):1500);
   };
 }
 function duelSocketStop(){
@@ -15119,7 +15159,7 @@ function duelMsg(m){
   }
   if(m.t==="hello"){
     duel.seat=m.seat;duel.board=m.board;duel.n=m.n;duel.secs=m.secs;
-    duel.score=m.score||[];duel.lv=m.lv||[];duel.elo=m.elo||[];duel.nm=m.nm||[];duel.phase=m.phase;duel.i=m.i;
+    duel.score=m.score||[];duel.lv=m.lv||[];duel.elo=m.elo||[];duel.nm=m.nm||[];duel.cc=m.cc||[];duel.phase=m.phase;duel.i=m.i;
     duel.ghost=0;duel.ghostN=(typeof m.i!=="number"||m.i<0||m.phase==="count"||m.phase==="wait")?0:-1;
     duel.mode=m.mode||"live";
     if(duel.mode==="async"&&m.phase==="await"&&m.seat===0){duel.view="wait";paintDuel();return;}
@@ -15127,6 +15167,7 @@ function duelMsg(m){
     if(m.phase==="q"&&m.q){duelStart();duelQ(m.q,m.picked);}
     else if(m.phase==="rev"&&m.r){duelStart();duelReveal(m.r);}
     else if(m.phase==="end"&&m.end)duelMsg(m.end);
+    else if(m.phase==="pause"){duelStart();duel.paused=true;}
     return;
   }
   if(m.t==="start"){
@@ -15144,10 +15185,32 @@ function duelMsg(m){
     var vsBox=vsElo?{lab:vsNm||t("duelVsLab"),big:vsElo}:null;
     if(vsBox)vsBox.me={lab:duelSync.name||t("duelYou"),big:store.duelElo||DUEL_ELO0};
     if(duel.first)vsBox=duel.revFor?{lab:t("duelRevLab"),big:duel.revFor.nm||t("duelLetterAnon")}:{none:true,big:t("duelVsNone")};
+    duel.cc=Array.isArray(m.cc)?m.cc:[];
+    if(duel.mode==="async"&&duel.seat>0&&vsElo){
+      var y0=duelSync.you||{};
+      var meP={name:duelSync.name||"",cc:store.duelCc||"",elo:store.duelElo||DUEL_ELO0,rank:y0.rank||0,ccRank:y0.ccRank||0,
+        badges:(y0.badges||store.badges||[])};
+      var thP={name:vsNm,cc:(duel.cc||[])[0]||"",elo:vsElo,badges:[]};
+      var goMs=function(){countdown(3,function(){duelSend({t:"ready"});},null);};
+      matchStartThem(vsNm,function(pj){
+        if(pj&&!pj.priv){thP.badges=pj.badges||[];thP.rank=pj.rank||0;thP.ccRank=pj.ccRank||0;}
+        if(!duel.on||duel.phase==="q")return;
+        matchStart(meP,thP,goMs);
+      });
+      return;
+    }
     countdown(3,function(){duelSend({t:"ready"});},vsBox);
     return;
   }
-  if(m.t==="q"){duelQ(m,null);return;}
+  if(m.t==="q"){matchStartStop();duelQ(m,null);return;}
+  if(m.t==="resume"){
+    duel.paused=false;
+    duelClockStop();
+    locked=true;
+    if(typeof m.left==="number")flash(fill(t(m.left===1?"duelResume1":"duelResume"),{n:m.left}));
+    countdown(3,function(){duelSend({t:"ready"});},{lab:t("duelResumeLab"),big:(m.i+1)+"/"+m.n});
+    return;
+  }
   if(m.t==="got"){
     if(m.seat===duel.seat)return;
     duel.got=true;paintStats();
@@ -15321,6 +15384,7 @@ function duelDossierGuess(){
   if(gf.n!==current.n){
     dossier.tries=(dossier.tries||DOS_TRIES)-1;
     dossier.spent+=DOS_MISS;
+    if(dossier.tries>0&&!duel.solo)duelSend({t:"miss",i:duel.i});
     var w=document.querySelector(".dosworth b");if(w)w.textContent=dossierScore();
     if(dossier.tries>0){
       flash(fill(t("duelDosMiss"),{c:cname(gf),n:dossier.tries}));snd.wrong();buzz([12,50,12]);
@@ -15542,7 +15606,7 @@ function duelSoloAnswer(pick){
   var none=pick===-1;
   var right=!none&&(q.o?pick===q.a:pick===q.s);
   var x=(s.i===s.qs.length-1)?DUEL_LAST_X:1;
-  var pts=none?0:(right?duelPointsOf(ms,duel.secs)*x:DUEL_WRONG_PTS*x);
+  var pts=none?0:(right?duelPointsOf(ms,duel.secs,q.b||duel.board)*x:DUEL_WRONG_PTS*x);
   s.score=Math.max(0,s.score+pts);
   duel.score=[s.score,0];
   setTimeout(function(){
@@ -15642,7 +15706,503 @@ function duelForget(){
   duel.sent=null;duel.code="";duel.key="";duel.mode="live";
 }
 var DUEL_SYNC_MS=90000;
-var duelSync={at:0,run:0,you:null,top:null,name:null,busy:false};
+
+var BADGE_LOOK={
+  tester:{rim:"silver",fill:"#2F6B4F",art:'<path d="M14 40c6 6 16 4 18-4" fill="none" stroke="#FBF3E0" stroke-width="1.6" stroke-dasharray="2 2.5"/><path d="M30 34l20-14-9 22-4-7z" fill="#FBF3E0"/><path d="M37 35l13-15-17 13z" fill="#d9cfb4"/>',low:"BETA"},
+  founder:{rim:"gold",fill:"#22365A",art:'<circle cx="22" cy="32" r="7" fill="none" stroke="#D9A441" stroke-width="3"/><circle cx="22" cy="32" r="2.2" fill="#D9A441"/><path d="M29 32h20M43 32v6M47 32v4" stroke="#D9A441" stroke-width="3" fill="none"/>',low:"FOUNDER",lowc:"#D9A441"},
+  champ:{rim:"gold",fill:"#C8372A",art:'<g fill="#D9A441"><ellipse cx="17" cy="30" rx="2.4" ry="5" transform="rotate(-25 17 30)"/><ellipse cx="15" cy="38" rx="2.4" ry="5" transform="rotate(-50 15 38)"/><ellipse cx="20" cy="45" rx="2.4" ry="5" transform="rotate(-75 20 45)"/><ellipse cx="47" cy="30" rx="2.4" ry="5" transform="rotate(25 47 30)"/><ellipse cx="49" cy="38" rx="2.4" ry="5" transform="rotate(50 49 38)"/><ellipse cx="44" cy="45" rx="2.4" ry="5" transform="rotate(75 44 45)"/><path d="M23 26l4 5 5-8 5 8 4-5-2 12H25z"/></g>',season:true,lowy:48},
+  podium:{rim:"bronze",fill:"#3b2a52",art:'<rect x="26" y="24" width="12" height="20" fill="#D9A441"/><rect x="14" y="30" width="12" height="14" fill="#c7cbd1"/><rect x="38" y="34" width="12" height="10" fill="#c98a5a"/>',season:true,place:true},
+  natchamp:{rim:"gold",fill:"#241812",flag:true,season:true},
+  atlas:{rim:"silver",fill:"#D2623C",art:'<circle cx="32" cy="32" r="12" fill="#FBF3E0"/><path d="M20 32h24M32 20c-6 6-6 18 0 24M32 20c6 6 6 18 0 24" stroke="#D2623C" stroke-width="1.4" fill="none"/><ellipse cx="32" cy="32" rx="19" ry="8" fill="none" stroke="#FBF3E0" stroke-width="1.6" stroke-dasharray="3 2" transform="rotate(-20 32 32)"/><path d="M49 24l3 4-5 0z" fill="#FBF3E0"/>'},
+  year:{rim:"gold",fill:"#2F6B4F",art:'<rect x="19" y="19" width="26" height="26" rx="2" fill="#FBF3E0"/><rect x="19" y="19" width="26" height="7" fill="#C8372A"/><circle cx="25" cy="18" r="1.6" fill="#241812"/><circle cx="39" cy="18" r="1.6" fill="#241812"/><text x="32" y="40" font-family="Abril Fatface,Georgia,serif" font-size="11" fill="#241812" text-anchor="middle">365</text>'},
+  bug:{rim:"bronze",fill:"#EFE3BE",art:'<circle cx="29" cy="29" r="11" fill="#fff" stroke="#241812" stroke-width="2.5"/><path d="M37 37l9 9" stroke="#241812" stroke-width="4" stroke-linecap="round"/><ellipse cx="29" cy="30" rx="4" ry="5" fill="#C8372A"/><path d="M29 25v10" stroke="#241812" stroke-width=".8"/><circle cx="29" cy="24.5" r="2" fill="#241812"/><path d="M25 28l-3-1M25 31l-3 0M25 34l-3 1M33 28l3-1M33 31l3 0M33 34l3 1" stroke="#241812" stroke-width=".9"/>'}
+};
+var BADGE_ORDER=["tester","founder","atlas","year","bug","podium","natchamp","champ"];
+var BADGE_RIM={gold:["#fbe39a","#b8862a"],silver:["#fafafa","#8f9399"],bronze:["#ecc09a","#8f5a33"]};
+var badgeUid=0;
+function badgeMonth(k){
+  if(!/^\d{4}-\d{2}$/.test(k||""))return "";
+  var m="";
+  try{m=new Date(k+"-15T12:00:00Z").toLocaleDateString(lang||"en",{month:"short",timeZone:"UTC"});}catch(e){m=k.slice(5);}
+  return (m.replace(".","")+" "+k.slice(2,4)).toUpperCase();
+}
+function badgeSvg(b){
+  var L=BADGE_LOOK[b.id],u="bg"+(++badgeUid);
+  if(!L)L={rim:"silver",fill:"#7a6a54",art:'<path d="M24 30h16v12H24z" fill="#FBF3E0"/><path d="M27 30v-4a5 5 0 0 1 10 0v4" fill="none" stroke="#FBF3E0" stroke-width="2.5"/>'};
+  var rim=BADGE_RIM[L.rim]||BADGE_RIM.silver;
+  if(b.id==="podium"&&b.meta&&b.meta.pos===1)rim=BADGE_RIM.gold;
+  if(b.id==="podium"&&b.meta&&b.meta.pos===2)rim=BADGE_RIM.silver;
+  var s='<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="'+u+'" cx=".35" cy=".3">'+
+    '<stop offset="0" stop-color="'+rim[0]+'"/><stop offset="1" stop-color="'+rim[1]+'"/></radialGradient>'+
+    (L.flag?'<clipPath id="'+u+'s"><path d="M18 14h28v14c0 10-6 16-14 20-8-4-14-10-14-20z"/></clipPath>':'')+'</defs>'+
+    '<circle cx="32" cy="32" r="30" fill="url(#'+u+')"/><circle cx="32" cy="32" r="25" fill="'+L.fill+'"/>';
+  if(L.flag){
+    var cc=String((b.meta&&b.meta.cc)||"").toLowerCase(),fs=(typeof FLAGSVG!=="undefined"&&FLAGSVG&&FLAGSVG[cc])||"";
+    s+='<g clip-path="url(#'+u+'s)">'+(fs?'<svg x="18" y="14" width="28" height="34" viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice">'+fs+'</svg>':
+      '<rect x="18" y="14" width="28" height="34" fill="#C8372A"/>')+'</g>'+
+      '<path d="M18 14h28v14c0 10-6 16-14 20-8-4-14-10-14-20z" fill="none" stroke="#D9A441" stroke-width="2"/>'+
+      '<path d="M25 12l3 3 4-5 4 5 3-3-1 4H26z" fill="#D9A441"/>';
+  } else s+=L.art;
+  if(L.place&&b.meta&&b.meta.pos)s+='<text x="'+(b.meta.pos===1?32:(b.meta.pos===2?20:44))+'" y="'+(b.meta.pos===1?36:(b.meta.pos===2?41:43))+
+    '" font-family="Abril Fatface,Georgia,serif" font-size="8" fill="#241812" text-anchor="middle">'+b.meta.pos+'</text>';
+  var low=L.season?badgeMonth(b.k):(L.low||"");
+  if(b.id==="founder")low="MMXXVI";
+  if(low&&!L.flag)s+='<text x="32" y="'+(L.lowy||53)+'" font-family="Staatliches,Impact,sans-serif" font-size="7" fill="'+(L.lowc||"#FBF3E0")+
+    '" text-anchor="middle" letter-spacing="1">'+low+'</text>';
+  return s+'</svg>';
+}
+function badgeEl(b){var w=document.createElement("span");w.innerHTML=badgeSvg(b);return w.firstChild;}
+function badgeName(b){var k="bdg_"+b.id;return UI.en[k]?t(k):String(b.id).toUpperCase();}
+function badgeHow(b){var k="bdgHow_"+b.id;return UI.en[k]?t(k):t("bdgHowNew");}
+function badgeSub(b){
+  if(b.id==="natchamp"){var f=FLAGBYCODE[String((b.meta&&b.meta.cc)||"").toLowerCase()];return (f?cname(f)+" · ":"")+badgeMonth(b.k);}
+  if(b.id==="podium"&&b.meta&&b.meta.pos)return "#"+b.meta.pos+" · "+badgeMonth(b.k);
+  return BADGE_LOOK[b.id]&&BADGE_LOOK[b.id].season?badgeMonth(b.k):"";
+}
+function badgeSort(list){
+  return (list||[]).slice().sort(function(a,b){
+    var ia=BADGE_ORDER.indexOf(a.id),ib=BADGE_ORDER.indexOf(b.id);
+    if(ia<0)ia=99;if(ib<0)ib=99;
+    return ia!==ib?ia-ib:String(a.k).localeCompare(String(b.k));
+  });
+}
+function ccFlag(cc){
+  var f=FLAGBYCODE[String(cc||"").toLowerCase()];
+  if(!f)return null;
+  var w=document.createElement("span");w.className="ccf";
+  var n=flagNode(f);n.setAttribute("preserveAspectRatio","xMidYMid slice");
+  w.appendChild(n);
+  return w;
+}
+function ccList(){
+  return FLAGS.filter(function(f){return /^[a-z]{2}$/.test(f.c);}).slice()
+    .sort(function(a,b){return cname(a).localeCompare(cname(b),lang||"en");});
+}
+function ccSelect(sel,cur){
+  sel.innerHTML="";
+  var o0=document.createElement("option");o0.value="";o0.textContent=t("ccNone");sel.appendChild(o0);
+  ccList().forEach(function(f){
+    var o=document.createElement("option");o.value=f.c.toUpperCase();o.textContent=cname(f);
+    if(o.value===cur)o.selected=true;
+    sel.appendChild(o);
+  });
+}
+function walletSend(body,done){
+  if(!SCORE_URL){if(done)done(null);return;}
+  body.pid=playerId();body.sec=playerSec();
+  fetch(SCORE_URL+"/api/rating/me",{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify(body)})
+    .then(function(r){if(r.status!==200)throw "no";return r.json();})
+    .then(function(j){
+      if(j&&j.ok){
+        store.duelCc=j.cc||"";store.duelPriv=j.priv?1:0;
+        store.meLv=j.lv;store.meQa=j.qa;save();
+        if(duelSync.you){duelSync.you.cc=j.cc||"";duelSync.you.priv=j.priv?1:0;}
+        duelSyncDrop();
+      }
+      if(done)done(j);
+    })["catch"](function(){if(done)done(null);});
+}
+function walletFigures(){
+  if(!duelSync.you)return;
+  var lv=rankProgress().i+1,qa=store.seen||0;
+  if(store.meLv===lv&&store.meDay===todayKey())return;
+  store.meDay=todayKey();save();
+  walletSend({lv:lv,qa:qa});
+}
+
+function idCardEl(p,mine){
+  var c=document.createElement("div");c.className="idc"+(p.priv?" priv":"");
+  var tags=document.createElement("div");tags.className="tags";
+  if(p.ccRank&&p.cc){
+    var tg=document.createElement("span");tg.className="tag";
+    var tf=ccFlag(p.cc);if(tf)tg.appendChild(tf);
+    tg.appendChild(document.createTextNode("#"+p.ccRank));tags.appendChild(tg);
+  }
+  if(p.rank){
+    var tw=document.createElement("span");tw.className="tag w";tw.textContent="🌍 #"+p.rank;tags.appendChild(tw);
+  }
+  c.appendChild(tags);
+  var hd=document.createElement("div");hd.className="hd";
+  var hb=document.createElement("b");hb.textContent=t("idBureau");
+  var hs=document.createElement("span");hs.textContent=t("idCard");
+  hd.appendChild(hb);hd.appendChild(hs);c.appendChild(hd);
+  var holo=document.createElement("div");holo.className="holo";c.appendChild(holo);
+  var body=document.createElement("div");body.className="body";
+  var ph=document.createElement("div");ph.className="photo"+(mine?" pick":"");
+  var pf=FLAGBYCODE[String(p.cc||"").toLowerCase()];
+  if(pf){var pn=flagNode(pf);pn.setAttribute("preserveAspectRatio","xMidYMid slice");ph.appendChild(pn);}
+  if(mine){ph.setAttribute("role","button");ph.setAttribute("aria-label",t("ccPick"));ph.onclick=function(){var s=$("walcc");if(s)s.focus();};}
+  body.appendChild(ph);
+  var col=document.createElement("div");col.style.flex="1";col.style.minWidth="0";
+  var kv=function(k,v,cls){
+    var d=document.createElement("div");
+    var ke=document.createElement("div");ke.className="k";ke.textContent=k;
+    var ve=document.createElement("div");ve.className=cls||"v";ve.textContent=v;
+    d.appendChild(ke);d.appendChild(ve);return d;
+  };
+  col.appendChild(kv(t("idName"),p.name||t("duelYou"),"v nmv"));
+  var r=kv(t("duelRating"),p.elo||DUEL_ELO0,"big");r.style.marginTop="4px";col.appendChild(r);
+  body.appendChild(col);c.appendChild(body);
+  if(p.priv){
+    var lk=document.createElement("div");lk.className="lock";lk.textContent=t("idPrivate");c.appendChild(lk);
+  } else {
+    var g=document.createElement("div");g.className="grid";
+    g.appendChild(kv(t("idLevel"),p.lv||"–"));
+    g.appendChild(kv(t("idSince"),p.yr||new Date().getFullYear()));
+    g.appendChild(kv(t("idAnswered"),fmtNum(p.qa||0)));
+    g.appendChild(kv(t("idRecord"),(p.w||0)+"–"+(p.l||0)+"·"+(p.str||0)));
+    c.appendChild(g);
+    var sig=document.createElement("div");sig.className="sig";sig.textContent=p.name||"";c.appendChild(sig);
+  }
+  var nm=String(p.name||"").toUpperCase().normalize("NFD").replace(/[^A-Z]/g,"");
+  var pad=function(s,n){s=String(s);while(s.length<n)s+="<";return s.slice(0,n);};
+  var mz=document.createElement("div");mz.className="mrz";
+  mz.textContent=pad("ID"+(pf?String(p.cc).toUpperCase():"XX")+"<"+"<"+nm,30);
+  mz.appendChild(document.createElement("br"));
+  mz.appendChild(document.createTextNode(pad(("0000"+(p.lv||0)).slice(-4)+"<"+(p.elo||DUEL_ELO0)+"<"+(p.yr||"")+"<<GT",30)));
+  c.appendChild(mz);
+  return c;
+}
+function badgePaperEl(list,held,mine){
+  var pp=document.createElement("div");pp.className="wpaper";
+  var dog=document.createElement("div");dog.className="dog";pp.appendChild(dog);
+  var h=document.createElement("h3");
+  var h1=document.createElement("span");h1.textContent=t("bdgPaper");
+  var h2=document.createElement("span");
+  list=badgeSort(list);
+  h2.textContent=list.length?String(list.length):"";
+  h.appendChild(h1);h.appendChild(h2);pp.appendChild(h);
+  var tip=document.createElement("div");tip.className="wtip";tip.hidden=true;
+  var grid=document.createElement("div");grid.className="wpins";
+  var show=function(b,btn){
+    if(tip.getAttribute("data-on")===btn.getAttribute("data-key")&&!tip.hidden){tip.hidden=true;return;}
+    tip.setAttribute("data-on",btn.getAttribute("data-key"));
+    tip.innerHTML="";
+    var tb=document.createElement("b");tb.textContent=badgeName(b)+(badgeSub(b)?" · "+badgeSub(b):"");
+    var tx=document.createElement("span");tx.textContent=badgeHow(b);
+    var ti=document.createElement("i");
+    var n=held&&typeof held[b.id]==="number"?held[b.id]:null;
+    ti.textContent=n===null?"":fill(t(n===1?"bdgHeld1":"bdgHeld"),{n:fmtNum(n)});
+    tip.appendChild(tb);tip.appendChild(tx);if(ti.textContent)tip.appendChild(ti);
+    tip.hidden=false;
+  };
+  var add=function(b,off){
+    var btn=document.createElement("button");btn.type="button";btn.className="wpin"+(off?" off":"");
+    btn.setAttribute("data-key",b.id+"|"+(b.k||""));
+    btn.appendChild(badgeEl(b));
+    var nb=document.createElement("b");nb.textContent=badgeName(b);btn.appendChild(nb);
+    var sm=document.createElement("small");sm.textContent=off?t("bdgNotYet"):badgeSub(b);btn.appendChild(sm);
+    btn.onclick=function(){show(b,btn);};
+    grid.appendChild(btn);
+  };
+  list.forEach(function(b){add(b,false);});
+  if(mine){
+    var have={};list.forEach(function(b){have[b.id]=1;});
+    BADGE_ORDER.forEach(function(id){if(!have[id])add({id:id,k:"",meta:id==="natchamp"?{cc:store.duelCc||""}:{}},true);});
+  }
+  if(!grid.children.length){var e=document.createElement("p");e.className="wempty";e.textContent=t("bdgNone");pp.appendChild(e);}
+  pp.appendChild(grid);
+  pp.appendChild(tip);
+  return pp;
+}
+function walletEl(p,list,held,mine){
+  var w=document.createElement("div");w.className="wal";
+  var pk=document.createElement("div");pk.className="walpk";
+  pk.appendChild(idCardEl(p,mine));
+  if(!p.priv||mine)pk.appendChild(badgePaperEl(list,held,mine));
+  w.appendChild(pk);
+  return w;
+}
+function walletMine(){
+  var y=duelSync.you||{};
+  return {name:duelMyName(),cc:y.cc!==undefined?y.cc:(store.duelCc||""),elo:y.elo||store.duelElo||DUEL_ELO0,
+    lv:rankProgress().i+1,qa:store.seen||0,yr:y.yr||store.duelYr||new Date().getFullYear(),
+    w:y.w!==undefined?y.w:(store.duelW||0),l:y.l!==undefined?y.l:(store.duelL||0),str:y.str!==undefined?y.str:(store.duelStr||0),
+    rank:y.rank||0,of:y.of||0,ccRank:y.ccRank||0,ccOf:y.ccOf||0,priv:0};
+}
+function walletPaint(){
+  var box=$("duelwallet");box.innerHTML="";
+  if(duel.view==="prof"){profPaint(box);return;}
+  var list=(duelSync.you&&duelSync.you.badges)||store.badges||[];
+  box.appendChild(walletEl(walletMine(),list,duelSync.held||store.badgeHeld||null,true));
+  var ctl=document.createElement("div");ctl.className="wctl";
+  var lb=document.createElement("label");
+  var sp=document.createElement("span");sp.textContent=t("ccLab");lb.appendChild(sp);
+  var sel=document.createElement("select");sel.id="walcc";
+  ccSelect(sel,(duelSync.you&&duelSync.you.cc!==undefined)?duelSync.you.cc:(store.duelCc||""));
+  lb.appendChild(sel);ctl.appendChild(lb);
+  var pl=document.createElement("label");
+  var pc=document.createElement("input");pc.type="checkbox";pc.checked=!!((duelSync.you&&duelSync.you.priv)||store.duelPriv);
+  var ps=document.createElement("span");ps.textContent=t("idPrivLab");
+  pl.appendChild(pc);pl.appendChild(ps);ctl.appendChild(pl);
+  var say=document.createElement("p");say.className="wsay";say.textContent=t("idPrivSay");ctl.appendChild(say);
+  var ok=function(j){say.textContent=t(j&&j.ok?"walSaved":(j&&j.why==="none"?"walNoRow":"duelFail"));if(j&&j.ok)walletRepaint();};
+  sel.onchange=function(){say.textContent=t("duelNameWait");walletSend({cc:sel.value},ok);};
+  pc.onchange=function(){say.textContent=t("duelNameWait");walletSend({priv:pc.checked?1:0},ok);};
+  box.appendChild(ctl);
+}
+function walletRepaint(){if(duel.view==="wallet"&&!$("duelmodal").hidden)walletPaint();}
+var profSeen={name:"",at:0,data:null,busy:false};
+function profOpen(name){
+  if(!name)return;
+  duel.profName=name;
+  duel.profBack=duel.view;
+  duel.view="prof";
+  paintDuel();
+  if(profSeen.name===name&&profSeen.data&&Date.now()-profSeen.at<60000)return;
+  profSeen={name:name,at:0,data:null,busy:true};
+  fetch(SCORE_URL+"/api/rating/profile",{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify({name:name})})
+    .then(function(r){if(r.status===404)return {gone:true};if(r.status!==200)throw "no";return r.json();})
+    .then(function(j){if(profSeen.name!==name)return;profSeen.busy=false;profSeen.at=Date.now();profSeen.data=j;if(duel.view==="prof")paintDuel();})
+    ["catch"](function(){if(profSeen.name!==name)return;profSeen.busy=false;profSeen.data={fail:true};if(duel.view==="prof")paintDuel();});
+}
+function profPaint(box){
+  var d=profSeen.data;
+  if(!d||profSeen.busy){var w=document.createElement("p");w.className="stdsay";w.textContent=t("duelBoardWait");box.appendChild(w);return;}
+  if(d.fail||d.gone){var f=document.createElement("p");f.className="stdsay";f.textContent=t(d.gone?"profGone":"duelFail");box.appendChild(f);return;}
+  box.appendChild(walletEl({name:d.name,cc:d.cc,elo:d.elo,lv:d.lv,qa:d.qa,yr:d.yr,w:d.w,l:d.l,str:d.str,rank:d.rank,of:d.of,
+    ccRank:d.ccRank,ccOf:d.ccOf,priv:d.priv},d.badges||[],duelSync.held||store.badgeHeld||null,false));
+}
+
+var stdCc={on:false,cc:"",top:null,at:0,busy:false};
+function stdCountry(){return (duelSync.you&&duelSync.you.cc)||store.duelCc||"";}
+function stdFetch(cc){
+  if(stdCc.busy)return;
+  stdCc.busy=true;
+  fetch(SCORE_URL+"/api/rating",{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},
+    body:JSON.stringify({pid:playerId(),sec:playerSec(),cc:cc})})
+    .then(function(r){if(r.status!==200)throw "no";return r.json();})
+    .then(function(j){stdCc.busy=false;stdCc.cc=cc;stdCc.at=Date.now();stdCc.top=Array.isArray(j.top)?j.top:[];duelSyncPaint();})
+    ["catch"](function(){stdCc.busy=false;stdCc.top=[];stdCc.cc=cc;stdCc.at=Date.now();duelSyncPaint();});
+}
+function stdDelta(dy){
+  var s=document.createElement("span");
+  dy=dy||0;
+  s.className="stdd "+(dy>0?"up":(dy<0?"dn":"eq"));
+  s.textContent=dy>0?"▲"+dy:(dy<0?"▼"+(-dy):"–");
+  return s;
+}
+function stdMini(list){
+  var m=document.createElement("div");m.className="stdmini";
+  badgeSort(list).slice(-4).forEach(function(b){m.appendChild(badgeEl(b));});
+  return m;
+}
+function standingsPaint(){
+  var box=$("hubtable");
+  box.innerHTML="";
+  box.classList.add("stdbox");
+  $("hubmklegend").hidden=true;
+  var std=document.createElement("div");std.className="std";
+  var hd=document.createElement("div");hd.className="stdhd";
+  var hb=document.createElement("b");hb.textContent=t("stdTitle");hd.appendChild(hb);
+  var mycc=stdCountry();
+  if(mycc&&FLAGBYCODE[mycc.toLowerCase()]){
+    var sw=document.createElement("div");sw.className="stdsw";
+    var bw=document.createElement("button");bw.type="button";bw.textContent="🌍 "+t("stdWorld");
+    var bc=document.createElement("button");bc.type="button";
+    var cf=ccFlag(mycc);if(cf)bc.appendChild(cf);bc.appendChild(document.createTextNode(mycc));
+    if(stdCc.on)bc.className="on";else bw.className="on";
+    bw.onclick=function(){stdCc.on=false;standingsPaint();};
+    bc.onclick=function(){stdCc.on=true;if(stdCc.cc!==mycc||Date.now()-stdCc.at>DUEL_SYNC_MS)stdFetch(mycc);standingsPaint();};
+    sw.appendChild(bw);sw.appendChild(bc);hd.appendChild(sw);
+  } else stdCc.on=false;
+  std.appendChild(hd);
+  var ban=document.createElement("div");ban.className="stdban";
+  ban.textContent=fill(t("stdSeason"),{m:seasonMonth(seasonNow()),n:seasonDaysLeft()});
+  std.appendChild(ban);
+  var top=stdCc.on?(stdCc.cc===mycc?stdCc.top:null):duelSync.top;
+  var say=$("hubboardsay");
+  box.appendChild(std);
+  if(!top){say.textContent=t("duelBoardWait");if(!stdCc.on)duelSyncGo();return;}
+  if(!top.length){say.textContent=t(stdCc.on?"stdEmptyCc":"duelBoardEmpty");return;}
+  say.textContent=duelSync.name?"":t("duelBoardJoin");
+  var me=duelSync.name||"";
+  var pod=document.createElement("div");pod.className="stdpod";
+  [1,0,2].forEach(function(k){
+    var r=top[k];if(!r)return;
+    var pc=document.createElement("div");pc.className="stdpc p"+(k+1);
+    var md=document.createElement("div");md.className="medal";md.textContent=k+1;pc.appendChild(md);
+    var cd=document.createElement("div");cd.className="card";
+    var fl=ccFlag(r.cc);if(fl)cd.appendChild(fl);
+    var nm=document.createElement("div");nm.className="nm";nm.textContent=r.name;cd.appendChild(nm);
+    var el=document.createElement("div");el.className="el";el.textContent=r.elo;cd.appendChild(el);
+    cd.appendChild(stdMini(r.b));
+    pc.appendChild(cd);
+    var st=document.createElement("div");st.className="step";st.textContent=t("stdPlace"+(k+1));pc.appendChild(st);
+    pc.onclick=function(){profOpen(r.name);};
+    pod.appendChild(pc);
+  });
+  std.appendChild(pod);
+  var rows=document.createElement("div");rows.className="stdrows";
+  var mineShown=false;
+  var row=function(r,pinned){
+    var d=document.createElement("div");d.className="stdr"+(pinned?" me":"");
+    var p=document.createElement("span");p.className="p";p.textContent=r.pos;d.appendChild(p);
+    var n=document.createElement("span");n.className="n";
+    var fl=ccFlag(r.cc);if(fl)n.appendChild(fl);
+    var ns=document.createElement("span");ns.textContent=r.name+(pinned?" · "+t("duelYou"):"");n.appendChild(ns);
+    if((r.str||0)>=HOT_STREAK){var h=document.createElement("span");h.className="hot";h.textContent=r.str;
+      h.setAttribute("title",fill(t("duelStreakRow"),{n:r.str}));n.appendChild(h);}
+    d.appendChild(n);
+    d.appendChild(stdDelta(r.dy));
+    var e=document.createElement("span");e.className="e";e.textContent=r.elo;d.appendChild(e);
+    d.onclick=function(){profOpen(r.name);};
+    return d;
+  };
+  top.forEach(function(r,i){
+    if(i<3)return;
+    if(me&&r.name===me)mineShown=true;
+    rows.appendChild(row(r,me&&r.name===me));
+  });
+  std.appendChild(rows);
+  var y=duelSync.you;
+  var onPod=me&&top.slice(0,3).some(function(r){return r.name===me;});
+  if(me&&!mineShown&&!onPod&&y&&(y.n||0)>=DUEL_PLACE){
+    var mine=null;top.forEach(function(r){if(r.name===me)mine=r;});
+    std.appendChild(row({pos:stdCc.on?(y.ccRank||"–"):(y.rank||"–"),name:me,cc:y.cc,elo:y.elo,dy:mine?mine.dy:0,str:y.str},true));
+  }
+}
+
+function badgeKey(b){return b.id+"|"+(b.k||"");}
+function badgeTake(list,held){
+  if(!Array.isArray(list))return;
+  store.badges=list.map(function(b){return {id:b.id,k:b.k||"",meta:b.meta||{},at:b.at||0};});
+  if(held&&typeof held==="object")store.badgeHeld=held;
+  if(!store.badgeSeen||typeof store.badgeSeen!=="object"){
+    store.badgeSeen={};
+    list.forEach(function(b){store.badgeSeen[badgeKey(b)]=1;});
+    save();
+    return;
+  }
+  var fresh=list.filter(function(b){return !store.badgeSeen[badgeKey(b)];});
+  save();
+  if(fresh.length)badgeCeremony(fresh);
+}
+var bcereOpen=false;
+function badgeCeremony(list){
+  if(bcereOpen||!list.length||duel.on)return;
+  var b=list[0];
+  bcereOpen=true;
+  var o=document.createElement("div");o.className="bcere";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");
+  var u=document.createElement("u");u.textContent=t("bdgNew");o.appendChild(u);
+  o.appendChild(badgeEl(b));
+  var nb=document.createElement("b");nb.textContent=badgeName(b);o.appendChild(nb);
+  var ni=document.createElement("i");ni.textContent=(badgeSub(b)?badgeSub(b)+" · ":"")+badgeHow(b);o.appendChild(ni);
+  var bt=document.createElement("button");bt.type="button";bt.className="btn";bt.textContent=t("bdgPin");o.appendChild(bt);
+  var shut=function(){
+    store.badgeSeen[badgeKey(b)]=1;save();
+    if(o.parentNode)o.parentNode.removeChild(o);
+    bcereOpen=false;
+    if(list.length>1)setTimeout(function(){badgeCeremony(list.slice(1));},300);
+  };
+  bt.onclick=shut;
+  document.body.appendChild(o);
+  try{snd.stamp();setTimeout(function(){try{snd.win();}catch(e){caught(e,"badgeCeremony.win");}},500);}catch(e){caught(e,"badgeCeremony");}
+  try{bt.focus();}catch(e){caught(e,"badgeCeremony.focus");}
+}
+var badgeAsked={};
+function badgeClaims(){
+  if(!SCORE_URL||!duelSync.you)return;
+  var have={};(duelSync.you.badges||[]).forEach(function(b){have[b.id]=1;});
+  var want=[];
+  if(!have.tester&&IN_PLAY_APP&&!!TESTERS_URL)want.push("tester");
+  if(!have.atlas&&(store.tripsDone||0)>=1)want.push("atlas");
+  want.forEach(function(id){
+    if(badgeAsked[id])return;
+    badgeAsked[id]=1;
+    fetch(SCORE_URL+"/api/badge/claim",{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},
+      body:JSON.stringify({pid:playerId(),sec:playerSec(),id:id})})
+      .then(function(r){if(r.status!==200)throw "no";return r.json();})
+      .then(function(j){if(j&&j.ok&&Array.isArray(j.badges)){if(duelSync.you)duelSync.you.badges=j.badges;badgeTake(j.badges);}})
+      ["catch"](function(){});
+  });
+}
+
+var mstEl=null;
+function matchStart(me,them,done){
+  matchStartStop();
+  var o=document.createElement("div");o.className="mst";
+  var env=document.createElement("div");env.className="env";
+  var ad=document.createElement("div");ad.className="addr";
+  ad.appendChild(document.createTextNode(fill(t("mstTo"),{n:me.name||t("duelYou")})));
+  ad.appendChild(document.createElement("br"));ad.appendChild(document.createTextNode(t("mstBureau")));
+  ad.appendChild(document.createElement("br"));ad.appendChild(document.createTextNode(t("mstRe")));
+  env.appendChild(ad);
+  var seal=document.createElement("div");seal.className="seal";seal.textContent="GT";env.appendChild(seal);
+  o.appendChild(env);
+  var ids=document.createElement("div");ids.className="ids";
+  var card=function(p,cls,lab){
+    var c=document.createElement("div");c.className="mid "+cls;
+    var h=document.createElement("div");h.className="h";
+    var hl=document.createElement("span");hl.textContent=lab;
+    var hr=document.createElement("span");
+    hr.textContent=(p.ccRank&&p.cc?p.cc+" #"+p.ccRank+" · ":"")+(p.rank?"🌍 #"+p.rank:"");
+    h.appendChild(hl);h.appendChild(hr);c.appendChild(h);
+    var b=document.createElement("div");b.className="b";
+    var f=ccFlag(p.cc);if(f)b.appendChild(f);
+    var n=document.createElement("div");n.className="n";n.textContent=p.name||lab;b.appendChild(n);
+    var k=document.createElement("div");k.className="k";k.textContent=t("duelRating");b.appendChild(k);
+    var e=document.createElement("div");e.className="e";e.textContent=p.elo||"–";b.appendChild(e);
+    var pins=document.createElement("div");pins.className="pins";
+    badgeSort(p.badges||[]).slice(-5).forEach(function(x){pins.appendChild(badgeEl(x));});
+    b.appendChild(pins);
+    c.appendChild(b);
+    return c;
+  };
+  ids.appendChild(card(me,"me",t("mstYou")));
+  ids.appendChild(card(them,"th",t("mstRival")));
+  var vs=document.createElement("div");vs.className="vs";vs.textContent="VS";ids.appendChild(vs);
+  var go=document.createElement("button");go.type="button";go.className="go";go.textContent=t("mstStart");ids.appendChild(go);
+  o.appendChild(ids);
+  document.body.appendChild(o);
+  mstEl=o;
+  var tm=[];
+  try{snd.flip();}catch(e){caught(e,"matchStart.flip");}
+  tm.push(setTimeout(function(){try{snd.stamp();}catch(e){caught(e,"matchStart.stamp");}},600));
+  tm.push(setTimeout(function(){o.classList.add("open");},950));
+  tm.push(setTimeout(function(){try{snd.stamp();buzz([20]);}catch(e){caught(e,"matchStart.vs");}},1700));
+  o._t=tm;
+  var pressed=false;
+  go.onclick=function(){
+    if(pressed)return;pressed=true;
+    try{snd.pip();}catch(e){caught(e,"matchStart.go");}
+    o.classList.add("shrink");
+    o._t.push(setTimeout(function(){matchStartStop();done();},480));
+  };
+  try{setTimeout(function(){if(mstEl===o)go.focus();},1200);}catch(e){caught(e,"matchStart.focus");}
+}
+function matchStartStop(){
+  if(!mstEl)return;
+  (mstEl._t||[]).forEach(clearTimeout);
+  if(mstEl.parentNode)mstEl.parentNode.removeChild(mstEl);
+  mstEl=null;
+}
+function matchStartThem(name,cb){
+  if(!name||!SCORE_URL){cb(null);return;}
+  var done=false,fin=function(j){if(done)return;done=true;cb(j);};
+  setTimeout(function(){fin(null);},900);
+  fetch(SCORE_URL+"/api/rating/profile",{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify({name:name})})
+    .then(function(r){if(r.status!==200)throw "no";return r.json();}).then(fin)["catch"](function(){fin(null);});
+}
+
+var DUEL_XP_MATCH=150,DUEL_XP_WIN=100,DUEL_XP_FIRST=300;
+function duelFirstWinOpen(){return store.duelFirstWin!==todayKey();}
+function duelXpPay(won,code){
+  if(!Array.isArray(store.duelXpPaid))store.duelXpPaid=[];
+  if(code&&store.duelXpPaid.indexOf(code)>=0)return 0;
+  if(code){store.duelXpPaid.push(code);if(store.duelXpPaid.length>30)store.duelXpPaid.shift();}
+  var xp=DUEL_XP_MATCH+(won?DUEL_XP_WIN:0);
+  var first=won&&duelFirstWinOpen();
+  if(first){xp+=DUEL_XP_FIRST;store.duelFirstWin=todayKey();}
+  save();
+  setTimeout(function(){
+    addXP(xp);
+    if(first)slipText(fill(t("duelFirstWin"),{n:DUEL_XP_FIRST}),true);
+  },1400);
+  return xp;
+}
+
+var duelSync={at:0,run:0,you:null,top:null,name:null,busy:false,held:null};
 function duelSyncDrop(){duelSync.at=0;}
 function duelSyncPaint(){
   if(duel.on||duel.ws)return;
@@ -15676,6 +16236,12 @@ function duelSyncGo(){
       duelSync.name=(j.you&&typeof j.you.name==="string")?j.you.name:"";
       duelSync.calls=Array.isArray(j.calls)?j.calls:[];
       duelSync.mkS=typeof j.mkS==="string"?j.mkS:"";
+      duelSync.held=(j.held&&typeof j.held==="object")?j.held:null;
+      if(j.you){
+        if(typeof j.you.cc==="string")store.duelCc=j.you.cc;
+        if(j.you.yr)store.duelYr=j.you.yr;
+        if(Array.isArray(j.you.badges))badgeTake(j.you.badges,duelSync.held);
+      }
       duelSeasonTake(j.seasons);
       duelCallNews();
       store.duelName=duelSync.name;
@@ -15692,6 +16258,7 @@ function duelSyncGo(){
         duelPeekDone();
       }
       duelSyncPaint();
+      try{badgeClaims();walletFigures();}catch(e){caught(e,"badgeClaims");}
     })["catch"](function(err){
       duelSync.busy=false;
       if(run!==duelSync.run)return;
@@ -17544,6 +18111,11 @@ function buildDrawers(){
       var bang=document.createElement("span");bang.className="dbang";bang.textContent="!";
       b.appendChild(bang);
     }
+    else if(mode==="duel"&&!duelSealed&&duelReady()&&duelFirstWinOpen()){
+      b.classList.add("vsbop");
+      var plus=document.createElement("span");plus.className="vsplus";plus.textContent="+"+DUEL_XP_FIRST+" XP";
+      b.appendChild(plus);
+    }
 
     var nm=document.createElement("span");nm.className="dname";nm.textContent=t(row[1]);
     var mt=document.createElement("span");mt.className="dmeta";
@@ -18498,6 +19070,7 @@ $("duelmake").onclick=function(){duel.want="live";duel.view="pick";duelSay("");p
 $("duelsendch").onclick=function(){if(duel.taking)return;duel.view="rank";duelSay("");paintDuel();};
 $("duelrankgo").onclick=duelOnline;
 $("duelboard").onclick=function(){duel.view="board";paintDuel();};
+$("hubid").onclick=function(){duel.view="wallet";paintDuel();};
 $("hubwho").onclick=function(){duel.nameSaid=false;$("hubnamein").value=duelSync.name||"";duel.view="name";paintDuel();};
 $("hubnameok").onclick=duelNameSend;
 $("hubnameoff").onclick=function(){duel.view="rank";paintDuel();};
@@ -18512,7 +19085,8 @@ $("duelrev").onclick=duelRevGo;
 $("duelsend").onclick=duelShare;
 $("duelcodein").addEventListener("keydown",function(e){if(e.key==="Enter")duelJoinGo();});
 function duelDone(){
-  if(duel.view==="board"||duel.view==="name"){duel.view="rank";duelSay("");paintDuel();return;}
+  if(duel.view==="prof"){duel.view=duel.profBack==="board"?"board":"rank";duelSay("");paintDuel();return;}
+  if(duel.view==="board"||duel.view==="name"||duel.view==="wallet"){duel.view="rank";duelSay("");paintDuel();return;}
   if(duel.view==="pick"||duel.view==="in"||duel.view==="rank"){duel.view="home";duelSay("");paintDuel();return;}
   if(duel.view==="end"&&duel.mode==="async"&&duel.end){
     var stillOn=duel.on;
