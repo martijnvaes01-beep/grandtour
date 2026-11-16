@@ -14415,6 +14415,7 @@ function duelHub(){
   hf.hidden=!nm;
   who.querySelector("i").textContent=t(nm?"walOpen":"duelWhoLab");
   $("hubgo").textContent=nm?"›":"";
+  $("hubboard").querySelector("b").textContent=t("duelBoardLab");
   $("duelboard").textContent=t("duelBoardLab");
   $("duelboard").hidden=false;
   duelSyncGo();
@@ -19076,6 +19077,7 @@ $("duelmake").onclick=function(){duel.want="live";duel.view="pick";duelSay("");p
 $("duelsendch").onclick=function(){if(duel.taking)return;duel.view="rank";duelSay("");paintDuel();};
 $("duelrankgo").onclick=duelOnline;
 $("duelboard").onclick=function(){duel.view="board";paintDuel();};
+$("hubboard").onclick=function(){duel.view="board";paintDuel();};
 $("hubid").onclick=function(){duel.view="wallet";paintDuel();};
 $("hubwho").onclick=function(){if(duelMyName()){duel.view="wallet";paintDuel();return;}duel.nameSaid=false;$("hubnamein").value=duelSync.name||"";duel.view="name";paintDuel();};
 $("hubnameok").onclick=duelNameSend;
