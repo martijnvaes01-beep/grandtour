@@ -348,7 +348,7 @@ en:{sub:"countries · flags, globe, atlas",
   privMove:"If you move your progress to another device, it waits on our server for ten minutes at most and is deleted as soon as the code is used.",
   privDuel:"A duel runs on our server while you play: the questions, both players' answers, the two scores and each player's rating. A casual duel keeps nothing that says who you are. A ranked duel also keeps your random code and the name you picked, plus a scrambled copy of the key that proves the code is yours, so the result goes to the right rating. All of it is deleted two minutes after the last player leaves. A challenge waits up to two days for someone to play it, then goes the same way. While it waits, our server lists its six-letter code so a stranger can find it, and nothing else.",
   privName:"Once you pick a name or play a ranked duel, your rating is kept on our server under that same random code. That name is the only thing other players see: it appears on the leaderboard next to your rating, and your opponents see it too. You need one to play ranked; the rest of the game works the same without it. You pick a name once; write to us if you want it removed. Your rating, record and name are all deleted after ninety days without a ranked duel.",
-  privPush:"Turn notifications on and we keep the address your browser gives us for that one device. It is only used to tell you that someone has played one of your challenges, or wants revenge. The notification itself contains nothing - no game, no score, no player - the app looks that up when you open it. Turn them off and the address is deleted straight away. It is also deleted after ninety days without a ranked duel, or when your browser tells us the device is gone.",
+  privPush:"Turn notifications on and we keep the address your browser gives us for that one device. It is only used to tell you that someone has played one of your challenges or wants revenge, and, if you leave the daily reminder on, to remind you in the evening of a day you have not played the daily. For that one reminder we also keep your time zone (an offset like UTC+1, not a place), so it arrives in your evening. The notification itself contains nothing - no game, no score, no player - the app looks that up when you open it. Turn them off and the address is deleted straight away. It is also deleted after ninety days without a ranked duel, or when your browser tells us the device is gone.",
   privSeason:"We keep two more things about ranked play. At the end of each month we record where every player finished - their rating and position - so the game can show you your season. That record is deleted after ninety days, and your phone keeps its own copy. When you ask for revenge, the challenge is kept for the other player with your name on it, so they can find it. It is deleted once it is played, or after two days.",
   privVisits:"When you open the game, Cloudflare, which hosts it, counts the visit: which page, which kind of browser, roughly which country. It uses no cookies and keeps nothing that tells us who you are. We only ever see totals.",
   duelLab:"Duel",
@@ -398,9 +398,22 @@ en:{sub:"countries · flags, globe, atlas",
   duelWhoNone:"Pick a name for the leaderboard",
   pushLab:"Notifications",
   pushFirstBig:"Want notifications?",
-  pushFirstLine:"We only notify you about ranked duels: when someone plays your score, or wants revenge. Nothing else - no reminders, no ads. Turn them off any time in Settings.",
+  pushFirstLine:"Two kinds, nothing else: one reminder in the evening when you haven't played the daily yet, and word when somebody plays your ranked score or wants revenge. No ads. Turn them off any time in Settings.",
   pushFirstYes:"Turn them on",
   pushFirstNo:"Not now",
+  pushDayBig:"A nudge for tomorrow's daily?",
+  pushDayLine:"One reminder in the evening, only on days you haven't played yet, so your run of days doesn't break. And word when somebody plays your ranked score. Nothing else, no ads.",
+  pushNewBig:"New: a reminder for the daily",
+  pushNewLine:"Your notifications are on for ranked duels. Want one evening reminder too, only on days you haven't played the daily yet?",
+  pushNewYes:"Yes, remind me",
+  pushNewNo:"Duels only",
+  letterHead:"Grand Tour Bureau",
+  letterSign:"the Grand Tour Bureau",
+  helloLab:"Welcome",
+  helloBig:"Thanks for playing!",
+  helloLine:"Every day there is one new daily game, and the whole world plays the same one. Flags, maps, capitals and shapes: learn them at your own pace, and climb the ranked table when you're ready.",
+  helloLine2:"Free, no account, no ads.",
+  helloGo:"Start the tour",
   duelNameToPlay:"Pick a name to play",
   duelNameFirst:"You need a name to play ranked. Your opponents and the leaderboard will see it, and you can't change it later.",
   pushYes:"On",
@@ -683,7 +696,7 @@ en:{sub:"countries · flags, globe, atlas",
   clueLab:"A miss gives a hint",clueRegion:"Region",clueNorth:"North up",clueBorders:"Neighbours",
   clueNorthDone:"turned upright",clueBordersN:"{n} land borders",
   clueLetter:"First letter",
-  statsShort:"Stats",statsTitle:"Service record",
+  statsShort:"Stats",statsTitle:"Service record",dtRanked:"Play ranked",dtSealed:"SEALED",swPass:"Bureau pass",swAvg:"Average",swInRow:"In a row",swNotYet:"Not yet played",swToday:"Today",swRanked:"Ranked",swPeak:"Peak",swWon:"Won",swStreak:"Streak",swBestStr:"Best streak",swYou:"You",swWorld:"World best",swEndless:"Records · endless games",swXp:"{a} / {b} XP",
   recordsLab:"Records",recGloble:"Hot or cold, fewest guesses",shareRec:"Share my records",shareWorld:"{p}% of humanity by flag · {l}% of the land · {c} capitals",shareBest:"Best streak {s} · Best sprint {r}",
   daysPlayed:"Days played",
   solvedLab:"Solved",
@@ -844,7 +857,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   privMove:"Si vous transférez votre progression vers un autre appareil, elle attend dix minutes au plus sur notre serveur et est effacée dès que le code est utilisé.",
   privDuel:"Un duel se joue sur notre serveur : les questions, les deux réponses, les deux scores et le classement de chacun. Un duel amical ne garde rien qui dise qui vous êtes. Un duel classé garde aussi votre code aléatoire, une version brouillée de la clé qui prouve qu'il est à vous - pour que le résultat aille au bon classement - et le nom que vous avez choisi. Tout est effacé deux minutes après le départ du dernier joueur. Un défi attend une réponse deux jours au plus, puis disparaît de la même façon. Pendant ce temps, notre serveur garde son code de six lettres sur une liste pour qu'un inconnu puisse le trouver, et rien d'autre.",
   privName:"Dès que vous choisissez un nom ou jouez un duel classé, notre serveur conserve votre classement sous ce même code aléatoire. Ce nom est la seule chose ici que les autres voient : il figure au classement à côté de votre score, et la personne que vous affrontez le voit aussi. Il en faut un pour jouer en classé ; le reste du jeu fonctionne sans. Un nom se choisit une fois ; écrivez-nous et il sera retiré. Votre classement, vos résultats et votre nom sont effacés ensemble après quatre-vingt-dix jours sans duel classé.",
-  privPush:"Si vous activez les notifications, nous conservons l'adresse que votre navigateur nous donne pour cet appareil. Elle ne sert qu'à deux choses : vous dire qu'on a répondu à l'un de vos défis, et que quelqu'un veut sa revanche. La notification elle-même ne contient rien - ni le jeu, ni le score, ni qui a joué - car l'application le découvre à l'ouverture. Désactivez-les et l'adresse est effacée au même instant. Elle disparaît aussi après quatre-vingt-dix jours sans duel classé, ou dès que votre navigateur nous signale que l'appareil n'existe plus.",
+  privPush:"Si vous activez les notifications, nous conservons l'adresse que votre navigateur nous donne pour cet appareil. Elle sert à vous dire qu'on a répondu à l'un de vos défis ou que quelqu'un veut sa revanche, et, si vous gardez le rappel, à vous rappeler le soir la partie du jour que vous n'avez pas encore jouée. Pour ce rappel, nous gardons aussi votre fuseau horaire (un décalage comme UTC+1, pas un lieu), pour qu'il arrive dans votre soirée. La notification elle-même ne contient rien - ni le jeu, ni le score, ni qui a joué - car l'application le découvre à l'ouverture. Désactivez-les et l'adresse est effacée au même instant. Elle disparaît aussi après quatre-vingt-dix jours sans duel classé, ou dès que votre navigateur nous signale que l'appareil n'existe plus.",
   privSeason:"Deux autres choses sont conservées pour les duels classés. À la fin de chaque mois, nous notons où chaque joueur a terminé - son classement et sa place - pour que le jeu puisse vous montrer votre saison. Cette trace est effacée après quatre-vingt-dix jours, et votre téléphone en garde sa propre copie. Et quand vous demandez une revanche, le défi est gardé pour l'autre joueur, avec votre nom, pour qu'il puisse le trouver. Il est effacé dès qu'il est joué, ou au bout de deux jours.",
   privVisits:"Quand vous ouvrez le jeu, Cloudflare, qui l'héberge, compte la visite : quelle page, quel type de navigateur, à peu près quel pays. Sans cookies, et sans rien garder qui nous dise qui vous êtes. Nous ne voyons que des totaux.",
   duelLab:"Duel",
@@ -919,9 +932,22 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   duelWhoNone:"Choisir un nom pour y figurer",
   pushLab:"Notifications",
   pushFirstBig:"On vous prévient ?",
-  pushFirstLine:"Nous n'envoyons de notifications que pour les duels classés : quand quelqu'un relève un de vos défis ou veut sa revanche. Rien d'autre - ni rappels, ni publicité. Vous pouvez les couper à tout moment, sous la roue dentée.",
+  pushFirstLine:"Deux choses, rien d'autre : un rappel le soir si vous n'avez pas encore joué la partie du jour, et un mot quand quelqu'un relève votre score classé ou veut sa revanche. Pas de publicité. Désactivables à tout moment dans les réglages.",
   pushFirstYes:"Les activer",
   pushFirstNo:"Pas maintenant",
+  pushDayBig:"Un rappel pour la partie de demain ?",
+  pushDayLine:"Un seul rappel le soir, seulement les jours où vous n'avez pas encore joué, pour ne pas casser votre série. Et un mot quand quelqu'un relève votre score classé. Rien d'autre, pas de publicité.",
+  pushNewBig:"Nouveau : un rappel pour la partie du jour",
+  pushNewLine:"Vos notifications sont activées pour les duels classés. Un rappel le soir en plus, seulement les jours où vous n'avez pas encore joué ?",
+  pushNewYes:"Oui, rappelez-moi",
+  pushNewNo:"Duels seulement",
+  letterHead:"Grand Tour Bureau",
+  letterSign:"le Grand Tour Bureau",
+  helloLab:"Bienvenue",
+  helloBig:"Merci de jouer !",
+  helloLine:"Chaque jour, une nouvelle partie du jour, la même pour le monde entier. Drapeaux, cartes, capitales et contours : apprenez à votre rythme, et montez au classement quand vous serez prêt.",
+  helloLine2:"Gratuit, sans compte, sans publicité.",
+  helloGo:"Commencer le tour",
   duelNameToPlay:"Choisir un nom pour jouer",
   duelNameFirst:"Les duels classés se jouent sous votre nom. Choisissez-en un : vos adversaires et le classement le verront, et c'est définitif.",
   pushYes:"Activées",
@@ -1179,7 +1205,7 @@ fr:{sub:"pays · drapeaux, globe, atlas",
   clueLab:"Chaque erreur ouvre un indice",clueRegion:"Région",clueNorth:"Nord en haut",clueBorders:"Voisins",
   clueNorthDone:"remise à l'endroit",clueBordersN:"{n} frontières terrestres",
   clueLetter:"Première lettre",
-  statsShort:"Stats",statsTitle:"États de service",
+  statsShort:"Stats",statsTitle:"États de service",dtRanked:"Jouer en classé",dtSealed:"SCELLÉ",swPass:"Laissez-passer du bureau",swAvg:"Moyenne",swInRow:"D'affilée",swNotYet:"Pas encore joué",swToday:"Aujourd'hui",swRanked:"Classé",swPeak:"Sommet",swWon:"Gagnés",swStreak:"Série",swBestStr:"Meilleure série",swYou:"Vous",swWorld:"Record mondial",swEndless:"Records · jeux sans fin",swXp:"{a} / {b} XP",
   recordsLab:"Records",recGloble:"Chaud ou froid, le moins d'essais",shareRec:"Partager mes records",shareWorld:"{p} % de l'humanité par drapeau · {l} % des terres · {c} capitales",shareBest:"Meilleure série {s} · Meilleur sprint {r}",
   daysPlayed:"Jours joués",
   solvedLab:"Résolu",
@@ -1340,7 +1366,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   privMove:"Überträgst du deinen Fortschritt auf ein anderes Gerät, wartet er höchstens zehn Minuten auf unserem Server und wird gelöscht, sobald der Code benutzt ist.",
   privDuel:"Ein Duell läuft auf unserem Server, solange ihr spielt: die Fragen, beide Antworten, beide Punktestände und beide Wertungen. Ein lockeres Duell speichert nichts, was verrät, wer ihr seid. Ein gewertetes Duell speichert außerdem deinen Zufallscode, eine verschlüsselte Form des Schlüssels, der beweist, dass er dir gehört - damit das Ergebnis bei der richtigen Wertung landet - und deinen Namen. Zwei Minuten nachdem der Letzte gegangen ist, ist alles gelöscht. Eine Herausforderung wartet höchstens zwei Tage auf eine Antwort und ist dann ebenso weg. Solange sie wartet, steht ihr sechsstelliger Code auf einer Liste, damit ein Fremder sie findet - sonst nichts.",
   privName:"Sobald du einen Namen wählst oder ein gewertetes Duell spielst, bewahrt unser Server deine Wertung unter demselben zufälligen Code auf. Der Name ist das Einzige in diesem Spiel, das andere zu sehen bekommen: Er steht in der Rangliste neben deiner Wertung, und wer gegen dich spielt, sieht ihn ebenfalls. Für gewertete Duelle brauchst du einen; der Rest des Spiels geht auch ohne. Ein Name wird einmal gewählt; schreib uns, und er wird wieder entfernt. Wertung, Bilanz und Name werden nach neunzig Tagen ohne gewertetes Duell zusammen gelöscht.",
-  privPush:"Schaltest du Mitteilungen ein, bewahren wir die Adresse auf, die dein Browser uns für dieses eine Gerät gibt. Sie dient nur zwei Zwecken: dir zu sagen, dass jemand eine deiner Herausforderungen gespielt hat, und dass jemand Revanche will. In der Mitteilung selbst steht nichts - nicht das Spiel, nicht der Punktestand, nicht wer gespielt hat. Das findet die App heraus, sobald du sie öffnest. Schaltest du sie wieder aus, ist die Adresse im selben Moment gelöscht. Sie geht auch nach neunzig Tagen ohne gewertetes Duell, oder sobald dein Browser uns sagt, dass es das Gerät nicht mehr gibt.",
+  privPush:"Schaltest du Mitteilungen ein, bewahren wir die Adresse auf, die dein Browser uns für dieses eine Gerät gibt. Sie dient dazu, dir zu sagen, dass jemand eine deiner Herausforderungen gespielt hat oder Revanche will, und, wenn du die Erinnerung anlässt, dich abends an ein noch nicht gespieltes Tagesspiel zu erinnern. Dafür bewahren wir auch deine Zeitzone auf (eine Verschiebung wie UTC+1, kein Ort), damit sie an deinem Abend ankommt. In der Mitteilung selbst steht nichts - nicht das Spiel, nicht der Punktestand, nicht wer gespielt hat. Das findet die App heraus, sobald du sie öffnest. Schaltest du sie wieder aus, ist die Adresse im selben Moment gelöscht. Sie geht auch nach neunzig Tagen ohne gewertetes Duell, oder sobald dein Browser uns sagt, dass es das Gerät nicht mehr gibt.",
   privSeason:"Zu gewerteten Duellen bewahren wir noch zwei Dinge auf. Am Ende jedes Monats notieren wir, wo alle gelandet sind, die gespielt haben - Wertung und Platz -, damit dir das Spiel deine Saison zeigen kann. Das wird nach neunzig Tagen gelöscht; dein Handy behält eine eigene Kopie. Und forderst du Revanche, heben wir die Herausforderung mit deinem Namen für die andere Person auf, damit sie sie findet. Sie wird gelöscht, sobald sie gespielt ist, spätestens nach zwei Tagen.",
   privVisits:"Öffnest du das Spiel, zählt Cloudflare, wo es liegt, den Besuch: welche Seite, welcher Browser, ungefähr aus welchem Land. Ohne Cookies, und ohne etwas aufzubewahren, woran wir dich erkennen. Wir sehen nur Summen.",
   duelLab:"Duell",
@@ -1415,9 +1441,22 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   duelWhoNone:"Wähl einen Namen für die Rangliste",
   pushLab:"Mitteilungen",
   pushFirstBig:"Sollen wir dir Bescheid geben?",
-  pushFirstLine:"Wir schicken Mitteilungen nur zu gewerteten Duellen: wenn jemand gegen deine Punktzahl spielt oder Revanche will. Sonst nichts - keine Erinnerungen, keine Werbung. Abschalten kannst du sie jederzeit unter dem Zahnrad.",
+  pushFirstLine:"Zwei Dinge, sonst nichts: eine Erinnerung am Abend, wenn du das Tagesspiel noch nicht gespielt hast, und Bescheid, wenn jemand gegen deine Ranglisten-Punktzahl spielt oder Revanche will. Keine Werbung. Abschalten geht jederzeit in den Einstellungen.",
   pushFirstYes:"Einschalten",
   pushFirstNo:"Jetzt nicht",
+  pushDayBig:"Eine Erinnerung an das Tagesspiel morgen?",
+  pushDayLine:"Eine Erinnerung am Abend, nur an Tagen, an denen du noch nicht gespielt hast, damit deine Serie hält. Und Bescheid, wenn jemand gegen deine Ranglisten-Punktzahl spielt. Sonst nichts, keine Werbung.",
+  pushNewBig:"Neu: eine Erinnerung an das Tagesspiel",
+  pushNewLine:"Deine Mitteilungen sind für Ranglisten-Duelle an. Willst du auch eine Erinnerung am Abend, nur an Tagen ohne Tagesspiel?",
+  pushNewYes:"Ja, erinnere mich",
+  pushNewNo:"Nur Duelle",
+  letterHead:"Grand Tour Bureau",
+  letterSign:"das Grand Tour Bureau",
+  helloLab:"Willkommen",
+  helloBig:"Danke fürs Spielen!",
+  helloLine:"Jeden Tag gibt es ein neues Tagesspiel, und die ganze Welt spielt dasselbe. Flaggen, Karten, Hauptstädte und Umrisse: lern sie in deinem Tempo, und steig in der Rangliste auf, wenn du so weit bist.",
+  helloLine2:"Kostenlos, ohne Konto, ohne Werbung.",
+  helloGo:"Die Reise beginnen",
   duelNameToPlay:"Erst Namen wählen",
   duelNameFirst:"Gewertet spielst du unter deinem Namen. Wähl zuerst einen - deine Gegner und die Rangliste sehen ihn, und du wählst ihn nur einmal.",
   pushYes:"An",
@@ -1675,7 +1714,7 @@ de:{sub:"Länder · Flaggen, Globus, Atlas",
   clueLab:"Jeder Fehlversuch deckt einen Hinweis auf",clueRegion:"Region",clueNorth:"Norden oben",clueBorders:"Nachbarn",
   clueNorthDone:"genordet",clueBordersN:"{n} Landgrenzen",
   clueLetter:"Erster Buchstabe",
-  statsShort:"Statistik",statsTitle:"Dienstakte",
+  statsShort:"Statistik",statsTitle:"Dienstakte",dtRanked:"Gewertet spielen",dtSealed:"VERSIEGELT",swPass:"Büroausweis",swAvg:"Schnitt",swInRow:"In Folge",swNotYet:"Noch nicht gespielt",swToday:"Heute",swRanked:"Gewertet",swPeak:"Höchstwert",swWon:"Gewonnen",swStreak:"Serie",swBestStr:"Beste Serie",swYou:"Du",swWorld:"Weltrekord",swEndless:"Rekorde · Endlosspiele",swXp:"{a} / {b} XP",
   recordsLab:"Rekorde",recGloble:"Heiß oder kalt, wenigste Versuche",shareRec:"Meine Rekorde teilen",shareWorld:"Flaggen von {p} % der Menschheit · {l} % der Landfläche · {c} Hauptstädte",shareBest:"Beste Serie {s} · Bester Sprint {r}",
   daysPlayed:"Gespielte Tage",
   solvedLab:"Gelöst",
@@ -1836,7 +1875,7 @@ es:{sub:"países · banderas, globo, atlas",
   privMove:"Si pasas tu progreso a otro dispositivo, espera como mucho diez minutos en nuestro servidor y se borra en cuanto se usa el código.",
   privDuel:"Mientras dura un duelo, nuestro servidor guarda las preguntas, las dos respuestas, los dos marcadores y la puntuación de cada uno. Un duelo amistoso no guarda nada que diga quién eres. Uno clasificatorio guarda además tu código aleatorio, una versión cifrada de la clave que demuestra que es tuyo (para que el resultado vaya a la puntuación correcta) y el nombre que elegiste. Todo se borra dos minutos después de que se vaya el último jugador. Un reto espera respuesta dos días como mucho y luego se borra igual. Mientras espera, nuestro servidor guarda su código de seis letras en una lista para que alguien lo encuentre, y nada más.",
   privName:"En cuanto eliges un nombre o juegas un duelo clasificatorio, nuestro servidor guarda tu puntuación con ese mismo código aleatorio. Ese nombre es lo único de este juego que ven los demás: aparece en la clasificación junto a tu puntuación, y también lo ve quien juega contra ti. Para jugar clasificatorias necesitas uno; el resto del juego funciona igual sin él. Un nombre se elige una vez; escríbenos y lo quitamos. Tu puntuación, tu historial y tu nombre se borran juntos a los noventa días sin un duelo clasificatorio.",
-  privPush:"Si activas las notificaciones, guardamos la dirección que tu navegador nos da para ese dispositivo. Sirve solo para dos cosas: avisarte de que alguien ha jugado uno de tus retos y de que alguien quiere la revancha. La notificación en sí no lleva nada - ni el juego, ni la puntuación, ni quién jugó - porque eso lo averigua la app al abrirse. Si las desactivas, la dirección se borra en ese mismo momento. También desaparece a los noventa días sin un duelo clasificatorio, o en cuanto tu navegador nos dice que el dispositivo ya no existe.",
+  privPush:"Si activas las notificaciones, guardamos la dirección que tu navegador nos da para ese dispositivo. Sirve para avisarte de que alguien ha jugado uno de tus retos o quiere la revancha y, si dejas el recordatorio activado, para recordarte por la tarde la partida del día que aún no has jugado. Para ese recordatorio guardamos también tu zona horaria (un desfase como UTC+1, no un lugar), para que llegue en tu tarde. La notificación en sí no lleva nada - ni el juego, ni la puntuación, ni quién jugó - porque eso lo averigua la app al abrirse. Si las desactivas, la dirección se borra en ese mismo momento. También desaparece a los noventa días sin un duelo clasificatorio, o en cuanto tu navegador nos dice que el dispositivo ya no existe.",
   privSeason:"De los duelos clasificatorios guardamos dos cosas más. Al final de cada mes apuntamos dónde terminó cada jugador - su puntuación y su puesto - para que el juego pueda enseñarte tu temporada. Ese registro se borra a los noventa días y tu teléfono guarda su propia copia. Y cuando pides la revancha, guardamos el reto para la otra persona, con tu nombre, para que pueda encontrarlo. Se borra en cuanto lo juega, o a los dos días.",
   privVisits:"Cuando abres el juego, Cloudflare, que lo aloja, cuenta la visita: qué página, qué tipo de navegador y, más o menos, desde qué país. Sin cookies y sin guardar nada que nos diga quién eres. Solo vemos totales.",
   duelLab:"Duelo",
@@ -1911,9 +1950,22 @@ es:{sub:"países · banderas, globo, atlas",
   duelWhoNone:"Elige un nombre para aparecer",
   pushLab:"Notificaciones",
   pushFirstBig:"¿Te avisamos?",
-  pushFirstLine:"Solo te avisamos de los duelos clasificatorios: cuando alguien juega contra tu resultado o te pide la revancha. Nada más: ni recordatorios ni publicidad. Puedes desactivarlos cuando quieras en el engranaje.",
+  pushFirstLine:"Dos cosas, nada más: un recordatorio por la tarde si aún no has jugado la partida del día, y un aviso cuando alguien juega contra tu resultado clasificatorio o pide la revancha. Sin publicidad. Puedes desactivarlos cuando quieras en Ajustes.",
   pushFirstYes:"Activarlos",
   pushFirstNo:"Ahora no",
+  pushDayBig:"¿Un recordatorio para la partida de mañana?",
+  pushDayLine:"Un solo recordatorio por la tarde, solo los días que aún no has jugado, para que no se rompa tu racha. Y un aviso cuando alguien juega contra tu resultado clasificatorio. Nada más, sin publicidad.",
+  pushNewBig:"Nuevo: un recordatorio para la partida del día",
+  pushNewLine:"Tus notificaciones están activadas para los duelos clasificatorios. ¿Quieres también un recordatorio por la tarde, solo los días que aún no has jugado?",
+  pushNewYes:"Sí, recuérdamelo",
+  pushNewNo:"Solo duelos",
+  letterHead:"Grand Tour Bureau",
+  letterSign:"el Grand Tour Bureau",
+  helloLab:"Bienvenida",
+  helloBig:"¡Gracias por jugar!",
+  helloLine:"Cada día hay una partida del día nueva, y todo el mundo juega la misma. Banderas, mapas, capitales y siluetas: apréndelos a tu ritmo, y sube en la clasificación cuando estés listo.",
+  helloLine2:"Gratis, sin cuenta, sin publicidad.",
+  helloGo:"Empezar el viaje",
   duelNameToPlay:"Elige un nombre para jugar",
   duelNameFirst:"Para jugar clasificatorias necesitas un nombre. Lo verán tus rivales y la clasificación, y no podrás cambiarlo.",
   pushYes:"Activadas",
@@ -2171,7 +2223,7 @@ es:{sub:"países · banderas, globo, atlas",
   clueLab:"Cada fallo abre una pista",clueRegion:"Región",clueNorth:"Norte arriba",clueBorders:"Vecinos",
   clueNorthDone:"enderezada",clueBordersN:"{n} fronteras terrestres",
   clueLetter:"Primera letra",
-  statsShort:"Datos",statsTitle:"Hoja de servicios",
+  statsShort:"Datos",statsTitle:"Hoja de servicios",dtRanked:"Jugar clasificatoria",dtSealed:"SELLADO",swPass:"Pase de la oficina",swAvg:"Media",swInRow:"Seguidos",swNotYet:"Aún sin jugar",swToday:"Hoy",swRanked:"Clasificatoria",swPeak:"Máximo",swWon:"Ganadas",swStreak:"Racha",swBestStr:"Mejor racha",swYou:"Tú",swWorld:"Récord mundial",swEndless:"Récords · juegos sin fin",swXp:"{a} / {b} XP",
   recordsLab:"Récords",recGloble:"Frío o caliente, menos intentos",shareRec:"Compartir mis récords",shareWorld:"{p} % de la humanidad por bandera · {l} % de la tierra · {c} capitales",shareBest:"Mejor racha {s} · Mejor sprint {r}",
   daysPlayed:"Días jugados",
   solvedLab:"Resueltas",
@@ -2332,7 +2384,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   privMove:"Zet je je voortgang over naar een ander toestel, dan staat hij hoogstens tien minuten op onze server en wordt hij gewist zodra de code gebruikt is.",
   privDuel:"Tijdens een duel staat op onze server wat het duel nodig heeft: de vragen, jullie antwoorden, de stand en ieders rating. Bij een casual duel staat er niets bij waaraan te zien is wie jullie zijn. Bij een ranked duel ook je willekeurige code, een versleutelde vorm van de sleutel die bewijst dat hij van jou is - zodat de uitslag bij de juiste rating terechtkomt - en de naam die je koos. Twee minuten nadat de laatste speler weg is, wordt alles gewist. Een uitdaging wacht hooguit twee dagen op een tegenstander en wordt daarna ook gewist. Zolang hij openstaat, staat de code van zes tekens op een lijst, zodat een onbekende hem kan vinden. Verder niets.",
   privName:"Kies je een naam of speel je een ranked duel, dan bewaart onze server je rating onder diezelfde willekeurige code. Die naam is het enige in dit spel dat anderen te zien krijgen: hij staat op de ranglijst naast je rating, en wie tegen je speelt ziet hem ook. Voor ranked heb je er een nodig; de rest van het spel werkt ook zonder. Een naam kies je één keer; stuur ons een bericht en hij gaat er weer af. Je rating, je resultaten en je naam verdwijnen samen na negentig dagen zonder ranked duel.",
-  privPush:"Zet je meldingen aan, dan bewaren we het adres dat je browser ons voor dat ene toestel geeft. Het is voor twee dingen: laten weten dat iemand je uitdaging heeft gespeeld, of dat iemand revanche wil. In de melding zelf zit niets - niet het spel, niet de score, niet wie hem speelde - want dat haalt de app op zodra je hem opent. Zet je ze weer uit, dan is het adres op datzelfde moment weg. Het verdwijnt ook na negentig dagen zonder ranked duel, of zodra je browser zegt dat het toestel er niet meer is.",
+  privPush:"Zet je meldingen aan, dan bewaren we het adres dat je browser ons voor dat ene toestel geeft. Het is om te laten weten dat iemand je uitdaging heeft gespeeld of revanche wil, en, als je de herinnering aan laat, om je 's avonds te herinneren aan een daily die je nog niet hebt gespeeld. Voor die herinnering bewaren we ook je tijdzone (een verschuiving zoals UTC+1, geen plaats), zodat hij in jouw avond aankomt. In de melding zelf zit niets - niet het spel, niet de score, niet wie hem speelde - want dat haalt de app op zodra je hem opent. Zet je ze weer uit, dan is het adres op datzelfde moment weg. Het verdwijnt ook na negentig dagen zonder ranked duel, of zodra je browser zegt dat het toestel er niet meer is.",
   privSeason:"Over ranked bewaren we nog twee dingen. Aan het eind van elke maand schrijven we op waar iedereen die speelde is geëindigd - rating en plek - zodat het spel je seizoen kan laten zien. Dat verdwijnt na negentig dagen; je telefoon houdt zelf een kopie. En vraag je revanche, dan bewaren we die uitdaging voor de ander, met jouw naam erbij, zodat die hem kan vinden. Hij verdwijnt zodra hij gespeeld is, of na twee dagen.",
   privVisits:"Open je het spel, dan telt Cloudflare, waar het op draait, je bezoek: welke pagina, wat voor browser en ongeveer uit welk land. Daar komen geen cookies aan te pas en er blijft niets bewaard waaraan we jou herkennen. Wij zien alleen totalen.",
   duelLab:"Duel",
@@ -2407,9 +2459,22 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   duelWhoNone:"Kies een naam om erop te staan",
   pushLab:"Meldingen",
   pushFirstBig:"Wil je een seintje krijgen?",
-  pushFirstLine:"We sturen alleen meldingen over ranked duels: als iemand jouw score speelt, of revanche wil. Verder niets - geen herinneringen, geen reclame. Uitzetten kan altijd, onder het tandwiel.",
+  pushFirstLine:"Twee dingen, verder niets: één herinnering 's avonds als je de daily nog niet hebt gespeeld, en een seintje als iemand jouw ranked score speelt of revanche wil. Geen reclame. Uitzetten kan altijd, bij Instellingen.",
   pushFirstYes:"Meldingen aan",
   pushFirstNo:"Nu niet",
+  pushDayBig:"Een seintje voor de daily van morgen?",
+  pushDayLine:"Eén herinnering 's avonds, alleen op dagen dat je nog niet hebt gespeeld, zodat je reeks niet breekt. En een seintje als iemand jouw ranked score speelt. Verder niets, geen reclame.",
+  pushNewBig:"Nieuw: een herinnering voor de daily",
+  pushNewLine:"Je meldingen staan aan voor ranked duels. Wil je ook één herinnering 's avonds, alleen op dagen dat je de daily nog niet hebt gespeeld?",
+  pushNewYes:"Ja, herinner me",
+  pushNewNo:"Alleen duels",
+  letterHead:"Grand Tour Bureau",
+  letterSign:"het Grand Tour Bureau",
+  helloLab:"Welkom",
+  helloBig:"Bedankt voor het spelen!",
+  helloLine:"Elke dag is er één nieuwe daily, en de hele wereld speelt dezelfde. Vlaggen, kaarten, hoofdsteden en vormen: leer ze in je eigen tempo, en klim in de ranglijst als je er klaar voor bent.",
+  helloLine2:"Gratis, geen account, geen reclame.",
+  helloGo:"Begin de reis",
   duelNameToPlay:"Kies een naam om te spelen",
   duelNameFirst:"Voor ranked heb je een naam nodig. Je tegenstanders en de ranglijst zien hem, en je kunt hem daarna niet meer veranderen.",
   pushYes:"Aan",
@@ -2667,7 +2732,7 @@ nl:{sub:"landen · vlaggen, globe, atlas",
   clueLab:"Elke fout geeft een hint",clueRegion:"Werelddeel",clueNorth:"Noorden boven",clueBorders:"Buren",
   clueNorthDone:"rechtgezet",clueBordersN:"{n} landgrenzen",
   clueLetter:"Eerste letter",
-  statsShort:"Stats",statsTitle:"Staat van dienst",
+  statsShort:"Stats",statsTitle:"Staat van dienst",dtRanked:"Speel ranked",dtSealed:"VERZEGELD",swPass:"Bureaupas",swAvg:"Gemiddeld",swInRow:"Op rij",swNotYet:"Nog niet gespeeld",swToday:"Vandaag",swRanked:"Ranked",swPeak:"Piek",swWon:"Gewonnen",swStreak:"Reeks",swBestStr:"Beste reeks",swYou:"Jij",swWorld:"Wereldrecord",swEndless:"Records · eindeloze spellen",swXp:"{a} / {b} XP",
   recordsLab:"Records",recGloble:"Warm of koud, minste pogingen",shareRec:"Deel mijn records",shareWorld:"{p}% van de wereldbevolking aan de vlag herkend · {l}% van alle land · {c} hoofdsteden",shareBest:"Beste reeks {s} · Beste sprint {r}",
   daysPlayed:"Dagen gespeeld",
   solvedLab:"Opgelost",
@@ -2957,6 +3022,11 @@ function normaliseStore(){
   if(typeof store.duelName!=="string")store.duelName="";
   if(typeof store.duelNews!=="boolean")store.duelNews=false;
   if(typeof store.pushAsked!=="boolean")store.pushAsked=false;
+  if(typeof store.pushAsks!=="number")store.pushAsks=store.pushAsked?1:0;
+  if(typeof store.pushNext!=="string")store.pushNext="";
+  if(typeof store.pushDaily!=="boolean")store.pushDaily=!store.pushAsked;
+  if(typeof store.pushNewAsked!=="boolean")store.pushNewAsked=false;
+  if(typeof store.pushTold!=="string")store.pushTold="";
   if(typeof store.testAsks!=="number")store.testAsks=0;
   if(typeof store.testDay!=="string")store.testDay="";
   if(typeof store.testDone!=="boolean")store.testDone=false;
@@ -2983,6 +3053,7 @@ function normaliseStore(){
     if(!st.worldle)st.worldle={played:0,solved:0,guesses:0,best:0};
   })(store.stats);
   if(typeof store.xp!=="number"||!isFinite(store.xp)||store.xp<0)store.xp=0;
+  if(typeof store.helloSeen!=="boolean")store.helloSeen=store.xp>0;
   if(typeof store.share!=="boolean")store.share=true;
   if(typeof store.rec!=="string"||!/^[a-z0-9]{16}$/.test(store.rec))store.rec="";
   if(typeof store.backup!=="boolean")store.backup=true;
@@ -3254,6 +3325,11 @@ function pushNeedsHome(){
   return !installed;
 }
 function pushCan(){return pushHas()&&!pushNeedsHome();}
+(function kbdWatch(){
+  var r=document.documentElement;
+  document.addEventListener("keydown",function(e){if(e.key==="Tab")r.setAttribute("data-kbd","");},true);
+  document.addEventListener("pointerdown",function(){if(r.hasAttribute("data-kbd"))r.removeAttribute("data-kbd");},true);
+})();
 function pushDenied(){try{return window.Notification&&Notification.permission==="denied";}catch(e){return false;}}
 function pushKeyBytes(){
   var s=VAPID_PUBLIC.replace(/-/g,"+").replace(/_/g,"/");
@@ -3265,6 +3341,12 @@ function pushKeepLang(){
   try{
     if(!window.caches)return;
     caches.open("grandtour").then(function(c){c.put("gt-lang",new Response(lang||"en"));}).catch(function(){});
+  }catch(e){}
+}
+function pushKeepDay(streak,day){
+  try{
+    if(!window.caches)return;
+    caches.open("grandtour").then(function(c){c.put("gt-day",new Response(JSON.stringify({s:streak||0,d:day||""})));}).catch(function(){});
   }catch(e){}
 }
 function pushSync(then){
@@ -3279,7 +3361,7 @@ function pushSync(then){
 }
 function pushTell(ep,off,then){
   var body={pid:playerId(),sec:playerSec(),ep:ep};
-  if(!off)body.lang=lang||"en";
+  if(!off){body.lang=lang||"en";body.tz=-new Date().getTimezoneOffset();body.dr=store.pushDaily?1:0;}
   fetch(SCORE_URL+"/api/push"+(off?"/off":""),{method:"POST",headers:{"Content-Type":"text/plain"},
     body:JSON.stringify(body),keepalive:true})
     .then(function(r){return r.json().catch(function(){return{ok:r.status===200};});})
@@ -3289,6 +3371,7 @@ function pushTell(ep,off,then){
 function pushOnGo(then){
   if(pushSt.busy||!pushCan())return then&&then(false);
   pushSt.busy=true;
+  if(!store.pushDaily){store.pushDaily=true;save();}
   var done=function(ok){pushSt.busy=false;if(then)then(ok);};
   Notification.requestPermission().then(function(p){
     if(p!=="granted")return done(false);
@@ -3306,7 +3389,7 @@ function pushOnGo(then){
 }
 function pushFirst(tries){
   tries=tries||0;
-  if(store.pushAsked||!pushCan()||pushDenied())return;
+  if(!pushMayAsk())return;
   if(!duelReady())return;
   try{if(window.Notification&&Notification.permission==="granted")return;}catch(e){}
   var busy=!introOpen||!$("intro").classList.contains("settled")||
@@ -3317,18 +3400,93 @@ function pushFirst(tries){
   }
   pushSync(function(){
     if(pushSt.on)return;
-    store.pushAsked=true;save();
-    $("pushstamp").textContent=t("pushLab");
-    $("pushbig").textContent=t("pushFirstBig");
-    $("pushline").textContent=t("pushFirstLine");
-    $("pushyes").textContent=t("pushFirstYes");
-    $("pushno").textContent=t("pushFirstNo");
-    $("pushmodal").hidden=false;
-    snd.open();
+    pushSpend();
+    pushSheet("pushFirstBig","pushFirstLine","pushFirstYes","pushFirstNo");
   });
+}
+function pushLocalDay(n){var d=new Date(Date.now()+(n||0)*864e5);
+  return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+function pushMayAsk(){
+  if(!pushCan()||pushDenied())return false;
+  if(store.pushAsks>=4)return false;
+  if(store.pushNext&&pushLocalDay(0)<store.pushNext)return false;
+  try{if(window.Notification&&Notification.permission==="granted"&&pushSt.on)return false;}catch(e){}
+  return true;
+}
+function pushSpend(){
+  store.pushAsks=(store.pushAsks||0)+1;store.pushAsked=true;
+  store.pushNext=pushLocalDay([3,7,14,9999][Math.min(store.pushAsks,4)-1]);
+  save();
+}
+function pushSheet(big,line,yes,no){
+  $("pushstamp").textContent=t("pushLab");
+  $("pushbig").textContent=t(big);$("pushline").textContent=t(line);
+  $("pushyes").textContent=t(yes);$("pushno").textContent=t(no);
+  $("pushmodal").hidden=false;snd.open();
+}
+function pushAfterDay(tries){
+  tries=tries||0;
+  if(!pushMayAsk())return;
+  if(document.querySelector(".modal:not([hidden])")){if(tries<4)setTimeout(function(){pushAfterDay(tries+1);},5000);return;}
+  pushSync(function(){
+    if(pushSt.on||!pushMayAsk())return;
+    pushSpend();store.pushDaily=true;save();
+    pushSheet("pushDayBig","pushDayLine","pushFirstYes","pushFirstNo");
+  });
+}
+function pushDaily(tries){
+  tries=tries||0;
+  if(!pushHas())return;
+  pushSync(function(){
+    if(!pushSt.on)return;
+    var today=pushLocalDay(0);
+    if(store.pushTold!==today){store.pushTold=today;save();pushTell(pushSt.ep,false);}
+    if(store.pushDaily||store.pushNewAsked)return;
+    if(!introOpen||!$("intro").classList.contains("settled")||document.querySelector(".modal:not([hidden])")){
+      if(tries<3)setTimeout(function(){pushDaily(tries+1);},5000);return;
+    }
+    store.pushNewAsked=true;save();
+    pushSt.upgrade=true;
+    pushSheet("pushNewBig","pushNewLine","pushNewYes","pushNewNo");
+  });
+}
+function helloFirst(tries){
+  tries=tries||0;
+  if(store.helloSeen)return;
+  var busy=!introOpen||!$("intro").classList.contains("settled")||!!document.querySelector(".modal:not([hidden])");
+  if(busy){if(tries<48)setTimeout(function(){helloFirst(tries+1);},2500);return;}
+  store.helloSeen=true;save();
+  $("hellostamp").textContent=t("helloLab");
+  $("hellobig").textContent=t("helloBig");
+  $("helloline").textContent=t("helloLine");
+  $("helloline2").textContent=t("helloLine2");
+  $("hellogo").textContent=t("helloGo");
+  letterDress();
+  $("hellomodal").hidden=false;snd.open();
+}
+function helloShut(){if($("hellomodal").hidden)return;$("hellomodal").hidden=true;snd.close();}
+function letterDress(){
+  var list=document.querySelectorAll(".modal:not(#daymodal)>.sheet.dayask"),i,sh,el,st,acts;
+  for(i=0;i<list.length;i++){
+    sh=list[i];
+    if(!sh.querySelector(".lair")){el=document.createElement("span");el.className="lair";el.setAttribute("aria-hidden","true");sh.insertBefore(el,sh.firstChild);}
+    st=sh.querySelector(".sheetstamp");
+    if(st&&!st.querySelector(".lhead")){el=document.createElement("span");el.className="lhead";el.setAttribute("aria-hidden","true");st.insertBefore(el,st.firstChild);}
+    if(st)st.querySelector(".lhead").textContent=t("letterHead");
+    if(sh.classList.contains("leaveask")||sh.classList.contains("tripask"))continue;
+    el=sh.querySelector(".lsign");
+    if(!el){
+      el=document.createElement("span");el.className="lsign";
+      el.innerHTML='<span class="lname"></span><span class="lseal" aria-hidden="true">GT</span>';
+      acts=sh.querySelector(".sheetacts");
+      if(acts)sh.insertBefore(el,acts);else sh.appendChild(el);
+    }
+    el.querySelector(".lname").textContent="\u2013 "+t("letterSign");
+  }
 }
 function pushFirstShut(){
   if($("pushmodal").hidden)return;
+  pushSt.upgrade=false;
   $("pushmodal").hidden=true;snd.close();
 }
 function pushOffGo(then){
@@ -10112,6 +10270,7 @@ function dayWorthNow(){
 function paintRound(){
   var el=$("roundtally");
   if(!el)return;
+  if(dayRun.on)el.setAttribute("data-dd",dtDayShort());
   if(dayRun.on&&mode==="daily"){
     if(daily.kind==="bigger"&&biggerDayFive()&&!bigger.over){
       el.hidden=false;el.innerHTML="";
@@ -10186,6 +10345,7 @@ function runEnd(){
     roll.classList.add("dayend");
     var ddp=String(daily.date||"").split("-");
     roll.setAttribute("data-date",ddp.length===3?(ddp[2]+" "+monthNames()[(+ddp[1]-1)%12]+"\n"+ddp[0]):"");
+    card.setAttribute("data-dd",dtDayShort().replace(" ","\n"));
   }
   var slot=0;
   function slip(cls,label,value,note){
@@ -10244,10 +10404,17 @@ function runEnd(){
       var sc=document.createElement("u");
       sc.textContent=e.got+"/"+e.of;
       sc.className=(e.got>=e.of)?"clean":(e.got?"":"none");
-      row.appendChild(rn);row.appendChild(nm2);row.appendChild(sc);
+      var hol=document.createElement("span");hol.className="dtholes";
+      for(var hk=0;hk<(e.of||DAILY_EACH);hk++){var hu=document.createElement("u");if(hk<e.got)hu.className="p";hol.appendChild(hu);}
+      row.appendChild(rn);row.appendChild(nm2);row.appendChild(hol);row.appendChild(sc);
       lg.appendChild(row);
     });
     roll.appendChild(lg);
+    if(duelReady()){
+      var rkb=document.createElement("button");rkb.type="button";rkb.className="dtranked";rkb.textContent=t("dtRanked");
+      rkb.onclick=function(){openDuel();};
+      lg.appendChild(rkb);
+    }
     var dst2=store.stats.daily||{};
     slip("days",t("vsStreak"),String(dst2.streak||0),fill2(t("bestDays"),{n:dst2.best||0}));
   } else {
@@ -12004,8 +12171,63 @@ function dayAsk(){
   $("daywarn").textContent=spent?t("daySpent"):t("dayWarn");
   $("daygo").textContent=t("dayGo");
   $("daygo").hidden=spent;
+  dtPaint(spent);
   $("daymodal").hidden=false;
   snd.open();
+}
+function dtDayShort(){
+  var dp=String(daily.date||todayKey()).split("-");
+  return dp.length===3?(+dp[2])+" "+String(monthNames()[(+dp[1]-1)%12]).slice(0,3).toUpperCase():"";
+}
+function dtPaint(spent){
+  var sh=$("daymodal")&&$("daymodal").querySelector(".sheet");
+  if(!sh)return;
+  sh.classList.add("dtk");
+  sh.classList.toggle("used",!!spent);
+  var stub=sh.querySelector(".dtstub");
+  if(!stub){stub=document.createElement("div");stub.className="dtstub";stub.setAttribute("aria-hidden","true");sh.insertBefore(stub,sh.firstChild);}
+  stub.innerHTML="";
+  var dp=String(daily.date||todayKey()).split("-");
+  var mk=function(tag,txt){var e=document.createElement(tag);if(txt!==undefined)e.textContent=String(txt);return e;};
+  stub.appendChild(mk("b",+dp[2]||""));
+  stub.appendChild(mk("i",dp.length===3?String(monthNames()[(+dp[1]-1)%12]).slice(0,3):""));
+  stub.appendChild(mk("u","GT"));
+  stub.appendChild(mk("s",dp[0]||""));
+  var kept=(store.daily&&store.daily.date===daily.date&&Array.isArray(store.daily.legs))?store.daily.legs:null;
+  var names=null;
+  if(spent&&kept){
+    try{
+      names=[t("kind"+capFirst(daily.kind))].concat(dailyLegs(daily.date).map(function(L){
+        return t(MODE_LABEL[L.m]||"mName")+((L.r&&L.r!=="ALL")?" · "+regionName(L.r):"");
+      }));
+    }catch(e){caught(e,"dtNames");names=null;}
+  }
+  var strip=$("daystrip");strip.innerHTML="";
+  var total=0;
+  for(var i=0;i<DAILY_LEGS;i++){
+    var row=mk("span");row.className="dtrow";
+    row.appendChild(mk("i",("0"+(i+1)).slice(-2)));
+    var open=!!(names&&kept&&typeof kept[i]==="number");
+    var nm=mk("em",open?names[i]:t("dtSealed"));
+    if(!open)nm.className="seal";
+    row.appendChild(nm);
+    var ho=mk("span");ho.className="dtholes";
+    var got=open?kept[i]:0;total+=got;
+    for(var k=0;k<DAILY_EACH;k++){var h=mk("u");if(k<got)h.className="p";ho.appendChild(h);}
+    row.appendChild(ho);
+    strip.appendChild(row);
+  }
+  var acts=sh.querySelector(".sheetacts"),old=acts&&acts.querySelector(".dtrun");
+  if(old)old.parentNode.removeChild(old);
+  if(!acts)return;
+  var dst=store.stats&&store.stats.daily,run=myFigure("streak");
+  if(spent&&kept){
+    var st=mk("span");st.className="dtrun tot";st.appendChild(mk("b",total));st.appendChild(document.createTextNode("/ "+(DAILY_EACH*DAILY_LEGS)));
+    acts.appendChild(st);
+  } else if(run&&run.v){
+    var rs=mk("span");rs.className="dtrun";rs.appendChild(mk("b",run.v));rs.appendChild(document.createTextNode(t("swInRow")));
+    acts.appendChild(rs);
+  }
 }
 function dayShut(){
   $("daymodal").hidden=true;snd.close();
@@ -12097,8 +12319,10 @@ function dailyBegin(){
   if(daily.done&&daily.score)flash(t("dailyDone")+" · "+daily.score);
 }
 function dailySave(){
-  var ran=!!(store.daily&&store.daily.date===daily.date&&store.daily.ran);
+  var ran=!!(store.daily&&store.daily.date===daily.date&&store.daily.ran),prev=store.daily;
   store.daily={date:daily.date,done:daily.done,kind:daily.kind,score:daily.score,ran:ran?1:0};
+  if(dayRun.log&&dayRun.log.length&&dayRun.legs&&dayRun.legs.length)store.daily.legs=dayRun.log.map(function(e){return e.got;});
+  else if(prev&&prev.date===daily.date&&Array.isArray(prev.legs))store.daily.legs=prev.legs;
   save();
 }
 function dailyFinish(score,won,got){
@@ -12128,7 +12352,10 @@ function dailyFinish(score,won,got){
     var dlen=(dayRun.total>0&&dayRun.right<=dayRun.total)?dayRun.total:1;
     var dgot=(dlen>1)?dayRun.right:1;
     sendScore("daily",dgot,dlen,"ALL",daily.date);
+    try{pushKeepDay(st.streak,key);}catch(e){caught(e,"pushKeepDay");}
+    try{setTimeout(function(){pushAfterDay(0);},4500);}catch(e){caught(e,"pushAfterDay");}
     keepRound("daily",dgot,dlen);
+    if(dlen===DAILY_EACH*DAILY_LEGS){st.top=Math.max(st.top||0,dgot);st.sum=(st.sum||0)+dgot;st.sumN=(st.sumN||0)+1;}
     distAsk();
     addXP(70+Math.min(score,25)*4+Math.min(st.streak,14)*5);
     if(kofiOn()&&[7,30,100].indexOf(st.streak)>=0){
@@ -12369,7 +12596,9 @@ var IN_PLAY_APP=(function(){
   }catch(e){return ref;}
 })();
 if(IN_PLAY_APP||(window.matchMedia&&matchMedia("(display-mode: fullscreen)").matches))document.documentElement.setAttribute("data-twa","1");
-function kofiOn(){return !IN_PLAY_APP&&(!!KOFI_URL||CHEATS);}
+var KOFI_MOBILE=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent||"")||
+  (navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+function kofiOn(){return !IN_PLAY_APP&&!KOFI_MOBILE&&(!!KOFI_URL||CHEATS);}
 var TESTERS_URL="https://groups.google.com/g/grandtour-testers";
 function testersOn(){
   if(!TESTERS_URL||IN_PLAY_APP)return false;
@@ -13314,6 +13543,7 @@ function paintVersus(host){
   return out;
 }
 function openStats(){
+  if(swOpenStats())return;
   var host=$("statsbody");
   if(!host)return;
   host.innerHTML="";
@@ -13397,6 +13627,105 @@ function openStats(){
   while(prune.length&&sheet.scrollHeight>sheet.clientHeight+1)host.removeChild(prune.pop());
   snd.open();
 }
+function swOpenStats(){
+  var host=$("statsbody");
+  if(!host)return false;
+  host.innerHTML="";
+  $("statslab").textContent=t("statsTitle");
+  $("statsdate").textContent=todayKey();
+  $("statsok").textContent=t("close");
+  distAsk();
+  var st=store.stats||{},dy=st.daily||{},c=distCache();
+  var mk=function(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined&&txt!==null)e.textContent=String(txt);return e;};
+  var kv=function(k,v){var d=mk("div","swkv");d.appendChild(mk("i",null,k));d.appendChild(mk("b",null,v));return d;};
+  var dash="–";
+  var wal=mk("div","swal");
+
+  var rp=rankProgress(),last=rp.i>=RANKS.length-1;
+  var ps=mk("div","swpass"),tp=mk("div","swtop");
+  tp.appendChild(mk("span",null,t("swPass")));tp.appendChild(mk("span",null,rankName(rp.i)));ps.appendChild(tp);
+  var lv=mk("div","swlv");lv.appendChild(mk("div","swmedal",rp.i+1));
+  var lc=mk("div","swlvc");lc.appendChild(mk("b",null,rankTitle(rp.i)));
+  var bar=mk("div","swbar"),bi=mk("i");bi.style.width=Math.round((last?1:rp.pct)*100)+"%";bar.appendChild(bi);lc.appendChild(bar);
+  lc.appendChild(mk("div","swxp",last?fmtNum(store.xp||0)+" XP":fill(t("swXp"),{a:fmtNum(store.xp||0),b:fmtNum(rp.to)})));
+  lv.appendChild(lc);ps.appendChild(lv);
+  var g1=mk("div","swgrid");
+  g1.appendChild(kv(t("seen"),fmtNum(store.seen||0)));
+  g1.appendChild(kv(t("accuracyLab"),store.seen?Math.round(store.correct/store.seen*100)+"%":dash));
+  g1.appendChild(kv(t("daysPlayed"),fmtNum(Object.keys(st.days||{}).length)));
+  ps.appendChild(g1);wal.appendChild(ps);
+
+  var dl=DAILY_EACH*DAILY_LEGS,de=store.sent&&store.sent.daily,wBest=-1,wSum=0,wN=0;
+  if(de&&de.days)Object.keys(de.days).forEach(function(k){
+    var v=de.days[k];if(typeof v!=="number"||!isFinite(v))return;
+    v=v*dl/100;wSum+=v;wN++;if(v>wBest)wBest=v;
+  });
+  var dBest=Math.max(dy.top||0,wBest),dAvg=dy.sumN?dy.sum/dy.sumN:(wN?wSum/wN:-1);
+  var sk=myFigure("streak"),today=myFigure("daily");
+  var dt=mk("div","swday"+(today?" used":""));
+  var now=new Date(),ds=mk("div","swdstub");
+  ds.appendChild(mk("b",null,now.getDate()));
+  var mon="";try{mon=now.toLocaleDateString(lang||"en",{month:"short"}).replace(".","");}catch(e){caught(e,"swMonth");}
+  ds.appendChild(mk("i",null,mon));dt.appendChild(ds);
+  var dm=mk("div","swdmain");dm.appendChild(mk("h4",null,t("mDaily")));
+  var g2=mk("div","swgrid");
+  g2.appendChild(kv(t("best"),dBest>=0?Math.round(dBest)+"/"+dl:dash));
+  g2.appendChild(kv(t("swAvg"),dAvg>=0?(Math.round(dAvg*10)/10).toLocaleString(lang||"en"):dash));
+  g2.appendChild(kv(t("swInRow"),sk?sk.v:0));
+  dm.appendChild(g2);dt.appendChild(dm);
+  var dtd=mk("div","swdtoday");dtd.appendChild(mk("i",null,t("swToday")));
+  if(today){
+    var tb=mk("b",null,Math.round(today.v*dl/100));tb.appendChild(mk("small",null,"/"+dl));dtd.appendChild(tb);
+  } else dtd.appendChild(mk("div","swno",t("swNotYet")));
+  dt.appendChild(dtd);wal.appendChild(dt);
+
+  if(duelReady()){
+    var y=walletMine(),rk=mk("div","swrk");
+    var tags=mk("div","tags");
+    if(y.ccRank&&y.cc){var tg=mk("span","tag"),tf=ccFlag(y.cc);if(tf)tg.appendChild(tf);tg.appendChild(document.createTextNode("#"+y.ccRank));tags.appendChild(tg);}
+    if(y.rank)tags.appendChild(mk("span","tag w","🌍 #"+y.rank));
+    rk.appendChild(tags);
+    var hd=mk("div","hd");hd.appendChild(mk("b",null,t("idBureau")));rk.appendChild(hd);
+    var rb=mk("div","swrkb");rb.appendChild(mk("div","elo",y.elo||DUEL_ELO0));
+    rb.appendChild(mk("div","pk",t("swPeak")+" "+Math.max(store.duelBest||0,y.elo||DUEL_ELO0)));rk.appendChild(rb);
+    var w=y.w||0,l=y.l||0,g3=mk("div","swgrid");
+    g3.appendChild(kv(t("idRecord").split("·")[0].trim(),w+"–"+l));
+    g3.appendChild(kv(t("swWon"),(w+l)?Math.round(w/(w+l)*100)+"%":dash));
+    g3.appendChild(kv(t("swStreak"),y.str||0));
+    g3.appendChild(kv(t("swBestStr"),Math.max(store.duelStrBest||0,y.str||0)));
+    rk.appendChild(g3);wal.appendChild(rk);
+  }
+
+  var rec=mk("div","swpaper");rec.appendChild(mk("h4",null,t("swEndless")));
+  var rg=mk("div","swrec");
+  rg.appendChild(mk("span","hh",""));rg.appendChild(mk("span","hh",t("swYou")));rg.appendChild(mk("span","hh",t("swWorld")));
+  [["sprint",t("mSprint"),store.bestSprint||0],["bigger",t("mBigger"),(st.bigger||{}).best||0],["chain",t("mChain"),0]].forEach(function(r){
+    var f=myFigure(r[0]),mine=Math.max(r[2],f?f.v:0);
+    var wb=(c.ok&&c.top&&typeof c.top[r[0]]==="number")?Math.max(c.top[r[0]],mine):null;
+    rg.appendChild(mk("span","nm",r[1]));
+    rg.appendChild(mk("span","me",mine?mine:dash));
+    rg.appendChild(mk("span","wb",wb!==null&&wb>0?wb:dash));
+  });
+  rec.appendChild(rg);wal.appendChild(rec);
+
+  var miss=Object.keys(store.miss||{}).filter(function(k){return store.miss[k]>0;});
+  miss.sort(function(a,b){return store.miss[b]-store.miss[a];});
+  var tr=mk("div","swpaper scrap");tr.appendChild(mk("h4",null,t("troubleLab")));
+  var ch=mk("div","swchips");
+  if(!miss.length)ch.appendChild(mk("em",null,t("noneYet")));
+  miss.slice(0,4).forEach(function(n){var s=mk("span",null,nameOf(n));s.appendChild(mk("small",null,store.miss[n]+"×"));ch.appendChild(s);});
+  tr.appendChild(ch);wal.appendChild(tr);
+
+  host.appendChild(wal);
+  var share=mk("button","btn dshare swshare",t("shareRec"));share.type="button";
+  share.onclick=function(){shareRecordsCard(worldShare());};
+  host.appendChild(share);
+  host.scrollTop=0;
+  $("statsmodal").hidden=false;
+  snd.open();
+  return true;
+}
+
 function closeStats(){$("statsmodal").hidden=true;snd.close();}
 var setView="list";
 var SETPAGE={
@@ -19067,10 +19396,16 @@ $("duelpostpush").onclick=function(){
   });
 };
 $("pushyes").onclick=function(){
+  if(pushSt.upgrade){pushSt.upgrade=false;store.pushDaily=true;save();pushFirstShut();
+    pushTell(pushSt.ep,false,function(ok){flash(t(ok?"pushSaid":"pushFail"));});return;}
   pushFirstShut();
   pushOnGo(function(ok){flash(t(ok?"pushSaid":"pushFail"));});
 };
 $("pushno").onclick=pushFirstShut;
+$("pushno").onclick=pushFirstShut;
+$("hellogo").onclick=helloShut;
+$("helloclose").onclick=helloShut;
+$("hellomodal").addEventListener("click",function(e){if(e.target===$("hellomodal"))helloShut();});
 $("pushclose").onclick=pushFirstShut;
 $("pushmodal").addEventListener("click",function(e){if(e.target===$("pushmodal"))pushFirstShut();});
 $("duelmake").onclick=function(){duel.want="live";duel.view="pick";duelSay("");paintDuel();};
@@ -19362,6 +19697,9 @@ buildTabs();   /* the strip is dealt from TABS, and each button wires itself */
 try{moveBoot();}catch(e){caught(e,"moveBoot");}
 try{duelBoot();}catch(e){caught(e,"duelBoot");}
 try{setTimeout(function(){pushFirst(0);},9000);}catch(e){caught(e,"pushFirst");}
+try{letterDress();}catch(e){caught(e,"letterDress");}
+try{setTimeout(function(){helloFirst(0);},1500);}catch(e){caught(e,"helloFirst");}
+try{setTimeout(function(){pushDaily(0);},12000);}catch(e){caught(e,"pushDaily");}
 $("rankupok").onclick=closeRankUp;
 $("rankup").addEventListener("click",function(e){if(e.target===$("rankup"))closeRankUp();});
 $("statsclose").onclick=closeStats;
